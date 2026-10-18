@@ -3,139 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FluentPath — ინგლისური ენის 100% უფასო, ოფლაინ რეჟიმში მომუშავე, ულიმიტო სასწავლო პლატფორმა." />
-  <meta name="theme-color" content="#2563eb" />
-  <title>FluentPath — ინგლისური ენის უფასო სასწავლო პლატფორმა</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg" />
-  <link rel="stylesheet" href="css/themes.css" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/responsive.css" />
+  <title>FluentPath — ინგლისური ენის შემსწავლელი პლატფორმა (A1–C2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/phase2.css" />
   <link rel="stylesheet" href="css/phase3.css" />
+  <link rel="stylesheet" href="css/auth.css" />
 </head>
 <body>
-  <a href="#app-view" class="skip-link">ძირითად შინაარსზე გადასვლა</a>
-
   <div class="app-shell">
-    <aside class="sidebar" aria-label="ძირითადი გვერდითი ნავიგაცია">
+    <!-- გვერდითი ნავიგაცია -->
+    <aside class="sidebar" id="app-sidebar" aria-label="მთავარი ნავიგაცია">
       <div class="sidebar-brand">
-        <img src="assets/icons/icon.svg" alt="FluentPath ლოგო" class="brand-logo" />
+        <div class="brand-logo" aria-hidden="true">FP</div>
         <div class="brand-text">
-          <span class="brand-name">FluentPath</span>
-          <span class="brand-badge">100% უფასო &bull; ლოკალური</span>
+          <span class="brand-title">FluentPath</span>
+          <span class="brand-subtitle">Cloud სინქრონიზაცია • A1–C2</span>
         </div>
+        <button class="icon-btn mobile-only" id="sidebar-close-btn" aria-label="მენიუს დახურვა">✕</button>
       </div>
 
-      <nav id="sidebar-nav" class="sidebar-nav" aria-label="სასწავლო განყოფილებები"></nav>
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <a href="#dashboard" class="nav-item active" data-route="dashboard">
+          <span class="nav-icon">⊞</span>
+          <span class="nav-label">მთავარი</span>
+          <span class="nav-badge nav-badge--ready">მზადაა</span>
+        </a>
+        <a href="#learn" class="nav-item" data-route="learn">
+          <span class="nav-icon">📖</span>
+          <span class="nav-label">სწავლა</span>
+          <span class="nav-badge nav-badge--ready">60 იუნიტი</span>
+        </a>
+        <a href="#vocabulary" class="nav-item" data-route="vocabulary">
+          <span class="nav-icon">🗂️</span>
+          <span class="nav-label">ლექსიკონი</span>
+          <span class="nav-badge nav-badge--ready">3,000</span>
+        </a>
+        <a href="#grammar" class="nav-item" data-route="grammar">
+          <span class="nav-icon">🌐</span>
+          <span class="nav-label">გრამატიკა</span>
+          <span class="nav-badge nav-badge--ready">90 თემა</span>
+        </a>
+        <a href="#reading" class="nav-item" data-route="reading">
+          <span class="nav-icon">📄</span>
+          <span class="nav-label">კითხვა</span>
+          <span class="nav-badge nav-badge--ready">90 ტექსტი</span>
+        </a>
+        <a href="#listening" class="nav-item" data-route="listening">
+          <span class="nav-icon">🎧</span>
+          <span class="nav-label">მოსმენა</span>
+          <span class="nav-badge">ფაზა 4</span>
+        </a>
+        <a href="#speaking" class="nav-item" data-route="speaking">
+          <span class="nav-icon">🎙️</span>
+          <span class="nav-label">საუბარი</span>
+          <span class="nav-badge">ფაზა 4</span>
+        </a>
+        <a href="#writing" class="nav-item" data-route="writing">
+          <span class="nav-icon">✍️</span>
+          <span class="nav-label">წერა</span>
+          <span class="nav-badge">ფაზა 4</span>
+        </a>
+        <a href="#flashcards" class="nav-item" data-route="flashcards">
+          <span class="nav-icon">🎴</span>
+          <span class="nav-label">ბარათები</span>
+          <span class="nav-badge">ფაზა 5</span>
+        </a>
+        <a href="#quizzes" class="nav-item" data-route="quizzes">
+          <span class="nav-icon">☑️</span>
+          <span class="nav-label">ტესტები</span>
+          <span class="nav-badge">ფაზა 5</span>
+        </a>
+        <a href="#progress" class="nav-item" data-route="progress">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">პროგრესი</span>
+          <span class="nav-badge nav-badge--ready">მზადაა</span>
+        </a>
+        <a href="#settings" class="nav-item" data-route="settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">პარამეტრები</span>
+          <span class="nav-badge nav-badge--ready">მზადაა</span>
+        </a>
+      </nav>
 
       <div class="sidebar-footer">
-        <div class="sidebar-footer-card">
-          <span><span class="status-dot" aria-hidden="true"></span>ოფლაინ-მზადყოფნა</span>
-          <span>ფაზა 3</span>
-        </div>
+        <div class="status-dot"></div>
+        <span>Cloud ბაზა აქტიურია</span>
+        <span style="margin-left:auto;">A1–C2</span>
       </div>
     </aside>
 
+    <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+    <!-- მთავარი კონტენტი -->
     <div class="main-wrapper">
-      <header class="topbar">
-        <div class="topbar-left">
-          <div class="mobile-brand">
-            <img src="assets/icons/icon.svg" alt="FluentPath" />
-          </div>
-          <h1 id="topbar-page-title" class="page-title">მთავარი</h1>
+      <header class="top-header">
+        <div class="top-header-left">
+          <button class="icon-btn mobile-only" id="sidebar-open-btn" aria-label="მენიუს გახსნა">☰</button>
+          <h1 class="page-title" id="header-page-title">მთავარი</h1>
         </div>
 
-        <div class="topbar-right">
-          <button type="button" id="topbar-level-pill" class="stat-pill stat-pill--level" title="ინგლისურის მიმდინარე დონე (CEFR)">
-            <span class="pill-label-text">დონე:</span>
-            <strong id="topbar-level-value">A1</strong>
-          </button>
+        <div class="top-header-right">
+          <!-- ავტორიზაციის და Cloud სინქრონიზაციის სლოტი -->
+          <div id="header-auth-slot" style="display:flex; align-items:center; gap:8px;"></div>
 
-          <div class="stat-pill stat-pill--streak" title="უწყვეტი სწავლის სერია (დღეები)">
-            <span aria-hidden="true">&#128293;</span>
-            <strong id="topbar-streak-value">0</strong>
-            <span class="pill-label-text">დღე</span>
+          <div class="stat-pill stat-pill--level" title="მიმდინარე CEFR დონე">
+            <span>დონე:</span>
+            <strong id="header-level-badge">A1</strong>
           </div>
-
-          <div class="stat-pill stat-pill--xp" title="დაგროვებული XP ქულები">
-            <span aria-hidden="true">&#9889;</span>
-            <strong id="topbar-xp-value">0</strong>
-            <span class="pill-label-text">XP</span>
+          <div class="stat-pill stat-pill--streak" title="უწყვეტი სწავლის დღეები">
+            <span>🔥</span>
+            <strong id="header-streak-count">0 დღე</strong>
           </div>
-
-          <button type="button" id="topbar-theme-btn" class="icon-btn" aria-label="ფერების თემის შეცვლა" title="ფერების თემის შეცვლა"></button>
-
-          <button type="button" class="icon-btn" data-route-link="settings" aria-label="პარამეტრების გახსნა" title="პარამეტრები">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <div class="stat-pill stat-pill--xp" title="დაგროვილი გამოცდილების ქულები">
+            <span>⚡</span>
+            <strong id="header-xp-count">0 XP</strong>
+          </div>
+          <button class="icon-btn" id="theme-toggle-btn" aria-label="თემის შეცვლა" title="ღია / მუქი რეჟიმი">
+            <span id="theme-toggle-icon">🌙</span>
           </button>
         </div>
       </header>
 
-      <main id="app-view" class="main-content" tabindex="-1">
-        <div class="loading-state" role="status" aria-live="polite">
-          <div class="spinner"></div>
-          <p>FluentPath-ის სისტემა იტვირთება...</p>
-        </div>
+      <main class="main-content" id="app-view" tabindex="-1">
+        <!-- აქ დინამიკურად იტვირთება გვერდები -->
       </main>
     </div>
   </div>
 
-  <nav class="mobile-bottom-nav" aria-label="მობილურის ძირითადი ნავიგაცია">
-    <button type="button" class="mobile-nav-btn active" data-route-link="dashboard">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
-      <span>მთავარი</span>
-    </button>
-    <button type="button" class="mobile-nav-btn" data-route-link="learn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-      <span>სწავლა</span>
-    </button>
-    <button type="button" class="mobile-nav-btn" data-route-link="vocabulary">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-      <span>ლექსიკონი</span>
-    </button>
-    <button type="button" class="mobile-nav-btn" data-route-link="progress">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      <span>პროგრესი</span>
-    </button>
-    <button type="button" id="mobile-more-btn" class="mobile-nav-btn" aria-expanded="false" aria-controls="mobile-drawer-backdrop">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-      <span>მეტი</span>
-    </button>
-  </nav>
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+  <div class="modal-overlay" id="modal-overlay" hidden></div>
 
-  <div id="mobile-drawer-backdrop" class="mobile-drawer-backdrop" aria-hidden="true">
-    <div class="mobile-drawer" role="dialog" aria-label="დამატებითი სასწავლო მოდულები">
-      <div class="mobile-drawer-header">
-        <strong style="font-size: 1rem;">ყველა სასწავლო მოდული</strong>
-        <button type="button" id="mobile-drawer-close" class="btn btn-outline btn-sm">დახურვა</button>
-      </div>
-      <div id="mobile-drawer-grid" class="mobile-drawer-grid"></div>
-    </div>
-  </div>
-
-  <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <h2 id="modal-title" class="modal-title">დადასტურება</h2>
-        <button type="button" id="modal-close-btn" class="icon-btn" aria-label="ფანჯრის დახურვა">&times;</button>
-      </div>
-      <div id="modal-body" class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" id="modal-cancel-btn" class="btn btn-outline">გაუქმება</button>
-        <button type="button" id="modal-confirm-btn" class="btn btn-primary">დადასტურება</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
-
+  <!-- Supabase SDK + აპლიკაციის სკრიპტები -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script defer src="js/storage.js"></script>
   <script defer src="js/ui.js"></script>
   <script defer src="js/progress.js"></script>
-  <script defer src="js/dashboard.js"></script>
-  <script defer src="js/learn.js"></script>
   <script defer src="js/vocabulary.js"></script>
+  <script defer src="js/learn.js"></script>
   <script defer src="js/grammar-a.js"></script>
   <script defer src="js/grammar-b.js"></script>
   <script defer src="js/grammar-c.js"></script>
@@ -144,8 +153,8 @@
   <script defer src="js/reading-b.js"></script>
   <script defer src="js/reading-c.js"></script>
   <script defer src="js/reading.js"></script>
-  <script defer src="js/settings.js"></script>
   <script defer src="js/router.js"></script>
   <script defer src="js/app.js"></script>
+  <script defer src="js/auth.js"></script>
 </body>
 </html>
