@@ -1,0 +1,387 @@
+/* ==========================================================================
+   PHASE3.CSS — გრამატიკის, ლექსიკონის პაკეტებისა და ორიგინალური საკითხავი ბარათების სტილები
+   ========================================================================== */
+
+.grammar-grid,
+.reading-grid,
+.packs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 20px;
+}
+
+.grammar-card,
+.pack-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  position: relative;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+/* ==========================================================================
+   ORIGINAL STORY COVER CARDS (კითხვის მოდულის ბარათები)
+   ========================================================================== */
+
+.reading-story-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.reading-story-card:hover:not(.locked-card) {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+
+.reading-story-card.completed {
+  border-color: var(--color-success);
+}
+
+.reading-story-card.current-frontier {
+  border: 2px solid var(--brand-primary);
+  box-shadow: 0 0 0 4px var(--brand-primary-soft), var(--shadow-sm);
+}
+
+.reading-story-card.locked-card {
+  opacity: 0.68;
+  background-color: var(--bg-surface-muted);
+}
+
+/* ბარათის ზედა ფერადი გარეკანი (Story Cover Banner) */
+.story-cover-banner {
+  height: 118px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.story-cover-banner--theme-0 { background: linear-gradient(135deg, #2563eb 0%, #0d9488 100%); }
+.story-cover-banner--theme-1 { background: linear-gradient(135deg, #059669 0%, #10b981 100%); }
+.story-cover-banner--theme-2 { background: linear-gradient(135deg, #d97706 0%, #ea580c 100%); }
+.story-cover-banner--theme-3 { background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%); }
+.story-cover-banner--theme-4 { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); }
+.story-cover-banner--theme-5 { background: linear-gradient(135deg, #be123c 0%, #e11d48 100%); }
+.story-cover-banner--locked  { background: linear-gradient(135deg, #475569 0%, #334155 100%); }
+
+.story-cover-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 1;
+}
+
+.story-number-pill {
+  background: rgba(15, 23, 42, 0.32);
+  backdrop-filter: blur(4px);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.story-genre-pill {
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(4px);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.story-cover-emoji {
+  position: absolute;
+  right: 14px;
+  bottom: -8px;
+  font-size: 4rem;
+  opacity: 0.26;
+  transform: rotate(-8deg);
+  pointer-events: none;
+  user-select: none;
+}
+
+.story-cover-icon-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  z-index: 1;
+}
+
+.story-card-body {
+  padding: 18px 20px 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.story-en-title {
+  font-size: 1.14rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.story-ka-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.story-card-footer {
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.story-time-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.grammar-card.completed,
+.pack-card.completed {
+  border-color: var(--color-success);
+}
+
+.grammar-card.current-frontier,
+.pack-card.current-frontier {
+  border: 2px solid var(--brand-primary);
+  box-shadow: 0 0 0 4px var(--brand-primary-soft), var(--shadow-sm);
+}
+
+.grammar-card.locked-card,
+.pack-card.locked-card {
+  opacity: 0.68;
+  background-color: var(--bg-surface-muted);
+  border-style: dashed;
+}
+
+.grammar-card.locked-card.shake,
+.reading-story-card.locked-card.shake,
+.pack-card.locked-card.shake {
+  animation: cardLockedShake 360ms ease;
+}
+
+@keyframes cardLockedShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+}
+
+.grammar-detail-wrap,
+.reading-detail-wrap {
+  max-width: 840px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ფორმულების ცხრილი გრამატიკაში */
+.formula-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 0.92rem;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.formula-table th,
+.formula-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.formula-table th {
+  background-color: var(--bg-surface-muted);
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.formula-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+
+.formula-badge.pos {
+  background-color: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.formula-badge.neg {
+  background-color: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.formula-badge.que {
+  background-color: var(--brand-primary-soft);
+  color: var(--brand-primary);
+}
+
+/* ხშირი შეცდომების ბლოკი */
+.mistake-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.mistake-item {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+}
+
+.mistake-item.wrong {
+  background-color: var(--color-danger-soft);
+  border-left: 4px solid var(--color-danger);
+}
+
+.mistake-item.right {
+  background-color: var(--color-success-soft);
+  border-left: 4px solid var(--color-success);
+}
+
+/* საკითხავი ტექსტის შიდა გვერდი (სუფთა წიგნის სტილი) */
+.reading-Toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 20px;
+}
+
+.reading-article-text {
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reading-paragraph-block {
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface-muted);
+  border-left: 3px solid var(--brand-primary);
+  transition: background-color var(--transition-fast);
+}
+
+.reading-p-en {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.reading-p-ka {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-strong);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.glossary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface-muted);
+  border: 1px solid var(--border-subtle);
+}
+
+.glossary-en {
+  font-weight: 800;
+  font-size: 0.94rem;
+  color: var(--text-primary);
+}
+
+.glossary-ka {
+  font-size: 0.84rem;
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+
+.drill-question-box {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface-muted);
+  margin-bottom: 14px;
+  border: 1px solid var(--border-subtle);
+}
+
+.drill-q-title {
+  font-weight: 800;
+  font-size: 0.98rem;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.drill-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .mistake-box {
+    grid-template-columns: 1fr;
+  }
+  .grammar-grid,
+  .reading-grid,
+  .packs-grid {
+    grid-template-columns: 1fr;
+  }
+  .formula-table th,
+  .formula-table td {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="FluentPath ლოგო">
+  <defs>
+    <linearGradient id="fpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#0d9488" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#fpGrad)" />
+  <path d="M34 40h60a6 6 0 0 1 6 6v42a6 6 0 0 1-6 6H68l-16 14v-14H34a6 6 0 0 1-6-6V46a6 6 0 0 1 6-6z" fill="#ffffff" opacity="0.95"/>
+  <path d="M46 58h36M46 72h24" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="88" cy="72" r="5" fill="#0d9488"/>
+</svg>

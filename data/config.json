@@ -1,0 +1,77 @@
+{
+  "appName": "FluentPath",
+  "version": "1.0.0-phase1-ka",
+  "phase": 1,
+  "tagline": "ინგლისური ენის 100% უფასო და ულიმიტო სასწავლო პლატფორმა",
+  "defaultSettings": {
+    "theme": "light",
+    "cefrLevel": "A1",
+    "dailyGoalXP": 20,
+    "soundEnabled": true,
+    "userName": "მოსწავლე"
+  },
+  "dailyGoals": [
+    { "xp": 10, "label": "მსუბუქი", "description": "10 XP / დღეში — დაახლოებით 5 წუთი" },
+    { "xp": 20, "label": "სტანდარტული", "description": "20 XP / დღეში — დაახლოებით 10 წუთი" },
+    { "xp": 30, "label": "სერიოზული", "description": "30 XP / დღეში — დაახლოებით 15 წუთი" },
+    { "xp": 50, "label": "ინტენსიური", "description": "50 XP / დღეში — დაახლოებით 25 წუთი" }
+  ],
+  "cefrLevels": [
+    {
+      "code": "A1",
+      "name": "დამწყები",
+      "summary": "ყოველდღიური მარტივი გამონათქვამებისა და საბაზისო ფრაზების გაგება და გამოყენება.",
+      "targetVocabulary": 500,
+      "targetLessons": 20
+    },
+    {
+      "code": "A2",
+      "name": "ელემენტარული",
+      "summary": "მარტივი კომუნიკაცია ყოველდღიურ თემებზე და ინფორმაციის პირდაპირი გაცვლა.",
+      "targetVocabulary": 1000,
+      "targetLessons": 25
+    },
+    {
+      "code": "B1",
+      "name": "საშუალო",
+      "summary": "მოგზაურობის, სწავლის ან მუშაობის დროს წარმოქმნილ უმეტეს სიტუაციაში თავის გართმევა.",
+      "targetVocabulary": 2000,
+      "targetLessons": 30
+    },
+    {
+      "code": "B2",
+      "name": "საშუალოზე მაღალი",
+      "summary": "თავისუფალი და ბუნებრივი კომუნიკაცია ინგლისურენოვან მოსაუბრეებთან.",
+      "targetVocabulary": 3500,
+      "targetLessons": 35
+    },
+    {
+      "code": "C1",
+      "name": "მაღალი",
+      "summary": "აზრების თავისუფლად ჩამოყალიბება სოციალური, აკადემიური და პროფესიული მიზნებისთვის.",
+      "targetVocabulary": 5000,
+      "targetLessons": 40
+    },
+    {
+      "code": "C2",
+      "name": "სრულყოფილი",
+      "summary": "ნებისმიერი სირთულის წაკითხული თუ მოსმენილი ინფორმაციის სრულყოფილი გაგება და გადმოცემა.",
+      "targetVocabulary": 7500,
+      "targetLessons": 45
+    }
+  ],
+  "modules": [
+    { "id": "dashboard", "title": "მთავარი", "category": "core", "phase": 1, "description": "თქვენი ყოველდღიური სასწავლო პანელი და სტატისტიკის მიმოხილვა." },
+    { "id": "learn", "title": "სწავლა", "category": "study", "phase": 2, "description": "ნაბიჯ-ნაბიჯ გაწერილი ინტერაქტიული გაკვეთილები CEFR დონეების მიხედვით." },
+    { "id": "vocabulary", "title": "ლექსიკონი", "category": "study", "phase": 2, "description": "თემატური სიტყვების ბაზა განმარტებებით, ტრანსკრიფციითა და მაგალითებით." },
+    { "id": "grammar", "title": "გრამატიკა", "category": "study", "phase": 3, "description": "მკაფიოდ ახსნილი გრამატიკული წესები, ფორმულები და პრაქტიკული სავარჯიშოები." },
+    { "id": "reading", "title": "კითხვა", "category": "skills", "phase": 3, "description": "დონეების მიხედვით დახარისხებული საკითხავი ტექსტები გააზრების კითხვებით." },
+    { "id": "listening", "title": "მოსმენა", "category": "skills", "phase": 4, "description": "აუდიო სავარჯიშოები და კარნახები ბრაუზერის ხმოვანი სინთეზატორის გამოყენებით." },
+    { "id": "speaking", "title": "საუბარი", "category": "skills", "phase": 4, "description": "გამოთქმის ვარჯიში, ფრაზების გამეორება და სასაუბრო თემები." },
+    { "id": "writing", "title": "წერა", "category": "skills", "phase": 4, "description": "წერითი დავალებები, წინადადებების აწყობა და თვითშეფასების კრიტერიუმები." },
+    { "id": "flashcards", "title": "ბარათები", "category": "practice", "phase": 5, "description": "სიტყვებისა და ფრაზების სწრაფი დამახსოვრების ბარათები (Flashcards)." },
+    { "id": "quizzes", "title": "ტესტები", "category": "practice", "phase": 5, "description": "ულიმიტო შემაჯამებელი ტესტები დეტალური განმარტებებითა და შედეგებით." },
+    { "id": "progress", "title": "პროგრესი", "category": "core", "phase": 1, "description": "თქვენი XP ქულების, უწყვეტი სერიისა და CEFR დონეების დეტალური ანალიტიკა." },
+    { "id": "settings", "title": "პარამეტრები", "category": "core", "phase": 1, "description": "თემის, CEFR დონის, დღიური მიზნისა და მონაცემთა სარეზერვო ასლების მართვა." }
+  ]
+}
