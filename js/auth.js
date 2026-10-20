@@ -11,7 +11,7 @@
 
   let supabaseClient = null;
   let currentUser = null;
-  let authMode = 'LOGIN';
+  let authMode = 'REGISTER';
   let syncTimeout = null;
 
   const Auth = {
@@ -34,6 +34,27 @@
       }
     },
 
+    ensureHeaderSlot: function () {
+      let slot = document.getElementById('header-auth-slot');
+      if (slot) return slot;
+
+      const rightHeader =
+        document.querySelector('.top-header-right') ||
+        document.querySelector('.header-right') ||
+        document.querySelector('.header-actions') ||
+        document.querySelector('header');
+
+      if (rightHeader) {
+        slot = document.createElement('div');
+        slot.id = 'header-auth-slot';
+        slot.style.display = 'inline-flex';
+        slot.style.alignItems = 'center';
+        slot.style.gap = '8px';
+        rightHeader.insertBefore(slot, rightHeader.firstChild);
+      }
+      return slot;
+    },
+
     setSyncBadgeStatus: function (statusText, mode) {
       const badge = document.getElementById('cloud-sync-badge');
       if (!badge) return;
@@ -42,7 +63,7 @@
     },
 
     renderHeaderControls: function () {
-      const slot = document.getElementById('header-auth-slot');
+      const slot = this.ensureHeaderSlot();
       if (!slot) return;
 
       if (currentUser) {
@@ -322,7 +343,6 @@
         return;
       }
 
-      // თუ მომხმარებელი მეილზე მოსულ დადასტურების ბმულს დააჭერს, ავტომატურად შევიყვანოთ
       supabaseClient.auth.onAuthStateChange(async (event, session) => {
         if ((event === 'SIGNED_IN' || event === 'USER_UPDATED') && session && session.user) {
           if (!currentUser || currentUser.id !== session.user.id) {
@@ -351,7 +371,9 @@
 
   App.Auth = Auth;
 
-  document.addEventListener('DOMContentLoaded', () => {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => Auth.init());
+  } else {
     Auth.init();
-  });
+  }
 })(window);
