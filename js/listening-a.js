@@ -702,3 +702,707 @@
 
   App.ListeningDataA = App.ListeningDataA1.concat(App.ListeningDataA2 || []);
 })(window);
+// ============================================================================
+// A2 LEVEL — LISTENING TOPICS 16 TO 30 (5 PARAGRAPHS, 10 WORDS & 10 QUESTIONS)
+// ============================================================================
+(function (window) {
+  "use strict";
+
+  const App = window.App = window.App || {};
+
+  App.ListeningDataA2 = [
+    {
+      num: 16, level: "A2",
+      icon: "💼", genre: "კარიერა და სამსახური",
+      title: "გასაუბრება წიგნის მაღაზიაში",
+      subtitle: "A Job Interview at a Bookshop",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Good morning, Sophie! Please take a seat. My name is Mrs Helen Carter, and I am the manager of 'Page & Lantern', the oldest independent bookshop in our town. Thank you for sending us your CV and coming in today for this interview for the part-time weekend assistant position.",
+          "დილა მშვიდობისა, სოფი! გთხოვთ, დაბრძანდით. მე გახლავართ ჰელენ კარტერი, ჩვენი ქალაქის უძველესი დამოუკიდებელი წიგნის მაღაზიის — „ფურცელი და ფარანი“ — მენეჯერი. გმადლობთ, რომ გამოგვიგზავნეთ თქვენი რეზიუმე (CV) და დღეს მოხვედით გასაუბრებაზე შაბათ-კვირის ნახევარგანაკვეთიანი ასისტენტის პოზიციისთვის."
+        ],
+        [
+          "Sophie smiles and explains why she is interested in the job: she is currently a second-year literature student at the local university, so her weekday mornings are busy with lectures, but she is completely free every Saturday and Sunday. She loves reading historical novels and helping people choose books.",
+          "სოფი იღიმის და განმარტავს, თუ რატომ არის დაინტერესებული ამ სამსახურით: ის ამჟამად ადგილობრივი უნივერსიტეტის ლიტერატურის ფაკულტეტის მეორე კურსის სტუდენტია, ამიტომ სამუშაო დღეებში დილაობით ლექციები აქვს, მაგრამ ყოველ შაბათსა და კვირას სრულიად თავისუფალია. მას უყვარს ისტორიული რომანების კითხვა და ადამიანებისთვის წიგნების შერჩევაში დახმარება."
+        ],
+        [
+          "Mrs Carter asks Sophie if she has any previous experience working with customers. Sophie replies that last summer she worked for three months at her uncle's stationery shop, where she operated the cash register, wrapped presents, and organized notebooks and pens on the shelves.",
+          "ქალბატონი კარტერი ეკითხება სოფის, აქვს თუ არა მომხმარებლებთან მუშაობის წინა გამოცდილება. სოფი პასუხობს, რომ გასულ ზაფხულს სამი თვის განმავლობაში მუშაობდა ბიძამისის საკანცელარიო მაღაზიაში, სადაც მართავდა სალარო აპარატს, ფუთავდა საჩუქრებს და თაროებზე ალაგებდა რვეულებსა და კალმებს."
+        ],
+        [
+          "Next, Mrs Carter describes the duties at the bookshop. The weekend shift runs from nine in the morning until five in the afternoon, with a one-hour paid lunch break at one o'clock. Besides working at the cash desk, Sophie will unpack new book deliveries and read a short story to children in the reading corner on Saturday mornings at eleven.",
+          "შემდეგ ქალბატონი კარტერი აღწერს მოვალეობებს წიგნის მაღაზიაში. შაბათ-კვირის ცვლა გრძელდება დილის ცხრა საათიდან საღამოს ხუთ საათამდე, პირველ საათზე ერთსაათიანი ანაზღაურებადი სადილის შესვენებით. სალაროსთან მუშაობის გარდა, სოფი ამოალაგებს წიგნების ახალ გზავნილებს და შაბათობით, დილის თერთმეტ საათზე, კითხვის კუთხეში ბავშვებს მოკლე ზღაპარს წაუკითხავს."
+        ],
+        [
+          "The hourly wage is twelve euros an hour, and all staff members receive a thirty percent discount on any book in the shop. Mrs Carter is very impressed with Sophie's friendly attitude and asks her to start her first training day this coming Saturday at nine o'clock!",
+          "საათობრივი ანაზღაურება შეადგენს თორმეტ ევროს საათში, და ყველა თანამშრომელი სარგებლობს ოცდაათპროცენტიანი ფასდაკლებით მაღაზიის ნებისმიერ წიგნზე. ქალბატონი კარტერი ძალიან კმაყოფილია სოფის მეგობრული დამოკიდებულებით და სთხოვს, პირველი სატრენინგო დღე ამ შაბათს, ცხრა საათზე დაიწყოს!"
+        ]
+      ],
+      glossary: [
+        "part-time position|ნახევარგანაკვეთიანი სამუშაო პოზიცია", "literature student|ლიტერატურის ფაკულტეტის სტუდენტი", "previous experience|წინა სამუშაო გამოცდილება",
+        "stationery shop|საკანცელარიო ნივთების მაღაზია", "cash register|სალარო აპარატი", "weekend shift|შაბათ-კვირის სამუშაო ცვლა",
+        "paid lunch break|ანაზღაურებადი სადილის შესვენება", "unpack deliveries|ახალი გზავნილების/ყუთების ამოლაგება", "hourly wage|საათობრივი ანაზღაურება", "staff member|თანამშრომელი / პერსონალის წევრი"
+      ],
+      questions: [
+        "What is the name of the independent bookshop where Sophie is having her interview?|Page & Lantern|The Green Leaf|The Old Library|Star Books",
+        "What position is Sophie applying for?|A part-time weekend assistant position|A full-time weekday manager|A night security guard|A book delivery driver",
+        "What does Sophie study at the local university?|Literature (she is a second-year student)|Medicine|Architecture|Computer science",
+        "Where did Sophie work for three months last summer?|At her uncle's stationery shop|At a supermarket|At a hotel reception|At a cinema",
+        "What are the working hours of the weekend shift at the bookshop?|From nine in the morning until five in the afternoon|From eight in the morning until midnight|From noon until four o'clock|Only for two hours in the evening",
+        "When is the one-hour paid lunch break?|At one o'clock in the afternoon|At eleven in the morning|At three thirty|There is no lunch break",
+        "What special activity will Sophie do on Saturday mornings at eleven o'clock?|Read a short story to children in the reading corner|Bake cakes in the café|Clean the outside windows|Drive the delivery van",
+        "How much is the hourly wage for the position?|Twelve euros an hour|Eight euros an hour|Twenty euros an hour|Fifty euros a day",
+        "What special discount do staff members receive at the bookshop?|A thirty percent discount on any book in the shop|A ten percent discount on coffee|One free book every day|A fifty percent discount on stationery",
+        "When will Sophie start her first training day?|This coming Saturday at nine o'clock|Next Monday morning|In two months|Tomorrow evening"
+      ]
+    },
+    {
+      num: 17, level: "A2",
+      icon: "🧳", genre: "მგზავრობა და სერვისი",
+      title: "დაგვიანებული ბარგის მოძიება აეროპორტში",
+      subtitle: "Reporting Delayed Luggage at the Airport",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "After a two-hour flight from Madrid to Dublin, Mr Thomas Reed walked to the baggage reclaim hall and stood by Carousel Three. One by one, the other passengers picked up their bags and left, until the conveyor belt stopped turning and remained completely empty. Thomas's suitcase had not arrived!",
+          "მადრიდიდან დუბლინამდე ორსაათიანი ფრენის შემდეგ, ბატონი თომას რიდი მივიდა ბარგის მიღების დარბაზში და მესამე კარუსელთან დადგა. სხვა მგზავრებმა სათითაოდ აიღეს თავიანთი ჩანთები და გავიდნენ, სანამ მოძრავი ლენტი არ გაჩერდა და სრულიად ცარიელი არ დარჩა. თომასის ჩემოდანი არ ჩამოსულიყო!"
+        ],
+        [
+          "Thomas walked over to the 'Baggage Services' desk in the corner of the hall. He showed his passport and the white luggage sticker attached to his boarding pass to the clerk, a helpful woman named Fiona. Fiona typed the ten-digit tracking number into her computer.",
+          "თომასი მივიდა დარბაზის კუთხეში მდებარე „ბარგის მომსახურების“ დახლთან. მან თანამშრომელს — გულისხმიერ ქალს, სახელად ფიონას — აჩვენა პასპორტი და ჩასხდომის ბარათზე მიკრული ბარგის თეთრი სტიკერი. ფიონამ კომპიუტერში შეიყვანა ათნიშნა საძიებო ნომერი."
+        ],
+        [
+          "After a moment, Fiona looked up and explained what had happened: because Thomas had a very short transfer in Madrid, his suitcase had missed the morning plane. However, the computer showed that the bag was safe in Madrid and was already loaded onto the evening flight to Dublin, arriving at six o'clock.",
+          "რამდენიმე წამის შემდეგ ფიონამ აიხედა და აუხსნა, რაც მოხდა: რადგან თომასს მადრიდში გადაჯდომისთვის ძალიან მცირე დრო ჰქონდა, მისმა ჩემოდანმა დილის თვითმფრინავზე ვერ მოასწრო. თუმცა, კომპიუტერში ჩანდა, რომ ჩანთა მადრიდში უსაფრთხოდ იყო და უკვე დატვირთული გახლდათ დუბლინის საღამოს რეისზე, რომელიც ექვს საათზე ჩამოფრინდებოდა."
+        ],
+        [
+          "Fiona asked Thomas to describe his suitcase so the courier could identify it easily. Thomas said it was a hard-shell, medium-sized dark green suitcase with four wheels and a bright yellow ribbon tied to the top handle. He also wrote down the address of his hotel in the centre of Dublin.",
+          "ფიონამ სთხოვა თომასს აღეწერა თავისი ჩემოდანი, რათა კურიერს იგი ადვილად ეცნო. თომასმა თქვა, რომ ეს იყო მყარი კორპუსის მქონე, საშუალო ზომის მუქი მწვანე ჩემოდანი ოთხი ბორბლითა და ზედა სახელურზე შემოხვეული ხასხასა ყვითელი ლენტით. მან ასევე დაწერა თავისი სასტუმროს მისამართი დუბლინის ცენტრში."
+        ],
+        [
+          "Fiona gave Thomas a printed reference number and a free overnight toiletry kit containing a toothbrush, toothpaste, soap, and a comb. She promised that the airline courier would deliver the suitcase directly to his hotel reception before九 o'clock that night at no cost.",
+          "ფიონამ თომასს მისცა ამობეჭდილი სარეგისტრაციო ნომერი და პირადი ჰიგიენის უფასო ნაკრები, რომელშიც იდო კბილის ჯაგრისი, კბილის პასტა, საპონი და სავარცხელი. ის დაჰპირდა, რომ ავიაკომპანიის კურიერი ჩემოდანს იმავე ღამის ცხრა საათამდე სრულიად უფასოდ მიიტანდა პირდაპირ მისი სასტუმროს მიმღებში."
+        ]
+      ],
+      glossary: [
+        "baggage reclaim hall|ბარგის მიღების დარბაზი", "conveyor belt / carousel|ბარგის მოძრავი ლენტი / კარუსელი", "luggage sticker|ბარგის სტიკერი / ქვითარი",
+        "tracking number|საძიებო (კონტროლის) ნომერი", "short transfer|მოკლე გადაჯდომა (რეისებს შორის)", "hard-shell suitcase|მყარი კორპუსის მქონე ჩემოდანი",
+        "yellow ribbon|ყვითელი ლენტი", "top handle|ზედა სახელური", "toiletry kit|პირადი ჰიგიენის ნაკრები", "airline courier|ავიაკომპანიის კურიერი"
+      ],
+      questions: [
+        "Which two cities was Mr Thomas Reed flying between?|From Madrid to Dublin|From London to Rome|From Paris to Berlin|From Vienna to Athens",
+        "At which carousel did Thomas wait for his suitcase?|Carousel Three|Carousel One|Carousel Seven|Carousel Ten",
+        "What did Thomas show to Fiona at the Baggage Services desk?|His passport and the white luggage sticker attached to his boarding pass|A photograph of his clothes|His hotel key|His train ticket",
+        "Why hadn't Thomas's suitcase arrived on the morning plane?|Because he had a very short transfer in Madrid and the bag missed the plane|Because someone else took his bag by mistake|Because he forgot to bring it to the airport|Because the suitcase was too heavy",
+        "Which flight was his suitcase loaded onto, and when would it arrive in Dublin?|The evening flight from Madrid, arriving at six o'clock|Tomorrow morning's flight at eight o'clock|A cargo ship arriving next week|A train arriving at midnight",
+        "What does Thomas's suitcase look like?|A hard-shell, medium-sized dark green suitcase with four wheels|A small black leather backpack|A large red cloth bag with two wheels|A silver metal box",
+        "What did Thomas tie to the top handle of his suitcase to recognize it easily?|A bright yellow ribbon|A blue woollen scarf|A small bell|A green flag",
+        "Where is Thomas staying in Dublin?|At a hotel in the centre of Dublin|At his brother's apartment|At a campsite by the sea|At the airport hotel",
+        "What did Fiona give Thomas along with his printed reference number?|A free overnight toiletry kit (toothbrush, toothpaste, soap, and comb)|A new green suitcase|One hundred euros in cash|A free plane ticket for next year",
+        "When and where will the airline courier deliver the suitcase?|Directly to his hotel reception before nine o'clock that night|To the airport gate tomorrow at noon|To his home in Madrid|In three days"
+      ]
+    },
+    {
+      num: 18, level: "A2",
+      icon: "🏰", genre: "ისტორია და ტურიზმი",
+      title: "აუდიო-გიდი უძველეს ციხესიმაგრეში",
+      subtitle: "An Audio Guide at Falcon Rock Castle",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Welcome to Falcon Rock Castle, one of the best-preserved medieval fortresses in the country! You are currently standing in the Outer Courtyard, wearing your digital audio guide. Whenever you see a numbered wooden sign on the castle walls, simply press that number on your keypad and press the green play button.",
+          "კეთილი იყოს თქვენი მობრძანება „შევარდნის კლდის“ ციხესიმაგრეში — ქვეყნის ერთ-ერთ ყველაზე კარგად შემონახულ შუა საუკუნეების სიმაგრეში! თქვენ ამჟამად დგახართ გარე ეზოში და გიკეთიათ ციფრული აუდიო-გიდი. როდესაც ციხესიმაგრის კედლებზე დაინახავთ დანომრილ ხის აბრას, უბრალოდ აკრიფეთ ეს ნომერი კლავიატურაზე და დააჭირეთ ჩართვის მწვანე ღილაკს."
+        ],
+        [
+          "Falcon Rock Castle was built in the year 1280 by Lord Richard to guard the river crossing below the cliff. The outer stone walls are three metres thick, and in the middle ages, the castle was surrounded by a deep moat filled with water. Visitors could only enter when the heavy oak drawbridge was lowered on iron chains.",
+          "„შევარდნის კლდის“ ციხესიმაგრე აშენდა 1280 წელს ლორდ რიჩარდის მიერ კლდის ქვეშ არსებული მდინარის ფონის (გადასასვლელის) დასაცავად. გარე ქვის გალავნის სისქე სამი მეტრია, ხოლო შუა საუკუნეებში ციხეს გარს ერტყა წყლით სავსე ღრმა თხრილი. სტუმრებს შესვლა მხოლოდ მაშინ შეეძლოთ, როცა რკინის ჯაჭვებზე დაკიდებული მძიმე მუხის ასაწევი ხიდი დაბლა ეშვებოდა."
+        ],
+        [
+          "Now walk through the stone archway in front of you into the Great Hall, marked as Stop Two. This huge room was the heart of castle life. In winter, logs burned in the giant fireplace on the north wall, while knights, guests, and musicians sat at long oak tables enjoying banquets.",
+          "ახლა გაიარეთ თქვენ წინ მდებარე ქვის თაღში და შედით დიდ დარბაზში, რომელიც მონიშნულია როგორც მეორე გაჩერება. ეს უზარმაზარი ოთახი ციხესიმაგრის ცხოვრების გული იყო. ზამთარში ჩრდილოეთ კედელზე არსებულ გიგანტურ ბუხარში მორები იწვოდა, ხოლო რაინდები, სტუმრები და მუსიკოსები გრძელ მუხის მაგიდებთან ისხდნენ და ნადიმობდნენ."
+        ],
+        [
+          "Next to the Great Hall is the old Castle Kitchen. Here, twenty cooks and servants worked every day baking bread in stone ovens and roasting meat over open fires. Because fresh water was vital during a siege, a forty-metre-deep well was dug right inside the kitchen floor!",
+          "დიდი დარბაზის გვერდით მდებარეობს ციხესიმაგრის ძველი სამზარეულო. აქ ყოველდღე ოცი მზარეული და მსახური შრომობდა — ქვის ღუმელებში აცხობდნენ პურს და ღია ცეცხლზე წვავდნენ ხორცს. რადგან ალყის დროს სასმელი წყალი სასიცოცხლოდ მნიშვნელოვანი იყო, პირდაპირ სამზარეულოს იატაკში გათხარეს ორმოცი მეტრის სიღრმის ჭა!"
+        ],
+        [
+          "From the courtyard, you can climb the ninety stone steps up to the Eagle Tower. The staircase turns clockwise as it goes up, which was a clever defensive design. Before you leave today, don't forget to return your audio headset at the gift shop by five o'clock.",
+          "ეზოდან შეგიძლიათ ოთხმოცდაათი ქვის საფეხურით ახვიდეთ „არწივის კოშკზე“. კიბე ზემოთ ასვლისას საათის ისრის მიმართულებით უხვევს, რაც ჭკვიანური თავდაცვითი კონსტრუქცია იყო. დღეს წასვლამდე არ დაგავიწყდეთ ხუთ საათამდე აუდიო-ყურსასმენის დაბრუნება საჩუქრების მაღაზიაში."
+        ]
+      ],
+      glossary: [
+        "well-preserved|კარგად შემონახული", "fortress|ციხესიმაგრე", "outer courtyard|გარე ეზო",
+        "moat|ციხის გარშემო წყლიანი თხრილი", "drawbridge|ასაწევი ხიდი", "archway|თაღოვანი გასასვლელი",
+        "banquet|ნადიმი / წვეულება", "siege|ალყა (ციხესიმაგრის)", "well|წყლის ჭა", "headset|ყურსასმენი მოწყობილობა"
+      ],
+      questions: [
+        "In what year was Falcon Rock Castle built, and why?|In 1280 by Lord Richard, to guard the river crossing below the cliff|In 1650, as a summer hotel for tourists|In 1890, to store books for a university|In 1050, as a lighthouse by the ocean",
+        "How do visitors use the digital audio guide as they walk around the castle?|They press the number shown on the wooden signs on their keypad and press the green play button|They shout the name of the room into a microphone|The guide only plays music without words|They must connect it to a television",
+        "How thick are the outer stone walls of the castle?|Three metres thick|Half a metre thick|Ten metres thick|Twenty centimetres thick",
+        "How did visitors cross the water-filled moat in the Middle Ages?|When the heavy oak drawbridge was lowered on iron chains|By swimming across the cold water|Using an underground escalator|On a glass bridge",
+        "Which room is marked as Stop Two on the audio tour?|The Great Hall|The Eagle Tower|The Gift Shop|The Stables",
+        "Where was the giant fireplace located in the Great Hall?|On the north wall|In the middle of the ceiling|Outside in the garden|Under the floor",
+        "How many cooks and servants worked every day in the Castle Kitchen?|Twenty cooks and servants|Only two cooks|One hundred soldiers|Five bakers",
+        "Why was a forty-metre-deep well dug right inside the kitchen floor?|Because fresh water was vital inside the castle during a siege|To keep fish swimming in the kitchen|Because there was no river nearby|To hide gold coins at the bottom",
+        "How many stone steps lead up to the top of the Eagle Tower?|Ninety stone steps|Twenty steps|Three hundred steps|Fifteen steps",
+        "Where and by what time must visitors return their audio headsets?|At the gift shop by five o'clock|At the bus stop by midnight|In the kitchen by noon|They can keep the headsets forever"
+      ]
+    },
+    {
+      num: 19, level: "A2",
+      icon: "🔧", genre: "საყოფაცხოვრებო სერვისი",
+      title: "სანტექნიკოსის გამოძახება სამზარეულოს დაზიანებისას",
+      subtitle: "Calling a Plumber for a Kitchen Leak",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "On Wednesday morning, while Mr Peter Grant was making coffee in his kitchen, he noticed a small puddle of water on the floor in front of the sink. When he opened the cupboard doors underneath the sink, he saw water dripping rapidly from a cracked metal pipe into a plastic bucket.",
+          "ოთხშაბათ დილით, როდესაც ბატონი პიტერ გრანტი თავის სამზარეულოში ყავას ამზადებდა, ნიჟარის წინ იატაკზე წყლის პატარა გუბე შეამჩნია. როდესაც ნიჟარის ქვეშ კარადის კარი გამოაღო, დაინახა, რომ გაბზარული ლითონის მილიდან წყალი სწრაფად წვეთავდა პლასტმასის სათლში."
+        ],
+        [
+          "Peter immediately called 'City Quick Plumbing' on his phone. The technician who answered, George, gave him an important piece of advice first: 'Before I arrive, look under the sink on the right-hand side and turn the red main water valve clockwise to shut off the water supply!'",
+          "პიტერმა ტელეფონით მაშინვე დარეკა კომპანია „სითი ქუიქ სანტექნიკაში“. ტექნიკოსმა ჯორჯმა, რომელმაც უპასუხა, პირველ რიგში მნიშვნელოვანი რჩევა მისცა: „სანამ მოვალ, ნიჟარის ქვეშ მარჯვენა მხარეს მოძებნეთ წყლის მთავარი წითელი ონკანი (ვენტილი) და დაატრიალეთ საათის ისრის მიმართულებით წყლის მიწოდების გადასაკეტად!“"
+        ],
+        [
+          "Peter turned the red valve, and the dripping stopped right away. He then dried the kitchen floor with two old towels. George asked for Peter's address and said he could be at Apartment 4B, Twenty-Two Green Street, at eleven o'clock that morning.",
+          "პიტერმა გადაატრიალა წითელი ვენტილი და წყლის წვეთა მაშინვე შეწყდა. შემდეგ მან სამზარეულოს იატაკი ორი ძველი პირსახოცით გაამშრალა. ჯორჯმა გამოჰკითხა პიტერს მისამართი და უთხრა, რომ იმავე დილის თერთმეტ საათზე მივიდოდა გრინ-სტრიტის ოცდაორ ნომერში, ბინა 4B-ში."
+        ],
+        [
+          "George arrived right on time at eleven o'clock carrying his heavy red toolbox. He examined the pipe under the sink with a flashlight and explained that the old rubber seal inside the pipe joint had worn out after ten years of use.",
+          "ჯორჯი ზუსტად დროზე, თერთმეტ საათზე მოვიდა თავისი მძიმე წითელი ხელსაწყოების ყუთით. მან ფანრით დაათვალიერა ნიჟარის ქვეშ არსებული მილი და განმარტა, რომ მილის შეერთების ადგილას ძველი რეზინის შუასადები ათწლიანი ხმარების შემდეგ გაცვეთილიყო."
+        ],
+        [
+          "In thirty minutes, George replaced the cracked section of pipe and fitted a brand-new rubber seal. He turned the red water valve back on to test the sink, and there was not a single drop of water leaking! Peter paid the forty-five-euro repair bill and thanked George for his fast work.",
+          "ოცდაათ წუთში ჯორჯმა შეცვალა მილის გაბზარული მონაკვეთი და დააყენა სრულიად ახალი რეზინის შუასადები. მან ნიჟარის შესამოწმებლად კვლავ გახსნა წითელი ვენტილი და წყლის არცერთი წვეთი აღარ ჟონავდა! პიტერმა გადაიხადა შეკეთების საფასური — ორმოცდახუთი ევრო — და ჯორჯს სწრაფი მუშაობისთვის მადლობა გადაუხადა."
+        ]
+      ],
+      glossary: [
+        "kitchen sink|სამზარეულოს ნიჟარა", "drip rapidly|სწრაფად წვეთა", "cracked pipe|გაბზარული მილი",
+        "plumbing / plumber|სანტექნიკა / სანტექნიკოსი", "water valve|წყლის ჩამკეტი ვენტილი", "shut off|გადაკეტვა / გამორთვა",
+        "toolbox|ხელსაწყოების ყუთი", "rubber seal|რეზინის დამცავი შუასადები (სალნიკი)", "wear out|გაცვეთა / მწყობრიდან გამოსვლა", "repair bill|შეკეთების ანგარიში/საფასური"
+      ],
+      questions: [
+        "What did Peter Grant notice on his kitchen floor on Wednesday morning?|A small puddle of water in front of the sink|A broken glass plate|Mud from his dog's paws|Oil leaking from the fridge",
+        "Where was the water coming from when he opened the cupboard under the sink?|From a cracked metal pipe dripping into a plastic bucket|From an open window above the sink|From a boiling pot on the stove|From the washing machine",
+        "What important instruction did George the plumber give Peter over the phone first?|To turn the red main water valve under the sink clockwise to shut off the water supply|To pour hot water down the sink|To hit the metal pipe with a hammer|To leave the apartment immediately",
+        "What happened as soon as Peter turned the red valve clockwise?|The dripping stopped right away|The water sprayed faster|The lights in the kitchen went out|The bucket broke",
+        "What is Peter's address, and what time did George promise to arrive?|Apartment 4B, 22 Green Street, at eleven o'clock|House 10, Oak Road, at four o'clock|Apartment 1A, River Street, at noon|Tomorrow morning at nine",
+        "What did George carry with him when he arrived at eleven o'clock?|His heavy red toolbox and a flashlight|A wooden ladder|A new kitchen sink|A mop and bucket",
+        "What had caused the leak according to George's examination?|The old rubber seal inside the pipe joint had worn out after ten years of use|A mouse had chewed through the plastic|The water had frozen into ice|Someone had dropped a heavy pot on the pipe",
+        "How long did it take George to replace the pipe section and fit a new rubber seal?|Thirty minutes|Three hours|Five minutes|All afternoon",
+        "How did George test his repair before leaving?|He turned the red water valve back on to check that not a single drop was leaking|He waited until the next day|He asked Peter to boil water|He took a photograph of the cupboard",
+        "How much did Peter pay for the plumbing repair?|Forty-five euros|One hundred and五十 euros|Ten euros|Ninety euros"
+      ]
+    },
+    {
+      num: 20, level: "A2",
+      icon: "📻", genre: "ჯანმრთელობა და რადიო",
+      title: "რადიოგადაცემა დილის ჯანსაღ ჩვევებზე",
+      subtitle: "Radio Health Talk: Four Simple Morning Habits",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Good morning, everyone! You are listening to 'City Morning Radio', and it is ten past eight. Today in our studio, we have Dr Clara Evans, a nutritionist and wellness author, who is going to share four simple morning habits that can give you more energy throughout the entire workday.",
+          "დილა მშვიდობისა ყველას! თქვენ უსმენთ „ქალაქის დილის რადიოს“, საათია ცხრის ათი წუთი. დღეს ჩვენს სტუდიაში სტუმრად გვყავს დოქტორი კლარა ევანსი — ნუტრიციოლოგი და ჯანსაღი ცხოვრების წესის შესახებ წიგნების ავტორი, რომელიც გაგვიზიარებს დილის ოთხ მარტივ ჩვევას მთელი სამუშაო დღის განმავლობაში მეტი ენერგიის შესანარჩუნებლად."
+        ],
+        [
+          "First, Dr Evans talks about waking up: 'Many people press the snooze button on their alarm clock three or चार times, sleeping for an extra five minutes each time. However, this fragmented sleep actually makes your brain feel more tired! Instead, set your alarm for the real time you need to get up, and open your curtains immediately to let natural daylight in.'",
+          "პირველ რიგში, დოქტორი ევანსი საუბრობს გაღვიძებაზე: „ბევრი ადამიანი მაღვიძარას გადადების ღილაკს (snooze) სამჯერ ან ოთხჯერ აჭერს ხელს, რათა თითო ჯერზე დამატებით ხუთი წუთი წაუძინოს. თუმცა, ასეთი ნაწყვეტ-ნაწყვეტი ძილი სინამდვილეში ტვინს უფრო მეტად ღლის! ამის ნაცვლად, დააყენეთ მაღვიძარა ზუსტად იმ დროზე, როცა რეალურად უნდა ადგეთ, და მაშინვე გადასწიეთ ფარდები ბუნებრივი სინათლის შემოსაშვებად“."
+        ],
+        [
+          "Second, she explains the importance of water: 'While you sleep for seven or eight hours, your body loses moisture through breathing. Before you drink your morning cup of coffee or tea, drink one full glass of room-temperature water. It wakes up your metabolism and helps your brain concentrate.'",
+          "მეორე: ის განმარტავს წყლის მნიშვნელობას: „სანამ შვიდი ან რვა საათის განმავლობაში გძინავთ, თქვენი ორგანიზმი სუნთქვისას კარგავს სითხეს. დილის ფინჯანი ყავის ან ჩაის დალევამდე მიირთვით ერთი სავსე ჭიქა ოთახის ტემპერატურის წყალი. იგი აღვიძებს ნივთიერებათა ცვლას და ეხმარება ტვინს კონცენტრირებაში“."
+        ],
+        [
+          "The third habit is ten minutes of gentle movement. You don't need to run ten kilometres at dawn; simply stretching your back and shoulders, doing ten squats, or walking briskly around the block with your dog increases blood flow and removes morning stiffness.",
+          "მესამე ჩვევაა ათწუთიანი მსუბუქი მოძრაობა. სულაც არ არის აუცილებელი გამთენიისას ათი კილომეტრის გარბენა; ზურგისა და მხრების მარტივი გაჭიმვა, ათი ჩაჯდომის გაკეთება ან ძაღლთან ერთად კვარტლის გარშემო სწრაფი ნაბიჯით გავლა აუმჯობესებს სისხლის მიმოქცევას და ხსნის დილის შებოჭილობას."
+        ],
+        [
+          "Finally, Dr Evans warns against eating sugary pastries for breakfast, as they cause a sudden drop in energy at eleven o'clock. Instead, she recommends a breakfast rich in protein and fibre — such as oatmeal with nuts, or boiled eggs with wholegrain toast — and keeping your phone notifications turned off for the first thirty minutes of the morning!",
+          "დაბოლოს, დოქტორი ევანსი გვაფრთხილებს, მოვერიდოთ საუზმეზე ტკბილი ფუნთუშეულის ჭამას, რადგან ეს თერთმეტი საათისთვის ენერგიის მკვეთრ ვარდნას იწვევს. ამის ნაცვლად, ის გვირჩევს ცილებითა და უჯრედისით მდიდარ საუზმეს — მაგალითად, შვრიის ფაფას თხილეულით, ან მოხარშულ კვერცხს მთელმარცვლოვან ტოსტთან ერთად — და დილის პირველი ოცდაათი წუთის განმავლობაში ტელეფონის შეტყობინებების გამორთვას!"
+        ]
+      ],
+      glossary: [
+        "nutritionist|ნუტრიციოლოგი (კვების სპეციალისტი)", "snooze button|მაღვიძარას გადადების ღილაკი", "fragmented sleep|ნაწყვეტ-ნაწყვეტი (დაქუცმაცებული) ძილი",
+        "natural daylight|დღის ბუნებრივი სინათლე", "room-temperature water|ოთახის ტემპერატურის წყალი", "metabolism|მეტაბოლიზმი / ნივთიერებათა ცვლა",
+        "stretch (verb)|გაჭიმვა / გაზმორება", "blood flow|სისხლის მიმოქცევა", "protein and fibre|ცილა და უჯრედისი", "wholegrain toast|მთელმარცვლოვანი პურის ტოსტი"
+      ],
+      questions: [
+        "Who is the guest on 'City Morning Radio' at ten past eight?|Dr Clara Evans, a nutritionist and wellness author|A professional marathon runner|A chef from an Italian restaurant|A weather forecaster",
+        "Why does Dr Evans advise against pressing the 'snooze button' three or four times?|Because fragmented five-minute sleep makes your brain feel more tired|Because it breaks the alarm clock battery|Because it makes you wake up too early|Because it causes a sore throat",
+        "What should you do immediately after waking up according to the first habit?|Open your curtains to let natural daylight in|Check your work emails in the dark|Turn on the television|Eat a piece of chocolate",
+        "Why is your body slightly dehydrated when you wake up in the morning?|Because it loses moisture through breathing while you sleep for seven or eight hours|Because the bedroom is too cold|Because you dreamed about running|Because your muscles grow at night",
+        "What should you drink before your morning coffee or tea?|One full glass of room-temperature water|A bottle of cold sparkling lemonade|A glass of hot milk with sugar|Two cups of orange juice",
+        "How much gentle movement does Dr Evans recommend as the third morning habit?|Ten minutes of stretching, squats, or a brisk walk|Two hours of heavy weightlifting at dawn|Running twenty kilometres before breakfast|No movement at all until noon",
+        "How does ten minutes of morning stretching or walking help the body?|It increases blood flow and removes morning stiffness|It makes you fall back asleep|It lowers your height|It replaces breakfast",
+        "Why does Dr Evans warn against eating sugary pastries for breakfast?|They cause a sudden drop in energy around eleven o'clock|They are too expensive to buy|They take too long to chew|They make you thirsty at night",
+        "What examples of a healthy breakfast rich in protein and fibre does she give?|Oatmeal with nuts, or boiled eggs with wholegrain toast|White bread with strawberry jam|Chocolate muffins and sweet coffee|Ice cream and bananas",
+        "How long does she suggest keeping phone notifications turned off after waking up?|For the first thirty minutes of the morning|Until six o'clock in the evening|For only ten seconds|All week"
+      ]
+    },
+    {
+      num: 21, level: "A2",
+      icon: "🛒", genre: "მომხმარებლის უფლებები",
+      title: "წუნდებული ყავის აპარატის დაბრუნება მაღაზიაში",
+      subtitle: "Returning a Faulty Coffee Machine",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Last Saturday, Mrs Laura Bennett bought a silver espresso machine from 'Home Electro', a large electronics store in the shopping mall. The machine cost ninety euros and came with a two-year warranty. For the first three days, it made wonderful hot coffee with thick milk foam.",
+          "გასულ შაბათს ქალბატონმა ლორა ბენეტმა სავაჭრო ცენტრში მდებარე ტექნიკის დიდ მაღაზია „ჰოუმ ელექტროში“ იყიდა ვერცხლისფერი ესპრესოს აპარატი. აპარატი ოთხმოცდაათი ევრო ღირდა და მოჰყვებოდა ორწლიანი გარანტია. პირველი სამი დღის განმავლობაში ის შესანიშნავ ცხელ ყავას ამზადებდა სქელი რძის ქაფით."
+        ],
+        [
+          "On Wednesday morning, however, when Laura pressed the power button, the machine made a loud buzzing noise and the water did not heat up at all — it only poured cold water into the cup! Today is Thursday, so Laura has packed the machine back into its original cardboard box and brought it to the store's Customer Service desk.",
+          "თუმცა, ოთხშაბათ დილით, როდესაც ლორამ ჩართვის ღილაკს დააჭირა, აპარატმა გამოსცა ხმამაღალი ზუზუნის ხმა და წყალი საერთოდ არ გააცხელა — ფინჯანში მხოლოდ ცივი წყალი ჩამოასხა! დღეს ხუთშაბათია, ამიტომ ლორამ აპარატი ისევ თავის ორიგინალ მუყაოს ყუთში ჩადო და მაღაზიის მომხმარებელთა მომსახურების დახლთან მოიტანა."
+        ],
+        [
+          "The customer service manager, Mr Harris, greets Laura politely and asks to see the paper receipt and the warranty card. Laura hands him both documents and explains that the heating element inside the coffee machine seems to be broken.",
+          "მომხმარებელთა მომსახურების მენეჯერი, ბატონი ჰარისი, თავაზიანად ესალმება ლორას და სთხოვს წარმოადგინოს გადახდის ქაღალდის ქვითარი და საგარანტიო ტალონი. ლორა აწვდის ორივე დოკუმენტს და უხსნის, რომ ყავის აპარატის შიგნით გამაცხელებელი ელემენტი სავარაუდოდ გაფუჭებულია."
+        ],
+        [
+          "Mr Harris plugs the machine into the test socket at the counter, and indeed, the water remains completely cold. He apologizes for the inconvenience and tells Laura that since she bought the item less than fourteen days ago, she has two choices: she can either get a full refund of ninety euros onto her bank card, or exchange it immediately for a brand-new machine.",
+          "ბატონი ჰარისი აპარატს დახლთან არსებულ სატესტო როზეტში აერთებს და წყალი მართლაც სრულიად ცივი რჩება. ის ბოდიშს იხდის შექმნილი უხერხულობისთვის და ეუბნება ლორას, რომ რადგან ნივთი თოთხმეტ დღეზე ნაკლები ხნის წინ შეიძინა, მას აქვს ორი არჩევანი: შეუძლია სრულად დაიბრუნოს ოთხმოცდაათი ევრო საბანკო ბარათზე, ან მაშინვე გადაცვალოს იგი სრულიად ახალ აპარატში."
+        ],
+        [
+          "Laura says she really liked the coffee it made on the first three days, so she chooses to exchange it for a new one. Mr Harris brings a sealed box from the storeroom, tests the new machine to make sure the water heats up properly, stamps the new warranty card, and gives Laura a complimentary packet of Italian coffee beans as an apology!",
+          "ლორა ამბობს, რომ პირველ სამ დღეს აპარატის მომზადებული ყავა ძალიან მოეწონა, ამიტომ ირჩევს მის გადაცვლას ახალ მოდელში. ბატონ ჰარისს საწყობიდან გამოაქვს დალუქული ყუთი, ამოწმებს ახალ აპარატს, რათა დარწმუნდეს, რომ წყალი ნამდვილად ცხელდება, ბეჭედს არტყამს ახალ საგარანტიო ტალონს და ბოდიშის ნიშნად ლორას საჩუქრად გადასცემს იტალიური ყავის მარცვლების შეკვრას!"
+        ]
+      ],
+      glossary: [
+        "faulty|წუნდებული / გაუმართავი", "warranty card|საგარანტიო ტალონი", "milk foam|რძის ქაფი",
+        "power button|ჩართვის ღილაკი", "heating element|გამაცხელებელი ელემენტი (ტენი)", "inconvenience|უხერხულობა / შეწუხება",
+        "full refund|თანხის სრული დაბრუნება", "exchange (verb)|გადაცვლა (ახალ ნივთში)", "storeroom|საწყობი", "complimentary|უფასო / საჩუქრად გადაცემული"
+      ],
+      questions: [
+        "How much did Mrs Laura Bennett pay for the silver espresso machine, and how long was the warranty?|Ninety euros, with a two-year warranty|Fifty euros, with no warranty|Two hundred euros, with a five-year warranty|Thirty euros, with a one-month warranty",
+        "How many days did the coffee machine work properly before breaking?|For the first three days|For two years|It never worked at all|For six months",
+        "What went wrong with the coffee machine on Wednesday morning?|It made a loud buzzing noise and poured cold water instead of heating it up|The glass pot broke in half|The power cord caught fire|The buttons fell off",
+        "What two documents did Mr Harris ask to see at the Customer Service desk?|The paper receipt and the warranty card|Laura's passport and driving licence|A letter from the bank|A photo of her kitchen",
+        "How did Mr Harris verify that the machine was indeed faulty?|He plugged it into the test socket at the counter and saw that the water stayed cold|He sent it to a factory in Italy for a month|He opened it with a screwdriver|He took Laura's word without checking",
+        "Why did Laura have the right to an immediate refund or exchange?|Because she had bought the item less than fourteen days ago|Because her brother worked at the shop|Because she paid an extra fee|Because it was her birthday",
+        "What two options did Mr Harris offer Laura?|A full refund of 90 euros onto her bank card, or an immediate exchange for a brand-new machine|A fifty percent refund or a toaster|Waiting three weeks for repairs|A store voucher for clothes",
+        "Which option did Laura choose, and why?|She chose to exchange it for a new machine because she really liked the coffee it made|She took the money and bought a teapot|She left the machine at the shop and walked out|She asked for a television instead",
+        "What did Mr Harris do before giving Laura the new machine from the storeroom?|He tested the new machine to make sure the water heated up properly and stamped the warranty card|He painted the box blue|He charged her ten euros for testing|He kept the warranty card",
+        "What did Mr Harris give Laura for free as an apology for the inconvenience?|A complimentary packet of Italian coffee beans|A set of six glass mugs|A bottle of milk|A silver spoon"
+      ]
+    },
+    {
+      num: 22, level: "A2",
+      icon: "🌱", genre: "ბუნება და საზოგადოება",
+      title: "საუბნო მებაღეობის კლუბში გაწევრიანება",
+      subtitle: "Joining the Sunny Hill Community Garden",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Many people who live in city apartments wish they had a small piece of land to grow fresh vegetables, herbs, and flowers. Three years ago, the residents of Sunny Hill neighbourhood asked the town council for permission to turn an empty, overgrown lot behind the public library into a Community Garden.",
+          "ბევრი ადამიანი, რომელიც ქალაქის კორპუსის ბინაში ცხოვრობს, ნატრობს ჰქონდეს მიწის პატარა ნაკვეთი ახალი ბოსტნეულის, მწვანილისა და ყვავილების მოსაყვანად. სამი წლის წინ უბან „სანი-ჰილის“ მცხოვრებლებმა ქალაქის საბჭოს სთხოვეს ნებართვა, საჯარო ბიბლიოთეკის უკან მდებარე ცარიელი, ბალახით დაფარული ნაკვეთი საუბნო ბაღად გადაექციათ."
+        ],
+        [
+          "Today, the Sunny Hill Community Garden has forty wooden raised beds, a greenhouse for young seedlings, three water taps, and a shared tool shed. On Saturday morning, a new neighbour named Mia visits the garden and meets the club coordinator, Mr Arthur.",
+          "დღეს „სანი-ჰილის“ საუბნო ბაღში არის ორმოცი ხის შემაღლებული კვალი, სათბური პატარა ნერგებისთვის, წყლის სამი ონკანი და საერთო ხელსაწყოების ფარდული. შაბათ დილით ახალი მეზობელი, სახელად მია, სტუმრობს ბაღს და ხვდება კლუბის კოორდინატორს, ბატონ არტურს."
+        ],
+        [
+          "Mr Arthur shows Mia around and tells her that Plot Number Seventeen — a sunny wooden bed measuring two metres by three metres — has just become available! To join the club and rent the plot, members pay a small fee of twenty-five euros per year, which pays for water, organic compost, and shared tools.",
+          "ბატონი არტური მიას ათვალიერებინებს გარემოს და ეუბნება, რომ ნაკვეთი ნომერი ჩვიდმეტი — მზიანი ხის კვალი ზომით ორი მეტრი სამ მეტრზე — ეს-ესაა გათავისუფლდა! კლუბში გასაწევრიანებლად და კვალის დასაქირავებლად წევრები იხდიან მცირე წლიურ საფასურს — ოცდახუთ ევროს, რაც ხმარდება წყალს, ორგანულ კომპოსტსა და საერთო ხელსაწყოებს."
+        ],
+        [
+          "He explains two important rules of the garden: first, chemical pesticides and artificial sprays are strictly forbidden because the club keeps two beehives in the corner of the orchard; second, every member must clean their spades and watering cans before putting them back in the shed.",
+          "ის განმარტავს ბაღის ორ მნიშვნელოვან წესს: პირველი — ქიმიური პესტიციდები და ხელოვნური შესაწამლი საშუალებები მკაცრად აკრძალულია, რადგან კლუბს ხეხილის ბაღის კუთხეში ორი ფუტკრის სკა უდგას; მეორე — თითოეულმა წევრმა ფარდულში დაბრუნებამდე უნდა გაწმინდოს ბარები და სარწყავები."
+        ],
+        [
+          "In the centre of the garden, there is a 'Sharing Table' under a wooden roof. Whenever members harvest more tomatoes, courgettes, or mint than their family can eat, they leave the extra vegetables on the table for neighbours and elderly residents to take for free. Mia is delighted and signs up for Plot Seventeen right away!",
+          "ბაღის შუაგულში, ხის გადახურვის ქვეშ, დგას „გაზიარების მაგიდა“. როდესაც წევრები იმაზე მეტ პომიდორს, ყაბაყს ან პიტნას კრეფენ, ვიდრე მათ ოჯახს სჭირდება, ზედმეტ ბოსტნეულს ტოვებენ მაგიდაზე, რათა მეზობლებმა და ხანდაზმულმა მცხოვრებლებმა უფასოდ წაიღონ. მია აღფრთოვანებულია და მაშინვე ეწერება მეჩვიდმეტე ნაკვეთზე!"
+        ]
+      ],
+      glossary: [
+        "overgrown lot|ბალახით/ბუჩქებით დაფარული მიწის ნაკვეთი", "raised bed|შემაღლებული ხის კვალი (ბოსტნის)", "greenhouse|სათბური",
+        "seedling|ნერგი / ჩითილი", "tool shed|ხელსაწყოების ფარდული", "organic compost|ორგანული სასუქი / კომპოსტი",
+        "chemical pesticide|ქიმიური პესტიციდი (მწერების საწამლავი)", "orchard|ხეხილის ბაღი", "spade|ბარი (მიწის სათხრელი)", "courgette (zucchini)|ყაბაყი"
+      ],
+      questions: [
+        "Where is the Sunny Hill Community Garden located?|On a former empty lot behind the public library|On the roof of a supermarket|Next to the airport highway|Inside a school gym",
+        "When did the residents turn the empty lot into a community garden?|Three years ago|Yesterday morning|Fifty years ago|Ten years ago",
+        "How many wooden raised beds are in the garden today?|Forty wooden raised beds|Only five beds|Two hundred beds|Twelve beds",
+        "Which plot number has just become available for Mia, and how big is it?|Plot Number Seventeen, measuring two metres by three metres|Plot Number One, measuring ten metres by ten metres|Plot Number Forty, measuring one metre square|Plot Number Five",
+        "How much is the annual membership fee, and what does it pay for?|Twenty-five euros per year, paying for water, organic compost, and shared tools|Twenty-five euros per week for rent only|One hundred euros a month|It costs nothing at all",
+        "Why are chemical pesticides strictly forbidden in the community garden?|Because the club keeps two beehives in the corner of the orchard|Because pesticides smell like lemons|Because they change the colour of the wooden fences|Because the library director doesn't like them",
+        "What must members do before putting spades and watering cans back into the tool shed?|Clean them properly|Paint them green|Lock them in a metal box|Leave them by the water tap",
+        "What is the 'Sharing Table' in the centre of the garden used for?|Members leave extra vegetables there for neighbours and elderly residents to take for free|Members sell expensive fruit to tourists|It is a desk where Mr Arthur writes letters|People leave old books there",
+        "Which vegetables and herbs are mentioned as being placed on the Sharing Table?|Tomatoes, courgettes, and mint|Potatoes, onions, and garlic|Apples, pears, and plums|Oranges and bananas",
+        "Who is the coordinator of the Sunny Hill Community Garden?|Mr Arthur|Mr Harris|Dr Evans|Mr Jenkins"
+      ]
+    },
+    {
+      num: 23, level: "A2",
+      icon: "⛴️", genre: "საზღვაო მგზავრობა",
+      title: "გამოცხადება სამგზავრო ბორანზე",
+      subtitle: "Welcome Announcement Aboard the Island Ferry",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Good morning, passengers, and welcome aboard the 'Northern Star' ferry! This is Captain Robert speaking from the bridge. We are about to cast off from Harbour Pier Two for our morning crossing to Bluebell Island. The distance is thirty-five kilometres, and our sailing time today will be one hour and forty-five minutes.",
+          "დილა მშვიდობისა, მგზავრებო, და კეთილი იყოს თქვენი მობრძანება ბორან „ჩრდილოეთის ვარსკვლავის“ ბორტზე! გესაუბრებათ კაპიტანი რობერტი კაპიტნის ხიდურიდან. ჩვენ ეს-ესაა გავდივართ ნავსადგურის მეორე ნავმისადგომიდან კუნძულ ბლუბელის მიმართულებით. მანძილი ოცდათხუთმეტი კილომეტრია და ჩვენი დღევანდელი ცურვის დრო შეადგენს ერთ საათსა და ორმოცდახუთ წუთს."
+        ],
+        [
+          "For all passengers who parked their cars, vans, or bicycles on the lower vehicle deck, please note that the vehicle deck is locked during the voyage for safety reasons. Please make sure you have taken your handbanks, cameras, and warm coats with you before coming upstairs to the passenger lounges.",
+          "ყველა მგზავრის საყურადღებოდ, ვინც მანქანა, ფურგონი ან ველოსიპედი ქვედა სატრანსპორტო გემბანზე გააჩერა: გთხოვთ გაითვალისწინოთ, რომ უსაფრთხოების მიზნით ცურვის დროს სატრანსპორტო გემბანი იკეტება. გთხოვთ დარწმუნდეთ, რომ ზედა სამგზავრო დარბაზებში ამოსვლამდე თან წამოიღეთ ხელჩანთები, კამერები და თბილი ქურთუკები."
+        ],
+        [
+          "Let me briefly explain the layout of our ship. On Deck Two, you will find the main indoor seating lounge, the children's play area, and the self-service cafeteria, which is now open and serving hot porridge, bacon rolls, tea, and freshly brewed coffee. On Deck Three, there is a quiet reading lounge and an open-air viewing deck at the back of the ship.",
+          "ნება მიბოძეთ მოკლედ გაგაცნოთ ჩვენი გემის განლაგება. მეორე გემბანზე განთავსებულია მთავარი დახურული მოსაცდელი დარბაზი, ბავშვთა სათამაშო კუთხე და თვითმომსახურების კაფეტერია, რომელიც უკვე ღიაა და გთავაზობთ ცხელ ფაფას, ბეკონიან ფუნთუშებს, ჩაისა და ახალმოდუღებულ ყავას. მესამე გემბანზე კი არის მშვიდი სამკითხველო დარბაზი და ღია გადმოსახედი ბაქანი გემის უკანა ნაწილში."
+        ],
+        [
+          "The sea is calm today with a light breeze from the west, so we expect a very smooth crossing. In about forty minutes, we will pass close to Seal Rock on the right-hand side of the ship. If you go out onto the open viewing deck on Deck Three, you will be able to see dozens of grey seals resting on the rocks and dolphins swimming alongside the ferry!",
+          "ზღვა დღეს მშვიდია, ქრის დასავლეთის სუსტი ნიავი, ამიტომ ძალიან რბილ მგზავრობას ველოდებით. დაახლოებით ორმოც წუთში გემის მარჯვენა მხარეს ახლოს ჩავუვლით „სელაპების კლდეს“. თუ გახვალთ მესამე გემბანის ღია გადმოსახედ ბაქანზე, შეძლებთ დაინახოთ კლდეებზე წამოწოლილი ათობით ნაცრისფერი სელაპი და ბორნის გასწვრივ მოცურავე დელფინები!"
+        ],
+        [
+          "For your safety, life jackets are stored under every seat and in the marked cabinets on the outer decks. Fifteen minutes before we dock at Bluebell Island harbour, you will hear an announcement calling car drivers back down to the vehicle deck. Have a pleasant voyage!",
+          "თქვენი უსაფრთხოებისთვის სამაშველო ჟილეტები ინახება ყველა სკამის ქვეშ და გარე გემბანებზე არსებულ სპეციალურ კარადებში. კუნძულ ბლუბელის ნავსადგურში შესვლამდე თხუთმეტი წუთით ადრე მოისმენთ გამოცხადებას, რომელიც მძღოლებს ქვედა სატრანსპორტო გემბანზე დაბრუნებისკენ მოუწოდებს. გისურვებთ სასიამოვნო ცურვას!"
+        ]
+      ],
+      glossary: [
+        "ferry|სამგზავრო/სატრანსპორტო ბორანი (გემი)", "bridge (ship)|კაპიტნის ხიდური", "cast off|ნაპირიდან გასვლა (გემის)",
+        "crossing|ზღვის/სრუტის გადაკვეთა", "vehicle deck|სატრანსპორტო გემბანი (მანქანებისთვის)", "self-service cafeteria|თვითმომსახურების კაფეტერია",
+        "open-air viewing deck|ღია გადმოსახედი გემბანი", "smooth crossing|მშვიდი / უშფოთველი ცურვა", "grey seal|ნაცრისფერი სელაპი", "dock (verb)|ნავსადგურში შესვლა / მიბმა"
+      ],
+      questions: [
+        "What is the name of the ferry, and which island is it sailing to?|The 'Northern Star', sailing to Bluebell Island|The 'Silver Wave', sailing to Swan Island|The 'Sea Queen', sailing to Stormy Point|The 'Blue Dolphin'",
+        "How long will the thirty-five-kilometre crossing take today?|One hour and forty-five minutes|Thirty minutes|Four hours|Ten hours",
+        "Why must car drivers take their bags and coats with them before leaving the lower vehicle deck?|Because the vehicle deck is locked during the voyage for safety reasons|Because the vehicle deck is flooded with water|Because it is too hot downstairs|Because other passengers might move the cars",
+        "What facilities are located on Deck Two?|The main indoor seating lounge, the children's play area, and the self-service cafeteria|The captain's bridge and engine room|A swimming pool and cinema|The bicycle rental cabin",
+        "What hot food and drinks is the cafeteria on Deck Two serving?|Hot porridge, bacon rolls, tea, and freshly brewed coffee|Pizza, pasta, and lemonade|Roast chicken and soup|Ice cream and waffles",
+        "What is located on Deck Three?|A quiet reading lounge and an open-air viewing deck at the back of the ship|The car park|The luggage reclaim belts|The ticket office",
+        "What is the weather and sea condition like today?|The sea is calm with a light breeze from the west|There is a heavy storm with high waves|There is thick fog and snow|The wind is blowing from the north",
+        "What will passengers see on the right-hand side of the ship in about forty minutes?|Seal Rock, with grey seals resting on the rocks and dolphins swimming alongside|An active underwater volcano|A giant lighthouse|Another ferry from Madrid",
+        "Where are the life jackets stored on the ferry?|Under every seat and in marked cabinets on the outer decks|Only inside the captain's cabin|In the car trunks on the lower deck|At the cafeteria cash desk",
+        "When will car drivers be called back down to the vehicle deck?|Fifteen minutes before the ferry docks at Bluebell Island harbour|One hour after the ship stops|Halfway through the voyage|At midnight"
+      ]
+    },
+    {
+      num: 24, level: "A2",
+      icon: "🐕", genre: "ცხოველებზე ზრუნვა",
+      title: "ძაღლის აყვანა ცხოველთა თავშესაფრიდან",
+      subtitle: "Adopting a Dog from the Animal Shelter",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "After moving into a house with a fenced garden last month, Martin and his ten-year-old daughter Zoe decided they were ready to adopt a rescue dog. On Saturday morning, they drove to the 'Happy Paws Animal Shelter' just outside the town, where dogs and cats wait for new loving homes.",
+          "გასულ თვეს შემოღობილი ბაღის მქონე სახლში გადასვლის შემდეგ, მარტინმა და მისმა ათი წლის ქალიშვილმა ზოიმ გადაწყვიტეს, რომ მზად იყვნენ თავშესაფრიდან ძაღლის ასაყვანად. შაბათ დილით ისინი ქალაქგარეთ მდებარე ცხოველთა თავშესაფარ „ბედნიერ თათებში“ მივიდნენ, სადაც ძაღლები და კატები ახალ მზრუნველ ოჯახებს ელოდებიან."
+        ],
+        [
+          "A shelter volunteer named Rachel welcomed them and asked a few questions about their lifestyle: how many hours a day someone is at home, whether they have a fenced yard, and how active they are. Martin explained that he works from home four days a week and loves going for long walks in the forest.",
+          "თავშესაფრის მოხალისე რეიჩელი მიესალმა მათ და დაუსვა რამდენიმე კითხვა მათი ცხოვრების წესის შესახებ: დღეში რამდენი საათია ვინმე სახლში, აქვთ თუ არა შემოღობილი ეზო და რამდენად აქტიურები არიან. მარტინმა აუხსნა, რომ კვირაში ოთხი დღე სახლიდან მუშაობს და უყვარს ტყეში ხანგრძლივი სეირნობა."
+        ],
+        [
+          "Rachel led them to Kennel Six to meet Toby, a two-year-old golden retriever mix with soft brown eyes and a friendly tail. She explained that Toby's previous owner was an elderly gentleman who had moved into a small care home where pets were not allowed.",
+          "რეიჩელმა ისინი მეექვსე ვოლიერთან მიიყვანა ტობის გასაცნობად — ეს იყო ორი წლის ოქროსფერი რეტრივერის მეტისი თბილი ყავისფერი თვალებითა და მეგობრული კუდით. მან განმარტა, რომ ტობის წინა პატრონი ხანდაზმული ბატონი იყო, რომელიც პატარა მოხუცთა пансионатში გადავიდა, სადაც შინაური ცხოველების ყოლა არ შეიძლებოდა."
+        ],
+        [
+          "To see how they got along, Rachel gave Martin a leash and let them take Toby for a thirty-minute walk in the meadow behind the shelter. Toby walked politely beside Zoe, brought back a tennis ball five times, and sat calmly whenever Zoe gave him a dog biscuit.",
+          "იმის სანახავად, თუ როგორ შეეწყობოდნენ ერთმანეთს, რეიჩელმა მარტინს მისცა საბელი და ნება დართო, ტობი ოცდაათი წუთით გაესეირნებინათ თავშესაფრის უკან მდებარე მდელოზე. ტობი ზრდილობიანად მიჰყვებოდა ზოის გვერდით, ხუთჯერ მოუტანა გადაგდებული ჩოგბურთის ბურთი და მშვიდად ჯდებოდა ყოველ ჯერზე, როცა ზოი ძაღლის ორცხობილას აძლევდა."
+        ],
+        [
+          "Back at the office, Rachel gave Martin Toby's veterinary health booklet, showing that Toby was vaccinated and microchipped. Martin signed the adoption agreement and paid a fifty-euro donation to help feed the other animals at the shelter. Toby jumped happily into the back of their car, ready for his new life!",
+          "ოფისში დაბრუნებისას რეიჩელმა მარტინს გადასცა ტობის ვეტერინარული პასპორტი, სადაც ჩანდა, რომ ძაღლი აცრილი და ჩიპირებული იყო. მარტინმა ხელი მოაწერა აყვანის ხელშეკრულებას და გადაიხადა ორმოცდაათი ევროს შემოწირულობა თავშესაფრის სხვა ცხოველების გამოსაკვებად. ტობი სიხარულით შეხტა მათი მანქანის უკანა სავარძელზე, ახალი ცხოვრებისთვის მზადმყოფი!"
+        ]
+      ],
+      glossary: [
+        "fenced garden|შემოღობილი ბაღი/ეზო", "adopt a rescue dog|თავშესაფრიდან ძაღლის აყვანა", "animal shelter|ცხოველთა თავშესაფარი",
+        "work from home|სახლიდან (დისტანციურად) მუშაობა", "kennel|ძაღლის ვოლიერი / სადგომი", "previous owner|წინა პატრონი",
+        "get along|შეწყობა / დამეგობრება", "leash|ძაღლის საბელი", "vaccinated and microchipped|აცრილი და მიკროჩიპირებული", "donation|შემოწირულობა (ქველმოქმედება)"
+      ],
+      questions: [
+        "Why did Martin and Zoe wait until this month to adopt a dog?|Because they moved into a house with a fenced garden last month|Because Zoe just turned eighteen|Because the shelter was closed all winter|Because they sold their cat",
+        "What is the name of the animal shelter they visited?|Happy Paws Animal Shelter|The City Zoo|Green Meadow Farm|Golden Dog Club",
+        "How many days a week does Martin work from home?|Four days a week|Every single day|Only on Fridays|He never works from home",
+        "How old is Toby, and what kind of dog is he?|A two-year-old golden retriever mix|A ten-year-old black poodle|A six-month-old white terrier|A five-year-old German shepherd",
+        "Why did Toby's previous owner have to give him up?|He was an elderly gentleman who moved into a care home where pets were not allowed|He moved to Australia by boat|Toby was too noisy in the garden|He didn't like walking in the park",
+        "Where did Martin and Zoe take Toby for a thirty-minute walk to see how they got along?|In the meadow behind the shelter|Down the busy main street of the town|Inside the shopping mall|Around a lake",
+        "How did Toby behave during the walk with Zoe?|He walked politely beside her, brought back a tennis ball five times, and sat calmly for biscuits|He barked at cars and ran away into the woods|He refused to walk and lay down|He jumped into a muddy river",
+        "What did Toby's veterinary health booklet show?|That he was already vaccinated and microchipped|That he needed an operation next week|That he was allergic to grass|That he was born in Spain",
+        "How much money did Martin pay as a donation to the shelter, and what is it used for?|Fifty euros, to help feed the other animals at the shelter|Five hundred euros for the leash|Ten euros for car parking|Nothing at all",
+        "What did Toby do as soon as they finished the paperwork?|He jumped happily into the back of their car|He ran back to Kennel Six|He fell asleep under Rachel's desk|He ate Zoe's hat"
+      ]
+    },
+    {
+      num: 25, level: "A2",
+      icon: "🥾", genre: "ლაშქრობა და ბუნება",
+      title: "მზადება მთის ლაშქრობისთვის",
+      subtitle: "Preparing for the Eagle Ridge Hike",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Good evening, everyone, and welcome to the Friday meeting of the 'Green Trail Hiking Club'! Tomorrow morning, Saturday, our group of twelve hikers is going to climb Eagle Ridge, a scenic mountain trail that rises eight hundred metres above the valley. Please listen carefully to the checklist for tomorrow.",
+          "საღამო მშვიდობისა ყველას, და კეთილი იყოს თქვენი მობრძანება „მწვანე ბილიკის მოლაშქრეთა კლუბის“ პარასკევის შეხვედრაზე! ხვალ დილით, შაბათს, ჩვენი თორმეტკაციანი ჯგუფი ავა „არწივის ქედზე“ — თვალწარმტაც მთის ბილიკზე, რომელიც ხეობიდან რვაასი მეტრის სიმაღლეზე ადის. გთხოვთ, ყურადღებით მოუსმინოთ ხვალინდელ სიასა და წესებს."
+        ],
+        [
+          "First, our minibus will leave from the north car park of the central library at seven thirty sharp in the morning. Please arrive by seven fifteen so we can load the backpacks into the boot. The drive to the mountain village of Oakdale takes one hour.",
+          "პირველი: ჩვენი მიკროავტობუსი გავა ცენტრალური ბიბლიოთეკის ჩრდილოეთ ავტოსადგომიდან დილის რვის ნახევარზე, ზუსტად დანიშნულ დროს. გთხოვთ მოხვიდეთ რვის თხუთმეტი წუთისთვის, რათა ზურგჩანთები საბარგულში ჩავაწყოთ. მთის სოფელ ოკდეილამდე მგზავრობას ერთი საათი სჭირდება."
+        ],
+        [
+          "Second, let's talk about footwear and clothing. Do not wear brand-new shoes or flat canvas trainers! The upper part of Eagle Ridge is rocky and steep, so you must wear sturdy hiking boots with good ankle support. Even though the valley will be warm at twenty degrees, the mountain peak is windy and ten degrees cooler, so pack a fleece sweater and a windproof jacket.",
+          "მეორე: ვისაუბროთ ფეხსაცმელსა და ჩაცმულობაზე. ნუ ჩაიცვამთ სულ ახალ ფეხსაცმელს ან ბრტყელძირიან ნაჭრის კედებს! „არწივის ქედის“ ზედა ნაწილი კლდოვანი და ციცაბოა, ამიტომ აუცილებლად უნდა გეცვათ მყარი სამთო ფეხსაცმელი, რომელიც კოჭს კარგად იჭერს. მიუხედავად იმისა, რომ ხეობაში სითბო და ოცი გრადუსი იქნება, მთის მწვერვალზე ქარია და ათი გრადუსით უფრო გრილა, ამიტომ ჩაალაგეთ თბილი ჯემპრი და ქარგაუმტარი ქურთუკი."
+        ],
+        [
+          "Third, there are no shops or cafés along the mountain trail, and the hike takes five hours in total — three hours going up and two hours coming down. Each hiker must bring at least two litres of water, a packed lunch of sandwiches, and high-energy snacks like almonds, dried apricots, and dark chocolate.",
+          "მესამე: მთის ბილიკზე არ არის მაღაზიები ან კაფეები, ლაშქრობას კი ჯამში ხუთი საათი სჭირდება — სამი საათი ასვლას და ორი საათი ჩამოსვლას. თითოეულმა მოლაშქრემ უნდა წამოიღოს მინიმუმ ორი ლიტრი წყალი, სენდვიჩები სადილისთვის და მაღალენერგიული წასახემსებლები, როგორებიცაა ნუში, გარგრის ჩირი და შავი შოკოლადი."
+        ],
+        [
+          "At one o'clock, we will have our picnic lunch beside the old stone watchtower at the summit, where you can see three lakes at once! We will return to Oakdale village by four o'clock and stop at the village bakery for hot apple pie before driving back to the city.",
+          "პირველ საათზე მწვერვალზე მდგარ ძველ ქვის საგუშაგო კოშკთან მოვაწყობთ პიკნიკს, საიდანაც ერთდროულად სამი ტბა ჩანს! ოთხი საათისთვის დავბრუნდებით სოფელ ოკდეილში და ქალაქში გამომგზავრებამდე სოფლის საცხობში შევივლით ცხელი ვაშლის ღვეზელის მისართმევად."
+        ]
+      ],
+      glossary: [
+        "hiking club|მოლაშქრეთა კლუბი", "scenic trail|თვალწარმტაცი ბილიკი", "minibus|მიკროავტობუსი",
+        "boot (car trunk)|მანქანის საბარგული", "sturdy hiking boots|მყარი სამთო ფეხსაცმელი (ბათინკები)", "ankle support|კოჭის დამჭერი/ფიქსატორი",
+        "windproof jacket|ქარგაუმტარი ქურთუკი", "dried apricots|გარგრის ჩირი (კურაგა)", "watchtower|საგუშაგო კოშკი", "summit|მთის მწვერვალი"
+      ],
+      questions: [
+        "How many hikers are in the group climbing Eagle Ridge tomorrow, and how high does the trail rise?|Twelve hikers, rising eight hundred metres above the valley|Fifty hikers, rising three thousand metres|Four hikers, rising one hundred metres|Twenty hikers",
+        "Where and at what time will the minibus leave tomorrow morning?|From the north car park of the central library at 7:30 sharp (arrive by 7:15)|From the railway station at nine o'clock|From the airport at six o'clock|From Oakdale village at noon",
+        "How long does the minibus drive to Oakdale village take?|One hour|Three hours|Fifteen minutes|Four hours",
+        "Why must hikers wear sturdy hiking boots instead of flat canvas trainers?|Because the upper part of Eagle Ridge is rocky and steep, requiring good ankle support|Because they have to wade through a deep river|Because it is snowing in the valley|Because trainers are too heavy",
+        "Why should hikers pack a fleece sweater and a windproof jacket even though the valley is 20 degrees?|Because the mountain peak is windy and ten degrees cooler (around 10°C)|Because they will camp overnight on the mountain|Because it will snow heavily at noon|To use the jacket as a pillow",
+        "How long does the entire hike take going up and coming down?|Five hours in total — three hours going up and two hours coming down|One hour in total|Eight hours going up and four hours coming down|Ten hours",
+        "How much water must each hiker carry in their backpack?|At least two litres of water|Half a glass of water|Five litres of lemonade|None, because there are cafés on the peak",
+        "What high-energy snacks does the leader recommend bringing along with sandwiches?|Almonds, dried apricots, and dark chocolate|Ice cream and yoghurt|Hot soup in open bowls|Potato salad",
+        "Where will the group eat their picnic lunch at one o'clock?|Beside the old stone watchtower at the summit, overlooking three lakes|Inside a mountain restaurant|In the minibus|At the library car park",
+        "Where will the group stop at four o'clock in Oakdale village before driving back to the city?|At the village bakery for hot apple pie|At a swimming pool|At a shoe shop|At the police station"
+      ]
+    },
+    {
+      num: 26, level: "A2",
+      icon: "🍕", genre: "კულინარია და პოდკასტი",
+      title: "კულინარიული პოდკასტი: ნამდვილი პიცის მომზადება",
+      subtitle: "Kitchen Podcast: The Secret to Perfect Homemade Pizza",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Hello, food lovers, and welcome back to Episode Twelve of the 'Simple Kitchen Podcast'! I am your host, Chef Marco. Today we are going to talk about why homemade pizza sometimes turns out hard like a biscuit, and how you can make soft, crispy Italian pizzeria-style pizza in your own home oven!",
+          "გამარჯობა, გურმანებო, და კეთილი იყოს თქვენი დაბრუნება „მარტივი სამზარეულოს პოდკასტის“ მეთორმეტე ეპიზოდში! მე ვარ თქვენი წამყვანი, შეფ-მზარეული მარკო. დღეს ვისაუბრებთ იმაზე, თუ რატომ გამოდის ზოგჯერ სახლში გამომცხვარი პიცა ორცხობილასავით მაგარი, და როგორ შეგიძლიათ მოამზადოთ რბილი, ხრაშუნა იტალიური პიცა საკუთარ საოჯახო ღუმელში!"
+        ],
+        [
+          "The first secret lies in the dough. You only need चार basic ingredients: five hundred grams of strong bread flour, three hundred millilitres of lukewarm water, one teaspoon of dry yeast, and two teaspoons of sea salt. Never use hot water, because hot water kills the yeast and the dough will not rise!",
+          "პირველი საიდუმლო ცომშია. თქვენ გჭირდებათ მხოლოდ ოთხი საბაზისო ინგრედიენტი: ხუთასი გრამი პურის ფქვილი, სამასი მილილიტრი ნელთბილი წყალი, ერთი ჩაის კოვზი მშრალი საფუარი და ორი ჩაის კოვზი ზღვის მარილი. არასდროს გამოიყენოთ ცხელი წყალი, რადგან ცხელი წყალი კლავს საფუარს და ცომი აღარ ამოფუვდება!"
+        ],
+        [
+          "After kneading the dough on a wooden board for ten minutes until it is smooth and elastic, place it in a lightly oiled bowl, cover it, and put it in the fridge overnight for twenty-four hours. This slow cold fermentation gives the crust a wonderful flavour and makes it much easier to digest.",
+          "მას შემდეგ, რაც ცომს ხის დაფაზე ათი წუთის განმავლობაში მოზელთ, სანამ გლუვი და ელასტიკური არ გახდება, მოათავსეთ იგი მსუბუქად ზეთწასმულ ჯამში, დააფარეთ და შედგით მაცივარში ოცდაოთხი საათით. ეს ნელი, ცივი ფერმენტაცია ქერქს საოცარ გემოს სძენს და ბევრად უფრო ადვილად მოსანელებელს ხდის."
+        ],
+        [
+          "When you shape the pizza the next day, do not use a wooden rolling pin! A rolling pin pushes all the air bubbles out of the dough. Instead, press the dough gently from the centre outwards with your fingertips, leaving a puffy ring around the edge to form the crust.",
+          "როდესაც მეორე დღეს პიცის გაბრტყელებას დაიწყებთ, არ გამოიყენოთ ხის საბრტყელებელი (ცომის გორგოლაჭი)! საბრტყელებელი ცომიდან ჰაერის ყველა ბუშტუკს დევნის. ამის ნაცვლად, თითის წვერებით ფრთხილად გაშალეთ ცომი ცენტრიდან ნაპირებისკენ ისე, რომ კიდეებზე ფუმფულა რგოლი დატოვოთ ქერქისთვის."
+        ],
+        [
+          "Finally, do not boil your tomato sauce on the stove; simply crush canned Italian plum tomatoes by hand with a pinch of salt and a drizzle of olive oil. Turn your oven to its highest temperature — two hundred and fifty degrees — preheat a flat baking tray inside, and bake the pizza with mozzarella for just eight minutes. Add fresh basil leaves after taking it out of the oven so they don't burn!",
+          "დაბოლოს, პომიდვრის სოუსს ქურაზე ნუ მოხარშავთ; უბრალოდ ხელით დასრისეთ კعلبული იტალიური ქლიავისებური პომიდორი მწიკვ მარილთან და ცოტაოდენ ზეითუნის ზეთთან ერთად. ჩართეთ ღუმელი მაქსიმალურ ტემპერატურაზე — ორას ორმოცდაათ გრადუსზე — წინასწარ გაახურეთ შიგნით ბრტყელი საცხობი ლანგარი და გამოაცხვეთ პიცა მოცარელასთან ერთად სულ რაღაც რვა წუთის განმავლობაში. ცოცხალი რეჰანის ფოთლები კი ღუმელიდან გამოღების შემდეგ დაუმატეთ, რომ არ დაიწვას!"
+        ]
+      ],
+      glossary: [
+        "dough|ცომი", "lukewarm water|ნელთბილი წყალი", "yeast|საფუარი",
+        "knead (verb)|ცომის მოზელა", "fermentation|ფერმენტაცია / დადუღება (ცომის ამოსვლა)", "rolling pin|ცომის საბრტყელებელი ჯოხი",
+        "air bubbles|ჰაერის ბუშტუკები", "fingertips|თითის წვერები", "pinch of salt|მწიკვი მარილი", "preheat|წინასწარ გახურება (ღუმელის)"
+      ],
+      questions: [
+        "Who is the host of the 'Simple Kitchen Podcast', and which episode is this?|Chef Marco, in Episode Twelve|Chef Lorenzo, in Episode One|Mr Martin, in Episode Five|Dr Evans, in Episode Twenty",
+        "What are the four basic ingredients needed for the pizza dough?|500g of strong bread flour, 300ml of lukewarm water, 1 teaspoon of dry yeast, and 2 teaspoons of sea salt|Flour, boiling milk, sugar, and butter|Rice flour, cold juice, baking soda, and eggs|Flour, olive oil, cheese, and vinegar",
+        "Why must you never use hot water when mixing the yeast?|Because hot water kills the yeast and the dough will not rise|Because hot water melts the wooden bowl|Because it makes the dough turn blue|Because it makes the salt taste bitter",
+        "How long should you knead the dough on a wooden board?|For ten minutes until it is smooth and elastic|For two hours|For only ten seconds|You should not knead it at all",
+        "Where and for how long should the dough rest for slow cold fermentation?|In a covered, lightly oiled bowl in the fridge overnight for twenty-four hours|On Top of a hot radiator for five minutes|In the freezer for a month|Outdoors in the sun for three hours",
+        "Why does Chef Marco tell listeners NOT to use a wooden rolling pin to shape the pizza?|Because a rolling pin pushes all the air bubbles out of the dough|Because the dough sticks to the wood|Because rolling pins are too heavy|Because it makes the pizza square",
+        "How should you stretch and shape the pizza dough instead?|By pressing it gently from the centre outwards with your fingertips, leaving a puffy ring around the edge|By cutting it with a knife|By pulling it with two forks|By pressing it under a heavy pot",
+        "How should you prepare the tomato sauce according to Chef Marco?|Do not boil it; simply crush canned Italian plum tomatoes by hand with a pinch of salt and olive oil|Boil tomatoes with sugar and flour for two hours|Mix ketchup with hot water|Fry onions and carrots in butter",
+        "At what temperature and for how many minutes should the pizza bake in a home oven?|At the highest temperature (250°C) on a preheated tray for just eight minutes|At 100°C for one hour|At 150°C for forty minutes|At 80°C for three hours",
+        "When should you add fresh basil leaves to the pizza, and why?|After taking the pizza out of the oven, so the delicate leaves don't burn|Before putting the dough in the fridge|Underneath the dough on the metal tray|While kneading the flour"
+      ]
+    },
+    {
+      num: 27, level: "A2",
+      icon: "🏺", genre: "ჰობი და ხელოვნება",
+      title: "კერამიკის საღამოს კურსზე ჩაწერა",
+      subtitle: "Enrolling in an Evening Pottery Course",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "After spending eight hours a day typing on a computer at a bank, twenty-six-year-old Elena wanted a creative evening hobby where she could make real objects with her hands. Walking home through the Old Quarter on Monday, she saw a sign in a studio window: 'Clay & Wheel Studio — Beginner Pottery Courses Starting Next Week!'",
+          "ბანკში კომპიუტერთან დღეში რვასაათიანი მუშაობის შემდეგ, ოცდაექვსი წლის ელენას სურდა შემოქმედებითი საღამოს ჰობი, სადაც საკუთარი ხელით შექმნიდა ნამდვილ ნივთებს. ორშაბათს, ძველ უბანში სახლისკენ მიმავალმა, სახელოსნოს ვიტრინაში დაინახა აბრა: „თიხისა და ჩარხის სტუდია — დამწყებთა კერამიკის კურსები იწყება მომავალ კვირას!“"
+        ],
+        [
+          "Elena walked inside. The studio smelled of damp earth, and shelves along the brick walls were lined with bowls, vases, and teapots in blue, green, and cream glazes. The pottery teacher, a cheerful woman in a clay-stained apron named Mrs Clara, welcomed her and wiped her hands on a towel.",
+          "ელენა შიგნით შევიდა. სახელოსნოში ნესტიანი მიწის სურნელი იდგა, აგურის კედლების გასწვრივ განლაგებულ თაროებზე კი ეწყო ლურჯი, მწვანე და კრემისფერი ჭიქურით დაფარული ჯამები, ლარნაკები და ჩაიდნები. კერამიკის მასწავლებელი — თიხით დასვრილ წინსაფარში გამოწყობილი მხიარული ქალი, სახელად ქალბატონი კლარა — მიესალმა მას და ხელები პირსახოცზე შეიწმინდა."
+        ],
+        [
+          "Mrs Clara explained how the beginner course works: it runs for six weeks, every Tuesday and Thursday evening from half past six until half past eight. There are only eight students in each group so that everyone gets their own electric potter's wheel and plenty of individual guidance.",
+          "ქალბატონმა კლარამ აუხსნა, როგორ ტარდება დამწყებთა კურსი: იგი გრძელდება ექვსი კვირა, ყოველ სამშაბათსა და ხუთშაბათს საღამოს, შვიდის ნახევრიდან ცხრის ნახევრამდე. თითოეულ ჯგუფში მხოლოდ რვა მოსწავლეა, რათა ყველას ჰქონდეს საკუთარი ელექტრული სამეთუნეო ჩარხი და მასწავლებლის საკმარისი ყურადღება."
+        ],
+        [
+          "During the first three weeks, students learn how to centre soft grey clay on the spinning wheel and shape simple breakfast bowls, coffee mugs, and small flowerpots. In the fourth week, the dried clay pieces are baked for the first time in a special high-temperature oven called a kiln at one thousand degrees Celsius!",
+          "პირველი სამი კვირის განმავლობაში მოსწავლეები სწავლობენ მბრუნავ ჩარხზე რბილი ნაცრისფერი თიხის ცენტრირებას და მარტივი საუზმის ჯამების, ყავის ჭიქებისა და ყვავილის პატარა ქოთნების ამოყვანას. მეოთხე კვირაში გამომშრალი თიხის ნაკეთობები პირველად იწვება სპეციალურ მაღალტემპერატურულ ღუმელში (ქურაში) ათას გრადუს ცელსიუსზე!"
+        ],
+        [
+          "In the final two weeks, students paint their baked bowls with colourful liquid glazes, and the pieces are fired in the kiln a second time to make them shiny, waterproof, and safe for food. The full six-week course costs one hundred and twenty euros, including all clay, glazes, aprons, and kiln firing. Elena paid a twenty-euro deposit and took the last free spot in the group!",
+          "ბოლო ორი კვირის განმავლობაში მოსწავლეები გამომწვარ ჯამებს ღებავენ ფერადი თხევადი ჭიქურით (მინანქრით), რის შემდეგაც ნაკეთობები მეორედ იწვება ქურაში, რათა გახდეს პრიალა, წყალგაუმტარი და საკვებისთვის უსაფრთხო. სრული ექვსკვირიანი კურსი ღირს ას ოცი ევრო, რაშიც შედის თიხა, ჭიქური, წინსაფრები და ქურაში გამოწვა. ელენამ გადაიხადა ოცი ევროს წინასწარი შენატანი (ავანსი) და ჯგუფში ბოლო თავისუფალი ადგილი დაიკავა!"
+        ]
+      ],
+      glossary: [
+        "pottery course|კერამიკის / მეთუნეობის კურსი", "glaze|კერამიკული ჭიქური / მინანქარი", "apron|წინსაფარი",
+        "potter's wheel|სამეთუნეო ჩარხი (მბრუნავი დაზგა)", "individual guidance|ინდივიდუალური მითითება / ხელმძღვანელობა", "centre the clay|თიხის ცენტრირება ჩარხზე",
+        "kiln|კერამიკის გამოსაწვავი სპეციალური ღუმელი/ქურა", "waterproof|წყალგაუმტარი", "deposit|წინასწარი შენატანი / ბე (ავანსი)", "last free spot|ბოლო თავისუფალი ადგილი"
+      ],
+      questions: [
+        "Where does Elena work during the day, and why did she want an evening hobby?|She works on a computer at a bank and wanted a creative hobby where she could make real objects with her hands|She works at a bakery and wanted to learn how to use computers|She is a school teacher who wanted to learn a foreign language|She is a tour guide",
+        "What is the name of the pottery studio in the Old Quarter?|Clay & Wheel Studio|The Golden Bowl|Art & Paint House|The Red Brick Gallery",
+        "How long does the beginner pottery course last, and on which evenings do classes meet?|For six weeks, every Tuesday and Thursday evening from 6:30 to 8:30 PM|For one weekend on Saturday and Sunday|For six months, every Monday morning|For two weeks, every night at nine",
+        "Why are there only eight students in each group?|So that everyone gets their own electric potter's wheel and plenty of individual guidance|Because the studio only has eight chairs|Because clay is very rare|Because the room is in a tiny basement",
+        "What objects do students learn to shape on the spinning wheel during the first three weeks?|Simple breakfast bowls, coffee mugs, and small flowerpots|Giant garden statues|Clay roof tiles|Plates and spoons",
+        "What is a 'kiln', and how hot does it get?|A special high-temperature oven for baking clay at one thousand degrees Celsius|A wooden tool for cutting clay|A cold fridge for storing paint|A brush made of horsehair",
+        "When are the dried clay pieces baked in the kiln for the first time?|In the fourth week of the course|On the very first evening|After six months|At the students' homes",
+        "Why are the painted bowls fired in the kiln a second time in the final weeks?|To make the glaze shiny, waterproof, and safe for food|To make the bowls smaller|To turn the clay back into soft mud|To dry the aprons",
+        "How much does the full six-week course cost, and what is included in the price?|120 euros, including all clay, glazes, aprons, and kiln firing|50 euros, but students must buy their own clay and oven|300 euros for three lessons|20 euros in total",
+        "How much did Elena pay as a deposit to reserve the last free spot in the group?|Twenty euros|One hundred and twenty euros|Ten euros|Fifty euros"
+      ]
+    },
+    {
+      num: 28, level: "A2",
+      icon: "🚗", genre: "ტრანსპორტი და გზები",
+      title: "საგზაო მოძრაობისა და რემონტის მიმოხილვა რადიოში",
+      subtitle: "Morning Traffic and Roadworks Update",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Good morning, drivers! It is quarter to eight on Monday morning, and here is your live fifteen-minute traffic and public transport update for the metropolitan area. Because of overnight rain and several new roadworks projects starting this week, traffic into the city centre is heavier than usual today.",
+          "დილა მშვიდობისა, მძღოლებო! ორშაბათი დილაა, რვის თხუთმეტი წუთია, და გთავაზობთ საგზაო მოძრაობისა და საზოგადოებრივი ტრანსპორტის პირდაპირ მიმოხილვას დედაქალაქის მასშტაბით. ღამის წვიმისა და ამ კვირაში დაწყებული რამდენიმე ახალი საგზაო-სარემონტო სამუშაოს გამო, ქალაქის ცენტრისკენ მოძრაობა დღეს ჩვეულებრივზე უფრო გადატვირთულია."
+        ],
+        [
+          "First, a warning for drivers coming from the north on the M4 Highway: a delivery truck has a flat tyre in the right-hand lane just before Exit Six. Police are on the scene, and nobody is injured, but there is a four-kilometre queue of slow-moving cars. If possible, leave the highway early at Exit Five and take the Old Valley Road instead.",
+          "პირველ რიგში, გაფრთხილება ჩრდილოეთიდან M4 ავტომაგისტრალით მომავალი მძღოლებისთვის: მეექვსე გასასვლელამდე სულ ცოტა ხნით ადრე, მარჯვენა ზოლში სადისტრიბუციო სატვირთო მანქანას საბურავი დაეშვა. პოლიცია ადგილზეა და არავინ დაშავებულა, თუმცა დგას ნელა მოძრავი მანქანების ოთხკილომეტრიანი რიგი. თუ შესაძლებელია, ადრევე გადაუხვიეთ მაგისტრალიდან მეხუთე გასასვლელთან და ისარგებლეთ ძველი ხეობის გზით."
+        ],
+        [
+          "In the city centre, the West River Bridge is closed to all private cars and taxis from today until Friday afternoon while engineers repair the bridge surface and paint the iron railings. Only city buses, ambulances, and cyclists are allowed to cross the West River Bridge this week; all other drivers must use the South Tunnel.",
+          "ქალაქის ცენტრში დღეიდან პარასკევ ნაშუადღევამდე დასავლეთის მდინარის ხიდი დაკეტილია ყველა კერძო ავტომობილისა და ტაქსისთვის, სანამ ინჟინრები ხიდის საფარს არემონტებენ და რკინის მოაჯირებს ღებავენ. ამ კვირაში დასავლეთის ხიდზე გადასვლის უფლება აქვთ მხოლოდ ქალაქის ავტობუსებს, სასწრაფო დახმარების მანქანებსა და ველოსიპედისტებს; ყველა სხვა მძღოლმა უნდა ისარგებლოს სამხრეთის გვირაბით."
+        ],
+        [
+          "Next, an announcement for people driving to the Central Shopping Mall: the underground car park on Level Two is closed for electrical lighting maintenance today, so spaces are filling up fast. However, the 'Park and Ride' car park next to the football stadium has five hundred free spaces, and a shuttle bus runs to the centre every ten minutes for just one euro.",
+          "შემდეგი ცნობა ცენტრალურ სავაჭრო ცენტრში მიმავალი მძღოლებისთვის: მიწისქვეშა ავტოსადგომის მეორე დონე დღეს დაკეტილია ელექტროგანათების პროფილაქტიკური სამუშაოების გამო, ამიტომ ადგილები სწრაფად ივსება. თუმცა, ფეხბურთის სტადიონის გვერდით მდებარე „Park and Ride“ ავტოსადგომზე ხუთასი თავისუფალი ადგილია, საიდანაც სპეციალური ავტობუსი ქალაქის ცენტრისკენ ყოველ ათ წუთში ერთხელ გადის სულ რაღაც ერთ ევროდ."
+        ],
+        [
+          "Finally, good news for rail and metro passengers: all three underground metro lines and the suburban trains are running right on schedule this morning with zero delays. Drive safely, keep a safe distance on the wet roads, and we will be back with the next traffic report at eight o'clock!",
+          "დაბოლოს, კარგი ამბავი რკინიგზისა და მეტროს მგზავრებისთვის: მეტროს სამივე ხაზი და საგარეუბნო მატარებლები დღეს დილით ზუსტად განრიგის მიხედვით, ყოველგვარი შეფერხების გარეშე მუშაობს. იარეთ უსაფრთხოდ, დაიცავით დისტანცია სველ გზებზე, ჩვენ კი მომდევნო საგზაო მიმოხილვით რვა საათზე დაგიბრუნდებით!"
+        ]
+      ],
+      glossary: [
+        "roadworks|საგზაო-სარემონტო სამუშაოები", "flat tyre|დაშვებული საბურავი", "right-hand lane|მარჯვენა სამოძრაო ზოლი",
+        "on the scene|შემთხვევის ადგილზე", "iron railings|რკინის მოაჯირი", "cyclist|ველოსიპედისტი",
+        "electrical maintenance|ელექტროსისტემის ტექნიკური მომსახურება", "shuttle bus|სპეციალური მიმომსვლელი ავტობუსი (შატლი)", "on schedule|განრიგის მიხედვით / დროულად", "keep a safe distance|უსაფრთხო დისტანციის დაცვა"
+      ],
+      questions: [
+        "What time is this morning traffic report broadcast, and when is the next one?|It is broadcast at quarter to eight (7:45 AM), and the next one is at eight o'clock|At nine o'clock, and the next one is at noon|At six in the morning|At five in the afternoon",
+        "What has caused a four-kilometre queue of slow-moving cars on the M4 Highway?|A delivery truck has a flat tyre in the right-hand lane just before Exit Six|A heavy snowstorm blocked the road|A bridge collapsed into the river|A flock of sheep is on the road",
+        "Which alternative route does the presenter recommend for drivers on the M4 Highway?|Leave the highway early at Exit Five and take the Old Valley Road|Wait on the highway for three hours|Turn around and drive backwards|Take a ferry boat",
+        "Why is the West River Bridge closed to private cars and taxis until Friday afternoon?|Engineers are repairing the bridge surface and painting the iron railings|A film is being shot on the bridge|The river is flooded over the bridge|A marathon race is taking place all week",
+        "Who IS allowed to cross the West River Bridge this week?|Only city buses, ambulances, and cyclists|Only heavy trucks and taxis|Only pedestrians with dogs|Nobody at all",
+        "Which route must private car drivers use instead of the West River Bridge?|The South Tunnel|The Old Wooden Bridge|The railway bridge|The airport highway",
+        "Why is Level Two of the Central Shopping Mall's underground car park closed today?|For electrical lighting maintenance|Because it is flooded with rainwater|Because it is being turned into a supermarket|Because the gate is broken",
+        "Where is the 'Park and Ride' car park with five hundred free spaces located?|Next to the football stadium|At the airport|Behind the hospital|On top of the hill",
+        "How often does the shuttle bus run from the stadium car park to the centre, and how much does it cost?|Every ten minutes, for just one euro|Once an hour, for ten euros|Every thirty minutes, for five euros|Only twice a day",
+        "How are the three underground metro lines and suburban trains running this morning?|Right on schedule with zero delays|All metro lines are closed today|With a forty-minute delay|Only one line is working"
+      ]
+    },
+    {
+      num: 29, level: "A2",
+      icon: "🪐", genre: "მეცნიერება და კოსმოსი",
+      title: "წარმოდგენა ქალაქის პლანეტარიუმში",
+      subtitle: "A Guided Show at the City Planetarium",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Good afternoon, visitors, and welcome to the Star Dome at the City Planetarium! My name is DrAlan Vance, an astronomer here at the observatory. In a moment, the main hall lights will fade to black, and our digital projector in the centre of the room will project the night sky onto the curved ceiling above your heads.",
+          "შუადღე მშვიდობისა, სტუმრებო, და კეთილი იყოს თქვენი მობრძანება ქალაქის პლანეტარიუმის „ვარსკვლავურ გუმბათში“! მე გახლავართ დოქტორი ალან ვანსი, ამ ობსერვატორიის ასტრონომი. სულ მალე დარბაზის მთავარი განათება ჩაქრება და დარბაზის ცენტრში მდგარი ციფრული პროექტორი თქვენს თავზემოთ, მრუდე ჭერზე, ღამის ცას გამოსახავს."
+        ],
+        [
+          "Before we begin our forty-minute journey through the solar system, please switch your mobile phones and smartwatches to silent mode, and turn your screen brightness all the way down. Even a tiny flash of white light from a phone screen makes it harder for everyone's eyes to adjust to the dark sky.",
+          "სანამ მზის სისტემაში ჩვენს ორმოცწუთიან მოგზაურობას დავიწყებდეთ, გთხოვთ გადაიყვანოთ მობილური ტელეფონები და სმარტ-საათები უხმო რეჟიმზე და ბოლომდე დაუწიოთ ეკრანის სიკაშკაშეს. ტელეფონის ეკრანის პაწაწინა თეთრი ნათებაც კი ართულებს თვალების ბნელ ცასთან შეჩვევას."
+        ],
+        [
+          "Look straight up at the centre of the dome now! Because we have removed the city's light pollution, you can see more than three thousand stars. Those seven bright stars arranged like a saucepan form the 'Big Dipper'. If you follow a straight line from the two stars at the front edge of the pan, they point directly to Polaris — the North Star — which always marks true north!",
+          "ახლა აიხედეთ პირდაპირ გუმბათის ცენტრში! რადგან ჩვენ მოვაშორეთ ქალაქის სინათლით დაბინძურება, თქვენ შეგიძლიათ დაინახოთ სამი ათასზე მეტი ვარსკვლავი. ის შვიდი კაშკაშა ვარსკვლავი, რომელიც ტარიანი ქვაბის (ჩამჩის) ფორმით არის განლაგებული, ქმნის „დიდ დათვს“. თუ ქვაბის წინა კიდის ორი ვარსკვლავიდან სწორ ხაზს გააყოლებთ თვალს, ისინი პირდაპირ მიუთითებენ პოლარულ ვარსკვლავზე, რომელიც ყოველთვის ნამდვილ ჩრდილოეთს გვიჩვენებს!"
+        ],
+        [
+          "Now our projector is zooming in on the planets of our solar system. First, we pass Mars, the 'Red Planet', whose surface is covered in iron oxide — better known as rust! Mars has polar ice caps and the tallest volcano in the solar system, Olympus Mons, which is three times higher than Mount Everest.",
+          "ახლა ჩვენი პროექტორი ახლოდან გვიჩვენებს მზის სისტემის პლანეტებს. ჯერ ჩავუვლით მარსს — „წითელ პლანეტას“, რომლის ზედაპირიც დაფარულია რკინის ოქსიდით, რაც ჩვენთვის ჟანგის სახელითაა ცნობილი! მარსს აქვს პოლარული ყინულოვანი ქუდები და მზის სისტემაში ყველაზე მაღალი ვულკანი — ოლიმპოს მთა, რომელიც ევერესტზე სამჯერ მაღალია."
+        ],
+        [
+          "Beyond Mars lies Jupiter, a giant ball of hydrogen and helium gas so huge that more than one thousand three hundred Earths could fit inside it! Notice the 'Great Red Spot' on Jupiter's side — that is a giant storm that has been blowing for over three hundred years. After the show ends, if the evening sky outside stays clear, you are invited up to the roof terrace to look at Jupiter's चार largest moons through our real telescope!",
+          "მარსის მიღმა მდებარეობს იუპიტერი — წყალბადისა და ჰელიუმის გაზისგან შემდგარი იმდენად უზარმაზარი სფერო, რომ მის შიგნით ათას სამასზე მეტი დედამიწა დაეტეოდა! დააკვირდით „დიდ წითელ ლაქას“ იუპიტერის გვერდზე — ეს არის გიგანტური ქარიშხალი, რომელიც სამას წელზე მეტია მძვინვარებს. წარმოდგენის დასრულების შემდეგ, თუ გარეთ საღამოს ცა მოწმენდილი დარჩება, გეპატიჟებით სახურავის ტერასაზე, რათა ჩვენი ნამდვილი ტელესკოპით დაათვალიეროთ იუპიტერის ოთხი უდიდესი თანამგზავრი (მთვარე)!"
+        ]
+      ],
+      glossary: [
+        "planetarium / observatory|პლანეტარიუმი / ობსერვატორია", "curved ceiling / dome|მრუდე (თაღოვანი) ჭერი / გუმბათი", "silent mode|უხმო რეჟიმი",
+        "light pollution|სინათლით დაბინძურება (ქალაქის ნათება)", "Big Dipper|„დიდი დათვის“ თანავარსკვლავედის ჩამჩა", "North Star (Polaris)|პოლარული ვარსკვლავი",
+        "iron oxide (rust)|რკინის ოქსიდი (ჟანგი)", "polar ice caps|პოლარული ყინულოვანი ქუდები", "hydrogen and helium|წყალბადი და ჰელიუმი", "roof terrace|სახურავის ტერასა"
+      ],
+      questions: [
+        "How long does the guided planetarium show last?|Forty minutes|Two hours|Fifteen minutes|Three hours",
+        "Why does Dr Alan Vance ask visitors to turn off their phone screens completely?|Because even a tiny flash of white light makes it harder for everyone's eyes to adjust to the dark sky|Because phone signals turn off the projector|Because phones use the planetarium's electricity|Because photography is too loud",
+        "How many stars can visitors see on the dome once the city's light pollution is removed?|More than three thousand stars|Only seven stars|About fifty stars|Ten million stars",
+        "How can you use the seven stars of the 'Big Dipper' to find the North Star (Polaris)?|Follow a straight line from the two stars at the front edge of the saucepan|Count three stars backwards from the handle|Look directly opposite the moon|Follow the brightest red planet",
+        "Why does the surface of Mars look red?|Because it is covered in iron oxide, better known as rust|Because it is covered in red lava fires|Because red flowers grow there|Because of red clouds of gas",
+        "What is 'Olympus Mons' on Mars, and how tall is it?|The tallest volcano in the solar system, three times higher than Mount Everest|A deep ocean trench|A crater filled with liquid water|A mountain smaller than the Alps",
+        "What is the planet Jupiter made of, and how large is it?|A giant ball of hydrogen and helium gas, large enough to fit over 1,300 Earths inside|A solid rock of iron smaller than Earth|A frozen ball of water ice|A star burning like the Sun",
+        "What is the 'Great Red Spot' on Jupiter's side?|A giant storm that has been blowing for over three hundred years|A tall red mountain|A lake of hot oil|A shadow cast by Mars",
+        "Where are visitors invited to go after the planetarium show if the evening sky stays clear?|Up to the roof terrace to look through the real observatory telescope|Down to the basement cinema|To the gift shop to buy rocks|To the airport",
+        "What will visitors be able to see through the real telescope on the roof?|Jupiter's four largest moons|Astronauts walking on Mars|The rings of the Sun|Satellites landing on Venus"
+      ]
+    },
+    {
+      num: 30, level: "A2",
+      icon: "📚", genre: "განათლება და ქველმოქმედება",
+      title: "საქველმოქმედო წიგნის ბაზრობის ორგანიზება სკოლაში",
+      subtitle: "Organizing the Annual School Charity Book Fair",
+      time: "6 წთ",
+      paragraphs: [
+        [
+          "Good morning, teachers and students of Oakridge High School! This is your student council president, Liam, speaking. Next Saturday, the二十-second of October, our school is holding its annual 'Autumn Charity Book Fair' in the main sports hall from ten in the morning until four in the afternoon.",
+          "დილა მშვიდობისა, ოკრიჯის უფროსი სკოლის მასწავლებლებო და მოსწავლეებო! მოგმართავთ მოსწავლეთა თვითმმართველობის პრეზიდენტი ლიამი. მომავალ შაბათს, ოცდაორ ოქტომბერს, ჩვენი სკოლა მთავარ სპორტულ დარბაზში დილის ათი საათიდან საღამოს ოთხ საათამდე ატარებს ყოველწლიურ „შემოდგომის საქველმოქმედო წიგნის ბაზრობას“."
+        ],
+        [
+          "This year, all the money we raise from the fair will be donated to the Children's Hospital Library in our city, to buy new storybooks, audiobooks, and art supplies for young patients. Our goal is to raise one thousand euros!",
+          "წელს ბაზრობიდან შემოსული მთელი თანხა გადაერიცხება ჩვენი ქალაქის ბავშვთა საავადმყოფოს ბიბლიოთეკას, რათა პატარა პაციენტებისთვის შევიძინოთ ახალი ზღაპრების წიგნები, აუდიოწიგნები და სახატავი მასალები. ჩვენი მიზანია შევაგროვოთ ათასი ევრო!"
+        ],
+        [
+          "From Monday to Thursday next week, we are collecting second-hand books in good condition. Please check your bookshelves at home for novels, science books, comic books, and dictionaries that you have already read. You can drop your donated books into the big green boxes next to the school library entrance.",
+          "მომავალ კვირას, ორშაბათიდან ხუთშაბათის ჩათვლით, ვაგროვებთ კარგ მდგომარეობაში მყოფ მეორად წიგნებს. გთხოვთ გადახედოთ თქვენს წიგნის თაროებს სახლში და მოძებნოთ რომანები, სამეცნიერო წიგნები, კომიქსები და ლექსიკონები, რომლებიც უკვე წაკითხული გაქვთ. შემოწირული წიგნები შეგიძლიათ ჩააწყოთ სკოლის ბიბლიოთეკის შესასვლელთან მდგარ დიდ მწვანე ყუთებში."
+        ],
+        [
+          "To make shopping easy for everyone on Saturday, all paperback books will cost two euros, all hardcover books will cost four euros, and anyone who buys four books will get a fifth book completely free! In addition, Class 10B is organizing a 'Bake Sale' corner with homemade carrot cake, brownies, and hot apple tea.",
+          "შაბათს ყველასთვის შოპინგის გასამარტივებლად, რბილყდიანი წიგნები ეღირება ორი ევრო, მაგარყდიანი წიგნები — ოთხი ევრო, ხოლო ნებისმიერი მყიდველი, ვინც ოთხ წიგნს შეიძენს, მეხუთე წიგნს მიიღებს სრულიად უფასოდ! გარდა ამისა, მე-10 „ბ“ კლასი აწყობს ტკბილეულის კუთხეს სახლში გამომცხვარი სტაფილოს ნამცხვრით, ბრაუნითა და ცხელი ვაშლის ჩაით."
+        ],
+        [
+          "We still need ten student volunteers to help us on Friday afternoon after classes to sort the books onto tables by genre — such as Mystery, History, Science Fiction, and Children's Books. If you would like to help, please write your name on the sign-up sheet on the noticeboard outside Room Twelve today!",
+          "ჩვენ კვლავ გვჭირდება ათი მოხალისე მოსწავლე, რომლებიც პარასკევ ნაშუადღევს, გაკვეთილების შემდეგ, დაგვეხმარებიან წიგნების მაგიდებზე ჟანრების მიხედვით — დეტექტივი, ისტორია, სამეცნიერო ფანტასტიკა და საბავშვო ლიტერატურა — დახარისხებაში. თუ დახმარება გსურთ, გთხოვთ დღესვე ჩაწეროთ თქვენი სახელი მეთორმეტე კაბინეტის გარეთ, საინფორმაციო დაფაზე გაკრულ სიაში!"
+        ]
+      ],
+      glossary: [
+        "student council|მოსწავლეთა თვითმმართველობა / საბჭო", "charity book fair|საქველმოქმედო წიგნის ბაზრობა", "raise money|თანხის შეგროვება (ქველმოქმედებისთვის)",
+        "art supplies|სახატავი / სამხატვრო მასალები", "second-hand books|მეორადი (უკვე ნახმარი) წიგნები", "in good condition|კარგ მდგომარეობაში",
+        "paperback and hardcover|რბილყდიანი და მაგარყდიანი (წიგნი)", "bake sale|საქველმოქმედო ნამცხვრების გაყიდვა", "sort by genre|ჟანრების მიხედვით დახარისხება", "noticeboard|საინფორმაციო დაფა"
+      ],
+      questions: [
+        "When and where will the Oakridge High School Charity Book Fair take place?|Next Saturday, 22 October, in the main sports hall from 10 AM to 4 PM|Tomorrow morning in the school garden|On Sunday evening in the town square|In December in the city library",
+        "Where will all the money raised from the book fair be donated?|To the Children's Hospital Library to buy storybooks, audiobooks, and art supplies|To build a new swimming pool at the school|To buy computers for the teachers|To pay for a bus trip to the mountains",
+        "How much money is the school aiming to raise at the fair?|One thousand euros|One hundred euros|Ten thousand euros|Five hundred euros",
+        "When and where can students drop off their donated second-hand books?|From Monday to Thursday, into the big green boxes next to the school library entrance|On Sunday night at the hospital|At the town post office|In the sports hall on Friday morning",
+        "How much will paperback books and hardcover books cost at the fair?|Paperbacks will cost two euros, and hardcovers will cost four euros|All books will cost ten euros|Paperbacks will cost five euros, and hardcovers twenty euros|Every book costs one euro",
+        "What special offer is available for someone who buys four books?|They will get a fifth book completely free|They get a free bicycle|They get a fifty percent discount on shoes|They get a cinema ticket",
+        "What is Class 10B organizing at the book fair?|A 'Bake Sale' corner with homemade carrot cake, brownies, and hot apple tea|A live rock concert|A football match|A painting competition",
+        "How many student volunteers are needed on Friday afternoon, and what will they do?|Ten volunteers, to sort the books onto tables by genre after classes|Thirty volunteers, to paint the sports hall walls|Two volunteers, to drive a truck|Five volunteers, to bake bread",
+        "Which four book genres are mentioned for sorting the tables?|Mystery, History, Science Fiction, and Children's Books|Cooking, Gardening, Sports, and Music|Medicine, Law, Banking, and Maths|Dictionaries only",
+        "Where should volunteers write their names if they want to help on Friday?|On the sign-up sheet on the noticeboard outside Room Twelve|In an email to the city mayor|On the blackboard in the gym|At the hospital reception"
+      ]
+    }
+  ];
+
+  // გავაერთიანოთ A1 (15 თემა) და A2 (15 თემა) App.ListeningDataA-ში (სულ 30 თემა / 300 კითხვა A დონეზე!)
+  App.ListeningDataA = (App.ListeningDataA1 || []).concat(App.ListeningDataA2);
+})(window);
