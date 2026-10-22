@@ -1,0 +1,1 @@
+window.App = window.App || {}; window.App.WritingDataB = window.App.WritingDataB || [];
