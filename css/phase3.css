@@ -385,3 +385,5 @@
     font-size: 0.82rem;
   }
 }
+/* საუბრის მოდულის დამალვა */
+a[href="#speaking"], [data-route="speaking"] { display: none !important; }

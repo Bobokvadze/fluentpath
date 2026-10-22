@@ -28,7 +28,6 @@
       { id: 'grammar', title: 'გრამატიკა', category: 'study', phase: 3, description: 'მკაფიოდ ახსნილი გრამატიკული წესები, ფორმულები და პრაქტიკული სავარჯიშოები.' },
       { id: 'reading', title: 'კითხვა', category: 'skills', phase: 3, description: 'დონეების მიხედვით დახარისხებული საკითხავი ტექსტები გააზრების კითხვებით.' },
       { id: 'listening', title: 'მოსმენა', category: 'skills', phase: 4, description: 'აუდიო სავარჯიშოები და კარნახები ბრაუზერის ხმოვანი სინთეზატორის გამოყენებით.' },
-      { id: 'speaking', title: 'საუბარი', category: 'skills', phase: 4, description: 'გამოთქმის ვარჯიში, ფრაზების გამეორება და სასაუბრო თემები.' },
       { id: 'writing', title: 'წერა', category: 'skills', phase: 4, description: 'წერითი დავალებები, წინადადებების აწყობა და თვითშეფასების კრიტერიუმები.' },
       { id: 'flashcards', title: 'ბარათები', category: 'practice', phase: 5, description: 'სიტყვებისა და ფრაზების სწრაფი დამახსოვრების ბარათები (Flashcards).' },
       { id: 'quizzes', title: 'ტესტები', category: 'practice', phase: 5, description: 'ულიმიტო შემაჯამებელი ტესტები დეტალური განმარტებებითა და შედეგებით.' },

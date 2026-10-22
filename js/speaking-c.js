@@ -1,1 +1,0 @@
-window.App = window.App || {}; window.App.SpeakingDataC = window.App.SpeakingDataC || [];
