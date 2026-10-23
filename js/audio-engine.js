@@ -1,7 +1,7 @@
 /**
- * AUDIO-ENGINE.JS — უსაფრთხო გლობალური სტუდიური აუდიო-ძრავა (US / UK)
- * არ ცვლის სხვა მოდულების კოდს: პირდაპირ იჭერს ხმოვან მოთხოვნებს ყველა მოდულიდან
- * და უკრავს სუფთა სტუდიურ US/UK აუდიოს (მათ შორის გრძელ აბზაცებზეც).
+ * AUDIO-ENGINE.JS — უსაფრთხო, მკვეთრი ინგლისური აუდიო-ძრავა (US / UK)
+ * 1) სიტყვებსა და ფრაზებზე უკრავს ნამდვილ სტუდიურ ჩანაწერს (CORS-ის ბლოკირების გარეშე!).
+ * 2) გრძელ ტექსტებზე და ოფლაინ რეჟიმში იყენებს ბრაუზერის საუკეთესო Natural/Neural ხმას.
  */
 (function (window) {
   "use strict";
@@ -11,8 +11,29 @@
   const ACCENT_STORAGE_KEY = "fluentpath_preferred_accent_v1";
   let preferredAccent = "US"; // "US" | "UK"
   let activeAudioElement = null;
-  let audioQueue = [];
-  let isPlayingQueue = false;
+
+  // შევინახოთ ბრაუზერის ორიგინალი speechSynthesis ფუნქცია, სანამ გადავჭრით
+  const nativeSynth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+  const nativeSpeakFn = (nativeSynth && typeof nativeSynth.speak === "function")
+    ? nativeSynth.speak.bind(nativeSynth)
+    : null;
+  const nativeCancelFn = (nativeSynth && typeof nativeSynth.cancel === "function")
+    ? nativeSynth.cancel.bind(nativeSynth)
+    : null;
+
+  let cachedVoices = [];
+  function loadVoices() {
+    if (!nativeSynth) return [];
+    const v = nativeSynth.getVoices() || [];
+    if (v.length) cachedVoices = v;
+    return cachedVoices;
+  }
+  if (nativeSynth) {
+    loadVoices();
+    if (typeof nativeSynth.onvoiceschanged !== "undefined") {
+      nativeSynth.onvoiceschanged = loadVoices;
+    }
+  }
 
   try {
     const savedAcc = window.localStorage.getItem(ACCENT_STORAGE_KEY);
@@ -21,60 +42,40 @@
     }
   } catch (e) {}
 
-  function sanitizeTextForAudio(rawText) {
+  function pickBestNativeVoice(acc) {
+    const voices = loadVoices();
+    if (!voices.length) return null;
+    const enVoices = voices.filter((v) => /^en(-|_|$)/i.test(v.lang || ""));
+    if (!enVoices.length) return voices[0];
+
+    const targetPrefix = (acc === "UK") ? "en-gb" : "en-us";
+    function score(v) {
+      const name = (v.name || "").toLowerCase();
+      const lang = (v.lang || "").toLowerCase().replace("_", "-");
+      let s = 0;
+      if (lang.indexOf(targetPrefix) === 0) s += 55;
+      else if (acc === "UK" && (name.indexOf("uk") !== -1 || name.indexOf("british") !== -1 || name.indexOf("great britain") !== -1)) s += 50;
+      else if (acc === "US" && (name.indexOf("us") !== -1 || name.indexOf("united states") !== -1)) s += 50;
+
+      if (name.indexOf("natural") !== -1 || name.indexOf("online") !== -1) s += 100;
+      if (name.indexOf("neural") !== -1) s += 90;
+      if (name.indexOf("google") !== -1) s += 80;
+      if (name.indexOf("aria") !== -1 || name.indexOf("ava") !== -1 || name.indexOf("andrew") !== -1 || name.indexOf("jenny") !== -1 || name.indexOf("sonia") !== -1 || name.indexOf("ryan") !== -1) s += 75;
+      if (name.indexOf("desktop") !== -1) s -= 20;
+      return s;
+    }
+
+    return enVoices.slice().sort((a, b) => score(b) - score(a))[0] || enVoices[0];
+  }
+
+  function cleanTextForAudio(rawText) {
     let text = String(rawText || "").trim();
     if (!text) return "";
-
     text = text.replace(/\(\s*(verb|noun|adj|adjective|adv|adverb|plural|singular|formal|informal|idiom|ship|city|car trunk|helm|band-aid)\s*\)/gi, "");
     text = text.replace(/\s*\/\s*/g, ", ");
     text = text.replace(/\(([^)]+)\)/g, ", $1");
-    text = text.replace(/["“”«»]/g, "");
     text = text.replace(/\s+/g, " ").trim();
     return text;
-  }
-
-  /**
-   * ყოფს გრძელ ტექსტს (აბზაცებს) მოკლე ნაწილებად, რომ სტუდიურმა სერვერმა
-   * გრძელი წინადადებებიც და სრული ტექსტებიც შეუფერხებლად წაიკითხოს.
-   */
-  function splitIntoPlayableChunks(text) {
-    const cleaned = sanitizeTextForAudio(text);
-    if (!cleaned) return [];
-    if (cleaned.length <= 150) return [cleaned];
-
-    const rawSentences = cleaned.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [cleaned];
-    const chunks = [];
-
-    rawSentences.forEach((sentence) => {
-      const s = sentence.trim();
-      if (!s) return;
-      if (s.length <= 150) {
-        chunks.push(s);
-      } else {
-        const words = s.split(/\s+/);
-        let current = "";
-        words.forEach((w) => {
-          if ((current + " " + w).trim().length > 140) {
-            if (current) chunks.push(current.trim());
-            current = w;
-          } else {
-            current = (current + " " + w).trim();
-          }
-        });
-        if (current) chunks.push(current.trim());
-      }
-    });
-
-    return chunks;
-  }
-
-  function createNoReferrerAudio(url) {
-    const audio = document.createElement("audio");
-    audio.setAttribute("referrerpolicy", "no-referrer");
-    audio.crossOrigin = "anonymous";
-    audio.preload = "auto";
-    audio.src = url;
-    return audio;
   }
 
   const AudioEngine = {
@@ -91,84 +92,39 @@
     },
 
     stop: function () {
-      audioQueue = [];
-      isPlayingQueue = false;
       if (activeAudioElement) {
         try {
           activeAudioElement.onended = null;
           activeAudioElement.onerror = null;
           activeAudioElement.pause();
-          activeAudioElement.src = "";
         } catch (e) {}
         activeAudioElement = null;
       }
-    },
-
-    playSingleChunk: function (chunkText, acc, rate, onDone) {
-      const voiceType = (acc === "UK") ? 1 : 2;
-      const primaryUrl = "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(chunkText) + "&type=" + voiceType;
-      const backupUrl = "https://translate.googleapis.com/translate_tts?ie=UTF-8&q=" + encodeURIComponent(chunkText) + "&tl=" + (acc === "UK" ? "en-GB" : "en-US") + "&client=tw-ob";
-
-      let triedBackup = false;
-
-      const tryPlayUrl = (url) => {
-        try {
-          const audio = createNoReferrerAudio(url);
-          activeAudioElement = audio;
-          if (rate && rate < 0.85) {
-            audio.playbackRate = 0.8;
-          }
-
-          audio.onended = function () {
-            onDone();
-          };
-
-          audio.onerror = function () {
-            if (!triedBackup) {
-              triedBackup = true;
-              tryPlayUrl(backupUrl);
-            } else {
-              onDone();
-            }
-          };
-
-          const playPromise = audio.play();
-          if (playPromise && typeof playPromise.catch === "function") {
-            playPromise.catch(function () {
-              if (!triedBackup) {
-                triedBackup = true;
-                tryPlayUrl(backupUrl);
-              } else {
-                onDone();
-              }
-            });
-          }
-        } catch (e) {
-          onDone();
-        }
-      };
-
-      tryPlayUrl(primaryUrl);
-    },
-
-    processQueue: function (acc, rate) {
-      if (!isPlayingQueue || audioQueue.length === 0) {
-        isPlayingQueue = false;
-        return;
+      if (nativeCancelFn) {
+        try { nativeCancelFn(); } catch (e) {}
       }
-      const nextChunk = audioQueue.shift();
-      this.playSingleChunk(nextChunk, acc, rate, () => {
-        if (isPlayingQueue && audioQueue.length > 0) {
-          this.processQueue(acc, rate);
+    },
+
+    speakNativeFallback: function (text, acc, rate) {
+      if (!nativeSpeakFn) return;
+      try {
+        if (nativeCancelFn) nativeCancelFn();
+        const u = new SpeechSynthesisUtterance(text);
+        const bestVoice = pickBestNativeVoice(acc);
+        if (bestVoice) {
+          u.voice = bestVoice;
+          u.lang = bestVoice.lang || (acc === "UK" ? "en-GB" : "en-US");
         } else {
-          isPlayingQueue = false;
+          u.lang = (acc === "UK") ? "en-GB" : "en-US";
         }
-      });
+        u.rate = (rate && rate < 0.85) ? 0.75 : 0.94;
+        nativeSpeakFn(u);
+      } catch (e) {}
     },
 
     speak: function (text, accentOverride, rateOverride) {
-      const chunks = splitIntoPlayableChunks(text);
-      if (chunks.length === 0) return;
+      const cleaned = cleanTextForAudio(text);
+      if (!cleaned) return;
 
       this.stop();
 
@@ -180,22 +136,54 @@
         this.setAccent(acc);
       }
 
-      audioQueue = chunks;
-      isPlayingQueue = true;
-      this.processQueue(acc, rateOverride || 1.0);
+      const wordCount = cleaned.split(/\s+/).length;
+
+      // თუ ტექსტი 1-დან 12 სიტყვამდეა (სიტყვა, ფრაზა ან წინადადება), ჩავრთოთ სტუდიური MP3 (crossOrigin-ის გარეშე!)
+      if (wordCount <= 12) {
+        const voiceType = (acc === "UK") ? 1 : 2;
+        const studioUrl = "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(cleaned) + "&type=" + voiceType;
+
+        let fallbackUsed = false;
+        const runFallback = () => {
+          if (fallbackUsed) return;
+          fallbackUsed = true;
+          this.speakNativeFallback(cleaned, acc, rateOverride);
+        };
+
+        try {
+          // მნიშვნელოვანია: არ ვუწერთ crossOrigin="anonymous"-ს, რომ ბრაუზერმა არ დაბლოკოს!
+          const audio = new window.Audio(studioUrl);
+          activeAudioElement = audio;
+          if (rateOverride && rateOverride < 0.85) {
+            audio.playbackRate = 0.8;
+          }
+
+          audio.onerror = runFallback;
+
+          const playPromise = audio.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(runFallback);
+          }
+          return;
+        } catch (e) {
+          runFallback();
+          return;
+        }
+      }
+
+      // გრძელ აბზაცებზე (კითხვა, მოსმენა, წერა) — საუკეთესო Natural/Neural ხმა
+      this.speakNativeFallback(cleaned, acc, rateOverride);
     }
   };
 
   App.AudioEngine = AudioEngine;
 
-  // გლობალური გადამჭერი: ნებისმიერი მოდული (ლექსიკონი, გრამატიკა, კითხვა, მოსმენა, წერა, ბარათები),
-  // რომელიც იძახებს window.speechSynthesis.speak(u)-ს, ავტომატურად გადამისამართდება AudioEngine-ზე!
-  if ("speechSynthesis" in window) {
+  // გადავაერთოთ გლობალური speechSynthesis.speak ისე, რომ მარყუჟი არ შეიქმნას
+  if (nativeSynth) {
     try {
       window.speechSynthesis.speak = function (utterance) {
         if (utterance && utterance.text) {
-          const r = utterance.rate || 1.0;
-          AudioEngine.speak(utterance.text, preferredAccent, r);
+          AudioEngine.speak(utterance.text, preferredAccent, utterance.rate || 1.0);
         }
       };
       window.speechSynthesis.cancel = function () {

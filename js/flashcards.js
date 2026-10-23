@@ -37,62 +37,45 @@
    * ავტომატურად ვაგენერირებთ ზუსტ ფონეტიკურ ტრანსკრიპციას.
    */
   function buildAutoIpaTranscription(word, rawPhonetic) {
+    const cleanWord = String(word || "").trim();
+    if (!cleanWord) return "";
+
     const raw = String(rawPhonetic || "").trim();
     const strippedRaw = raw.replace(/^\/+|\/+$/g, "").trim();
-    const cleanWord = String(word || "").trim();
 
-    // თუ ბაზაში უკვე წერია ნამდვილი IPA ტრანსკრიპცია (რომელიც არ ემთხვევა უბრალო ასოებს)
-    if (strippedRaw && strippedRaw.toLowerCase() !== cleanWord.toLowerCase()) {
+    // 1. თუ ბაზაში უკვე წერია ნამდვილი IPA სიმბოლოები (და არა უბრალოდ იგივე ინგლისური სიტყვა)
+    if (strippedRaw && strippedRaw.toLowerCase() !== cleanWord.toLowerCase() && /[ˈˌəɪʊɔæɑɜʃʒθðŋː]/.test(strippedRaw)) {
       return "/" + strippedRaw + "/";
     }
 
-    if (!cleanWord) return "";
+    // 2. მოვძებნოთ ჩვენს ჩამოტვირთულ ნამდვილ IPA ლექსიკონში (window.App.IPADictionary)
+    const dict = (window.App && window.App.IPADictionary) ? window.App.IPADictionary : {};
+    const lowerKey = cleanWord.toLowerCase().replace(/\(\s*(verb|noun|adj|adv)\s*\)/gi, "").trim();
 
-    let ipa = cleanWord.toLowerCase();
-    ipa = ipa
-      .replace(/tion\b/g, "ʃən")
-      .replace(/sion\b/g, "ʒən")
-      .replace(/ture\b/g, "tʃər")
-      .replace(/sure\b/g, "ʒər")
-      .replace(/cious\b/g, "ʃəs")
-      .replace(/tious\b/g, "ʃəs")
-      .replace(/ous\b/g, "əs")
-      .replace(/ment\b/g, "mənt")
-      .replace(/ness\b/g, "nəs")
-      .replace(/able\b/g, "əbəl")
-      .replace(/ible\b/g, "ɪbəl")
-      .replace(/al\b/g, "əl")
-      .replace(/ph/g, "f")
-      .replace(/sh/g, "ʃ")
-      .replace(/ch/g, "tʃ")
-      .replace(/th/g, "θ")
-      .replace(/qu/g, "kw")
-      .replace(/ck/g, "k")
-      .replace(/ng/g, "ŋ")
-      .replace(/ee/g, "iː")
-      .replace(/ea/g, "iː")
-      .replace(/oo/g, "uː")
-      .replace(/ou/g, "aʊ")
-      .replace(/ow/g, "əʊ")
-      .replace(/ai/g, "eɪ")
-      .replace(/ay/g, "eɪ")
-      .replace(/oi/g, "ɔɪ")
-      .replace(/oy/g, "ɔɪ")
-      .replace(/ar/g, "ɑːr")
-      .replace(/or/g, "ɔːr")
-      .replace(/er\b/g, "ər")
-      .replace(/ir/g, "ɜːr")
-      .replace(/ur/g, "ɜːr")
-      .replace(/c(?=[eiy])/g, "s")
-      .replace(/c/g, "k")
-      .replace(/j/g, "dʒ")
-      .replace(/y\b/g, "i");
-
-    if (ipa.length > 3 && ipa.indexOf("ˈ") === -1) {
-      ipa = "ˈ" + ipa;
+    if (dict[lowerKey]) {
+      return dict[lowerKey];
     }
 
-    return "/" + ipa + "/";
+    // 3. თუ ფრაზაა (რამდენიმე სიტყვა), თითოეული სიტყვა მოვძებნოთ IPA ლექსიკონში და შევაერთოთ
+    const parts = lowerKey.split(/\s+/);
+    if (parts.length > 1) {
+      const ipaParts = [];
+      let foundAny = false;
+      parts.forEach((p) => {
+        const cleanP = p.replace(/[^a-z'-]/g, "");
+        if (dict[cleanP]) {
+          ipaParts.push(dict[cleanP].replace(/^\/+|\/+$/g, ""));
+          foundAny = true;
+        } else if (cleanP) {
+          ipaParts.push(cleanP);
+        }
+      });
+      if (foundAny) {
+        return "/" + ipaParts.join(" ") + "/";
+      }
+    }
+
+    return "";
   }
 
   function normalizeWordItem(raw, idx) {
