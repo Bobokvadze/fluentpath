@@ -58,9 +58,8 @@
 
       // 1. ლექსიკის კითხვების გენერაცია
       if (mode === "ALL" || mode === "PLACEMENT" || mode === "LEVEL_EXAM" || mode === "VOCAB") {
-        const allWords = (App.Vocabulary && typeof App.Vocabulary.getAllWords === "function")
-          ? App.Vocabulary.getAllWords()
-          : [];
+        const allWords = (App.Flashcards && typeof App.Flashcards.getAllWordsPool === "function") ? App.Flashcards.getAllWordsPool() : ((App.Vocabulary && typeof App.Vocabulary.getAllWords === "function")
+          ? App.Vocabulary.getAllWords() : []);
         const levelWords = allWords.filter((w) => !targetLevel || targetLevel === "ALL" || w.level === targetLevel);
         const sampledWords = shuffleArray(levelWords).slice(0, 40);
 
