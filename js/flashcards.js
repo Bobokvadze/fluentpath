@@ -338,13 +338,17 @@
       this.render();
     },
 
-    speakEnglish: function (text) {
+    speakEnglish: function (text, slowMode) {
+      if (App.AudioEngine && typeof App.AudioEngine.speak === "function") {
+        App.AudioEngine.speak(text, !!slowMode);
+        return;
+      }
       if (!text || !("speechSynthesis" in window)) return;
       try {
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(text);
         u.lang = "en-US";
-        u.rate = 0.9;
+        u.rate = slowMode ? 0.72 : 0.92;
         window.speechSynthesis.speak(u);
       } catch (e) {}
     },
@@ -445,7 +449,13 @@
           '<span class="fc-lang-label">🇬🇧 ინგლისური</span>' +
           '<div class="flashcard-main-word">' + App.UI.escapeHTML(currentWord.en) + "</div>" +
           '<div class="fc-transcription-pill">' + App.UI.escapeHTML(currentWord.phonetic) + "</div>" +
-          '<button type="button" class="fc-speak-pill-btn" data-fc-speak-en="true">&#128266; გამოთქმის მოსმენა</button>' +
+          '<div style="display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:4px;">' +
+            '<button type="button" class="fc-speak-pill-btn" data-fc-speak-en="normal">&#128266; გამოთქმის მოსმენა</button>' +
+            '<button type="button" class="fc-speak-pill-btn" data-fc-speak-en="slow" title="ნელა და მკვეთრად მოსმენა" style="padding:8px 13px;">🐢 ნელა</button>' +
+            '<button type="button" class="fc-speak-pill-btn" data-fc-toggle-accent="true" title="ამერიკული / ბრიტანული აქცენტის შეცვლა" style="padding:8px 13px;">' +
+              ((App.AudioEngine && App.AudioEngine.getAccent() === "UK") ? "🇬🇧 UK აქცენტი" : "🇺🇸 US აქცენტი") +
+            '</button>' +
+          '</div>' +
           (currentWord.exampleEn
             ? '<div class="fc-example-box"><div class="flashcard-example-en">"' + App.UI.escapeHTML(currentWord.exampleEn) + '"</div></div>'
             : "");
@@ -725,8 +735,23 @@
       container.querySelectorAll("[data-fc-speak-en]").forEach((btn) => {
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
+          const mode = btn.getAttribute("data-fc-speak-en");
           if (currentWord) {
-            this.speakEnglish(currentWord.en);
+            this.speakEnglish(currentWord.en, mode === "slow");
+          }
+        });
+      });
+
+      container.querySelectorAll("[data-fc-toggle-accent]").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (App.AudioEngine && typeof App.AudioEngine.toggleAccent === "function") {
+            const newAcc = App.AudioEngine.toggleAccent();
+            App.UI.toast(newAcc === "UK" ? "🇬🇧 ჩაირთო ბრიტანული (UK) გამოთქმა" : "🇺🇸 ჩაირთო ამერიკული (US) გამოთქმა", "info", 1800);
+            if (currentWord) {
+              this.speakEnglish(currentWord.en, false);
+            }
+            this.render();
           }
         });
       });
