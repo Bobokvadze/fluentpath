@@ -1,5 +1,7 @@
 /**
- * AUDIO-ENGINE.JS — 100% სტუდიური US / UK გამოთქმის ძრავა (რობოტული speechSynthesis-ის გარეშე)
+ * AUDIO-ENGINE.JS — უსაფრთხო გლობალური სტუდიური აუდიო-ძრავა (US / UK)
+ * არ ცვლის სხვა მოდულების კოდს: პირდაპირ იჭერს ხმოვან მოთხოვნებს ყველა მოდულიდან
+ * და უკრავს სუფთა სტუდიურ US/UK აუდიოს (მათ შორის გრძელ აბზაცებზეც).
  */
 (function (window) {
   "use strict";
@@ -9,6 +11,8 @@
   const ACCENT_STORAGE_KEY = "fluentpath_preferred_accent_v1";
   let preferredAccent = "US"; // "US" | "UK"
   let activeAudioElement = null;
+  let audioQueue = [];
+  let isPlayingQueue = false;
 
   try {
     const savedAcc = window.localStorage.getItem(ACCENT_STORAGE_KEY);
@@ -17,26 +21,60 @@
     }
   } catch (e) {}
 
-  /**
-   * ასუფთავებს ტექსტს გრამატიკული მინიშნებებისგან (მაგ: "(verb)", "/")
-   * რომ სტუდიურმა დიქტორმა ყველა სიტყვა და ფრაზა შეუფერხებლად წაიკითხოს.
-   */
-  function sanitizeTextForStudioAudio(rawText) {
+  function sanitizeTextForAudio(rawText) {
     let text = String(rawText || "").trim();
     if (!text) return "";
 
-    // მოვაშოროთ გრამატიკული შენიშვნები ფრჩხილებში: (verb), (noun), (adj), (plural) და ა.შ.
     text = text.replace(/\(\s*(verb|noun|adj|adjective|adv|adverb|plural|singular|formal|informal|idiom|ship|city|car trunk|helm|band-aid)\s*\)/gi, "");
-
-    // თუ ფრჩხილებში სინონიმი წერია ან დახრილი ხაზია "/", გადავაქციოთ მძიმედ (პაუზად)
     text = text.replace(/\s*\/\s*/g, ", ");
     text = text.replace(/\(([^)]+)\)/g, ", $1");
-
-    // მოვაშოროთ ზედმეტი სიმბოლოები
-    text = text.replace(/[^a-zA-Z0-9\s\-'.,!?]/g, " ");
+    text = text.replace(/["“”«»]/g, "");
     text = text.replace(/\s+/g, " ").trim();
-
     return text;
+  }
+
+  /**
+   * ყოფს გრძელ ტექსტს (აბზაცებს) მოკლე ნაწილებად, რომ სტუდიურმა სერვერმა
+   * გრძელი წინადადებებიც და სრული ტექსტებიც შეუფერხებლად წაიკითხოს.
+   */
+  function splitIntoPlayableChunks(text) {
+    const cleaned = sanitizeTextForAudio(text);
+    if (!cleaned) return [];
+    if (cleaned.length <= 150) return [cleaned];
+
+    const rawSentences = cleaned.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [cleaned];
+    const chunks = [];
+
+    rawSentences.forEach((sentence) => {
+      const s = sentence.trim();
+      if (!s) return;
+      if (s.length <= 150) {
+        chunks.push(s);
+      } else {
+        const words = s.split(/\s+/);
+        let current = "";
+        words.forEach((w) => {
+          if ((current + " " + w).trim().length > 140) {
+            if (current) chunks.push(current.trim());
+            current = w;
+          } else {
+            current = (current + " " + w).trim();
+          }
+        });
+        if (current) chunks.push(current.trim());
+      }
+    });
+
+    return chunks;
+  }
+
+  function createNoReferrerAudio(url) {
+    const audio = document.createElement("audio");
+    audio.setAttribute("referrerpolicy", "no-referrer");
+    audio.crossOrigin = "anonymous";
+    audio.preload = "auto";
+    audio.src = url;
+    return audio;
   }
 
   const AudioEngine = {
@@ -53,27 +91,84 @@
     },
 
     stop: function () {
+      audioQueue = [];
+      isPlayingQueue = false;
       if (activeAudioElement) {
         try {
+          activeAudioElement.onended = null;
+          activeAudioElement.onerror = null;
           activeAudioElement.pause();
-          activeAudioElement.currentTime = 0;
+          activeAudioElement.src = "";
         } catch (e) {}
         activeAudioElement = null;
       }
-      if ("speechSynthesis" in window) {
-        try {
-          window.speechSynthesis.cancel();
-        } catch (e) {}
-      }
     },
 
-    /**
-     * უკრავს მხოლოდ სტუდიურ US (type=2) ან UK (type=1) აუდიოს ნებისმიერი სიგრძის სიტყვასა და ფრაზაზე.
-     * რობოტული speechSynthesis სრულად გათიშულია!
-     */
-    speak: function (text, accentOverride) {
-      const cleanQuery = sanitizeTextForStudioAudio(text);
-      if (!cleanQuery) return;
+    playSingleChunk: function (chunkText, acc, rate, onDone) {
+      const voiceType = (acc === "UK") ? 1 : 2;
+      const primaryUrl = "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(chunkText) + "&type=" + voiceType;
+      const backupUrl = "https://translate.googleapis.com/translate_tts?ie=UTF-8&q=" + encodeURIComponent(chunkText) + "&tl=" + (acc === "UK" ? "en-GB" : "en-US") + "&client=tw-ob";
+
+      let triedBackup = false;
+
+      const tryPlayUrl = (url) => {
+        try {
+          const audio = createNoReferrerAudio(url);
+          activeAudioElement = audio;
+          if (rate && rate < 0.85) {
+            audio.playbackRate = 0.8;
+          }
+
+          audio.onended = function () {
+            onDone();
+          };
+
+          audio.onerror = function () {
+            if (!triedBackup) {
+              triedBackup = true;
+              tryPlayUrl(backupUrl);
+            } else {
+              onDone();
+            }
+          };
+
+          const playPromise = audio.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(function () {
+              if (!triedBackup) {
+                triedBackup = true;
+                tryPlayUrl(backupUrl);
+              } else {
+                onDone();
+              }
+            });
+          }
+        } catch (e) {
+          onDone();
+        }
+      };
+
+      tryPlayUrl(primaryUrl);
+    },
+
+    processQueue: function (acc, rate) {
+      if (!isPlayingQueue || audioQueue.length === 0) {
+        isPlayingQueue = false;
+        return;
+      }
+      const nextChunk = audioQueue.shift();
+      this.playSingleChunk(nextChunk, acc, rate, () => {
+        if (isPlayingQueue && audioQueue.length > 0) {
+          this.processQueue(acc, rate);
+        } else {
+          isPlayingQueue = false;
+        }
+      });
+    },
+
+    speak: function (text, accentOverride, rateOverride) {
+      const chunks = splitIntoPlayableChunks(text);
+      if (chunks.length === 0) return;
 
       this.stop();
 
@@ -81,79 +176,31 @@
         ? accentOverride
         : preferredAccent;
 
-      this.setAccent(acc);
+      if (accentOverride === "UK" || accentOverride === "US") {
+        this.setAccent(acc);
+      }
 
-      // type=2 -> სუფთა ამერიკული (US) სტუდიური აქცენტი, type=1 -> სუფთა ბრიტანული (UK) სტუდიური აქცენტი
-      const voiceType = (acc === "UK") ? 1 : 2;
-      const primaryUrl = "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(cleanQuery) + "&type=" + voiceType;
-      const backupUrl = "https://translate.googleapis.com/translate_tts?ie=UTF-8&q=" + encodeURIComponent(cleanQuery) + "&tl=" + (acc === "UK" ? "en-GB" : "en-US") + "&client=tw-ob";
-
-      try {
-        const audio = new window.Audio(primaryUrl);
-        activeAudioElement = audio;
-
-        audio.onerror = function () {
-          // თუ პირველ სერვერზე კავშირი შეფერხდა, ჩავრთოთ მეორე ონლაინ სტუდიური ნაკადი (და არა რობოტი!)
-          try {
-            const backupAudio = new window.Audio(backupUrl);
-            activeAudioElement = backupAudio;
-            backupAudio.play().catch(function () {});
-          } catch (e) {}
-        };
-
-        const playPromise = audio.play();
-        if (playPromise && typeof playPromise.catch === "function") {
-          playPromise.catch(function () {
-            try {
-              const backupAudio = new window.Audio(backupUrl);
-              activeAudioElement = backupAudio;
-              backupAudio.play().catch(function () {});
-            } catch (e) {}
-          });
-        }
-      } catch (err) {}
+      audioQueue = chunks;
+      isPlayingQueue = true;
+      this.processQueue(acc, rateOverride || 1.0);
     }
   };
 
   App.AudioEngine = AudioEngine;
 
-  function upgradeAllModulesAudio() {
-    if (App.UI) {
-      App.UI.speak = function (text) {
-        AudioEngine.speak(text);
+  // გლობალური გადამჭერი: ნებისმიერი მოდული (ლექსიკონი, გრამატიკა, კითხვა, მოსმენა, წერა, ბარათები),
+  // რომელიც იძახებს window.speechSynthesis.speak(u)-ს, ავტომატურად გადამისამართდება AudioEngine-ზე!
+  if ("speechSynthesis" in window) {
+    try {
+      window.speechSynthesis.speak = function (utterance) {
+        if (utterance && utterance.text) {
+          const r = utterance.rate || 1.0;
+          AudioEngine.speak(utterance.text, preferredAccent, r);
+        }
       };
-    }
-    ["Vocabulary", "Learn", "Grammar", "Reading", "Listening", "Writing", "Flashcards"].forEach((modName) => {
-      if (App[modName]) {
-        if (typeof App[modName].speak === "function") {
-          App[modName].speak = function (text) {
-            AudioEngine.speak(text);
-          };
-        }
-        if (typeof App[modName].speakEnglish === "function") {
-          App[modName].speakEnglish = function (text, acc) {
-            AudioEngine.speak(text, acc);
-          };
-        }
-        if (typeof App[modName].speakWord === "function") {
-          App[modName].speakWord = function (text) {
-            AudioEngine.speak(text);
-          };
-        }
-        if (typeof App[modName].stopSpeaking === "function") {
-          App[modName].stopSpeaking = function () {
-            AudioEngine.stop();
-          };
-        }
-      }
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      window.setTimeout(upgradeAllModulesAudio, 40);
-    });
-  } else {
-    window.setTimeout(upgradeAllModulesAudio, 40);
+      window.speechSynthesis.cancel = function () {
+        AudioEngine.stop();
+      };
+    } catch (e) {}
   }
 })(window);
