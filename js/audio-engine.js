@@ -1,7 +1,5 @@
 /**
- * AUDIO-ENGINE.JS — მაღალი გარჩევადობის ინგლისური წარმოთქმის ძრავა
- * 1) ცალკეულ სიტყვებსა და მოკლე ტერმინებზე უკრავს ნამდვილ სტუდიურ (Dictionary) აუდიოს (US ან UK აქცენტით).
- * 2) წინადადებებსა და ტექსტებზე ირჩევს საუკეთესო Neural / Natural (Google / Microsoft Online) ხმას.
+ * AUDIO-ENGINE.JS — 100% სტუდიური US / UK გამოთქმის ძრავა (რობოტული speechSynthesis-ის გარეშე)
  */
 (function (window) {
   "use strict";
@@ -9,8 +7,7 @@
   const App = window.App = window.App || {};
 
   const ACCENT_STORAGE_KEY = "fluentpath_preferred_accent_v1";
-  let preferredAccent = "US"; // "US" (American) | "UK" (British)
-  let cachedVoices = [];
+  let preferredAccent = "US"; // "US" | "UK"
   let activeAudioElement = null;
 
   try {
@@ -20,59 +17,26 @@
     }
   } catch (e) {}
 
-  function loadVoicesList() {
-    if (!("speechSynthesis" in window)) return [];
-    const list = window.speechSynthesis.getVoices() || [];
-    if (list.length > 0) {
-      cachedVoices = list;
-    }
-    return cachedVoices;
-  }
-
-  if ("speechSynthesis" in window) {
-    loadVoicesList();
-    if (typeof window.speechSynthesis.onvoiceschanged !== "undefined") {
-      window.speechSynthesis.onvoiceschanged = loadVoicesList;
-    }
-  }
-
   /**
-   * ირჩევს ყველაზე სუფთა, მკვეთრ და ბუნებრივ ინგლისურ ხმას ბრაუზერში
+   * ასუფთავებს ტექსტს გრამატიკული მინიშნებებისგან (მაგ: "(verb)", "/")
+   * რომ სტუდიურმა დიქტორმა ყველა სიტყვა და ფრაზა შეუფერხებლად წაიკითხოს.
    */
-  function pickBestEnglishVoice(accent) {
-    const voices = loadVoicesList();
-    if (!voices.length) return null;
+  function sanitizeTextForStudioAudio(rawText) {
+    let text = String(rawText || "").trim();
+    if (!text) return "";
 
-    const targetLangPrefix = accent === "UK" ? "en-gb" : "en-us";
-    const enVoices = voices.filter((v) => /^en(-|_|$)/i.test(v.lang || ""));
-    if (!enVoices.length) return voices[0];
+    // მოვაშოროთ გრამატიკული შენიშვნები ფრჩხილებში: (verb), (noun), (adj), (plural) და ა.შ.
+    text = text.replace(/\(\s*(verb|noun|adj|adjective|adv|adverb|plural|singular|formal|informal|idiom|ship|city|car trunk|helm|band-aid)\s*\)/gi, "");
 
-    function scoreVoice(v) {
-      const name = (v.name || "").toLowerCase();
-      const lang = (v.lang || "").toLowerCase().replace("_", "-");
-      let score = 0;
+    // თუ ფრჩხილებში სინონიმი წერია ან დახრილი ხაზია "/", გადავაქციოთ მძიმედ (პაუზად)
+    text = text.replace(/\s*\/\s*/g, ", ");
+    text = text.replace(/\(([^)]+)\)/g, ", $1");
 
-      // ზუსტი აქცენტის დამთხვევა (US ან UK)
-      if (lang.indexOf(targetLangPrefix) === 0) score += 50;
-      else if (accent === "UK" && (name.indexOf("uk") !== -1 || name.indexOf("british") !== -1 || name.indexOf("great britain") !== -1)) score += 45;
-      else if (accent === "US" && (name.indexOf("us") !== -1 || name.indexOf("united states") !== -1 || name.indexOf("american") !== -1)) score += 45;
+    // მოვაშოროთ ზედმეტი სიმბოლოები
+    text = text.replace(/[^a-zA-Z0-9\s\-'.,!?]/g, " ");
+    text = text.replace(/\s+/g, " ").trim();
 
-      // უმაღლესი ხარისხის Neural / Natural ხმები (Edge / Chrome / macOS)
-      if (name.indexOf("natural") !== -1 || name.indexOf("online") !== -1) score += 100;
-      if (name.indexOf("neural") !== -1) score += 95;
-      if (name.indexOf("google") !== -1) score += 85;
-      if (name.indexOf("aria") !== -1 || name.indexOf("jenny") !== -1 || name.indexOf("guy") !== -1 || name.indexOf("sonia") !== -1 || name.indexOf("ryan") !== -1 || name.indexOf("libby") !== -1) score += 80;
-      if (name.indexOf("samantha") !== -1 || name.indexOf("daniel") !== -1 || name.indexOf("alex") !== -1 || name.indexOf("moira") !== -1) score += 70;
-      if (name.indexOf("premium") !== -1 || name.indexOf("enhanced") !== -1) score += 65;
-
-      // დავაქვეითოთ ძველი ყრუ Desktop ხმები, თუ უკეთესი არსებობს
-      if (name.indexOf("desktop") !== -1) score -= 25;
-
-      return score;
-    }
-
-    const sorted = enVoices.slice().sort((a, b) => scoreVoice(b) - scoreVoice(a));
-    return sorted[0] || enVoices[0];
+    return text;
   }
 
   const AudioEngine = {
@@ -86,10 +50,6 @@
         window.localStorage.setItem(ACCENT_STORAGE_KEY, preferredAccent);
       } catch (e) {}
       return preferredAccent;
-    },
-
-    toggleAccent: function () {
-      return this.setAccent(preferredAccent === "US" ? "UK" : "US");
     },
 
     stop: function () {
@@ -108,119 +68,76 @@
     },
 
     /**
-     * კითხულობს ტექსტს Neural Web Speech API-ით
+     * უკრავს მხოლოდ სტუდიურ US (type=2) ან UK (type=1) აუდიოს ნებისმიერი სიგრძის სიტყვასა და ფრაზაზე.
+     * რობოტული speechSynthesis სრულად გათიშულია!
      */
-    speakWithNeuralTTS: function (text, slowMode, accentOverride) {
-      if (!("speechSynthesis" in window)) return;
-      const acc = accentOverride || preferredAccent;
-      try {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(String(text || "").trim());
-        const bestVoice = pickBestEnglishVoice(acc);
-        if (bestVoice) {
-          u.voice = bestVoice;
-          u.lang = bestVoice.lang || (acc === "UK" ? "en-GB" : "en-US");
-        } else {
-          u.lang = (acc === "UK") ? "en-GB" : "en-US";
-        }
-        // მკვეთრი და სუფთა არტიკულაციის პარამეტრები
-        u.rate = slowMode ? 0.72 : 0.94;
-        u.pitch = 1.02;
-        u.volume = 1.0;
-        window.speechSynthesis.speak(u);
-      } catch (e) {}
-    },
-
-    /**
-     * მთავარი ფუნქცია:
-     * - თუ ტექსტი 1-3 სიტყვიანია (მაგ. ბარათის სიტყვა ან ფრაზა), ჯერ უკრავს სტუდიურ ლექსიკონის MP3-ს!
-     * - თუ ტექსტი გრძელია ან ინტერნეტი გათიშულია, იყენებს საუკეთესო Neural TTS ხმას.
-     */
-    speak: function (text, slowMode, accentOverride) {
-      const cleanText = String(text || "").trim();
-      if (!cleanText) return;
+    speak: function (text, accentOverride) {
+      const cleanQuery = sanitizeTextForStudioAudio(text);
+      if (!cleanQuery) return;
 
       this.stop();
-      const acc = accentOverride || preferredAccent;
-      const wordCount = cleanText.split(/\s+/).length;
 
-      // ცალკეულ სიტყვებსა და მოკლე ტერმინებზე (1–3 სიტყვა) გამოვიყენოთ სტუდიური ლექსიკონის ჩანაწერი
-      if (wordCount <= 3 && /^[a-zA-Z\s\-'().,!?]+$/.test(cleanText)) {
-        const cleanQuery = cleanText.replace(/[.,!?()]/g, "").trim();
-        // type=2 -> სუფთა ამერიკული სტუდიური გამოთქმა, type=1 -> სუფთა ბრიტანული სტუდიური გამოთქმა
-        const voiceType = (acc === "UK") ? 1 : 2;
-        const dictUrl = "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(cleanQuery) + "&type=" + voiceType;
+      const acc = (accentOverride === "UK" || accentOverride === "US")
+        ? accentOverride
+        : preferredAccent;
 
-        let fallbackTriggered = false;
-        const triggerFallback = () => {
-          if (fallbackTriggered) return;
-          fallbackTriggered = true;
-          this.speakWithNeuralTTS(cleanText, slowMode, acc);
+      this.setAccent(acc);
+
+      // type=2 -> სუფთა ამერიკული (US) სტუდიური აქცენტი, type=1 -> სუფთა ბრიტანული (UK) სტუდიური აქცენტი
+      const voiceType = (acc === "UK") ? 1 : 2;
+      const primaryUrl = "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(cleanQuery) + "&type=" + voiceType;
+      const backupUrl = "https://translate.googleapis.com/translate_tts?ie=UTF-8&q=" + encodeURIComponent(cleanQuery) + "&tl=" + (acc === "UK" ? "en-GB" : "en-US") + "&client=tw-ob";
+
+      try {
+        const audio = new window.Audio(primaryUrl);
+        activeAudioElement = audio;
+
+        audio.onerror = function () {
+          // თუ პირველ სერვერზე კავშირი შეფერხდა, ჩავრთოთ მეორე ონლაინ სტუდიური ნაკადი (და არა რობოტი!)
+          try {
+            const backupAudio = new window.Audio(backupUrl);
+            activeAudioElement = backupAudio;
+            backupAudio.play().catch(function () {});
+          } catch (e) {}
         };
 
-        try {
-          const audio = new window.Audio(dictUrl);
-          activeAudioElement = audio;
-          audio.playbackRate = slowMode ? 0.76 : 1.0;
-
-          const timeoutId = window.setTimeout(() => {
-            if (audio.readyState < 2) {
-              triggerFallback();
-            }
-          }, 1400);
-
-          audio.oncanplaythrough = () => {
-            window.clearTimeout(timeoutId);
-          };
-
-          audio.onerror = () => {
-            window.clearTimeout(timeoutId);
-            triggerFallback();
-          };
-
-          const playPromise = audio.play();
-          if (playPromise && typeof playPromise.catch === "function") {
-            playPromise.catch(() => {
-              window.clearTimeout(timeoutId);
-              triggerFallback();
-            });
-          }
-          return;
-        } catch (err) {
-          triggerFallback();
-          return;
+        const playPromise = audio.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(function () {
+            try {
+              const backupAudio = new window.Audio(backupUrl);
+              activeAudioElement = backupAudio;
+              backupAudio.play().catch(function () {});
+            } catch (e) {}
+          });
         }
-      }
-
-      // გრძელ წინადადებებსა და აბზაცებზე — Neural TTS
-      this.speakWithNeuralTTS(cleanText, slowMode, acc);
+      } catch (err) {}
     }
   };
 
   App.AudioEngine = AudioEngine;
 
-  // გადავაერთოთ ყველა მოდულის speak ფუნქცია ახალ AudioEngine-ზე
   function upgradeAllModulesAudio() {
     if (App.UI) {
-      App.UI.speak = function (text, slow) {
-        AudioEngine.speak(text, slow);
+      App.UI.speak = function (text) {
+        AudioEngine.speak(text);
       };
     }
     ["Vocabulary", "Learn", "Grammar", "Reading", "Listening", "Writing", "Flashcards"].forEach((modName) => {
       if (App[modName]) {
         if (typeof App[modName].speak === "function") {
-          App[modName].speak = function (text, slow) {
-            AudioEngine.speak(text, slow);
+          App[modName].speak = function (text) {
+            AudioEngine.speak(text);
           };
         }
         if (typeof App[modName].speakEnglish === "function") {
-          App[modName].speakEnglish = function (text, slow) {
-            AudioEngine.speak(text, slow);
+          App[modName].speakEnglish = function (text, acc) {
+            AudioEngine.speak(text, acc);
           };
         }
         if (typeof App[modName].speakWord === "function") {
-          App[modName].speakWord = function (text, slow) {
-            AudioEngine.speak(text, slow);
+          App[modName].speakWord = function (text) {
+            AudioEngine.speak(text);
           };
         }
         if (typeof App[modName].stopSpeaking === "function") {
