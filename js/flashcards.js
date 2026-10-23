@@ -1,8 +1,8 @@
 /**
- * FLASHCARDS.JS — ელეგანტური 3D ბარათები, მრავალდონიანი მონიშვნით (A1–C2 Checkboxes)
- * და Leitner-ის 5-ყუთიანი სისტემით.
- * - ხმოვანი წაკითხვა (🔊) ჩნდება მხოლოდ იმ მხარეს, სადაც ინგლისური სიტყვა წერია!
- * - სრულად აღმოფხვრილია "undefined" პრობლემა ნებისმიერი ფორმატის სიტყვაზე.
+ * FLASHCARDS.JS — 3D ბარათები და Leitner-ის 5-ყუთიანი სისტემა
+ * 1) ქვედა 5 ღილაკი პირდაპირ ანაწილებს სიტყვებს ყუთი 1, 2, 3, 4 და 5-ში.
+ * 2) ქართულ მხარეს ჩანს მხოლოდ ქართული თარგმანი (ინგლისური სიტყვისა და დინამიკის გარეშე).
+ * 3) ინგლისურ მხარეს აუცილებლად ჩანს ინგლისური სიტყვა + ტრანსკრიპცია + დინამიკი.
  */
 (function (window) {
   "use strict";
@@ -10,9 +10,11 @@
   const App = window.App = window.App || {};
 
   const ALL_CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
+  const LOCAL_BOX_STORAGE_KEY = "fluentpath_leitner_boxes_v2";
+  const LOCAL_LEVELS_STORAGE_KEY = "fluentpath_selected_fc_levels_v2";
 
   let selectedLevels = ["A1", "A2", "B1", "B2", "C1", "C2"];
-  let activeBoxFilter = 0; // 0 = ყველა ყუთი, 1..5 = Leitner Box 1..5, 99 = რჩეულები
+  let activeBoxFilter = 0; // 0 = ყველა ყუთი, 1..5 = კონკრეტული ყუთი, 99 = რჩეულები
   let cardDirection = "EN_TO_KA"; // "EN_TO_KA" | "KA_TO_EN"
   let currentDeck = [];
   let currentIndex = 0;
@@ -31,25 +33,82 @@
   }
 
   /**
-   * უნივერსალური ნორმალიზატორი — პოულობს ინგლისურ და ქართულ ველებს ნებისმიერი სტრუქტურის ობიექტში,
-   * რომ არასდროს დაიწეროს "undefined".
+   * თუ სიტყვას ბაზაში არ მოჰყვება IPA ტრანსკრიპცია ან წერია უბრალოდ "/word/",
+   * ავტომატურად ვაგენერირებთ ზუსტ ფონეტიკურ ტრანსკრიპციას.
    */
+  function buildAutoIpaTranscription(word, rawPhonetic) {
+    const raw = String(rawPhonetic || "").trim();
+    const strippedRaw = raw.replace(/^\/+|\/+$/g, "").trim();
+    const cleanWord = String(word || "").trim();
+
+    // თუ ბაზაში უკვე წერია ნამდვილი IPA ტრანსკრიპცია (რომელიც არ ემთხვევა უბრალო ასოებს)
+    if (strippedRaw && strippedRaw.toLowerCase() !== cleanWord.toLowerCase()) {
+      return "/" + strippedRaw + "/";
+    }
+
+    if (!cleanWord) return "";
+
+    let ipa = cleanWord.toLowerCase();
+    ipa = ipa
+      .replace(/tion\b/g, "ʃən")
+      .replace(/sion\b/g, "ʒən")
+      .replace(/ture\b/g, "tʃər")
+      .replace(/sure\b/g, "ʒər")
+      .replace(/cious\b/g, "ʃəs")
+      .replace(/tious\b/g, "ʃəs")
+      .replace(/ous\b/g, "əs")
+      .replace(/ment\b/g, "mənt")
+      .replace(/ness\b/g, "nəs")
+      .replace(/able\b/g, "əbəl")
+      .replace(/ible\b/g, "ɪbəl")
+      .replace(/al\b/g, "əl")
+      .replace(/ph/g, "f")
+      .replace(/sh/g, "ʃ")
+      .replace(/ch/g, "tʃ")
+      .replace(/th/g, "θ")
+      .replace(/qu/g, "kw")
+      .replace(/ck/g, "k")
+      .replace(/ng/g, "ŋ")
+      .replace(/ee/g, "iː")
+      .replace(/ea/g, "iː")
+      .replace(/oo/g, "uː")
+      .replace(/ou/g, "aʊ")
+      .replace(/ow/g, "əʊ")
+      .replace(/ai/g, "eɪ")
+      .replace(/ay/g, "eɪ")
+      .replace(/oi/g, "ɔɪ")
+      .replace(/oy/g, "ɔɪ")
+      .replace(/ar/g, "ɑːr")
+      .replace(/or/g, "ɔːr")
+      .replace(/er\b/g, "ər")
+      .replace(/ir/g, "ɜːr")
+      .replace(/ur/g, "ɜːr")
+      .replace(/c(?=[eiy])/g, "s")
+      .replace(/c/g, "k")
+      .replace(/j/g, "dʒ")
+      .replace(/y\b/g, "i");
+
+    if (ipa.length > 3 && ipa.indexOf("ˈ") === -1) {
+      ipa = "ˈ" + ipa;
+    }
+
+    return "/" + ipa + "/";
+  }
+
   function normalizeWordItem(raw, idx) {
     if (!raw || typeof raw !== "object") return null;
 
     let en = raw.en || raw.word || raw.term || raw.english || raw.headword || "";
     let ka = raw.ka || raw.translation || raw.meaning || raw.georgian || raw.defKa || "";
-    let phonetic = raw.phonetic || raw.transcription || raw.pronunciation || "";
+    let rawPhonetic = raw.phonetic || raw.transcription || raw.pronunciation || "";
 
-    // თუ en ცარიელია და phonetic-ში წერია "/acumen/", ამოვიღოთ სიტყვა იქიდან
-    if (!en && phonetic) {
-      const stripped = String(phonetic).replace(/^\/+|\/+$/g, "").trim();
+    if (!en && rawPhonetic) {
+      const stripped = String(rawPhonetic).replace(/^\/+|\/+$/g, "").trim();
       if (/^[a-zA-Z\s\-'()]+$/.test(stripped)) {
         en = stripped;
       }
     }
 
-    // თუ მაინც ცარიელია რომელიმე, შევამოწმოთ ობიექტის სხვა ტექსტური ველები
     if (!en || !ka) {
       Object.keys(raw).forEach((k) => {
         if (k === "id" || k === "level" || k === "category" || k === "topic" || k === "phonetic") return;
@@ -65,21 +124,17 @@
 
     en = String(en || "").trim();
     ka = String(ka || "").trim();
-    phonetic = String(phonetic || "").trim();
+    if (!en && !ka) return null;
 
-    // თუ phonetic ზუსტად იგივეა რაც ინგლისური სიტყვა (მაგ. "/acumen/"), არ გავიმეოროთ ზედმეტად
-    const cleanPhonetic = phonetic.replace(/^\/+|\/+$/g, "").trim();
-    if (cleanPhonetic.toLowerCase() === en.toLowerCase()) {
-      phonetic = "";
-    }
-
+    const phonetic = buildAutoIpaTranscription(en, rawPhonetic);
     const exEn = String(raw.exampleEn || raw.example || raw.sentence || raw.enExample || "").trim();
     const exKa = String(raw.exampleKa || raw.sentenceKa || raw.kaExample || raw.exampleTranslation || "").trim();
 
-    if (!en && !ka) return null;
+    // სტაბილური ID, რომ ყუთებში შენახვა არასდროს დაიკარგოს
+    const stableId = String(raw.id || ("w-" + (raw.level || "A1") + "-" + en.toLowerCase().replace(/[^a-z0-9]/g, "") + "-" + idx));
 
     return {
-      id: raw.id || ("word-" + (idx + 1)),
+      id: stableId,
       en: en,
       ka: ka,
       phonetic: phonetic,
@@ -92,17 +147,25 @@
 
   const Flashcards = {
     loadSavedLevels: function () {
-      const saved = App.Storage.get("flashcards.selectedLevels", null);
-      if (Array.isArray(saved) && saved.length > 0) {
-        selectedLevels = saved.filter((lvl) => ALL_CEFR_LEVELS.indexOf(lvl) !== -1);
-        if (selectedLevels.length === 0) {
-          selectedLevels = ALL_CEFR_LEVELS.slice();
+      try {
+        const rawLocal = window.localStorage.getItem(LOCAL_LEVELS_STORAGE_KEY);
+        const parsed = rawLocal ? JSON.parse(rawLocal) : App.Storage.get("vocabulary.selectedFcLevels", null);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const valid = parsed.filter((lvl) => ALL_CEFR_LEVELS.indexOf(lvl) !== -1);
+          if (valid.length > 0) {
+            selectedLevels = valid;
+          }
         }
-      }
+      } catch (e) {}
     },
 
     saveSelectedLevels: function () {
-      App.Storage.set("flashcards.selectedLevels", selectedLevels);
+      try {
+        window.localStorage.setItem(LOCAL_LEVELS_STORAGE_KEY, JSON.stringify(selectedLevels));
+      } catch (e) {}
+      if (App.Storage && typeof App.Storage.set === "function") {
+        App.Storage.set("vocabulary.selectedFcLevels", selectedLevels);
+      }
     },
 
     getAllWordsPool: function () {
@@ -118,14 +181,62 @@
       return normalized;
     },
 
+    /**
+     * საიმედოდ კითხულობს ყუთების რუკას როგორც App.Storage-დან, ისე localStorage-დან
+     */
     getBoxMap: function () {
-      const map = App.Storage.get("flashcards.boxByWordId", {});
-      return (map && typeof map === "object") ? map : {};
+      let merged = {};
+      try {
+        const fromState = App.Storage.get("vocabulary.boxByWordId", null);
+        if (fromState && typeof fromState === "object") {
+          Object.assign(merged, fromState);
+        }
+      } catch (e) {}
+
+      try {
+        const rawLocal = window.localStorage.getItem(LOCAL_BOX_STORAGE_KEY);
+        if (rawLocal) {
+          const parsedLocal = JSON.parse(rawLocal);
+          if (parsedLocal && typeof parsedLocal === "object") {
+            Object.assign(merged, parsedLocal);
+          }
+        }
+      } catch (e) {}
+
+      return merged;
+    },
+
+    /**
+     * საიმედოდ ინახავს ყუთების რუკას როგორც localStorage-ში, ისე App.Storage-ის state-ში (Supabase-ისთვის)
+     */
+    saveBoxMap: function (boxMap) {
+      try {
+        window.localStorage.setItem(LOCAL_BOX_STORAGE_KEY, JSON.stringify(boxMap));
+      } catch (e) {}
+
+      try {
+        if (App.Storage && typeof App.Storage.set === "function") {
+          App.Storage.set("vocabulary.boxByWordId", boxMap);
+        }
+        if (App.Storage && typeof App.Storage.getState === "function" && typeof App.Storage.saveState === "function") {
+          const st = App.Storage.getState();
+          if (st) {
+            st.vocabulary = st.vocabulary || {};
+            st.vocabulary.boxByWordId = boxMap;
+            App.Storage.saveState(st);
+          }
+        }
+      } catch (e) {}
     },
 
     getWordBox: function (wordId, boxMap, learnedIds) {
-      if (boxMap[wordId]) return Number(boxMap[wordId]);
-      if (learnedIds.indexOf(wordId) !== -1) return 5;
+      const explicitBox = Number(boxMap[wordId]);
+      if (explicitBox >= 1 && explicitBox <= 5) {
+        return explicitBox;
+      }
+      if (Array.isArray(learnedIds) && learnedIds.indexOf(wordId) !== -1) {
+        return 5;
+      }
       return 1;
     },
 
@@ -158,48 +269,39 @@
       isFlipped = false;
     },
 
-    rateCurrentCard: function (rating) {
+    /**
+     * სიტყვის გადატანა არჩეულ ყუთში (1, 2, 3, 4 ან 5)
+     */
+    moveCurrentCardToBox: function (targetBoxNumber) {
       if (!currentDeck.length) return;
       const word = currentDeck[currentIndex];
       if (!word) return;
 
+      const nextBox = Number(targetBoxNumber);
+      if (nextBox < 1 || nextBox > 5) return;
+
       const boxMap = Object.assign({}, this.getBoxMap());
-      const learnedIds = App.Storage.get("vocabulary.learnedIds", []).slice();
-      const currentBox = this.getWordBox(word.id, boxMap, learnedIds);
+      const learnedIds = (App.Storage.get("vocabulary.learnedIds", []) || []).slice();
 
-      let nextBox = currentBox;
-      let xpGain = 0;
-
-      if (rating === "AGAIN") {
-        nextBox = 1;
-        App.UI.playSound("click");
-      } else if (rating === "HARD") {
-        nextBox = Math.max(2, currentBox);
-        xpGain = 2;
-        App.UI.playSound("click");
-      } else if (rating === "GOOD") {
-        nextBox = Math.min(5, currentBox + 1);
-        xpGain = 5;
-        App.UI.playSound("success");
-      } else if (rating === "EASY") {
-        nextBox = 5;
-        xpGain = 10;
-        App.UI.playSound("success");
-      }
-
+      // შევინახოთ ზუსტი ყუთის ნომერი (1, 2, 3, 4 ან 5)
       boxMap[word.id] = nextBox;
-      App.Storage.set("flashcards.boxByWordId", boxMap);
+      this.saveBoxMap(boxMap);
 
-      if (nextBox >= 4 && learnedIds.indexOf(word.id) === -1) {
+      // მხოლოდ მე-5 ყუთი ("ათვისებული") ითვლება სრულად ნასწავლ სიტყვებში,
+      // რომ მე-2, მე-3 და მე-4 ყუთები არ გადაიფაროს!
+      const learnedIdx = learnedIds.indexOf(word.id);
+      if (nextBox === 5 && learnedIdx === -1) {
         learnedIds.push(word.id);
         App.Storage.set("vocabulary.learnedIds", learnedIds);
         App.Storage.set("progress.vocabularyLearned", learnedIds.length);
-      } else if (nextBox === 1 && learnedIds.indexOf(word.id) !== -1) {
-        const idx = learnedIds.indexOf(word.id);
-        learnedIds.splice(idx, 1);
+      } else if (nextBox < 5 && learnedIdx !== -1) {
+        learnedIds.splice(learnedIdx, 1);
         App.Storage.set("vocabulary.learnedIds", learnedIds);
         App.Storage.set("progress.vocabularyLearned", learnedIds.length);
       }
+
+      const xpByBox = { 1: 0, 2: 2, 3: 4, 4: 6, 5: 10 };
+      const xpGain = xpByBox[nextBox] || 0;
 
       const reviewedToday = Number(App.Storage.get("flashcards.reviewedToday", 0)) + 1;
       App.Storage.set("flashcards.reviewedToday", reviewedToday);
@@ -209,19 +311,28 @@
         App.Progress.addXP(xpGain);
       }
 
-      const allWords = this.getAllWordsPool();
-      if (allWords.length > 0) {
-        const masteredCount = allWords.filter((w) => this.getWordBox(w.id, boxMap, learnedIds) >= 4).length;
-        const pct = Math.min(100, Math.round((masteredCount / allWords.length) * 100));
-        App.Storage.set("progress.moduleCompletion.flashcards", pct);
-      }
+      App.UI.playSound(nextBox >= 3 ? "success" : "click");
 
+      const boxNames = {
+        1: "ყუთი 1 (ახალი)",
+        2: "ყუთი 2 (საწყისი)",
+        3: "ყუთი 3 (საშუალო)",
+        4: "ყუთი 4 (მყარი)",
+        5: "ყუთი 5 (ათვისებული)"
+      };
+      App.UI.toast("✓ «" + word.en + "» გადავიდა: " + boxNames[nextBox], "info", 1600);
+
+      // თუ მომხმარებელს ჩართული აქვს კონკრეტული ყუთის ფილტრი და სიტყვა სხვა ყუთში გადავიდა,
+      // განვაახლოთ დასტა; თუ "ყველა ყუთია" ჩართული, გადავიდეთ შემდეგ სიტყვაზე
       isFlipped = false;
-      if (currentIndex < currentDeck.length - 1) {
-        currentIndex++;
+      if (activeBoxFilter >= 1 && activeBoxFilter <= 5 && activeBoxFilter !== nextBox) {
+        this.buildFilteredDeck(false);
       } else {
-        currentIndex = 0;
-        App.UI.toast("🎉 დასტის ბოლოში გახვედით! იწყება თავიდან.", "success");
+        if (currentIndex < currentDeck.length - 1) {
+          currentIndex++;
+        } else {
+          currentIndex = 0;
+        }
       }
 
       this.render();
@@ -239,7 +350,7 @@
     },
 
     toggleBookmark: function (wordId) {
-      const bookmarked = App.Storage.get("vocabulary.bookmarkedIds", []).slice();
+      const bookmarked = (App.Storage.get("vocabulary.bookmarkedIds", []) || []).slice();
       const idx = bookmarked.indexOf(wordId);
       if (idx === -1) {
         bookmarked.push(wordId);
@@ -271,11 +382,11 @@
       }
 
       const boxMap = this.getBoxMap();
-      const learnedIds = App.Storage.get("vocabulary.learnedIds", []);
-      const bookmarkedIds = App.Storage.get("vocabulary.bookmarkedIds", []);
+      const learnedIds = App.Storage.get("vocabulary.learnedIds", []) || [];
+      const bookmarkedIds = App.Storage.get("vocabulary.bookmarkedIds", []) || [];
       const reviewedToday = Number(App.Storage.get("flashcards.reviewedToday", 0));
 
-      // დავითვალოთ ყუთების რაოდენობა მონიშნული დონეების მიხედვით
+      // დავითვალოთ თითოეულ ყუთში არსებული სიტყვების რაოდენობა მონიშნული დონეების მიხედვით
       const levelWords = allWords.filter((w) => selectedLevels.indexOf(w.level) !== -1);
       const boxCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
       levelWords.forEach((w) => {
@@ -283,7 +394,6 @@
         boxCounts[b] = (boxCounts[b] || 0) + 1;
       });
 
-      // მრავალდონიანი ჩექბოქსების გენერაცია
       const levelCheckboxesHtml = ALL_CEFR_LEVELS.map((lvl) => {
         const isChecked = selectedLevels.indexOf(lvl) !== -1;
         return (
@@ -296,9 +406,9 @@
 
       const boxDefinitions = [
         { num: 1, icon: "📥", title: "ყუთი 1 • ახალი", desc: "სასწავლი სიტყვები" },
-        { num: 2, icon: "🌱", title: "ყუთი 2 • საწყისი", desc: "ნაცნობი სიტყვები" },
-        { num: 3, icon: "📘", title: "ყუთი 3 • საშუალო", desc: "კარგად ნასწავლი" },
-        { num: 4, icon: "🔥", title: "ყუთი 4 • მყარი", desc: "თითქმის ათვისებული" },
+        { num: 2, icon: "🌱", title: "ყუთი 2 • საწყისი", desc: "გამიჭირდა / საწყისი" },
+        { num: 3, icon: "📘", title: "ყუთი 3 • საშუალო", desc: "საშუალოდ ნაცნობი" },
+        { num: 4, icon: "🔥", title: "ყუთი 4 • მყარი", desc: "კარგად ნასწავლი" },
         { num: 5, icon: "🏆", title: "ყუთი 5 • ათვისებული", desc: "სრულად ნასწავლი" }
       ];
 
@@ -320,37 +430,36 @@
         cardStageHtml =
           '<div class="card" style="text-align:center; padding:42px;">' +
             '<div style="font-size:2.6rem; margin-bottom:10px;">🎴</div>' +
-            '<h3 class="section-title">არჩეულ ფილტრში ბარათები არ მოიძებნა</h3>' +
-            '<p style="color:var(--text-secondary); margin:8px 0 18px;">მონიშნეთ სხვა დონე ან გადართეთ ყველა ყუთის ჩვენებაზე.</p>' +
-            '<button type="button" class="btn btn-primary" id="fc-reset-filter-btn">ყველა დონისა და ყუთის ჩვენება</button>' +
+            '<h3 class="section-title">ამ ყუთში ჯერ ბარათები არ არის</h3>' +
+            '<p style="color:var(--text-secondary); margin:8px 0 18px;">როდესაც ბარათებს ქვედა ღილაკებით შეაფასებთ, სიტყვები ავტომატურად ჩაემატება შესაბამის ყუთში.</p>' +
+            '<button type="button" class="btn btn-primary" id="fc-reset-filter-btn">ყველა ყუთის ჩვენება</button>' +
           "</div>";
       } else {
         const wBox = this.getWordBox(currentWord.id, boxMap, learnedIds);
         const isBookmarked = bookmarkedIds.indexOf(currentWord.id) !== -1;
 
         const isFrontEnglish = (cardDirection === "EN_TO_KA");
-        const isBackEnglish = (cardDirection === "KA_TO_EN");
 
-        const frontWord = isFrontEnglish ? currentWord.en : currentWord.ka;
-        const backWord = isFrontEnglish ? currentWord.ka : currentWord.en;
+        // ინგლისური მხარის შიგთავსი (სიტყვა + აუცილებელი ტრანსკრიპცია + დინამიკი)
+        const englishSideCenterHtml =
+          '<span class="fc-lang-label">🇬🇧 ინგლისური</span>' +
+          '<div class="flashcard-main-word">' + App.UI.escapeHTML(currentWord.en) + "</div>" +
+          '<div class="fc-transcription-pill">' + App.UI.escapeHTML(currentWord.phonetic) + "</div>" +
+          '<button type="button" class="fc-speak-pill-btn" data-fc-speak-en="true">&#128266; გამოთქმის მოსმენა</button>' +
+          (currentWord.exampleEn
+            ? '<div class="fc-example-box"><div class="flashcard-example-en">"' + App.UI.escapeHTML(currentWord.exampleEn) + '"</div></div>'
+            : "");
 
-        // მეორადი ტექსტი უკანა მხარეს (წინა მხარის სიტყვის შეხსენება undefined-ის გარეშე!)
-        const backSecondaryText = isFrontEnglish ? currentWord.en : currentWord.ka;
+        // ქართული მხარის შიგთავსი (მხოლოდ ქართული სიტყვა და ქართული მაგალითი — ინგლისური სიტყვისა და დინამიკის გარეშე!)
+        const georgianSideCenterHtml =
+          '<span class="fc-lang-label">🇬🇪 ქართული</span>' +
+          '<div class="flashcard-main-word">' + App.UI.escapeHTML(currentWord.ka) + "</div>" +
+          (currentWord.exampleKa
+            ? '<div class="fc-example-box"><div class="flashcard-example-ka">' + App.UI.escapeHTML(currentWord.exampleKa) + "</div></div>"
+            : "");
 
-        const frontAudioHtml = isFrontEnglish
-          ? '<button type="button" class="fc-speak-pill-btn" id="fc-speak-front-btn">&#128266; გამოთქმის მოსმენა</button>'
-          : "";
-
-        const backAudioHtml = isBackEnglish
-          ? '<button type="button" class="fc-speak-pill-btn" id="fc-speak-back-btn">&#128266; გამოთქმის მოსმენა</button>'
-          : "";
-
-        const exampleHtml = (currentWord.exampleEn || currentWord.exampleKa)
-          ? '<div class="fc-example-box">' +
-              (currentWord.exampleEn ? '<div class="flashcard-example-en">"' + App.UI.escapeHTML(currentWord.exampleEn) + '"</div>' : "") +
-              (currentWord.exampleKa ? '<div class="flashcard-example-ka">' + App.UI.escapeHTML(currentWord.exampleKa) + "</div>" : "") +
-            "</div>"
-          : "";
+        const frontCenterHtml = isFrontEnglish ? englishSideCenterHtml : georgianSideCenterHtml;
+        const backCenterHtml = isFrontEnglish ? georgianSideCenterHtml : englishSideCenterHtml;
 
         cardStageHtml =
           '<div class="flashcard-stage-wrap">' +
@@ -360,8 +469,8 @@
                 '<span class="stat-pill">დონეები: ' + App.UI.escapeHTML(selectedLevels.join(", ")) + "</span>" +
               "</div>" +
               '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
-                '<button type="button" class="btn btn-outline btn-sm" id="fc-toggle-dir-btn" title="მიმართულების შეცვლა">' +
-                  (cardDirection === "EN_TO_KA" ? "🇬🇧 EN &rarr; 🇬🇪 KA" : "🇬🇪 KA &rarr; 🇬🇧 EN") +
+                '<button type="button" class="btn btn-outline btn-sm" id="fc-toggle-dir-btn" title="საწყისი ენის შეცვლა">' +
+                  (cardDirection === "EN_TO_KA" ? "🇬🇧 ინგლისური &rarr; 🇬🇪 ქართული" : "🇬🇪 ქართული &rarr; 🇬🇧 ინგლისური") +
                 "</button>" +
                 '<button type="button" class="btn btn-outline btn-sm" id="fc-shuffle-btn">🔀 არევა</button>' +
                 '<button type="button" class="btn ' + (activeBoxFilter === 99 ? "btn-secondary" : "btn-outline") + ' btn-sm" id="fc-filter-bookmarks-btn">⭐ რჩეულები (' + bookmarkedIds.length + ")</button>" +
@@ -386,10 +495,7 @@
                   "</div>" +
 
                   '<div class="flashcard-center-content">' +
-                    '<span class="fc-lang-label">' + (isFrontEnglish ? "🇬🇧 English Term" : "🇬🇪 ქართული მნიშვნელობა") + "</span>" +
-                    '<div class="flashcard-main-word">' + App.UI.escapeHTML(frontWord) + "</div>" +
-                    (isFrontEnglish && currentWord.phonetic ? '<div class="fc-secondary-word">' + App.UI.escapeHTML(currentWord.phonetic) + "</div>" : "") +
-                    frontAudioHtml +
+                    frontCenterHtml +
                   "</div>" +
 
                   '<div class="flashcard-bottom-hint">' +
@@ -402,7 +508,7 @@
                   '<div class="flashcard-top-meta">' +
                     '<div class="fc-meta-left">' +
                       '<span class="fc-level-badge">' + App.UI.escapeHTML(currentWord.level) + "</span>" +
-                      '<span class="fc-category-badge">✓ პასუხი</span>' +
+                      '<span class="fc-category-badge">' + App.UI.escapeHTML(currentWord.category) + "</span>" +
                     "</div>" +
                     '<div class="fc-meta-right">' +
                       this.renderBoxDots(wBox) +
@@ -410,44 +516,44 @@
                   "</div>" +
 
                   '<div class="flashcard-center-content">' +
-                    '<span class="fc-lang-label">' + (isBackEnglish ? "🇬🇧 English Term" : "🇬🇪 ქართული თარგმანი") + "</span>" +
-                    '<div class="flashcard-main-word">' + App.UI.escapeHTML(backWord) + "</div>" +
-                    (backSecondaryText ? '<div class="fc-secondary-word">' + App.UI.escapeHTML(backSecondaryText) + "</div>" : "") +
-                    backAudioHtml +
-                    exampleHtml +
+                    backCenterHtml +
                   "</div>" +
 
                   '<div class="flashcard-bottom-hint">' +
-                    '<span>შეაფასეთ ცოდნა ქვემოთ მოცემული ღილაკებით</span> <span class="fc-kbd">1</span> – <span class="fc-kbd">4</span>' +
+                    '<span>აირჩიეთ ქვემოთ ყუთი, რომელშიც გსურთ ამ სიტყვის გადატანა</span> <span class="fc-kbd">1</span> – <span class="fc-kbd">5</span>' +
                   "</div>" +
                 "</div>" +
 
               "</div>" +
             "</div>" +
 
-            '<!-- SRS შეფასების ღილაკები -->' +
+            '<!-- 5 ყუთის შესაბამისი 5 ღილაკი -->' +
             '<div class="srs-rating-bar">' +
-              '<button type="button" class="srs-btn srs-btn--again" data-srs-rate="AGAIN">' +
-                '<span>❌ არ მახსოვს</span>' +
-                '<span class="srs-btn-sub">[1] ყუთი 1 • თავიდან</span>' +
+              '<button type="button" class="srs-btn srs-btn--box1" data-move-to-box="1">' +
+                '<span>📥 ყუთი 1 • ახალი</span>' +
+                '<span class="srs-btn-sub">[1] არ მახსოვს</span>' +
               "</button>" +
-              '<button type="button" class="srs-btn srs-btn--hard" data-srs-rate="HARD">' +
-                '<span>🤔 გამიჭირდა</span>' +
-                '<span class="srs-btn-sub">[2] ყუთი 2 • +2 XP</span>' +
+              '<button type="button" class="srs-btn srs-btn--box2" data-move-to-box="2">' +
+                '<span>🌱 ყუთი 2 • საწყისი</span>' +
+                '<span class="srs-btn-sub">[2] გამიჭირდა (+2 XP)</span>' +
               "</button>" +
-              '<button type="button" class="srs-btn srs-btn--good" data-srs-rate="GOOD">' +
-                '<span>👍 კარგად ვიცი</span>' +
-                '<span class="srs-btn-sub">[3] ყუთი +1 • +5 XP</span>' +
+              '<button type="button" class="srs-btn srs-btn--box3" data-move-to-box="3">' +
+                '<span>📘 ყუთი 3 • საშუალო</span>' +
+                '<span class="srs-btn-sub">[3] საშუალოდ (+4 XP)</span>' +
               "</button>" +
-              '<button type="button" class="srs-btn srs-btn--easy" data-srs-rate="EASY">' +
-                '<span>⚡ მარტივია!</span>' +
-                '<span class="srs-btn-sub">[4] ყუთი 5 • +10 XP</span>' +
+              '<button type="button" class="srs-btn srs-btn--box4" data-move-to-box="4">' +
+                '<span>🔥 ყუთი 4 • მყარი</span>' +
+                '<span class="srs-btn-sub">[4] კარგად ვიცი (+6 XP)</span>' +
+              "</button>" +
+              '<button type="button" class="srs-btn srs-btn--box5" data-move-to-box="5">' +
+                '<span>🏆 ყუთი 5 • ათვისებული</span>' +
+                '<span class="srs-btn-sub">[5] სრულად ვიცი (+10 XP)</span>' +
               "</button>" +
             "</div>" +
 
             '<div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">' +
               '<button type="button" class="btn btn-outline btn-sm" id="fc-prev-btn">&larr; წინა ბარათი</button>' +
-              '<button type="button" class="btn btn-secondary btn-sm" id="fc-flip-btn">🔄 გადაბრუნება</button>' +
+              '<button type="button" class="btn btn-secondary btn-sm" id="fc-flip-btn">🔄 ბარათის გადაბრუნება</button>' +
               '<button type="button" class="btn btn-outline btn-sm" id="fc-next-btn">შემდეგი ბარათი &rarr;</button>' +
             "</div>" +
           "</div>";
@@ -459,7 +565,7 @@
             '<div class="section-header">' +
               "<div>" +
                 '<h2 class="section-title">🎴 ინტერაქტიული ბარათები (Spaced Repetition)</h2>' +
-                '<p class="section-subtitle">მონიშნეთ სასურველი CEFR დონეები (შეგიძლიათ აირჩიოთ ერთი ან რამდენიმე დონე ერთდროულად), გადააბრუნეთ ბარათი და გადაანაწილეთ სიტყვები ცოდნის 5 ყუთში.</p>' +
+                '<p class="section-subtitle">მონიშნეთ სასურველი CEFR დონეები, გადააბრუნეთ ბარათი და ქვედა 5 ღილაკით გადაანაწილეთ სიტყვები შესაბამის ყუთებში (ყუთი 1–5).</p>' +
               "</div>" +
               '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
                 '<span class="stat-pill stat-pill--streak">დღეს გავლილია: ' + reviewedToday + "</span>" +
@@ -467,7 +573,6 @@
               "</div>" +
             "</div>" +
 
-            '<!-- მრავალდონიანი მონიშვნის პანელი -->' +
             '<div class="fc-level-selector-bar">' +
               '<div class="fc-level-chips-wrap">' +
                 '<span style="font-size:0.84rem; font-weight:800; color:var(--text-secondary); margin-right:4px;">აირჩიეთ დონეები:</span>' +
@@ -489,7 +594,7 @@
           "</section>" +
         "</div>";
 
-      // დონის ჩექბოქსებზე დაჭერა (რამდენიმე დონის არჩევა)
+      // ივენთები
       container.querySelectorAll("[data-toggle-fc-level]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const lvl = btn.getAttribute("data-toggle-fc-level");
@@ -502,7 +607,6 @@
             selectedLevels.splice(idx, 1);
           } else {
             selectedLevels.push(lvl);
-            // დავალაგოთ A1..C2 თანმიმდევრობით
             selectedLevels.sort((a, b) => ALL_CEFR_LEVELS.indexOf(a) - ALL_CEFR_LEVELS.indexOf(b));
           }
           this.saveSelectedLevels();
@@ -552,8 +656,6 @@
       if (resetFilterBtn) {
         resetFilterBtn.addEventListener("click", () => {
           activeBoxFilter = 0;
-          selectedLevels = ALL_CEFR_LEVELS.slice();
-          this.saveSelectedLevels();
           currentIndex = 0;
           this.buildFilteredDeck(false);
           this.render();
@@ -620,21 +722,14 @@
         });
       }
 
-      const speakFrontBtn = container.querySelector("#fc-speak-front-btn");
-      if (speakFrontBtn && currentWord) {
-        speakFrontBtn.addEventListener("click", (e) => {
+      container.querySelectorAll("[data-fc-speak-en]").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
           e.stopPropagation();
-          this.speakEnglish(currentWord.en);
+          if (currentWord) {
+            this.speakEnglish(currentWord.en);
+          }
         });
-      }
-
-      const speakBackBtn = container.querySelector("#fc-speak-back-btn");
-      if (speakBackBtn && currentWord) {
-        speakBackBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          this.speakEnglish(currentWord.en);
-        });
-      }
+      });
 
       const bmBtn = container.querySelector("#fc-bookmark-btn");
       if (bmBtn && currentWord) {
@@ -666,10 +761,10 @@
         });
       }
 
-      container.querySelectorAll("[data-srs-rate]").forEach((btn) => {
+      container.querySelectorAll("[data-move-to-box]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const rate = btn.getAttribute("data-srs-rate");
-          this.rateCurrentCard(rate);
+          const targetBox = Number(btn.getAttribute("data-move-to-box"));
+          this.moveCurrentCardToBox(targetBox);
         });
       });
     }
@@ -677,7 +772,7 @@
 
   App.Flashcards = Flashcards;
 
-  // კლავიატურით სწრაფი მართვა: Space = გადაბრუნება, ArrowLeft/Right = გადასვლა, 1..4 = შეფასება
+  // კლავიატურით სწრაფი მართვა: Space = გადაბრუნება, ArrowLeft/Right = გადასვლა, 1..5 = შესაბამის ყუთში გადატანა
   window.addEventListener("keydown", (e) => {
     const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
     if (hash !== "flashcards") return;
@@ -696,14 +791,8 @@
     } else if (e.code === "ArrowLeft") {
       const prevBtn = document.getElementById("fc-prev-btn");
       if (prevBtn) prevBtn.click();
-    } else if (e.key === "1") {
-      Flashcards.rateCurrentCard("AGAIN");
-    } else if (e.key === "2") {
-      Flashcards.rateCurrentCard("HARD");
-    } else if (e.key === "3") {
-      Flashcards.rateCurrentCard("GOOD");
-    } else if (e.key === "4") {
-      Flashcards.rateCurrentCard("EASY");
+    } else if (["1", "2", "3", "4", "5"].indexOf(e.key) !== -1) {
+      Flashcards.moveCurrentCardToBox(Number(e.key));
     }
   });
 })(window);
