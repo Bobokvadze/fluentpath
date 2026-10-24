@@ -372,3 +372,5 @@ header,
 .xp-pill {
   display: none !important;
 }
+/* მარცხენა მენიუში ფაზებისა და 'მზადაა' ბეიჯების სრული გაქრობა */
+.nav-badge { display: none !important; }

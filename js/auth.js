@@ -22,100 +22,49 @@
   let regPlacementScore = 0;
   let regPlacementFinishedResult = null; // { score, total, assignedLevel }
 
-  // 12 საბაზისო დიაგნოსტიკური კითხვა (2-2 თითოეული დონიდან: A1, A2, B1, B2, C1, C2)
+    // 30-კითხვიანი დიაგნოსტიკური ტესტი (გრამატიკა და ლექსიკონი: 5-5 კითხვა თითოეულ დონეზე A1–C2)
   const PLACEMENT_BANK = [
-    {
-      level: "A1",
-      q: "Choose the correct verb: 'She ___ to work by bus every morning.'",
-      options: ["goes", "go", "going", "is go"],
-      correct: 0
-    },
-    {
-      level: "A1",
-      q: "რას ნიშნავს ქართულად სიტყვა «schedule»?",
-      options: ["განრიგი / ცხრილი", "მისამართი", "სადგური", "საფულე"],
-      correct: 0
-    },
-    {
-      level: "A2",
-      q: "Choose the correct form: 'While I ___ dinner last night, the phone rang.'",
-      options: ["was cooking", "cooked", "am cooking", "have cooked"],
-      correct: 0
-    },
-    {
-      level: "A2",
-      q: "Choose the best phrase: 'If I ___ you, I would join a local sports club.'",
-      options: ["were", "am", "will be", "have been"],
-      correct: 0
-    },
-    {
-      level: "B1",
-      q: "Choose the correct preposition: 'We must finish this project ___ Friday afternoon.'",
-      options: ["by", "until", "since", "during"],
-      correct: 0
-    },
-    {
-      level: "B1",
-      q: "What does the workplace idiom 'to be on the same page' mean?",
-      options: [
-        "ერთ აზრზე ყოფნა / ერთიანი გაგების ქონა",
-        "ერთი და იმავე წიგნის კითხვა",
-        "სامუშაოს დროზე ადრე დასრულება",
-        "შეხვედრის გაუქმება"
-      ],
-      correct: 0
-    },
-    {
-      level: "B2",
-      q: "Choose the correct structure: 'If the shipment had arrived on time, we ___ the deadline.'",
-      options: ["would have met", "will meet", "would meet", "met"],
-      correct: 0
-    },
-    {
-      level: "B2",
-      q: "რას ნიშნავს პროფესიულ ინგლისურში ზმნა «to mitigate (risks)»?",
-      options: [
-        "რისკების შემცირება / შერბილება",
-        "რისკების სრული უგულებელყოფა",
-        "ხელშეკრულების გაუქმება",
-        "ფასების გაორმაგება"
-      ],
-      correct: 0
-    },
-    {
-      level: "C1",
-      q: "Choose the correct formal inversion: 'Seldom ___ such a well-structured financial report.'",
-      options: ["have we seen", "we have seen", "we saw", "did we saw"],
-      correct: 0
-    },
-    {
-      level: "C1",
-      q: "What does the phrase 'free of encumbrances' mean in a property or loan contract?",
-      options: [
-        "ყოველგვარი ვალდებულებისა და იპოთეკისგან თავისუფალი",
-        "გადასახადებისგან დროებით გათავისუფლებული",
-        "სრულად გარემონტებული",
-        "სახელმწიფო საკუთრებაში არსებული"
-      ],
-      correct: 0
-    },
-    {
-      level: "C2",
-      q: "Choose the precise word: 'Because the obstacle could not be overcome by any alternative route, it was deemed ___.'",
-      options: ["insurmountable", "negligible", "arbitrary", "ephemeral"],
-      correct: 0
-    },
-    {
-      level: "C2",
-      q: "What does 'steel-manning an argument' mean in academic rhetoric?",
-      options: [
-        "ოპონენტის არგუმენტის ყველაზე ძლიერი და სამართლიანი ფორმით წარმოდგენა კრიტიკამდე",
-        "ოპონენტის პოზიციის დამახინჯება მარტივად გასაბათილებლად",
-        "კამათის დროს მხოლოდ სტატისტიკის გამოყენება",
-        "საკუთარი პოზიციის შეცვლა"
-      ],
-      correct: 0
-    }
+    // ==================== A1 (5 კითხვა) ====================
+    { level: "A1", cat: "🌐 გრამატიკა", q: "Choose the correct form: 'My brother ___ in a commercial bank in Tbilisi.'", options: ["works", "work", "working", "is work"], correct: 0 },
+    { level: "A1", cat: "🗂️ ლექსიკონი", q: "რას ნიშნავს ქართულად სიტყვა «schedule»?", options: ["განრიგი / ცხრილი", "მისამართი", "სადგური", "საფულე"], correct: 0 },
+    { level: "A1", cat: "🌐 გრამატიკა", q: "Choose the correct word: '___ there any new messages for me this morning?'", options: ["Are", "Is", "Have", "Do"], correct: 0 },
+    { level: "A1", cat: "🗂️ ლექსიკონი", q: "რომელი ინგლისური სიტყვა ნიშნავს: «შეხვედრა / ვიზიტზე ჩაწერა»?", options: ["appointment", "department", "equipment", "environment"], correct: 0 },
+    { level: "A1", cat: "🌐 გრამატიკა", q: "Choose the correct past form: 'We ___ the contract yesterday afternoon.'", options: ["signed", "sign", "have sign", "signing"], correct: 0 },
+
+    // ==================== A2 (5 კითხვა) ====================
+    { level: "A2", cat: "🌐 გრამატიკა", q: "Choose the correct form: 'While I ___ the presentation, the power went out.'", options: ["was preparing", "prepared", "prepare", "have prepared"], correct: 0 },
+    { level: "A2", cat: "🗂️ ლექსიკონი", q: "რას ნიშნავს ქართულად სიტყვა «accommodation»?", options: ["საცხოვრებელი / ღამის გასათევი", "ტრანსპორტირება", "დაზღვევა", "შეთანხმება"], correct: 0 },
+    { level: "A2", cat: "🌐 გრამატიკა", q: "Choose the correct comparative: 'Online transfers are much ___ than visiting a branch.'", options: ["faster", "more fast", "fastest", "as fast"], correct: 0 },
+    { level: "A2", cat: "🗂️ ლექსიკონი", q: "რომელი სიტყვა ნიშნავს «სანდო / საიმედო»-ს?", options: ["reliable", "flexible", "available", "comfortable"], correct: 0 },
+    { level: "A2", cat: "🌐 გრამატიკა", q: "Choose the correct Present Perfect form: 'She ___ already ___ all the invoices.'", options: ["has / checked", "did / check", "was / checking", "have / checked"], correct: 0 },
+
+    // ==================== B1 (5 კითხვა) ====================
+    { level: "B1", cat: "🌐 გრამატიკა", q: "Choose the correct Second Conditional: 'If I ___ more free time, I would learn a third language.'", options: ["had", "have", "will have", "would have"], correct: 0 },
+    { level: "B1", cat: "🗂️ ლექსიკონი", q: "რას ნიშნავს ფრაზული ზმნა «to figure out»?", options: ["გარკვევა / მიხვედრა / ამოხსნა", "გაუქმება / გადადება", "უარის თქმა", "დავიწყება"], correct: 0 },
+    { level: "B1", cat: "🌐 გრამატიკა", q: "Choose the correct Passive form: 'The new logistics hub ___ two years ago.'", options: ["was built", "built", "has built", "is building"], correct: 0 },
+    { level: "B1", cat: "🗂️ ლექსიკონი", q: "რას ნიშნავს სიტყვა «mandatory»?", options: ["სავალდებულო", "ნებაყოფლობითი", "დროებითი", "სახიფათო"], correct: 0 },
+    { level: "B1", cat: "🌐 გრამატიკა", q: "Choose the correct preposition: 'All applications must be submitted ___ Friday at 6 PM.'", options: ["by", "until", "during", "for"], correct: 0 },
+
+    // ==================== B2 (5 კითხვა) ====================
+    { level: "B2", cat: "🌐 გრამატიკა", q: "Choose the correct Third Conditional: 'If the supplier had delivered on time, we ___ the penalty.'", options: ["would have avoided", "will avoid", "would avoid", "avoided"], correct: 0 },
+    { level: "B2", cat: "🗂️ ლექსიკონი", q: "რას ნიშნავს პროფესიულ ინგლისურში ზმნა «to mitigate (risks)»?", options: ["რისკების შემცირება / შერბილება", "რისკების გაზრდა", "ხელშეკრულების შეწყვეტა", "ვალდებულების გადაბარება"], correct: 0 },
+    { level: "B2", cat: "🌐 გრამატიკა", q: "Choose the correct past modal: 'You ___ informed the legal team earlier — they could have helped.'", options: ["should have", "must", "would", "should"], correct: 0 },
+    { level: "B2", cat: "🗂️ ლექსიკონი", q: "რომელი ინგლისური ტერმინი ნიშნავს «წესებთან და რეგულაციებთან შესაბამისობას»?", options: ["compliance", "deficiency", "redundancy", "turnover"], correct: 0 },
+    { level: "B2", cat: "🌐 გრამატიკა", q: "Choose the correct Future Perfect: 'By next autumn, he ___ at the institution for ten years.'", options: ["will have worked", "will work", "has worked", "is working"], correct: 0 },
+
+    // ==================== C1 (5 კითხვა) ====================
+    { level: "C1", cat: "🌐 გრამატიკა", q: "Choose the correct negative inversion: 'Seldom ___ such a well-documented feasibility study.'", options: ["have we seen", "we have seen", "we saw", "did we saw"], correct: 0 },
+    { level: "C1", cat: "🗂️ ლექსიკონი", q: "რას ნიშნავს ზედსართავი სახელი «viable» (მაგ: a viable business model)?", options: ["სიცოცხლისუნარიანი / განხორციელებადი", "წამგებიანი / სარისკო", "მოძველებული", "სადავო"], correct: 0 },
+    { level: "C1", cat: "🌐 გრამატიკა", q: "Choose the correct Mixed Conditional: 'If she hadn't taken that role in 2023, she ___ head of the department today.'", options: ["wouldn't be", "wouldn't have been", "won't be", "isn't"], correct: 0 },
+    { level: "C1", cat: "🗂️ ლექსიკონი", q: "რას ნიშნავს სამართლებრივი ფრაზა «free of encumbrances»?", options: ["ყოველგვარი ვალდებულებისა და იპოთეკისგან თავისუფალი", "გადასახადებისგან გათავისუფლებული", "სრულად დაზღვეული", "საჯარო რეესტრში დაურეგისტრირებელი"], correct: 0 },
+    { level: "C1", cat: "🌐 გრამატიკა", q: "Choose the formal Subjunctive: 'The board insisted that the audit report ___ submitted before Monday.'", options: ["be", "is", "was", "will be"], correct: 0 },
+
+    // ==================== C2 (5 კითხვა) ====================
+    { level: "C2", cat: "🌐 გრამატიკა", q: "Choose the correct formal conditional inversion: '___ the borrower default on the instalment, the bank may invoke recourse.'", options: ["Should", "Unless", "Were", "Had"], correct: 0 },
+    { level: "C2", cat: "🗂️ ლექსიკონი", q: "რას ნიშნავს C2 დონის სიტყვა «ubiquitous»?", options: ["ყოვლისმომცველი / ყველგან მყოფი", "უკიდურესად იშვიათი", "ორაზროვანი / ბუნდოვანი", "უსაფუძვლო"], correct: 0 },
+    { level: "C2", cat: "🌐 გრამატიკა", q: "Choose the correct structure: 'Not until the archival records were cross-checked ___ the truth emerge.'", options: ["did", "had", "was", "has"], correct: 0 },
+    { level: "C2", cat: "🗂️ ლექსიკონი", q: "რას ნიშნავს სიტყვა «insurmountable» (მაგ: an insurmountable obstacle)?", options: ["დაუძლეველი / გადაულახავი", "უმნიშვნელო / წვრილმანი", "დროებითი", "წინასწარ განჭვრეტადი"], correct: 0 },
+    { level: "C2", cat: "🗂️ ლექსიკონი", q: "რას ნიშნავს აკადემიური ტერმინი «ephemeral»?", options: ["ხანმოკლე / წარმავალი", "მარადიული / უცვლელი", "სისტემური", "დადასტურებული"], correct: 0 }
   ];
 
   function shuffleArray(arr) {
@@ -135,6 +84,7 @@
       const mixed = shuffleArray(item.options);
       return {
         level: item.level,
+        cat: item.cat || "🌐 გრამატიკა",
         q: item.q,
         options: mixed,
         correct: mixed.indexOf(correctAns)
@@ -415,8 +365,35 @@
 
       if (isNewRegistration) {
         inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
-        // ბარათებშიც ავტომატურად მოვნიშნოთ მისი დადგენილი დონე
         setByPath(inMemoryState, "vocabulary.selectedFcLevels", [fallbackLevel]);
+
+        // გავუხსნათ დადგენილ დონემდე არსებული წინა დონეების თემები ყველა მოდულში
+        const levelOrder = ["A1", "A2", "B1", "B2", "C1", "C2"];
+        const assignedIdx = levelOrder.indexOf(fallbackLevel);
+        if (assignedIdx > 0) {
+          const passedLevels = levelOrder.slice(0, assignedIdx);
+          if (App.Grammar && typeof App.Grammar.getAllTopics === "function") {
+            const gIds = App.Grammar.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+            setByPath(inMemoryState, "progress.completedGrammarIds", gIds);
+          }
+          if (App.Reading && typeof App.Reading.getAllStories === "function") {
+            const rIds = App.Reading.getAllStories().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+            setByPath(inMemoryState, "progress.completedReadingIds", rIds);
+          }
+          if (App.Listening && typeof App.Listening.getAllTopics === "function") {
+            const lIds = App.Listening.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+            setByPath(inMemoryState, "progress.completedListeningIds", lIds);
+          }
+          if (App.Writing && typeof App.Writing.getAllTopics === "function") {
+            const wIds = App.Writing.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+            setByPath(inMemoryState, "progress.completedWritingIds", wIds);
+          }
+        }
+
+        if (App.Learn && typeof App.Learn.setActiveLevelTab === "function") {
+          App.Learn.setActiveLevelTab(fallbackLevel);
+        }
+
         currentCloudUser = {
           id: supaUser.id,
           email: supaUser.email,
@@ -704,8 +681,16 @@
           "</div>";
 
         modalElement.querySelector("#fp-finish-placement-btn").addEventListener("click", function () {
+          const targetLvl = r.assignedLevel;
           regPlacementFinishedResult = null;
           Auth.closeModal();
+          if (App.Learn && typeof App.Learn.setActiveLevelTab === "function") {
+            App.Learn.setActiveLevelTab(targetLvl);
+          }
+          window.location.hash = "#learn";
+          if (App.Learn && typeof App.Learn.render === "function") {
+            App.Learn.render();
+          }
         });
         return;
       }
@@ -889,7 +874,7 @@
             '<h3 class="section-title" style="font-size:1.3rem;">' + (isReg ? "ნაბიჯი 1/2: ანგარიშის მონაცემები" : "შესვლა ანგარიშზე") + "</h3>" +
             '<p style="font-size:0.82rem; color:var(--text-secondary); margin-top:4px;">' +
               (isReg
-                ? "მონაცემების შევსების შემდეგ გაივლით 12-კითხვიან ტესტს, რომელიც განსაზღვრავს თქვენს დონეს."
+                ? "მონაცემების შევსების შემდეგ გაივლით 30-კითხვიან გრამატიკისა და ლექსიკის ტესტს, რომელიც განსაზღვრავს თქვენს დონეს."
                 : "შედით თქვენს ანგარიშზე პროგრესის გასაგრძელებლად.") +
             "</p>" +
           "</div>" +
