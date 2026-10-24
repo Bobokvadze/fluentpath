@@ -1,6 +1,8 @@
 /**
- * AUDIO-ENGINE.JS — 100% სტუდიური ადამიანური ხმის ძრავა (Oxford MP3 + DictionaryAPI + Studio Stream)
- * Windows-ის რობოტული speechSynthesis სრულად ამოღებულია!
+ * AUDIO-ENGINE.JS — სტუდიური აუდიო-ძრავა მოკლე სიტყვებისა და გრძელი ტექსტებისთვის
+ * - ცალკეულ სიტყვებზე: Oxford Dictionary MP3 + Youdao Studio (US/UK)
+ * - გრძელ ტექსტებსა და აბზაცებზე: ავტომატურად ყოფს ტექსტს წინადადებებად (<=140 სიმბოლო)
+ *   და უწყვეტ რიგში (Preloaded Queue) კითხულობს სტუდიური US/UK ხმით!
  */
 (function (window) {
   "use strict";
@@ -10,7 +12,8 @@
   const ACCENT_STORAGE_KEY = "fluentpath_preferred_accent_v1";
   let preferredAccent = "US"; // "US" | "UK"
   let activeAudio = null;
-  const apiAudioCache = {}; // ინახავს DictionaryAPI-დან მოძებნილ სტუდიურ MP3 ბმულებს
+  let playbackSessionId = 0;
+  const apiAudioCache = {};
 
   try {
     const savedAcc = window.localStorage.getItem(ACCENT_STORAGE_KEY);
@@ -30,47 +33,128 @@
     return text;
   }
 
-  function playUrlListSequentially(urls, playbackRate) {
-    if (!urls || !urls.length) return;
-    let idx = 0;
+  /**
+   * ყოფს ნებისმიერი სიგრძის ტექსტს (აბზაცს ან მთლიან ისტორიას) <=135 სიმბოლოიან
+   * ბუნებრივ ფრაზებად, რომ სტუდიურმა სერვერმა თითოეული ნაწილი შეუფერხებლად წაიკითხოს.
+   */
+  function splitTextIntoStudioChunks(rawText) {
+    const cleaned = cleanTextForAudio(rawText);
+    if (!cleaned) return [];
+    if (cleaned.length <= 135) return [cleaned];
 
-    function tryNext() {
-      if (idx >= urls.length) return;
-      const currentUrl = urls[idx++];
-      if (!currentUrl) {
-        tryNext();
+    const sentences = cleaned.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [cleaned];
+    const chunks = [];
+
+    sentences.forEach(function (sent) {
+      const s = sent.trim();
+      if (!s) return;
+      if (s.length <= 135) {
+        chunks.push(s);
         return;
       }
 
+      // თუ წინადადება 135 სიმბოლოზე გრძელია, გავყოთ მძიმეებთან ან სიტყვებთან
+      const clauses = s.split(/(?<=[,;—–:])\s+/);
+      let current = "";
+
+      clauses.forEach(function (cl) {
+        if ((current + " " + cl).trim().length <= 135) {
+          current = (current + " " + cl).trim();
+        } else {
+          if (current) chunks.push(current);
+          if (cl.length <= 135) {
+            current = cl.trim();
+          } else {
+            const words = cl.split(/\s+/);
+            current = "";
+            words.forEach(function (w) {
+              if ((current + " " + w).trim().length > 130) {
+                if (current) chunks.push(current);
+                current = w;
+              } else {
+                current = (current + " " + w).trim();
+              }
+            });
+          }
+        }
+      });
+
+      if (current) chunks.push(current);
+    });
+
+    return chunks;
+  }
+
+  function buildCandidateUrlsForChunk(chunkText, acc) {
+    const words = chunkText.split(/\s+/);
+    const singleWord = words.length === 1 ? words[0].toLowerCase().replace(/[^a-z'-]/g, "") : "";
+    const voiceType = (acc === "UK") ? 1 : 2;
+    const tlCode = (acc === "UK") ? "en-GB" : "en-US";
+    const urls = [];
+
+    if (singleWord) {
+      const oxSuffix = (acc === "UK") ? "_gb_1" : "_us_1";
+      const oxAltSuffix = (acc === "UK") ? "_us_1" : "_gb_1";
+      if (apiAudioCache[singleWord + "_" + acc]) {
+        urls.push(apiAudioCache[singleWord + "_" + acc]);
+      }
+      urls.push("https://ssl.gstatic.com/dictionary/static/sounds/20200429/" + encodeURIComponent(singleWord) + "--" + oxSuffix + ".mp3");
+      urls.push("https://ssl.gstatic.com/dictionary/static/sounds/20200429/" + encodeURIComponent(singleWord) + "--" + oxAltSuffix + ".mp3");
+    }
+
+    urls.push("https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(chunkText) + "&type=" + voiceType);
+    urls.push("https://translate.googleapis.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" + tlCode + "&q=" + encodeURIComponent(chunkText));
+
+    return urls;
+  }
+
+  function playSingleChunkWithFallback(chunkText, acc, playbackRate, sessionId, onChunkFinished) {
+    if (sessionId !== playbackSessionId) return;
+    const urls = buildCandidateUrlsForChunk(chunkText, acc);
+    let urlIdx = 0;
+
+    function tryNextUrl() {
+      if (sessionId !== playbackSessionId) return;
+      if (urlIdx >= urls.length) {
+        onChunkFinished();
+        return;
+      }
+
+      const currentUrl = urls[urlIdx++];
       try {
         const audio = document.createElement("audio");
-        audio.setAttribute("referrerpolicy", "no-referrer");
         audio.preload = "auto";
         audio.src = currentUrl;
-        if (playbackRate && playbackRate < 0.85) {
+        if (playbackRate && playbackRate < 0.88) {
           audio.playbackRate = 0.82;
         }
         activeAudio = audio;
 
-        let failed = false;
-        const handleFail = function () {
-          if (failed) return;
-          failed = true;
-          tryNext();
+        let advanced = false;
+        const nextUrlOnError = function () {
+          if (advanced || sessionId !== playbackSessionId) return;
+          advanced = true;
+          tryNextUrl();
         };
 
-        audio.onerror = handleFail;
+        audio.onended = function () {
+          if (advanced || sessionId !== playbackSessionId) return;
+          advanced = true;
+          onChunkFinished();
+        };
+
+        audio.onerror = nextUrlOnError;
 
         const playPromise = audio.play();
         if (playPromise && typeof playPromise.catch === "function") {
-          playPromise.catch(handleFail);
+          playPromise.catch(nextUrlOnError);
         }
       } catch (e) {
-        tryNext();
+        tryNextUrl();
       }
     }
 
-    tryNext();
+    tryNextUrl();
   }
 
   const AudioEngine = {
@@ -87,25 +171,24 @@
     },
 
     stop: function () {
+      playbackSessionId++;
       if (activeAudio) {
         try {
-          activeAudio.onerror = null;
           activeAudio.onended = null;
+          activeAudio.onerror = null;
           activeAudio.pause();
           activeAudio.src = "";
         } catch (e) {}
         activeAudio = null;
       }
-      if ("speechSynthesis" in window) {
-        try { window.speechSynthesis.cancel(); } catch (e) {}
-      }
     },
 
     speak: function (text, accentOverride, rateOverride) {
-      const cleaned = cleanTextForAudio(text);
-      if (!cleaned) return;
+      const chunks = splitTextIntoStudioChunks(text);
+      if (!chunks.length) return;
 
       this.stop();
+      const currentSession = ++playbackSessionId;
 
       const acc = (accentOverride === "UK" || accentOverride === "US")
         ? accentOverride
@@ -115,31 +198,35 @@
         this.setAccent(acc);
       }
 
-      const words = cleaned.split(/\s+/);
-      const singleWord = words.length === 1 ? words[0].toLowerCase().replace(/[^a-z'-]/g, "") : "";
-      const voiceType = (acc === "UK") ? 1 : 2;
-      const tlCode = (acc === "UK") ? "en-GB" : "en-US";
+      const rate = (typeof rateOverride === "number")
+        ? rateOverride
+        : (rateOverride === true ? 0.8 : 1.0);
 
-      const candidateUrls = [];
+      let chunkIdx = 0;
 
-      // 1. თუ ერთი სიტყვაა — პირველ რიგში ოქსფორდის ოფიციალური სტუდიური MP3 (Google Static CDN)
-      if (singleWord) {
-        const oxSuffix = (acc === "UK") ? "_gb_1" : "_us_1";
-        const oxAltSuffix = (acc === "UK") ? "_us_1" : "_gb_1";
-        candidateUrls.push("https://ssl.gstatic.com/dictionary/static/sounds/20200429/" + encodeURIComponent(singleWord) + "--" + oxSuffix + ".mp3");
-        if (apiAudioCache[singleWord + "_" + acc]) {
-          candidateUrls.unshift(apiAudioCache[singleWord + "_" + acc]);
+      function playNextChunk() {
+        if (currentSession !== playbackSessionId) return;
+        if (chunkIdx >= chunks.length) return;
+
+        const textPart = chunks[chunkIdx++];
+
+        // წინასწარ ჩავტვირთოთ მომდევნო წინადადების აუდიო ფონურად, რომ პაუზა არ ჰქონდეს
+        if (chunkIdx < chunks.length) {
+          try {
+            const nextPart = chunks[chunkIdx];
+            const voiceType = (acc === "UK") ? 1 : 2;
+            const preloadAudio = document.createElement("audio");
+            preloadAudio.preload = "auto";
+            preloadAudio.src = "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(nextPart) + "&type=" + voiceType;
+          } catch (e) {}
         }
-        candidateUrls.push("https://ssl.gstatic.com/dictionary/static/sounds/20200429/" + encodeURIComponent(singleWord) + "--" + oxAltSuffix + ".mp3");
+
+        playSingleChunkWithFallback(textPart, acc, rate, currentSession, function () {
+          playNextChunk();
+        });
       }
 
-      // 2. Youdao-ს სტუდიური დიქტორის ჩანაწერი (US = type 2, UK = type 1)
-      candidateUrls.push("https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(cleaned) + "&type=" + voiceType);
-
-      // 3. Google Neural TTS სტრიმი (no-referrer-ით)
-      candidateUrls.push("https://translate.googleapis.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" + tlCode + "&q=" + encodeURIComponent(cleaned));
-
-      playUrlListSequentially(candidateUrls, rateOverride || 1.0);
+      playNextChunk();
     },
 
     registerApiAudio: function (word, usMp3, ukMp3) {
@@ -152,7 +239,29 @@
 
   App.AudioEngine = AudioEngine;
 
-  // დავბლოკოთ ბრაუზერის რობოტული speechSynthesis და ყველა მოდული გადავრთოთ სტუდიურ AudioEngine-ზე
+  // გადავაერთოთ ყველა მოდულის ხმოვანი გამოძახება AudioEngine-ზე
+  function connectAllModulesToAudioEngine() {
+    if (App.UI) {
+      App.UI.speak = function (text, slow) {
+        AudioEngine.speak(text, preferredAccent, slow ? 0.8 : 1.0);
+      };
+    }
+    ["Vocabulary", "Learn", "Grammar", "Reading", "Listening", "Writing", "Flashcards"].forEach(function (modName) {
+      if (App[modName]) {
+        if (typeof App[modName].speak === "function") {
+          App[modName].speak = function (text, slow) {
+            AudioEngine.speak(text, preferredAccent, slow ? 0.8 : 1.0);
+          };
+        }
+        if (typeof App[modName].stopSpeaking === "function") {
+          App[modName].stopSpeaking = function () {
+            AudioEngine.stop();
+          };
+        }
+      }
+    });
+  }
+
   if ("speechSynthesis" in window) {
     try {
       window.speechSynthesis.speak = function (utterance) {
@@ -164,5 +273,13 @@
         AudioEngine.stop();
       };
     } catch (e) {}
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      window.setTimeout(connectAllModulesToAudioEngine, 30);
+    });
+  } else {
+    window.setTimeout(connectAllModulesToAudioEngine, 30);
   }
 })(window);

@@ -1,5 +1,5 @@
 /**
- * FLASHCARDS.JS — ელეგანტური 3D ბარათები, ზუსტი IPA ტრანსკრიპციებითა და სტუდიური US/UK აქცენტებით
+ * FLASHCARDS.JS — ინტერაქტიული 3D ბარათები, ზუსტი IPA ტრანსკრიპციებითა და სტუდიური US/UK აქცენტებით
  */
 (function (window) {
   "use strict";
@@ -30,17 +30,12 @@
     return copy;
   }
 
-  /**
-   * ეძებს სიტყვის ნამდვილ IPA ტრანსკრიპციას window.App.IPADictionary-ში.
-   * თუ სიტყვა ფრაზაა ან სუფიქსიანი ფორმაა, პოულობს ფუძეს ან თითოეულ სიტყვას.
-   */
   function lookupSingleWordIpa(w, dict) {
     const clean = String(w || "").toLowerCase().replace(/[^a-z'-]/g, "");
     if (!clean) return "";
     if (dict[clean]) return dict[clean].replace(/^\/+|\/+$/g, "");
 
-    // ვცადოთ ფუძის მოძებნა (-s, -es, -ed, -ing, -ly)
-    constcandidates = [];
+    const candidates = [];
     if (clean.endsWith("ies") && clean.length > 4) candidates.push(clean.slice(0, -3) + "y");
     if (clean.endsWith("es") && clean.length > 3) candidates.push(clean.slice(0, -2), clean.slice(0, -1));
     if (clean.endsWith("s") && clean.length > 3) candidates.push(clean.slice(0, -1));
@@ -67,12 +62,10 @@
     const raw = String(rawPhonetic || "").trim();
     const strippedRaw = raw.replace(/^\/+|\/+$/g, "").trim();
 
-    // 1. თუ ბაზაში უკვე წერია ნამდვილი ფონეტიკური სიმბოლოები
     if (strippedRaw && strippedRaw.toLowerCase() !== cleanWord.toLowerCase() && /[ˈˌəɪʊɔæɑɜʃʒθðŋː]/.test(strippedRaw)) {
       return "/" + strippedRaw + "/";
     }
 
-    // 2. მოვძებნოთ ჩვენს ჩამოტვირთულ IPA ლექსიკონში (App.IPADictionary)
     const dict = (window.App && window.App.IPADictionary) ? window.App.IPADictionary : {};
     const baseText = cleanWord
       .replace(/\(\s*(verb|noun|adj|adjective|adv|adverb|plural|singular|formal|informal|idiom|ship|city|car trunk|helm|band-aid)\s*\)/gi, "")
@@ -88,7 +81,7 @@
     if (tokens.length >= 1) {
       const ipaTokens = [];
       let matchedCount = 0;
-      tokens.forEach((t) => {
+      tokens.forEach(function (t) {
         const found = lookupSingleWordIpa(t, dict);
         if (found) {
           ipaTokens.push(found);
@@ -102,7 +95,6 @@
       }
     }
 
-    // 3. სარეზერვო ფონეტიკური ტრანსკრიპცია, რომ ველი არასდროს დარჩეს ცარიელი
     let fallback = baseText
       .replace(/tion\b/g, "ʃən")
       .replace(/sion\b/g, "ʒən")
@@ -117,10 +109,6 @@
     return "/" + fallback + "/";
   }
 
-  /**
-   * დამატებით ამოწმებს Free Dictionary API-ს, რომ თუ სიტყვას ოქსფორდის აუდიო ან ზუსტი IPA აქვს,
-   * მყისიერად განაახლოს ეკრანზე.
-   */
   function fetchLiveDictionaryData(word) {
     const clean = String(word || "")
       .replace(/\([^)]*\)/g, "")
@@ -130,8 +118,8 @@
     if (!clean || clean.indexOf(" ") !== -1 || liveIpaCache[clean]) return;
 
     fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + encodeURIComponent(clean))
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
         if (!Array.isArray(data) || !data[0]) return;
         const entry = data[0];
         let foundIpa = entry.phonetic || "";
@@ -139,7 +127,7 @@
         let ukAudio = "";
 
         if (Array.isArray(entry.phonetics)) {
-          entry.phonetics.forEach((p) => {
+          entry.phonetics.forEach(function (p) {
             if (!foundIpa && p.text) foundIpa = p.text;
             if (p.audio) {
               if (p.audio.indexOf("-us.mp3") !== -1) usAudio = p.audio;
@@ -176,7 +164,7 @@
     }
 
     if (!en || !ka) {
-      Object.keys(raw).forEach((k) => {
+      Object.keys(raw).forEach(function (k) {
         if (k === "id" || k === "level" || k === "category" || k === "topic" || k === "phonetic") return;
         const val = String(raw[k] || "").trim();
         if (!val || val.length > 70) return;
@@ -215,7 +203,7 @@
         const rawLocal = window.localStorage.getItem(LOCAL_LEVELS_STORAGE_KEY);
         const parsed = rawLocal ? JSON.parse(rawLocal) : App.Storage.get("vocabulary.selectedFcLevels", null);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const valid = parsed.filter((lvl) => ALL_CEFR_LEVELS.indexOf(lvl) !== -1);
+          const valid = parsed.filter(function (lvl) { return ALL_CEFR_LEVELS.indexOf(lvl) !== -1; });
           if (valid.length > 0) selectedLevels = valid;
         }
       } catch (e) {}
@@ -283,16 +271,16 @@
       const learnedIds = App.Storage.get("vocabulary.learnedIds", []);
       const bookmarkedIds = App.Storage.get("vocabulary.bookmarkedIds", []);
 
-      let filtered = allWords.filter((w) => {
+      const self = this;
+      const filtered = allWords.filter(function (w) {
         if (selectedLevels.indexOf(w.level) === -1) return false;
         if (activeBoxFilter === 99) return bookmarkedIds.indexOf(w.id) !== -1;
         if (activeBoxFilter >= 1 && activeBoxFilter <= 5) {
-          return this.getWordBox(w.id, boxMap, learnedIds) === activeBoxFilter;
+          return self.getWordBox(w.id, boxMap, learnedIds) === activeBoxFilter;
         }
         return true;
       });
 
-      // სიტყვები ყოველთვის თავიდანვე ირევა!
       currentDeck = shuffleArray(filtered);
       if (currentIndex >= currentDeck.length) {
         currentIndex = 0;
@@ -400,14 +388,15 @@
       const bookmarkedIds = App.Storage.get("vocabulary.bookmarkedIds", []) || [];
       const reviewedToday = Number(App.Storage.get("flashcards.reviewedToday", 0));
 
-      const levelWords = allWords.filter((w) => selectedLevels.indexOf(w.level) !== -1);
+      const self = this;
+      const levelWords = allWords.filter(function (w) { return selectedLevels.indexOf(w.level) !== -1; });
       const boxCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-      levelWords.forEach((w) => {
-        const b = this.getWordBox(w.id, boxMap, learnedIds);
+      levelWords.forEach(function (w) {
+        const b = self.getWordBox(w.id, boxMap, learnedIds);
         boxCounts[b] = (boxCounts[b] || 0) + 1;
       });
 
-      const levelCheckboxesHtml = ALL_CEFR_LEVELS.map((lvl) => {
+      const levelCheckboxesHtml = ALL_CEFR_LEVELS.map(function (lvl) {
         const isChecked = selectedLevels.indexOf(lvl) !== -1;
         return (
           '<button type="button" class="fc-level-check-chip ' + (isChecked ? "is-checked" : "") + '" data-toggle-fc-level="' + lvl + '">' +
@@ -425,7 +414,7 @@
         { num: 5, icon: "🏆", title: "ყუთი 5 • ათვისებული", desc: "სრულად ნასწავლი" }
       ];
 
-      const boxesHtml = boxDefinitions.map((b) => {
+      const boxesHtml = boxDefinitions.map(function (b) {
         const isAct = activeBoxFilter === b.num ? "active" : "";
         return (
           '<div class="leitner-box-card ' + isAct + '" data-fc-box="' + b.num + '">' +
@@ -448,7 +437,6 @@
             '<button type="button" class="btn btn-primary" id="fc-reset-filter-btn">ყველა ყუთის ჩვენება</button>' +
           "</div>";
       } else {
-        // განვაახლოთ ტრანსკრიპცია და შევამოწმოთ ოქსფორდის აუდიო
         const displayIpa = resolveIpaTranscription(currentWord.en, currentWord.phonetic);
         fetchLiveDictionaryData(currentWord.en);
 
@@ -460,7 +448,6 @@
         const usActiveStyle = currentAcc === "US" ? "background-color:var(--brand-primary); color:#fff;" : "";
         const ukActiveStyle = currentAcc === "UK" ? "background-color:var(--brand-primary); color:#fff;" : "";
 
-        // ინგლისური მხარე: ინგლისური სიტყვა + ზუსტი IPA ტრანსკრიპცია + US/UK სტუდიური აქცენტის ღილაკები
         const englishSideCenterHtml =
           '<span class="fc-lang-label">🇬🇧 ინგლისური</span>' +
           '<div class="flashcard-main-word">' + App.UI.escapeHTML(currentWord.en) + "</div>" +
@@ -473,7 +460,6 @@
             ? '<div class="fc-example-box"><div class="flashcard-example-en">"' + App.UI.escapeHTML(currentWord.exampleEn) + '"</div></div>'
             : "");
 
-        // ქართული მხარე: მხოლოდ ქართული თარგმანი
         const georgianSideCenterHtml =
           '<span class="fc-lang-label">🇬🇪 ქართული</span>' +
           '<div class="flashcard-main-word">' + App.UI.escapeHTML(currentWord.ka) + "</div>" +
@@ -513,7 +499,7 @@
                       this.renderBoxDots(wBox) +
                       '<button type="button" class="fc-star-btn ' + (isBookmarked ? "active" : "") + '" id="fc-bookmark-btn" title="რჩეულებში შენახვა">' + (isBookmarked ? "★" : "☆") + "</button>" +
                     "</div>" +
-                  "</div>' +
+                  "</div>" +
                   '<div class="flashcard-center-content">' + frontCenterHtml + "</div>" +
                   '<div class="flashcard-bottom-hint"><span>დააჭირეთ ბარათს ან</span> <span class="fc-kbd">Space</span> <span>გადასაბრუნებლად</span></div>' +
                 "</div>" +
@@ -579,8 +565,8 @@
           '<section class="card">' + cardStageHtml + "</section>" +
         "</div>";
 
-      container.querySelectorAll("[data-toggle-fc-level]").forEach((btn) => {
-        btn.addEventListener("click", () => {
+      container.querySelectorAll("[data-toggle-fc-level]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
           const lvl = btn.getAttribute("data-toggle-fc-level");
           const idx = selectedLevels.indexOf(lvl);
           if (idx !== -1) {
@@ -591,105 +577,105 @@
             selectedLevels.splice(idx, 1);
           } else {
             selectedLevels.push(lvl);
-            selectedLevels.sort((a, b) => ALL_CEFR_LEVELS.indexOf(a) - ALL_CEFR_LEVELS.indexOf(b));
+            selectedLevels.sort(function (a, b) { return ALL_CEFR_LEVELS.indexOf(a) - ALL_CEFR_LEVELS.indexOf(b); });
           }
-          this.saveSelectedLevels();
+          self.saveSelectedLevels();
           currentIndex = 0;
-          this.buildFilteredDeck();
+          self.buildFilteredDeck();
           App.UI.playSound("click");
-          this.render();
+          self.render();
         });
       });
 
       const selectAllBtn = container.querySelector("#fc-select-all-levels-btn");
       if (selectAllBtn) {
-        selectAllBtn.addEventListener("click", () => {
+        selectAllBtn.addEventListener("click", function () {
           selectedLevels = ALL_CEFR_LEVELS.slice();
-          this.saveSelectedLevels();
+          self.saveSelectedLevels();
           currentIndex = 0;
-          this.buildFilteredDeck();
+          self.buildFilteredDeck();
           App.UI.playSound("click");
-          this.render();
+          self.render();
         });
       }
 
       const onlyA1Btn = container.querySelector("#fc-select-only-a1-btn");
       if (onlyA1Btn) {
-        onlyA1Btn.addEventListener("click", () => {
+        onlyA1Btn.addEventListener("click", function () {
           selectedLevels = ["A1"];
-          this.saveSelectedLevels();
+          self.saveSelectedLevels();
           currentIndex = 0;
-          this.buildFilteredDeck();
+          self.buildFilteredDeck();
           App.UI.playSound("click");
-          this.render();
+          self.render();
         });
       }
 
-      container.querySelectorAll("[data-fc-box]").forEach((boxEl) => {
-        boxEl.addEventListener("click", () => {
+      container.querySelectorAll("[data-fc-box]").forEach(function (boxEl) {
+        boxEl.addEventListener("click", function () {
           const bNum = Number(boxEl.getAttribute("data-fc-box"));
           activeBoxFilter = (activeBoxFilter === bNum) ? 0 : bNum;
           currentIndex = 0;
-          this.buildFilteredDeck();
+          self.buildFilteredDeck();
           App.UI.playSound("click");
-          this.render();
+          self.render();
         });
       });
 
       const resetFilterBtn = container.querySelector("#fc-reset-filter-btn");
       if (resetFilterBtn) {
-        resetFilterBtn.addEventListener("click", () => {
+        resetFilterBtn.addEventListener("click", function () {
           activeBoxFilter = 0;
           currentIndex = 0;
-          this.buildFilteredDeck();
-          this.render();
+          self.buildFilteredDeck();
+          self.render();
         });
       }
 
       const clearBoxBtn = container.querySelector("#fc-clear-box-btn");
       if (clearBoxBtn) {
-        clearBoxBtn.addEventListener("click", () => {
+        clearBoxBtn.addEventListener("click", function () {
           activeBoxFilter = 0;
           currentIndex = 0;
-          this.buildFilteredDeck();
-          this.render();
+          self.buildFilteredDeck();
+          self.render();
         });
       }
 
       const bmFilterBtn = container.querySelector("#fc-filter-bookmarks-btn");
       if (bmFilterBtn) {
-        bmFilterBtn.addEventListener("click", () => {
+        bmFilterBtn.addEventListener("click", function () {
           activeBoxFilter = (activeBoxFilter === 99) ? 0 : 99;
           currentIndex = 0;
-          this.buildFilteredDeck();
-          this.render();
+          self.buildFilteredDeck();
+          self.render();
         });
       }
 
       const toggleDirBtn = container.querySelector("#fc-toggle-dir-btn");
       if (toggleDirBtn) {
-        toggleDirBtn.addEventListener("click", () => {
+        toggleDirBtn.addEventListener("click", function () {
           cardDirection = (cardDirection === "EN_TO_KA") ? "KA_TO_EN" : "EN_TO_KA";
           isFlipped = false;
           App.UI.playSound("click");
-          this.render();
+          self.render();
         });
       }
 
       const shuffleBtn = container.querySelector("#fc-shuffle-btn");
       if (shuffleBtn) {
-        shuffleBtn.addEventListener("click", () => {
-          this.buildFilteredDeck();
+        shuffleBtn.addEventListener("click", function () {
+          self.buildFilteredDeck();
           currentIndex = 0;
           App.UI.playSound("click");
           App.UI.toast("🔀 ბარათების დასტა აირია!", "info", 1800);
-          this.render();
+          self.render();
         });
       }
 
       const cardScene = container.querySelector("#fc-3d-card");
       if (cardScene) {
-        cardScene.addEventListener("click", (e) => {
+        cardScene.addEventListener("click", function (e) {
           if (e.target.closest("button")) return;
           isFlipped = !isFlipped;
           cardScene.classList.toggle("is-flipped", isFlipped);
@@ -699,21 +685,21 @@
 
       const flipBtn = container.querySelector("#fc-flip-btn");
       if (flipBtn && cardScene) {
-        flipBtn.addEventListener("click", () => {
+        flipBtn.addEventListener("click", function () {
           isFlipped = !isFlipped;
           cardScene.classList.toggle("is-flipped", isFlipped);
           App.UI.playSound("click");
         });
       }
 
-      container.querySelectorAll("[data-fc-accent-play]").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
+      container.querySelectorAll("[data-fc-accent-play]").forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
           e.stopPropagation();
           const chosenAcc = btn.getAttribute("data-fc-accent-play");
           if (currentWord) {
-            this.speakEnglish(currentWord.en, chosenAcc);
+            self.speakEnglish(currentWord.en, chosenAcc);
           }
-          container.querySelectorAll("[data-fc-accent-play]").forEach((b) => {
+          container.querySelectorAll("[data-fc-accent-play]").forEach(function (b) {
             if (b.getAttribute("data-fc-accent-play") === chosenAcc) {
               b.style.backgroundColor = "var(--brand-primary)";
               b.style.color = "#ffffff";
@@ -727,38 +713,38 @@
 
       const bmBtn = container.querySelector("#fc-bookmark-btn");
       if (bmBtn && currentWord) {
-        bmBtn.addEventListener("click", (e) => {
+        bmBtn.addEventListener("click", function (e) {
           e.stopPropagation();
-          this.toggleBookmark(currentWord.id);
+          self.toggleBookmark(currentWord.id);
         });
       }
 
       const prevBtn = container.querySelector("#fc-prev-btn");
       if (prevBtn) {
-        prevBtn.addEventListener("click", () => {
+        prevBtn.addEventListener("click", function () {
           if (!currentDeck.length) return;
           isFlipped = false;
           currentIndex = (currentIndex > 0) ? (currentIndex - 1) : (currentDeck.length - 1);
           App.UI.playSound("click");
-          this.render();
+          self.render();
         });
       }
 
       const nextBtn = container.querySelector("#fc-next-btn");
       if (nextBtn) {
-        nextBtn.addEventListener("click", () => {
+        nextBtn.addEventListener("click", function () {
           if (!currentDeck.length) return;
           isFlipped = false;
           currentIndex = (currentIndex < currentDeck.length - 1) ? (currentIndex + 1) : 0;
           App.UI.playSound("click");
-          this.render();
+          self.render();
         });
       }
 
-      container.querySelectorAll("[data-move-to-box]").forEach((btn) => {
-        btn.addEventListener("click", () => {
+      container.querySelectorAll("[data-move-to-box]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
           const targetBox = Number(btn.getAttribute("data-move-to-box"));
-          this.moveCurrentCardToBox(targetBox);
+          self.moveCurrentCardToBox(targetBox);
         });
       });
     }
@@ -766,7 +752,29 @@
 
   App.Flashcards = Flashcards;
 
-  window.addEventListener("keydown", (e) => {
+  // როუტერის პირდაპირი დამჭერი #flashcards გვერდისთვის
+  function checkFlashcardsRoute() {
+    const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
+    if (hash === "flashcards") {
+      const titleEl = document.getElementById("header-page-title");
+      if (titleEl) titleEl.textContent = "ბარათები";
+      Flashcards.render();
+    }
+  }
+
+  window.addEventListener("hashchange", function () {
+    window.setTimeout(checkFlashcardsRoute, 0);
+  });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      window.setTimeout(checkFlashcardsRoute, 35);
+    });
+  } else {
+    window.setTimeout(checkFlashcardsRoute, 35);
+  }
+
+  window.addEventListener("keydown", function (e) {
     const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
     if (hash !== "flashcards") return;
     if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
