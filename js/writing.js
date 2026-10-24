@@ -226,7 +226,7 @@
                   '<span class="story-time-tag">' +
                     (isDone
                       ? '<strong style="color:var(--color-success);">✓ შესრულებულია</strong>'
-                      : "✍️ " + App.UI.escapeHTML(t.writingTime) + " &bull; +" + t.xp + " XP") +
+                      : "✍️ " + App.UI.escapeHTML(t.writingTime) + "") +
                   "</span>" +
                   '<button type="button" class="btn ' + (!isUnlocked ? "btn-outline" : (isDone ? "btn-outline" : "btn-primary")) + ' btn-sm" ' +
                     'data-open-writing="' + App.UI.escapeHTML(t.id) + '" ' +
@@ -567,7 +567,7 @@
 
           App.UI.playSound("success");
           App.UI.toast(
-            "✓ წერითი თემა დასრულდა (შედეგი: " + correctCount + "/" + totalQ + ", +" + t.xp + " XP)! " +
+            "✓ წერითი თემა დასრულდა (შედეგი: " + correctCount + "/" + totalQ + ")! " +
             (nextTopic ? "გაიხსნა: " + nextTopic.titleEn : ""),
             "success",
             4200

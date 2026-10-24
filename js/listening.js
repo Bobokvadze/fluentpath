@@ -224,7 +224,7 @@
                   '<span class="story-time-tag">' +
                     (isDone
                       ? '<strong style="color:var(--color-success);">✓ მოსმენილია</strong>'
-                      : "🎧 " + App.UI.escapeHTML(t.audioTime) + " &bull; +" + t.xp + " XP") +
+                      : "🎧 " + App.UI.escapeHTML(t.audioTime) + "") +
                   "</span>" +
                   '<button type="button" class="btn ' + (!isUnlocked ? "btn-outline" : (isDone ? "btn-outline" : "btn-primary")) + ' btn-sm" ' +
                     'data-open-listening="' + App.UI.escapeHTML(t.id) + '" ' +
@@ -552,7 +552,7 @@
 
           App.UI.playSound("success");
           App.UI.toast(
-            "✓ აუდიო-თემა დასრულდა (შედეგი: " + correctCount + "/" + totalQ + ", +" + t.xp + " XP)! " +
+            "✓ აუდიო-თემა დასრულდა (შედეგი: " + correctCount + "/" + totalQ + ")! " +
             (nextTopic ? "გაიხსნა: " + nextTopic.titleEn : ""),
             "success",
             4200

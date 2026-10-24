@@ -500,10 +500,10 @@
 
             '<div class="srs-rating-bar">' +
               '<button type="button" class="srs-btn srs-btn--box1" data-move-to-box="1"><span>📥 ყუთი 1 • ახალი</span><span class="srs-btn-sub">[1] არ მახსოვს</span></button>' +
-              '<button type="button" class="srs-btn srs-btn--box2" data-move-to-box="2"><span>🌱 ყუთი 2 • საწყისი</span><span class="srs-btn-sub">[2] გამიჭირდა (+2 XP)</span></button>' +
-              '<button type="button" class="srs-btn srs-btn--box3" data-move-to-box="3"><span>📘 ყუთი 3 • საშუალო</span><span class="srs-btn-sub">[3] საშუალოდ (+4 XP)</span></button>' +
-              '<button type="button" class="srs-btn srs-btn--box4" data-move-to-box="4"><span>🔥 ყუთი 4 • მყარი</span><span class="srs-btn-sub">[4] კარგად ვიცი (+6 XP)</span></button>' +
-              '<button type="button" class="srs-btn srs-btn--box5" data-move-to-box="5"><span>🏆 ყუთი 5 • ათვისებული</span><span class="srs-btn-sub">[5] სრულად ვიცი (+10 XP)</span></button>' +
+              '<button type="button" class="srs-btn srs-btn--box2" data-move-to-box="2"><span>🌱 ყუთი 2 • საწყისი</span><span class="srs-btn-sub">[2] გამიჭირდა</span></button>' +
+              '<button type="button" class="srs-btn srs-btn--box3" data-move-to-box="3"><span>📘 ყუთი 3 • საშუალო</span><span class="srs-btn-sub">[3] საშუალოდ</span></button>' +
+              '<button type="button" class="srs-btn srs-btn--box4" data-move-to-box="4"><span>🔥 ყუთი 4 • მყარი</span><span class="srs-btn-sub">[4] კარგად ვიცი</span></button>' +
+              '<button type="button" class="srs-btn srs-btn--box5" data-move-to-box="5"><span>🏆 ყუთი 5 • ათვისებული</span><span class="srs-btn-sub">[5] სრულად ვიცი</span></button>' +
             "</div>" +
 
             '<div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">' +

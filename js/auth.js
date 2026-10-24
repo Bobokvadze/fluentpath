@@ -1,8 +1,8 @@
 /**
- * AUTH.JS — 100% Supabase-ზე მიბმული ავტორიზაცია და პროგრესის სინქრონიზაცია
- * - ლოკალურად (localStorage-ში) პროგრესი საერთოდ აღარ ინახება.
- * - ახალი რეგისტრაცია იწყება სუფთა ნულიდან (0 XP, 0 ნასწავლი სიტყვა).
- * - პაროლის მოთხოვნა: მინ. 8 სიმბოლო, 1 დიდი ასო, 1 პატარა ასო, 1 ციფრი და 1 სპეციალური სიმბოლო.
+ * AUTH.JS — Supabase ავტორიზაცია + რეგისტრაციის დონის განმსაზღვრელი ტესტი + სტრიკების სისტემა
+ * - საიტის გახსნისას ფანჯარა ავტომატურად არ იხსნება (მხოლოდ ღილაკზე დაჭერით).
+ * - რეგისტრაციისას ტარდება 12-კითხვიანი ტესტი (A1–C2) და ქულის მიხედვით ენიჭება დონე.
+ * - XP სისტემა ამოღებულია, მუშაობს მხოლოდ დღიური სტრიკი (🔥).
  */
 (function (window) {
   "use strict";
@@ -15,15 +15,148 @@
   let modalElement = null;
   let syncDebounceTimer = null;
 
-  /**
-   * შლის ყველა ძველ ლოკალურ ჩანაწერს ბრაუზერიდან, რომ ლოკალურად არაფერი დარჩეს
-   */
+  // სარეგისტრაციო ტესტის დროებითი მდგომარეობა
+  let pendingRegistrationData = null; // { fullName, email, password }
+  let regPlacementQuestions = [];
+  let regPlacementIndex = 0;
+  let regPlacementScore = 0;
+  let regPlacementFinishedResult = null; // { score, total, assignedLevel }
+
+  // 12 საბაზისო დიაგნოსტიკური კითხვა (2-2 თითოეული დონიდან: A1, A2, B1, B2, C1, C2)
+  const PLACEMENT_BANK = [
+    {
+      level: "A1",
+      q: "Choose the correct verb: 'She ___ to work by bus every morning.'",
+      options: ["goes", "go", "going", "is go"],
+      correct: 0
+    },
+    {
+      level: "A1",
+      q: "რას ნიშნავს ქართულად სიტყვა «schedule»?",
+      options: ["განრიგი / ცხრილი", "მისამართი", "სადგური", "საფულე"],
+      correct: 0
+    },
+    {
+      level: "A2",
+      q: "Choose the correct form: 'While I ___ dinner last night, the phone rang.'",
+      options: ["was cooking", "cooked", "am cooking", "have cooked"],
+      correct: 0
+    },
+    {
+      level: "A2",
+      q: "Choose the best phrase: 'If I ___ you, I would join a local sports club.'",
+      options: ["were", "am", "will be", "have been"],
+      correct: 0
+    },
+    {
+      level: "B1",
+      q: "Choose the correct preposition: 'We must finish this project ___ Friday afternoon.'",
+      options: ["by", "until", "since", "during"],
+      correct: 0
+    },
+    {
+      level: "B1",
+      q: "What does the workplace idiom 'to be on the same page' mean?",
+      options: [
+        "ერთ აზრზე ყოფნა / ერთიანი გაგების ქონა",
+        "ერთი და იმავე წიგნის კითხვა",
+        "სامუშაოს დროზე ადრე დასრულება",
+        "შეხვედრის გაუქმება"
+      ],
+      correct: 0
+    },
+    {
+      level: "B2",
+      q: "Choose the correct structure: 'If the shipment had arrived on time, we ___ the deadline.'",
+      options: ["would have met", "will meet", "would meet", "met"],
+      correct: 0
+    },
+    {
+      level: "B2",
+      q: "რას ნიშნავს პროფესიულ ინგლისურში ზმნა «to mitigate (risks)»?",
+      options: [
+        "რისკების შემცირება / შერბილება",
+        "რისკების სრული უგულებელყოფა",
+        "ხელშეკრულების გაუქმება",
+        "ფასების გაორმაგება"
+      ],
+      correct: 0
+    },
+    {
+      level: "C1",
+      q: "Choose the correct formal inversion: 'Seldom ___ such a well-structured financial report.'",
+      options: ["have we seen", "we have seen", "we saw", "did we saw"],
+      correct: 0
+    },
+    {
+      level: "C1",
+      q: "What does the phrase 'free of encumbrances' mean in a property or loan contract?",
+      options: [
+        "ყოველგვარი ვალდებულებისა და იპოთეკისგან თავისუფალი",
+        "გადასახადებისგან დროებით გათავისუფლებული",
+        "სრულად გარემონტებული",
+        "სახელმწიფო საკუთრებაში არსებული"
+      ],
+      correct: 0
+    },
+    {
+      level: "C2",
+      q: "Choose the precise word: 'Because the obstacle could not be overcome by any alternative route, it was deemed ___.'",
+      options: ["insurmountable", "negligible", "arbitrary", "ephemeral"],
+      correct: 0
+    },
+    {
+      level: "C2",
+      q: "What does 'steel-manning an argument' mean in academic rhetoric?",
+      options: [
+        "ოპონენტის არგუმენტის ყველაზე ძლიერი და სამართლიანი ფორმით წარმოდგენა კრიტიკამდე",
+        "ოპონენტის პოზიციის დამახინჯება მარტივად გასაბათილებლად",
+        "კამათის დროს მხოლოდ სტატისტიკის გამოყენება",
+        "საკუთარი პოზიციის შეცვლა"
+      ],
+      correct: 0
+    }
+  ];
+
+  function shuffleArray(arr) {
+    const copy = arr.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = copy[i];
+      copy[i] = copy[j];
+      copy[j] = tmp;
+    }
+    return copy;
+  }
+
+  function preparePlacementQuestions() {
+    return PLACEMENT_BANK.map(function (item) {
+      const correctAns = item.options[item.correct];
+      const mixed = shuffleArray(item.options);
+      return {
+        level: item.level,
+        q: item.q,
+        options: mixed,
+        correct: mixed.indexOf(correctAns)
+      };
+    });
+  }
+
+  function calculateLevelFromScore(score, total) {
+    const pct = total ? Math.round((score / total) * 100) : 0;
+    if (pct >= 90) return "C2";
+    if (pct >= 75) return "C1";
+    if (pct >= 58) return "B2";
+    if (pct >= 41) return "B1";
+    if (pct >= 25) return "A2";
+    return "A1";
+  }
+
   function purgeAllLocalProgressKeys() {
     try {
       const keysToRemove = [];
       for (let i = 0; i < window.localStorage.length; i++) {
         const k = window.localStorage.key(i);
-        // ვტოვებთ მხოლოდ Supabase-ის ავტორიზაციის ტოკენს (sb-*) და თემის ფერს
         if (k && k.indexOf("sb-") !== 0 && k !== "fluentpath_preferred_accent_v1") {
           keysToRemove.push(k);
         }
@@ -34,9 +167,10 @@
     } catch (e) {}
   }
 
-  /**
-   * ქმნის სრულიად სუფთა საწყის მდგომარეობას (0 XP, 0 ნასწავლი სიტყვა)
-   */
+  function getTodayDateString() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
   function createCleanBlankState(level, fullName, email) {
     return {
       user: {
@@ -45,12 +179,12 @@
       },
       settings: {
         theme: "light",
-        soundEffects: true,
-        dailyGoalXP: 100
+        soundEffects: true
       },
       progress: {
         xp: 0,
         streak: 1,
+        lastActiveDate: getTodayDateString(),
         level: level || "A1",
         vocabularyLearned: 0,
         grammarCompleted: 0,
@@ -86,7 +220,6 @@
     };
   }
 
-  // მეხსიერებაში (RAM) არსებული მიმდინარე სესიის მდგომარეობა (ლოკალურ დისკზე ჩაწერის გარეშე!)
   let inMemoryState = createCleanBlankState("A1", "", "");
 
   function getByPath(obj, path, defaultVal) {
@@ -116,8 +249,35 @@
   }
 
   /**
-   * გადავაერთოთ App.Storage ისე, რომ მუშაობდეს მხოლოდ RAM-სა და Supabase-თან!
+   * ამოწმებს და აახლებს მომხმარებლის დღიურ სტრიკს (Streak)
    */
+  function updateDailyStreakInState() {
+    const today = getTodayDateString();
+    const lastDate = getByPath(inMemoryState, "progress.lastActiveDate", "");
+    let currentStreak = Number(getByPath(inMemoryState, "progress.streak", 1)) || 1;
+
+    if (!lastDate) {
+      setByPath(inMemoryState, "progress.lastActiveDate", today);
+      setByPath(inMemoryState, "progress.streak", 1);
+      return;
+    }
+
+    if (lastDate === today) return;
+
+    const d1 = new Date(lastDate + "T00:00:00Z");
+    const d2 = new Date(today + "T00:00:00Z");
+    const diffDays = Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 1) {
+      currentStreak += 1;
+    } else if (diffDays > 1) {
+      currentStreak = 1;
+    }
+
+    setByPath(inMemoryState, "progress.lastActiveDate", today);
+    setByPath(inMemoryState, "progress.streak", currentStreak);
+  }
+
   function hookStorageToSupabaseOnly() {
     if (!App.Storage) return;
 
@@ -129,6 +289,7 @@
       if (newState && typeof newState === "object") {
         inMemoryState = newState;
       }
+      updateDailyStreakInState();
       scheduleCloudPush();
       return inMemoryState;
     };
@@ -139,6 +300,7 @@
 
     App.Storage.set = function (path, value) {
       setByPath(inMemoryState, path, value);
+      updateDailyStreakInState();
       scheduleCloudPush();
       return value;
     };
@@ -153,9 +315,6 @@
     };
   }
 
-  /**
-   * მონაცემების ჩაწერა პირდაპირ Supabase-ის user_profiles ცხრილში
-   */
   function pushStateToSupabaseNow() {
     if (!supabaseClient || !currentCloudUser || !currentCloudUser.id) return Promise.resolve();
 
@@ -191,14 +350,6 @@
     }, 350);
   }
 
-  /**
-   * პაროლის სიმკაცრის შემოწმება:
-   * - მინიმუმ 8 სიმბოლო
-   * - მინიმუმ 1 დიდი ასო (A-Z)
-   * - მინიმუმ 1 პატარა ასო (a-z)
-   * - მინიმუმ 1 ციფრი (0-9)
-   * - მინიმუმ 1 სპეციალური სიმბოლო (!@#$%^&*...)
-   */
   function evaluatePasswordRules(pw) {
     const str = String(pw || "");
     return {
@@ -243,7 +394,7 @@
 
       supabaseClient = window.supabase.createClient(App.SupabaseConfig.url, App.SupabaseConfig.anonKey);
 
-      // შევამოწმოთ აქტიური Supabase სესია
+      // შევამოწმოთ აქტიური სესია — მაგრამ თუ მომხმარებელი არ არის შესული, ფანჯარას ავტომატურად ა რ  ვ ხ ს ნ ი თ!
       supabaseClient.auth.getSession().then(function (res) {
         const session = res && res.data ? res.data.session : null;
         if (session && session.user) {
@@ -252,21 +403,20 @@
           currentCloudUser = null;
           inMemoryState = createCleanBlankState("A1", "", "");
           refreshEntireAppUI();
-          // საიტის გახსნისას თუ მომხმარებელი არ არის შესული, გავუხსნათ შესვლა/რეგისტრაციის ფანჯარა
-          Auth.openModal("login");
         }
       });
     },
 
-    loadUserProfileFromSupabase: function (supaUser, isNewRegistration, chosenName, chosenLevel) {
+    loadUserProfileFromSupabase: function (supaUser, isNewRegistration, chosenName, assignedLevel) {
       if (!supabaseClient || !supaUser) return Promise.resolve();
 
       const fallbackName = chosenName || (supaUser.user_metadata && supaUser.user_metadata.full_name) || supaUser.email.split("@")[0];
-      const fallbackLevel = chosenLevel || (supaUser.user_metadata && supaUser.user_metadata.cefr_level) || "A1";
+      const fallbackLevel = assignedLevel || (supaUser.user_metadata && supaUser.user_metadata.cefr_level) || "A1";
 
-      // თუ ახალი რეგისტრაციაა — ვქმნით 100%-ით სუფთა პროფილს ნულიდან (სტუმრის პროგრესის გარეშე!)
       if (isNewRegistration) {
         inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
+        // ბარათებშიც ავტომატურად მოვნიშნოთ მისი დადგენილი დონე
+        setByPath(inMemoryState, "vocabulary.selectedFcLevels", [fallbackLevel]);
         currentCloudUser = {
           id: supaUser.id,
           email: supaUser.email,
@@ -278,7 +428,6 @@
         });
       }
 
-      // თუ უკვე არსებული მომხმარებელი შედის — წამოვიღოთ მისი პროგრესი Supabase-იდან
       return supabaseClient
         .from("user_profiles")
         .select("*")
@@ -298,14 +447,15 @@
             if (row.cefr_level) {
               setByPath(inMemoryState, "progress.level", row.cefr_level);
             }
+            updateDailyStreakInState();
             currentCloudUser = {
               id: supaUser.id,
               email: supaUser.email,
               fullName: row.full_name || fallbackName,
               level: row.cefr_level || fallbackLevel
             };
+            pushStateToSupabaseNow();
           } else {
-            // თუ ცხრილში ჯერ ჩანაწერი არ ჰქონდა, შევუქმნათ სუფთა ნულიდან
             inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
             currentCloudUser = {
               id: supaUser.id,
@@ -328,7 +478,7 @@
       backdrop.className = "fp-auth-backdrop";
       backdrop.id = "fp-auth-backdrop";
       backdrop.addEventListener("click", function (e) {
-        if (e.target === backdrop) {
+        if (e.target === backdrop && !pendingRegistrationData) {
           Auth.closeModal();
         }
       });
@@ -338,6 +488,8 @@
     },
 
     openModal: function (defaultTab) {
+      pendingRegistrationData = null;
+      regPlacementFinishedResult = null;
       if (defaultTab === "login" || defaultTab === "register") {
         activeTab = defaultTab;
       }
@@ -350,6 +502,8 @@
 
     closeModal: function () {
       if (!modalElement) return;
+      pendingRegistrationData = null;
+      regPlacementFinishedResult = null;
       modalElement.classList.remove("is-open");
     },
 
@@ -362,12 +516,14 @@
       }
     },
 
-    handleRegister: function (formData, submitBtn) {
+    /**
+     * ნაბიჯი 1: ამოწმებს სარეგისტრაციო ველებს და გადადის ნაბიჯ 2-ზე (დონის განმსაზღვრელ ტესტზე)
+     */
+    startRegistrationPlacementStep: function (formData) {
       const fullName = String(formData.fullName || "").trim();
       const email = String(formData.email || "").toLowerCase().trim();
       const password = String(formData.password || "");
       const confirmPassword = String(formData.confirmPassword || "");
-      const startLevel = String(formData.level || "A1");
 
       if (fullName.length < 2) {
         this.showError("გთხოვთ მიუთითოთ თქვენი სახელი და გვარი.");
@@ -385,56 +541,79 @@
         this.showError("პაროლები ერთმანეთს არ ემთხვევა.");
         return;
       }
-      if (!supabaseClient) {
-        this.showError("Supabase კლიენტი ვერ მოიძებნა. გადატვირთეთ გვერდი.");
-        return;
-      }
 
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = "⏳ მიმდინარეობს რეგისტრაცია...";
-      }
+      pendingRegistrationData = {
+        fullName: fullName,
+        email: email,
+        password: password
+      };
+      regPlacementQuestions = preparePlacementQuestions();
+      regPlacementIndex = 0;
+      regPlacementScore = 0;
+      regPlacementFinishedResult = null;
 
-      // წავშალოთ ნებისმიერი დროებითი მეხსიერება, რომ სტუმრის პროგრესი არ მიებას!
+      if (App.UI) App.UI.playSound("click");
+      this.renderModalContent();
+    },
+
+    /**
+     * ნაბიჯი 2-ის დასასრული: ტესტის ქულის მიხედვით ქმნის ანგარიშს Supabase-ში და სვამს მომხმარებელს შესაბამის დონეზე
+     */
+    finalizeRegistrationWithLevel: function (assignedLevel, score, total) {
+      if (!pendingRegistrationData || !supabaseClient) return;
+
+      const regData = pendingRegistrationData;
+      modalElement.innerHTML =
+        '<div class="fp-auth-modal" style="text-align:center; padding:40px 28px;">' +
+          '<div style="font-size:2.4rem; margin-bottom:10px;">⏳</div>' +
+          '<h3 class="section-title">იქმნება თქვენი ანგარიში...</h3>' +
+          '<p style="color:var(--text-secondary); margin-top:6px;">მიმდინარეობს დონე ' + assignedLevel + '-ის შენახვა Supabase-ში.</p>' +
+        "</div>";
+
       purgeAllLocalProgressKeys();
-      inMemoryState = createCleanBlankState(startLevel, fullName, email);
+      inMemoryState = createCleanBlankState(assignedLevel, regData.fullName, regData.email);
 
       supabaseClient.auth.signUp({
-        email: email,
-        password: password,
+        email: regData.email,
+        password: regData.password,
         options: {
           data: {
-            full_name: fullName,
-            cefr_level: startLevel
+            full_name: regData.fullName,
+            cefr_level: assignedLevel
           }
         }
       }).then(function (res) {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "🚀 ანგარიშის შექმნა";
-        }
         if (res.error) {
+          pendingRegistrationData = null;
+          activeTab = "register";
+          Auth.renderModalContent();
           Auth.showError(res.error.message || "რეგისტრაციის შეცდომა.");
           return;
         }
+
         const user = res.data ? res.data.user : null;
         if (!user) {
+          pendingRegistrationData = null;
+          activeTab = "register";
+          Auth.renderModalContent();
           Auth.showError("მომხმარებლის შექმნა ვერ მოხერხდა.");
           return;
         }
 
-        Auth.loadUserProfileFromSupabase(user, true, fullName, startLevel).then(function () {
-          Auth.closeModal();
-          if (App.UI) {
-            App.UI.playSound("success");
-            App.UI.toast("🎉 ანგარიში შეიქმნა Supabase-ში! მოგესალმებით, " + fullName + "!", "success", 3600);
-          }
+        Auth.loadUserProfileFromSupabase(user, true, regData.fullName, assignedLevel).then(function () {
+          pendingRegistrationData = null;
+          regPlacementFinishedResult = {
+            score: score,
+            total: total,
+            assignedLevel: assignedLevel
+          };
+          if (App.UI) App.UI.playSound("success");
+          Auth.renderModalContent();
         });
       }).catch(function (err) {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "🚀 ანგარიშის შექმნა";
-        }
+        pendingRegistrationData = null;
+        activeTab = "register";
+        Auth.renderModalContent();
         Auth.showError(err.message || "კავშირის შეცდომა.");
       });
     },
@@ -501,7 +680,7 @@
         refreshEntireAppUI();
         Auth.closeModal();
         if (App.UI) {
-          App.UI.toast("თქვენ გამოხვედით ანგარიშიდან. ყველა მონაცემი შენახულია Supabase-ში.", "info", 3000);
+          App.UI.toast("თქვენ გამოხვედით ანგარიშიდან.", "info", 2600);
         }
       });
     },
@@ -509,16 +688,87 @@
     renderModalContent: function () {
       if (!modalElement) return;
 
+      // 1. თუ ახლახან დასრულდა სარეგისტრაციო ტესტი — ვაჩვენოთ დადგენილი დონის შედეგი
+      if (regPlacementFinishedResult) {
+        const r = regPlacementFinishedResult;
+        modalElement.innerHTML =
+          '<div class="fp-auth-modal" style="text-align:center;">' +
+            '<div style="font-size:3rem; margin-bottom:8px;">🏆</div>' +
+            '<h3 class="section-title" style="font-size:1.45rem;">რეგისტრაცია და ტესტი დასრულდა!</h3>' +
+            '<p style="color:var(--text-secondary); margin:8px 0 18px;">თქვენ უპასუხეთ სწორად <strong>' + r.score + " / " + r.total + '</strong> კითხვას.</p>' +
+            '<div style="padding:18px; border-radius:16px; background:var(--brand-primary-soft); border:2px solid var(--brand-primary); margin-bottom:20px;">' +
+              '<div style="font-size:0.82rem; font-weight:800; color:var(--text-secondary); text-transform:uppercase;">თქვენი განსაზღვრული დონეა</div>' +
+              '<div style="font-size:2.4rem; font-weight:800; color:var(--brand-primary); margin-top:4px;">დონე ' + r.assignedLevel + "</div>" +
+            "</div>" +
+            '<button type="button" class="btn btn-primary" id="fp-finish-placement-btn" style="width:100%; padding:12px;">🚀 სწავლის დაწყება (' + r.assignedLevel + ' დონიდან)</button>' +
+          "</div>";
+
+        modalElement.querySelector("#fp-finish-placement-btn").addEventListener("click", function () {
+          regPlacementFinishedResult = null;
+          Auth.closeModal();
+        });
+        return;
+      }
+
+      // 2. თუ მიმდინარეობს რეგისტრაციის მე-2 ნაბიჯი (12-კითხვიანი დონის ტესტი)
+      if (pendingRegistrationData && regPlacementQuestions.length > 0) {
+        const qObj = regPlacementQuestions[regPlacementIndex];
+        const totalQ = regPlacementQuestions.length;
+        const pct = Math.round(((regPlacementIndex + 1) / totalQ) * 100);
+
+        const optsHtml = qObj.options.map(function (opt, oIdx) {
+          return (
+            '<button type="button" class="fp-placement-opt-btn" data-reg-place-opt="' + oIdx + '">' +
+              App.UI.escapeHTML(opt) +
+            "</button>"
+          );
+        }).join("");
+
+        modalElement.innerHTML =
+          '<div class="fp-auth-modal" role="dialog" aria-modal="true">' +
+            '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
+              '<span class="stat-pill stat-pill--level">🎯 ნაბიჯი 2/2 • დონის ტესტი (' + qObj.level + ')</span>' +
+              '<span style="font-size:0.82rem; font-weight:800; color:var(--text-secondary);">კითხვა ' + (regPlacementIndex + 1) + " / " + totalQ + "</span>" +
+            "</div>" +
+            '<div style="margin-bottom:14px;">' +
+              (App.UI && typeof App.UI.renderProgressBar === "function"
+                ? App.UI.renderProgressBar(pct, "დიაგნოსტიკის პროგრესი", pct + "%")
+                : "") +
+            "</div>" +
+            '<div class="fp-placement-q-card">' +
+              '<div class="fp-placement-q-title">' + (regPlacementIndex + 1) + ". " + App.UI.escapeHTML(qObj.q) + "</div>" +
+              '<div class="fp-placement-options">' + optsHtml + "</div>" +
+            "</div>" +
+            '<p style="font-size:0.78rem; color:var(--text-muted); text-align:center;">თქვენი პასუხების მიხედვით სისტემა ავტომატურად განსაზღვრავს თქვენს CEFR დონეს (A1–C2).</p>' +
+          "</div>";
+
+        modalElement.querySelectorAll("[data-reg-place-opt]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const chosen = Number(btn.getAttribute("data-reg-place-opt"));
+            if (chosen === qObj.correct) {
+              regPlacementScore++;
+              if (App.UI) App.UI.playSound("success");
+            } else {
+              if (App.UI) App.UI.playSound("click");
+            }
+
+            if (regPlacementIndex < regPlacementQuestions.length - 1) {
+              regPlacementIndex++;
+              Auth.renderModalContent();
+            } else {
+              const finalLevel = calculateLevelFromScore(regPlacementScore, regPlacementQuestions.length);
+              Auth.finalizeRegistrationWithLevel(finalLevel, regPlacementScore, regPlacementQuestions.length);
+            }
+          });
+        });
+        return;
+      }
+
+      // 3. თუ მომხმარებელი უკვე შესულია — პროფილის ფანჯარა (XP-ის გარეშე, მხოლოდ სტრიკი, დონე და სიტყვები)
       if (currentCloudUser) {
-        const xp = getByPath(inMemoryState, "progress.xp", 0);
         const streak = getByPath(inMemoryState, "progress.streak", 1);
         const learned = (getByPath(inMemoryState, "vocabulary.learnedIds", []) || []).length;
         const curLevel = getByPath(inMemoryState, "progress.level", currentCloudUser.level || "A1");
-
-        const levels = ["A1", "A2", "B1", "B2", "C1", "C2"];
-        const levelOptionsHtml = levels.map(function (lvl) {
-          return '<option value="' + lvl + '" ' + (curLevel === lvl ? "selected" : "") + '>დონე ' + lvl + "</option>";
-        }).join("");
 
         modalElement.innerHTML =
           '<div class="fp-auth-modal" role="dialog" aria-modal="true">' +
@@ -527,18 +777,18 @@
               '<div class="header-user-avatar" style="width:52px; height:52px; font-size:1.2rem;">' + App.UI.escapeHTML(getInitials(currentCloudUser.fullName)) + "</div>" +
               "<div>" +
                 '<h3 class="section-title" style="font-size:1.25rem;">' + App.UI.escapeHTML(currentCloudUser.fullName) + "</h3>" +
-                '<div style="font-size:0.84rem; color:var(--text-secondary);">☁️ ' + App.UI.escapeHTML(currentCloudUser.email) + " (Supabase Cloud)</div>" +
+                '<div style="font-size:0.84rem; color:var(--text-secondary);">☁️ ' + App.UI.escapeHTML(currentCloudUser.email) + "</div>" +
               "</div>" +
             "</div>" +
 
             '<div class="fp-profile-stat-grid">' +
               '<div class="fp-profile-stat-box">' +
-                '<div class="fp-profile-stat-val">' + xp + " XP</div>" +
-                '<div class="fp-profile-stat-lbl">დაგროვებული XP</div>' +
-              "</div>" +
-              '<div class="fp-profile-stat-box">' +
                 '<div class="fp-profile-stat-val">🔥 ' + streak + "</div>" +
                 '<div class="fp-profile-stat-lbl">დღის სტრიკი</div>' +
+              "</div>" +
+              '<div class="fp-profile-stat-box">' +
+                '<div class="fp-profile-stat-val">🎯 ' + App.UI.escapeHTML(curLevel) + "</div>" +
+                '<div class="fp-profile-stat-lbl">დადგენილი დონე</div>' +
               "</div>" +
               '<div class="fp-profile-stat-box">' +
                 '<div class="fp-profile-stat-val">' + learned + "</div>" +
@@ -551,14 +801,9 @@
               '<input type="text" id="fp-profile-name-input" class="fp-input" value="' + App.UI.escapeHTML(currentCloudUser.fullName) + '" />' +
             "</div>" +
 
-            '<div class="fp-form-group">' +
-              '<label class="fp-form-label" for="fp-profile-level-select">სამიზნე CEFR დონე</label>' +
-              '<select id="fp-profile-level-select" class="fp-input">' + levelOptionsHtml + "</select>" +
-            "</div>" +
-
             '<div style="display:flex; justify-content:space-between; gap:10px; margin-top:20px;">' +
               '<button type="button" class="btn btn-outline" id="fp-logout-btn" style="color:var(--color-danger); border-color:var(--color-danger);">🚪 გამოსვლა</button>' +
-              '<button type="button" class="btn btn-primary" id="fp-save-profile-btn">☁️ Supabase-ში შენახვა</button>' +
+              '<button type="button" class="btn btn-primary" id="fp-save-profile-btn">☁️ სახელის შენახვა</button>' +
             "</div>" +
           "</div>";
 
@@ -572,22 +817,20 @@
 
         modalElement.querySelector("#fp-save-profile-btn").addEventListener("click", function () {
           const newName = modalElement.querySelector("#fp-profile-name-input").value.trim();
-          const newLvl = modalElement.querySelector("#fp-profile-level-select").value;
           if (newName.length >= 2) {
             currentCloudUser.fullName = newName;
-            currentCloudUser.level = newLvl;
-            setByPath(inMemoryState, "progress.level", newLvl);
             setByPath(inMemoryState, "user.name", newName);
             pushStateToSupabaseNow().then(function () {
               refreshEntireAppUI();
               Auth.closeModal();
-              App.UI.toast("☁️ პროფილი განახლდა Supabase-ში!", "success", 2200);
+              App.UI.toast("☁️ პროფილი განახლდა!", "success", 2200);
             });
           }
         });
         return;
       }
 
+      // 4. შესვლის ან რეგისტრაციის 1-ლი ნაბიჯის ფორმა
       const isReg = (activeTab === "register");
 
       const formHtml = isReg
@@ -599,17 +842,6 @@
             '<div class="fp-form-group">' +
               '<label class="fp-form-label" for="fp-reg-email">ელ-ფოსტა</label>' +
               '<input type="email" id="fp-reg-email" class="fp-input" placeholder="name@example.com" required />' +
-            "</div>" +
-            '<div class="fp-form-group">' +
-              '<label class="fp-form-label" for="fp-reg-level">საწყისი დონე</label>' +
-              '<select id="fp-reg-level" class="fp-input">' +
-                '<option value="A1">A1 — დამწყები (Beginner)</option>' +
-                '<option value="A2">A2 — ელემენტარული (Elementary)</option>' +
-                '<option value="B1">B1 — საშუალო (Intermediate)</option>' +
-                '<option value="B2">B2 — საშუალოზე მაღალი (Upper-Intermediate)</option>' +
-                '<option value="C1">C1 — მაღალი (Advanced)</option>' +
-                '<option value="C2">C2 — სრულყოფილი (Mastery)</option>' +
-              "</select>" +
             "</div>" +
             '<div class="fp-form-group">' +
               '<label class="fp-form-label" for="fp-reg-pw">პაროლი</label>' +
@@ -632,7 +864,7 @@
                 '<button type="button" class="fp-pw-toggle" data-toggle-pw="fp-reg-pw2" title="პაროლის ჩვენება">👁️</button>' +
               "</div>" +
             "</div>" +
-            '<button type="submit" class="btn btn-primary" id="fp-reg-submit-btn" style="width:100%; margin-top:6px; padding:12px;">🚀 ანგარიშის შექმნა</button>' +
+            '<button type="submit" class="btn btn-primary" id="fp-reg-submit-btn" style="width:100%; margin-top:6px; padding:12px;">🎯 გაგრძელება: დონის განმსაზღვრელი ტესტი &rarr;</button>' +
           "</form>"
         : '<form id="fp-login-form" autocomplete="on">' +
             '<div class="fp-form-group">' +
@@ -654,8 +886,12 @@
           '<button type="button" class="fp-auth-close-btn" id="fp-modal-close-btn" title="დახურვა">✕</button>' +
           '<div style="text-align:center;">' +
             '<div style="font-size:2rem; margin-bottom:4px;">☁️</div>' +
-            '<h3 class="section-title" style="font-size:1.3rem;">' + (isReg ? "რეგისტრაცია (Supabase Cloud)" : "შესვლა ანგარიშზე") + "</h3>" +
-            '<p style="font-size:0.82rem; color:var(--text-secondary); margin-top:4px;">ყველა მონაცემი ინახება მხოლოდ Supabase-ის ღრუბლოვან ბაზაში.</p>' +
+            '<h3 class="section-title" style="font-size:1.3rem;">' + (isReg ? "ნაბიჯი 1/2: ანგარიშის მონაცემები" : "შესვლა ანგარიშზე") + "</h3>" +
+            '<p style="font-size:0.82rem; color:var(--text-secondary); margin-top:4px;">' +
+              (isReg
+                ? "მონაცემების შევსების შემდეგ გაივლით 12-კითხვიან ტესტს, რომელიც განსაზღვრავს თქვენს დონეს."
+                : "შედით თქვენს ანგარიშზე პროგრესის გასაგრძელებლად.") +
+            "</p>" +
           "</div>" +
 
           '<div class="fp-auth-tabs">' +
@@ -689,7 +925,6 @@
         });
       });
 
-      // პაროლის ცოცხალი ვალიდაციის ინდიკატორი
       const regPwInput = modalElement.querySelector("#fp-reg-pw");
       if (regPwInput) {
         regPwInput.addEventListener("input", function () {
@@ -714,13 +949,12 @@
       if (regForm) {
         regForm.addEventListener("submit", function (e) {
           e.preventDefault();
-          Auth.handleRegister({
+          Auth.startRegistrationPlacementStep({
             fullName: modalElement.querySelector("#fp-reg-name").value,
             email: modalElement.querySelector("#fp-reg-email").value,
-            level: modalElement.querySelector("#fp-reg-level").value,
             password: modalElement.querySelector("#fp-reg-pw").value,
             confirmPassword: modalElement.querySelector("#fp-reg-pw2").value
-          }, modalElement.querySelector("#fp-reg-submit-btn"));
+          });
         });
       }
 
@@ -758,7 +992,7 @@
 
       if (currentCloudUser) {
         container.innerHTML =
-          '<button type="button" class="header-user-chip" id="fp-open-profile-btn" title="Supabase პროფილი">' +
+          '<button type="button" class="header-user-chip" id="fp-open-profile-btn" title="პირადი პროფილი">' +
             '<span class="header-user-avatar">' + App.UI.escapeHTML(getInitials(currentCloudUser.fullName)) + "</span>" +
             '<span>' + App.UI.escapeHTML(currentCloudUser.fullName.split(" ")[0]) + "</span>" +
           "</button>";

@@ -229,7 +229,7 @@
       }
 
       App.UI.playSound("success");
-      App.UI.toast("🏆 ტესტი დასრულდა! შედეგი: " + pct + "% (+" + earnedXp + " XP)", "success", 4200);
+      App.UI.toast("🏆 ტესტი დასრულდა! შედეგი: " + pct + "%", "success", 4200);
       this.render();
       window.scrollTo({ top: 0, behavior: "smooth" });
     },
@@ -269,7 +269,7 @@
             "<div>" +
               '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
                 '<span class="stat-pill stat-pill--level">' + item.icon + " დონე " + item.lvl + "</span>" +
-                '<span style="font-size:0.8rem; font-weight:700; color:var(--brand-primary);">+100 XP-მდე</span>' +
+                '<span style="font-size:0.8rem; font-weight:700; color:var(--brand-primary);">სასერტიფიკატო</span>' +
               "</div>" +
               '<h3 class="section-title" style="font-size:1.1rem; margin-bottom:6px;">' + item.lvl + " — " + App.UI.escapeHTML(item.name) + "</h3>" +
               '<p style="font-size:0.86rem; color:var(--text-secondary); line-height:1.5;">' + App.UI.escapeHTML(item.desc) + "</p>" +
