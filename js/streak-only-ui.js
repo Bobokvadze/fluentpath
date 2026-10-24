@@ -14,23 +14,8 @@
    * 100%-ით შლის მარცხენა მენიუდან "მზადაა", "ფაზა 4", "ფაზა 5" ბეიჯებს ნებისმიერი კლასის მიუხედავად
    */
   function removeSidebarPhaseBadges() {
-    const sidebar = document.querySelector("aside, .sidebar, .app-sidebar, .side-nav, nav");
-    const root = sidebar || document;
-
-    root.querySelectorAll("span, small, div, badge").forEach(function (el) {
-      if (el.children.length === 0) {
-        const txt = (el.textContent || "").trim();
-        if (txt === "მზადაა" || /^ფაზა\s*\d+$/i.test(txt)) {
-          el.remove();
-        }
-      }
-    });
-
-    // ასევე შევცვალოთ ქვესათაური "100% უფასო • ლოკალური" თუ სადმე ჩანს
-    document.querySelectorAll("*").forEach(function (el) {
-      if (el.children.length === 0 && (el.textContent || "").indexOf("100% უფასო") !== -1) {
-        el.textContent = "A1–C2 სასწავლო პლატფორმა";
-      }
+    document.querySelectorAll(".nav-badge").forEach(function (el) {
+      el.style.display = "none";
     });
   }
 
