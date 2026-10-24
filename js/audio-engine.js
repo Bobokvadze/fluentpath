@@ -1,8 +1,5 @@
 /**
- * AUDIO-ENGINE.JS — სტუდიური აუდიო-ძრავა მოკლე სიტყვებისა და გრძელი ტექსტებისთვის
- * - ცალკეულ სიტყვებზე: Oxford Dictionary MP3 + Youdao Studio (US/UK)
- * - გრძელ ტექსტებსა და აბზაცებზე: ავტომატურად ყოფს ტექსტს წინადადებებად (<=140 სიმბოლო)
- *   და უწყვეტ რიგში (Preloaded Queue) კითხულობს სტუდიური US/UK ხმით!
+ * AUDIO-ENGINE.JS — სტუდიური აუდიო-ძრავა ავტომატური გაჩერებით გვერდის შეცვლისას
  */
 (function (window) {
   "use strict";
@@ -11,7 +8,7 @@
 
   const ACCENT_STORAGE_KEY = "fluentpath_preferred_accent_v1";
   let preferredAccent = "US"; // "US" | "UK"
-  let activeAudio = null;
+  let activeAudioPool = []; // ინახავს ყველა შექმნილ აუდიო ობიექტს მყისიერი გასუფთავებისთვის
   let playbackSessionId = 0;
   const apiAudioCache = {};
 
@@ -33,10 +30,6 @@
     return text;
   }
 
-  /**
-   * ყოფს ნებისმიერი სიგრძის ტექსტს (აბზაცს ან მთლიან ისტორიას) <=135 სიმბოლოიან
-   * ბუნებრივ ფრაზებად, რომ სტუდიურმა სერვერმა თითოეული ნაწილი შეუფერხებლად წაიკითხოს.
-   */
   function splitTextIntoStudioChunks(rawText) {
     const cleaned = cleanTextForAudio(rawText);
     if (!cleaned) return [];
@@ -53,7 +46,6 @@
         return;
       }
 
-      // თუ წინადადება 135 სიმბოლოზე გრძელია, გავყოთ მძიმეებთან ან სიტყვებთან
       const clauses = s.split(/(?<=[,;—–:])\s+/);
       let current = "";
 
@@ -128,7 +120,7 @@
         if (playbackRate && playbackRate < 0.88) {
           audio.playbackRate = 0.82;
         }
-        activeAudio = audio;
+        activeAudioPool.push(audio);
 
         let advanced = false;
         const nextUrlOnError = function () {
@@ -170,16 +162,21 @@
       return preferredAccent;
     },
 
+    /**
+     * მყისიერად აჩერებს მიმდინარე და რიგში მდგომ ყველა აუდიო ნაკადს
+     */
     stop: function () {
       playbackSessionId++;
-      if (activeAudio) {
-        try {
-          activeAudio.onended = null;
-          activeAudio.onerror = null;
-          activeAudio.pause();
-          activeAudio.src = "";
-        } catch (e) {}
-        activeAudio = null;
+      if (activeAudioPool.length > 0) {
+        activeAudioPool.forEach(function (aud) {
+          try {
+            aud.onended = null;
+            aud.onerror = null;
+            aud.pause();
+            aud.src = "";
+          } catch (e) {}
+        });
+        activeAudioPool = [];
       }
     },
 
@@ -210,7 +207,6 @@
 
         const textPart = chunks[chunkIdx++];
 
-        // წინასწარ ჩავტვირთოთ მომდევნო წინადადების აუდიო ფონურად, რომ პაუზა არ ჰქონდეს
         if (chunkIdx < chunks.length) {
           try {
             const nextPart = chunks[chunkIdx];
@@ -218,6 +214,7 @@
             const preloadAudio = document.createElement("audio");
             preloadAudio.preload = "auto";
             preloadAudio.src = "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(nextPart) + "&type=" + voiceType;
+            activeAudioPool.push(preloadAudio);
           } catch (e) {}
         }
 
@@ -239,7 +236,6 @@
 
   App.AudioEngine = AudioEngine;
 
-  // გადავაერთოთ ყველა მოდულის ხმოვანი გამოძახება AudioEngine-ზე
   function connectAllModulesToAudioEngine() {
     if (App.UI) {
       App.UI.speak = function (text, slow) {
@@ -260,7 +256,45 @@
         }
       }
     });
+
+    // როუტერის ნებისმიერ გადართვაზე ხმა ავტომატურად გაჩერდეს
+    if (App.Router) {
+      Object.keys(App.Router).forEach(function (key) {
+        if (typeof App.Router[key] === "function" && !App.Router[key]._audioStopHooked) {
+          const origFn = App.Router[key];
+          const wrapped = function () {
+            AudioEngine.stop();
+            return origFn.apply(this, arguments);
+          };
+          wrapped._audioStopHooked = true;
+          App.Router[key] = wrapped;
+        }
+      });
+    }
   }
+
+  // 1. გვერდის მისამართის (Hash) ან ისტორიის შეცვლისთანავე გავაჩეროთ ხმა
+  window.addEventListener("hashchange", function () {
+    AudioEngine.stop();
+  });
+  window.addEventListener("popstate", function () {
+    AudioEngine.stop();
+  });
+  window.addEventListener("beforeunload", function () {
+    AudioEngine.stop();
+  });
+
+  // 2. ნებისმიერ ნავიგაციის ღილაკზე, უკან დაბრუნებაზე ან ტაბზე დაჭერისას მყისიერად გავაჩეროთ ხმა
+  document.addEventListener("click", function (e) {
+    const navTrigger = e.target.closest(
+      'a[href^="#"], [data-route], .nav-item, .pill-tab, ' +
+      '#back-reading-list-btn, #back-listening-list-btn, #back-writing-list-btn, #back-grammar-list-btn, #quit-exam-btn, ' +
+      '[data-open-story], [data-open-listening], [data-open-writing], [data-open-topic]'
+    );
+    if (navTrigger) {
+      AudioEngine.stop();
+    }
+  }, true);
 
   if ("speechSynthesis" in window) {
     try {
