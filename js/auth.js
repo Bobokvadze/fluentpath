@@ -1,53 +1,218 @@
 /**
- * AUTH.JS — მომხმარებლის რეგისტრაციის, ავტორიზაციისა და პროფილის მართვის სისტემა
- * - ინახავს მომხმარებლების ანგარიშებს და თითოეული მომხმარებლის ინდივიდუალურ პროგრესს
- * - ავტომატურად სინქრონიზდება Supabase-თან (თუ ჩართულია) და ლოკალურ ბაზასთან.
+ * AUTH.JS — 100% Supabase-ზე მიბმული ავტორიზაცია და პროგრესის სინქრონიზაცია
+ * - ლოკალურად (localStorage-ში) პროგრესი საერთოდ აღარ ინახება.
+ * - ახალი რეგისტრაცია იწყება სუფთა ნულიდან (0 XP, 0 ნასწავლი სიტყვა).
+ * - პაროლის მოთხოვნა: მინ. 8 სიმბოლო, 1 დიდი ასო, 1 პატარა ასო, 1 ციფრი და 1 სპეციალური სიმბოლო.
  */
 (function (window) {
   "use strict";
 
   const App = window.App = window.App || {};
 
-  const USERS_DB_KEY = "fluentpath_users_registry_v1";
-  const ACTIVE_USER_KEY = "fluentpath_active_session_user_v1";
-  const USER_SNAPSHOT_PREFIX = "fluentpath_user_snapshot_v1_";
-
-  let activeTab = "register"; // "login" | "register"
+  let supabaseClient = null;
+  let currentCloudUser = null;
+  let activeTab = "login"; // "login" | "register"
   let modalElement = null;
+  let syncDebounceTimer = null;
 
-  function getUsersRegistry() {
+  /**
+   * შლის ყველა ძველ ლოკალურ ჩანაწერს ბრაუზერიდან, რომ ლოკალურად არაფერი დარჩეს
+   */
+  function purgeAllLocalProgressKeys() {
     try {
-      const raw = window.localStorage.getItem(USERS_DB_KEY);
-      const parsed = raw ? JSON.parse(raw) : {};
-      return (parsed && typeof parsed === "object") ? parsed : {};
-    } catch (e) {
-      return {};
-    }
-  }
-
-  function saveUsersRegistry(registry) {
-    try {
-      window.localStorage.setItem(USERS_DB_KEY, JSON.stringify(registry));
-    } catch (e) {}
-  }
-
-  function getActiveUser() {
-    try {
-      const raw = window.localStorage.getItem(ACTIVE_USER_KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function setActiveUser(userObj) {
-    try {
-      if (userObj) {
-        window.localStorage.setItem(ACTIVE_USER_KEY, JSON.stringify(userObj));
-      } else {
-        window.localStorage.removeItem(ACTIVE_USER_KEY);
+      const keysToRemove = [];
+      for (let i = 0; i < window.localStorage.length; i++) {
+        const k = window.localStorage.key(i);
+        // ვტოვებთ მხოლოდ Supabase-ის ავტორიზაციის ტოკენს (sb-*) და თემის ფერს
+        if (k && k.indexOf("sb-") !== 0 && k !== "fluentpath_preferred_accent_v1") {
+          keysToRemove.push(k);
+        }
       }
+      keysToRemove.forEach(function (k) {
+        window.localStorage.removeItem(k);
+      });
     } catch (e) {}
+  }
+
+  /**
+   * ქმნის სრულიად სუფთა საწყის მდგომარეობას (0 XP, 0 ნასწავლი სიტყვა)
+   */
+  function createCleanBlankState(level, fullName, email) {
+    return {
+      user: {
+        name: fullName || "",
+        email: email || ""
+      },
+      settings: {
+        theme: "light",
+        soundEffects: true,
+        dailyGoalXP: 100
+      },
+      progress: {
+        xp: 0,
+        streak: 1,
+        level: level || "A1",
+        vocabularyLearned: 0,
+        grammarCompleted: 0,
+        readingCompleted: 0,
+        listeningCompleted: 0,
+        writingCompleted: 0,
+        quizzesCompleted: 0,
+        completedGrammarIds: [],
+        completedReadingIds: [],
+        completedListeningIds: [],
+        completedWritingIds: [],
+        moduleCompletion: {
+          vocabulary: 0,
+          grammar: 0,
+          reading: 0,
+          listening: 0,
+          writing: 0,
+          flashcards: 0,
+          quizzes: 0
+        },
+        recentActivities: []
+      },
+      vocabulary: {
+        learnedIds: [],
+        bookmarkedIds: [],
+        customWords: [],
+        boxByWordId: {},
+        selectedFcLevels: ["A1", "A2", "B1", "B2", "C1", "C2"]
+      },
+      flashcards: {
+        reviewedToday: 0
+      }
+    };
+  }
+
+  // მეხსიერებაში (RAM) არსებული მიმდინარე სესიის მდგომარეობა (ლოკალურ დისკზე ჩაწერის გარეშე!)
+  let inMemoryState = createCleanBlankState("A1", "", "");
+
+  function getByPath(obj, path, defaultVal) {
+    if (!path) return obj;
+    const parts = String(path).split(".");
+    let cur = obj;
+    for (let i = 0; i < parts.length; i++) {
+      if (cur === null || cur === undefined || typeof cur !== "object") {
+        return defaultVal;
+      }
+      cur = cur[parts[i]];
+    }
+    return cur === undefined ? defaultVal : cur;
+  }
+
+  function setByPath(obj, path, value) {
+    const parts = String(path).split(".");
+    let cur = obj;
+    for (let i = 0; i < parts.length - 1; i++) {
+      const p = parts[i];
+      if (!cur[p] || typeof cur[p] !== "object") {
+        cur[p] = {};
+      }
+      cur = cur[p];
+    }
+    cur[parts[parts.length - 1]] = value;
+  }
+
+  /**
+   * გადავაერთოთ App.Storage ისე, რომ მუშაობდეს მხოლოდ RAM-სა და Supabase-თან!
+   */
+  function hookStorageToSupabaseOnly() {
+    if (!App.Storage) return;
+
+    App.Storage.getState = function () {
+      return inMemoryState;
+    };
+
+    App.Storage.saveState = function (newState) {
+      if (newState && typeof newState === "object") {
+        inMemoryState = newState;
+      }
+      scheduleCloudPush();
+      return inMemoryState;
+    };
+
+    App.Storage.get = function (path, defaultValue) {
+      return getByPath(inMemoryState, path, defaultValue);
+    };
+
+    App.Storage.set = function (path, value) {
+      setByPath(inMemoryState, path, value);
+      scheduleCloudPush();
+      return value;
+    };
+
+    App.Storage.resetAll = function () {
+      const lvl = getByPath(inMemoryState, "progress.level", "A1");
+      const name = currentCloudUser ? currentCloudUser.fullName : "";
+      const email = currentCloudUser ? currentCloudUser.email : "";
+      inMemoryState = createCleanBlankState(lvl, name, email);
+      scheduleCloudPush();
+      return inMemoryState;
+    };
+  }
+
+  /**
+   * მონაცემების ჩაწერა პირდაპირ Supabase-ის user_profiles ცხრილში
+   */
+  function pushStateToSupabaseNow() {
+    if (!supabaseClient || !currentCloudUser || !currentCloudUser.id) return Promise.resolve();
+
+    const boxes = getByPath(inMemoryState, "vocabulary.boxByWordId", {});
+    const fcLevels = getByPath(inMemoryState, "vocabulary.selectedFcLevels", ["A1", "A2", "B1", "B2", "C1", "C2"]);
+    const curLevel = getByPath(inMemoryState, "progress.level", currentCloudUser.level || "A1");
+
+    const payload = {
+      id: currentCloudUser.id,
+      email: currentCloudUser.email,
+      full_name: currentCloudUser.fullName,
+      cefr_level: curLevel,
+      state_json: inMemoryState,
+      leitner_boxes: boxes,
+      selected_fc_levels: fcLevels,
+      updated_at: new Date().toISOString()
+    };
+
+    return supabaseClient
+      .from("user_profiles")
+      .upsert(payload, { onConflict: "id" })
+      .then(function () {})
+      .catch(function () {});
+  }
+
+  function scheduleCloudPush() {
+    if (!currentCloudUser) return;
+    if (syncDebounceTimer) {
+      window.clearTimeout(syncDebounceTimer);
+    }
+    syncDebounceTimer = window.setTimeout(function () {
+      pushStateToSupabaseNow();
+    }, 350);
+  }
+
+  /**
+   * პაროლის სიმკაცრის შემოწმება:
+   * - მინიმუმ 8 სიმბოლო
+   * - მინიმუმ 1 დიდი ასო (A-Z)
+   * - მინიმუმ 1 პატარა ასო (a-z)
+   * - მინიმუმ 1 ციფრი (0-9)
+   * - მინიმუმ 1 სპეციალური სიმბოლო (!@#$%^&*...)
+   */
+  function evaluatePasswordRules(pw) {
+    const str = String(pw || "");
+    return {
+      minLen: str.length >= 8,
+      hasUpper: /[A-Z]/.test(str),
+      hasLower: /[a-z]/.test(str),
+      hasDigit: /[0-9]/.test(str),
+      hasSpecial: /[^A-Za-z0-9\s]/.test(str)
+    };
+  }
+
+  function isPasswordValid(pw) {
+    const r = evaluatePasswordRules(pw);
+    return r.minLen && r.hasUpper && r.hasLower && r.hasDigit && r.hasSpecial;
   }
 
   function getInitials(name) {
@@ -57,69 +222,104 @@
     return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   }
 
-  /**
-   * ინახავს მიმდინარე მომხმარებლის მთლიან სასწავლო პროგრესს (Storage + Leitner ყუთები)
-   */
-  function saveUserProgressSnapshot(email) {
-    if (!email) return;
-    const cleanEmail = String(email).toLowerCase().trim();
-    try {
-      const snapshot = {
-        appState: (App.Storage && typeof App.Storage.getState === "function") ? App.Storage.getState() : null,
-        leitnerBoxes: window.localStorage.getItem("fluentpath_leitner_boxes_v2"),
-        selectedFcLevels: window.localStorage.getItem("fluentpath_selected_fc_levels_v2"),
-        updatedAt: new Date().toISOString()
-      };
-      window.localStorage.setItem(USER_SNAPSHOT_PREFIX + cleanEmail, JSON.stringify(snapshot));
-    } catch (e) {}
-  }
-
-  /**
-   * ტვირთავს კონკრეტული მომხმარებლის შენახულ პროგრესს შესვლისას
-   */
-  function loadUserProgressSnapshot(email, initialLevel) {
-    if (!email) return;
-    const cleanEmail = String(email).toLowerCase().trim();
-    try {
-      const raw = window.localStorage.getItem(USER_SNAPSHOT_PREFIX + cleanEmail);
-      if (raw) {
-        const snapshot = JSON.parse(raw);
-        if (snapshot.leitnerBoxes !== undefined && snapshot.leitnerBoxes !== null) {
-          window.localStorage.setItem("fluentpath_leitner_boxes_v2", snapshot.leitnerBoxes);
-        } else {
-          window.localStorage.removeItem("fluentpath_leitner_boxes_v2");
-        }
-        if (snapshot.selectedFcLevels) {
-          window.localStorage.setItem("fluentpath_selected_fc_levels_v2", snapshot.selectedFcLevels);
-        }
-        if (snapshot.appState && App.Storage && typeof App.Storage.saveState === "function") {
-          App.Storage.saveState(snapshot.appState);
-        }
-      } else {
-        // ახალი მომხმარებელია — მივაბათ მიმდინარე პროგრესი და დავაყენოთ არჩეული დონე
-        if (initialLevel && App.Storage && typeof App.Storage.set === "function") {
-          App.Storage.set("progress.level", initialLevel);
-        }
-        saveUserProgressSnapshot(cleanEmail);
-      }
-    } catch (e) {}
-  }
-
-  /**
-   * სტუმრის რეჟიმზე გადართვა (გამოსვლისას)
-   */
-  function resetToFreshGuestSession() {
-    try {
-      window.localStorage.removeItem("fluentpath_leitner_boxes_v2");
-      if (App.Storage && typeof App.Storage.resetAll === "function") {
-        App.Storage.resetAll();
-      }
-    } catch (e) {}
+  function refreshEntireAppUI() {
+    Auth.syncHeaderAuthUI();
+    if (App.Progress && typeof App.Progress.syncHeaderStats === "function") {
+      App.Progress.syncHeaderStats();
+    }
+    if (App.Router && typeof App.Router.handleRoute === "function") {
+      App.Router.handleRoute();
+    }
   }
 
   const Auth = {
-    getCurrentUser: function () {
-      return getActiveUser();
+    initClient: function () {
+      purgeAllLocalProgressKeys();
+      hookStorageToSupabaseOnly();
+
+      if (!window.supabase || !App.SupabaseConfig || !App.SupabaseConfig.url || !App.SupabaseConfig.anonKey) {
+        return;
+      }
+
+      supabaseClient = window.supabase.createClient(App.SupabaseConfig.url, App.SupabaseConfig.anonKey);
+
+      // შევამოწმოთ აქტიური Supabase სესია
+      supabaseClient.auth.getSession().then(function (res) {
+        const session = res && res.data ? res.data.session : null;
+        if (session && session.user) {
+          Auth.loadUserProfileFromSupabase(session.user, false);
+        } else {
+          currentCloudUser = null;
+          inMemoryState = createCleanBlankState("A1", "", "");
+          refreshEntireAppUI();
+          // საიტის გახსნისას თუ მომხმარებელი არ არის შესული, გავუხსნათ შესვლა/რეგისტრაციის ფანჯარა
+          Auth.openModal("login");
+        }
+      });
+    },
+
+    loadUserProfileFromSupabase: function (supaUser, isNewRegistration, chosenName, chosenLevel) {
+      if (!supabaseClient || !supaUser) return Promise.resolve();
+
+      const fallbackName = chosenName || (supaUser.user_metadata && supaUser.user_metadata.full_name) || supaUser.email.split("@")[0];
+      const fallbackLevel = chosenLevel || (supaUser.user_metadata && supaUser.user_metadata.cefr_level) || "A1";
+
+      // თუ ახალი რეგისტრაციაა — ვქმნით 100%-ით სუფთა პროფილს ნულიდან (სტუმრის პროგრესის გარეშე!)
+      if (isNewRegistration) {
+        inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
+        currentCloudUser = {
+          id: supaUser.id,
+          email: supaUser.email,
+          fullName: fallbackName,
+          level: fallbackLevel
+        };
+        return pushStateToSupabaseNow().then(function () {
+          refreshEntireAppUI();
+        });
+      }
+
+      // თუ უკვე არსებული მომხმარებელი შედის — წამოვიღოთ მისი პროგრესი Supabase-იდან
+      return supabaseClient
+        .from("user_profiles")
+        .select("*")
+        .eq("id", supaUser.id)
+        .maybeSingle()
+        .then(function (result) {
+          const row = result && result.data ? result.data : null;
+          if (row && row.state_json && Object.keys(row.state_json).length > 0) {
+            inMemoryState = row.state_json;
+            inMemoryState.vocabulary = inMemoryState.vocabulary || {};
+            if (row.leitner_boxes) {
+              inMemoryState.vocabulary.boxByWordId = row.leitner_boxes;
+            }
+            if (row.selected_fc_levels) {
+              inMemoryState.vocabulary.selectedFcLevels = row.selected_fc_levels;
+            }
+            if (row.cefr_level) {
+              setByPath(inMemoryState, "progress.level", row.cefr_level);
+            }
+            currentCloudUser = {
+              id: supaUser.id,
+              email: supaUser.email,
+              fullName: row.full_name || fallbackName,
+              level: row.cefr_level || fallbackLevel
+            };
+          } else {
+            // თუ ცხრილში ჯერ ჩანაწერი არ ჰქონდა, შევუქმნათ სუფთა ნულიდან
+            inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
+            currentCloudUser = {
+              id: supaUser.id,
+              email: supaUser.email,
+              fullName: fallbackName,
+              level: fallbackLevel
+            };
+            pushStateToSupabaseNow();
+          }
+          refreshEntireAppUI();
+        })
+        .catch(function () {
+          refreshEntireAppUI();
+        });
     },
 
     ensureModalCreated: function () {
@@ -162,7 +362,7 @@
       }
     },
 
-    handleRegister: function (formData) {
+    handleRegister: function (formData, submitBtn) {
       const fullName = String(formData.fullName || "").trim();
       const email = String(formData.email || "").toLowerCase().trim();
       const password = String(formData.password || "");
@@ -170,71 +370,76 @@
       const startLevel = String(formData.level || "A1");
 
       if (fullName.length < 2) {
-        this.showError("გთხოვთ მიუთითოთ თქვენი სახელი (მინიმუმ 2 სიმბოლო).");
+        this.showError("გთხოვთ მიუთითოთ თქვენი სახელი და გვარი.");
         return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         this.showError("გთხოვთ მიუთითოთ სწორი ელ-ფოსტის მისამართი.");
         return;
       }
-      if (password.length < 6) {
-        this.showError("პაროლი უნდა შედგებოდეს მინიმუმ 6 სიმბოლოსგან.");
+      if (!isPasswordValid(password)) {
+        this.showError("პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს, 1 დიდ ასოს, 1 პატარა ასოს, 1 ციფრს და 1 სპეციალურ სიმბოლოს!");
         return;
       }
       if (password !== confirmPassword) {
         this.showError("პაროლები ერთმანეთს არ ემთხვევა.");
         return;
       }
-
-      const registry = getUsersRegistry();
-      if (registry[email]) {
-        this.showError("ამ ელ-ფოსტით მომხმარებელი უკვე რეგისტრირებულია. გადადით „შესვლის“ ჩანართზე.");
+      if (!supabaseClient) {
+        this.showError("Supabase კლიენტი ვერ მოიძებნა. გადატვირთეთ გვერდი.");
         return;
       }
 
-      const newUser = {
-        id: "usr_" + Date.now(),
-        fullName: fullName,
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "⏳ მიმდინარეობს რეგისტრაცია...";
+      }
+
+      // წავშალოთ ნებისმიერი დროებითი მეხსიერება, რომ სტუმრის პროგრესი არ მიებას!
+      purgeAllLocalProgressKeys();
+      inMemoryState = createCleanBlankState(startLevel, fullName, email);
+
+      supabaseClient.auth.signUp({
         email: email,
         password: password,
-        level: startLevel,
-        createdAt: new Date().toISOString()
-      };
+        options: {
+          data: {
+            full_name: fullName,
+            cefr_level: startLevel
+          }
+        }
+      }).then(function (res) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "🚀 ანგარიშის შექმნა";
+        }
+        if (res.error) {
+          Auth.showError(res.error.message || "რეგისტრაციის შეცდომა.");
+          return;
+        }
+        const user = res.data ? res.data.user : null;
+        if (!user) {
+          Auth.showError("მომხმარებლის შექმნა ვერ მოხერხდა.");
+          return;
+        }
 
-      registry[email] = newUser;
-      saveUsersRegistry(registry);
-
-      if (App.Storage && typeof App.Storage.set === "function") {
-        App.Storage.set("progress.level", startLevel);
-        App.Storage.set("user.name", fullName);
-        App.Storage.set("user.email", email);
-      }
-
-      saveUserProgressSnapshot(email);
-      setActiveUser({
-        id: newUser.id,
-        fullName: newUser.fullName,
-        email: newUser.email,
-        level: newUser.level,
-        createdAt: newUser.createdAt
+        Auth.loadUserProfileFromSupabase(user, true, fullName, startLevel).then(function () {
+          Auth.closeModal();
+          if (App.UI) {
+            App.UI.playSound("success");
+            App.UI.toast("🎉 ანგარიში შეიქმნა Supabase-ში! მოგესალმებით, " + fullName + "!", "success", 3600);
+          }
+        });
+      }).catch(function (err) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "🚀 ანგარიშის შექმნა";
+        }
+        Auth.showError(err.message || "კავშირის შეცდომა.");
       });
-
-      this.syncHeaderAuthUI();
-      if (App.Progress && typeof App.Progress.syncHeaderStats === "function") {
-        App.Progress.syncHeaderStats();
-      }
-      if (App.Router && typeof App.Router.handleRoute === "function") {
-        App.Router.handleRoute();
-      }
-
-      this.closeModal();
-      if (App.UI) {
-        App.UI.playSound("success");
-        App.UI.toast("🎉 რეგისტრაცია წარმატებით დასრულდა! მოგესალმებით, " + fullName + "!", "success", 3600);
-      }
     },
 
-    handleLogin: function (formData) {
+    handleLogin: function (formData, submitBtn) {
       const email = String(formData.email || "").toLowerCase().trim();
       const password = String(formData.password || "");
 
@@ -242,78 +447,73 @@
         this.showError("გთხოვთ შეავსოთ ელ-ფოსტა და პაროლი.");
         return;
       }
-
-      const registry = getUsersRegistry();
-      const existing = registry[email];
-
-      if (!existing || existing.password !== password) {
-        this.showError("ელ-ფოსტა ან პაროლი არასწორია. გთხოვთ გადაამოწმოთ.");
+      if (!supabaseClient) {
+        this.showError("Supabase კლიენტი ვერ მოიძებნა.");
         return;
       }
 
-      // თუ სხვა მომხმარებელი იყო შესული, ჯერ მისი პროგრესი შევინახოთ
-      const prevUser = getActiveUser();
-      if (prevUser && prevUser.email) {
-        saveUserProgressSnapshot(prevUser.email);
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "⏳ მიმდინარეობს შესვლა...";
       }
 
-      loadUserProgressSnapshot(email, existing.level);
+      purgeAllLocalProgressKeys();
 
-      setActiveUser({
-        id: existing.id,
-        fullName: existing.fullName,
-        email: existing.email,
-        level: existing.level,
-        createdAt: existing.createdAt
+      supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      }).then(function (res) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "🔑 სისტემაში შესვლა";
+        }
+        if (res.error) {
+          Auth.showError("ელ-ფოსტა ან პაროლი არასწორია.");
+          return;
+        }
+        const user = res.data ? res.data.user : null;
+        if (user) {
+          Auth.loadUserProfileFromSupabase(user, false).then(function () {
+            Auth.closeModal();
+            if (App.UI) {
+              App.UI.playSound("success");
+              App.UI.toast("👋 კეთილი იყოს თქვენი დაბრუნება!", "success", 2800);
+            }
+          });
+        }
+      }).catch(function (err) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "🔑 სისტემაში შესვლა";
+        }
+        Auth.showError(err.message || "კავშირის შეცდომა.");
       });
-
-      this.syncHeaderAuthUI();
-      if (App.Progress && typeof App.Progress.syncHeaderStats === "function") {
-        App.Progress.syncHeaderStats();
-      }
-      if (App.Router && typeof App.Router.handleRoute === "function") {
-        App.Router.handleRoute();
-      }
-
-      this.closeModal();
-      if (App.UI) {
-        App.UI.playSound("success");
-        App.UI.toast("👋 კეთილი იყოს თქვენი დაბრუნება, " + existing.fullName + "!", "success", 3200);
-      }
     },
 
     handleLogout: function () {
-      const currentUser = getActiveUser();
-      if (currentUser && currentUser.email) {
-        saveUserProgressSnapshot(currentUser.email);
-      }
-      setActiveUser(null);
-      resetToFreshGuestSession();
-
-      this.syncHeaderAuthUI();
-      if (App.Progress && typeof App.Progress.syncHeaderStats === "function") {
-        App.Progress.syncHeaderStats();
-      }
-      if (App.Router && typeof App.Router.handleRoute === "function") {
-        App.Router.handleRoute();
-      }
-
-      this.closeModal();
-      if (App.UI) {
-        App.UI.toast("თქვენ გამოხვედით ანგარიშიდან. პროგრესი შენახულია.", "info", 2800);
-      }
+      pushStateToSupabaseNow().finally(function () {
+        if (supabaseClient) {
+          supabaseClient.auth.signOut();
+        }
+        currentCloudUser = null;
+        purgeAllLocalProgressKeys();
+        inMemoryState = createCleanBlankState("A1", "", "");
+        refreshEntireAppUI();
+        Auth.closeModal();
+        if (App.UI) {
+          App.UI.toast("თქვენ გამოხვედით ანგარიშიდან. ყველა მონაცემი შენახულია Supabase-ში.", "info", 3000);
+        }
+      });
     },
 
     renderModalContent: function () {
       if (!modalElement) return;
-      const user = getActiveUser();
 
-      // თუ მომხმარებელი უკვე შესულია, ვაჩვენოთ პროფილის მართვის ფანჯარა
-      if (user) {
-        const xp = (App.Storage && typeof App.Storage.get === "function") ? App.Storage.get("progress.xp", 0) : 0;
-        const streak = (App.Storage && typeof App.Storage.get === "function") ? App.Storage.get("progress.streak", 1) : 1;
-        const learned = (App.Storage && typeof App.Storage.get === "function") ? (App.Storage.get("vocabulary.learnedIds", []) || []).length : 0;
-        const curLevel = (App.Storage && typeof App.Storage.get === "function") ? App.Storage.get("progress.level", user.level || "A1") : "A1";
+      if (currentCloudUser) {
+        const xp = getByPath(inMemoryState, "progress.xp", 0);
+        const streak = getByPath(inMemoryState, "progress.streak", 1);
+        const learned = (getByPath(inMemoryState, "vocabulary.learnedIds", []) || []).length;
+        const curLevel = getByPath(inMemoryState, "progress.level", currentCloudUser.level || "A1");
 
         const levels = ["A1", "A2", "B1", "B2", "C1", "C2"];
         const levelOptionsHtml = levels.map(function (lvl) {
@@ -324,10 +524,10 @@
           '<div class="fp-auth-modal" role="dialog" aria-modal="true">' +
             '<button type="button" class="fp-auth-close-btn" id="fp-modal-close-btn" title="დახურვა">✕</button>' +
             '<div style="display:flex; align-items:center; gap:14px; margin-bottom:10px;">' +
-              '<div class="header-user-avatar" style="width:52px; height:52px; font-size:1.2rem;">' + App.UI.escapeHTML(getInitials(user.fullName)) + "</div>" +
+              '<div class="header-user-avatar" style="width:52px; height:52px; font-size:1.2rem;">' + App.UI.escapeHTML(getInitials(currentCloudUser.fullName)) + "</div>" +
               "<div>" +
-                '<h3 class="section-title" style="font-size:1.25rem;">' + App.UI.escapeHTML(user.fullName) + "</h3>" +
-                '<div style="font-size:0.84rem; color:var(--text-secondary);">' + App.UI.escapeHTML(user.email) + "</div>" +
+                '<h3 class="section-title" style="font-size:1.25rem;">' + App.UI.escapeHTML(currentCloudUser.fullName) + "</h3>" +
+                '<div style="font-size:0.84rem; color:var(--text-secondary);">☁️ ' + App.UI.escapeHTML(currentCloudUser.email) + " (Supabase Cloud)</div>" +
               "</div>" +
             "</div>" +
 
@@ -348,7 +548,7 @@
 
             '<div class="fp-form-group">' +
               '<label class="fp-form-label" for="fp-profile-name-input">სახელი და გვარი</label>' +
-              '<input type="text" id="fp-profile-name-input" class="fp-input" value="' + App.UI.escapeHTML(user.fullName) + '" />' +
+              '<input type="text" id="fp-profile-name-input" class="fp-input" value="' + App.UI.escapeHTML(currentCloudUser.fullName) + '" />' +
             "</div>" +
 
             '<div class="fp-form-group">' +
@@ -358,7 +558,7 @@
 
             '<div style="display:flex; justify-content:space-between; gap:10px; margin-top:20px;">' +
               '<button type="button" class="btn btn-outline" id="fp-logout-btn" style="color:var(--color-danger); border-color:var(--color-danger);">🚪 გამოსვლა</button>' +
-              '<button type="button" class="btn btn-primary" id="fp-save-profile-btn">✓ ცვლილებების შენახვა</button>' +
+              '<button type="button" class="btn btn-primary" id="fp-save-profile-btn">☁️ Supabase-ში შენახვა</button>' +
             "</div>" +
           "</div>";
 
@@ -374,33 +574,20 @@
           const newName = modalElement.querySelector("#fp-profile-name-input").value.trim();
           const newLvl = modalElement.querySelector("#fp-profile-level-select").value;
           if (newName.length >= 2) {
-            user.fullName = newName;
-            user.level = newLvl;
-            setActiveUser(user);
-
-            const reg = getUsersRegistry();
-            if (reg[user.email]) {
-              reg[user.email].fullName = newName;
-              reg[user.email].level = newLvl;
-              saveUsersRegistry(reg);
-            }
-            if (App.Storage && typeof App.Storage.set === "function") {
-              App.Storage.set("progress.level", newLvl);
-              App.Storage.set("user.name", newName);
-            }
-            saveUserProgressSnapshot(user.email);
-            Auth.syncHeaderAuthUI();
-            if (App.Progress && typeof App.Progress.syncHeaderStats === "function") {
-              App.Progress.syncHeaderStats();
-            }
-            Auth.closeModal();
-            App.UI.toast("✓ პროფილი წარმატებით განახლდა!", "success", 2200);
+            currentCloudUser.fullName = newName;
+            currentCloudUser.level = newLvl;
+            setByPath(inMemoryState, "progress.level", newLvl);
+            setByPath(inMemoryState, "user.name", newName);
+            pushStateToSupabaseNow().then(function () {
+              refreshEntireAppUI();
+              Auth.closeModal();
+              App.UI.toast("☁️ პროფილი განახლდა Supabase-ში!", "success", 2200);
+            });
           }
         });
         return;
       }
 
-      // სტუმრის რეჟიმი — რეგისტრაციისა და შესვლის ფორმა
       const isReg = (activeTab === "register");
 
       const formHtml = isReg
@@ -425,10 +612,17 @@
               "</select>" +
             "</div>" +
             '<div class="fp-form-group">' +
-              '<label class="fp-form-label" for="fp-reg-pw">პაროლი (მინ. 6 სიმბოლო)</label>' +
+              '<label class="fp-form-label" for="fp-reg-pw">პაროლი</label>' +
               '<div class="fp-input-wrap">' +
-                '<input type="password" id="fp-reg-pw" class="fp-input" placeholder="••••••••" required />' +
+                '<input type="password" id="fp-reg-pw" class="fp-input" placeholder="მინ. 8 სიმბოლო (A-Z, a-z, 0-9, !@#)" required />' +
                 '<button type="button" class="fp-pw-toggle" data-toggle-pw="fp-reg-pw" title="პაროლის ჩვენება">👁️</button>' +
+              "</div>" +
+              '<div class="fp-pw-checklist" id="fp-pw-live-checklist">' +
+                '<div class="fp-pw-rule" data-pw-rule="minLen"><span class="fp-pw-rule-dot">•</span> <span>მინიმუმ 8 სიმბოლო</span></div>' +
+                '<div class="fp-pw-rule" data-pw-rule="hasUpper"><span class="fp-pw-rule-dot">•</span> <span>1 დიდი ასო (A-Z)</span></div>' +
+                '<div class="fp-pw-rule" data-pw-rule="hasLower"><span class="fp-pw-rule-dot">•</span> <span>1 პატარა ასო (a-z)</span></div>' +
+                '<div class="fp-pw-rule" data-pw-rule="hasDigit"><span class="fp-pw-rule-dot">•</span> <span>1 ციფრი (0-9)</span></div>' +
+                '<div class="fp-pw-rule" data-pw-rule="hasSpecial" style="grid-column:1/-1;"><span class="fp-pw-rule-dot">•</span> <span>1 სპეციალური სიმბოლო (!@#$%^&*...)</span></div>' +
               "</div>" +
             "</div>" +
             '<div class="fp-form-group">' +
@@ -438,7 +632,7 @@
                 '<button type="button" class="fp-pw-toggle" data-toggle-pw="fp-reg-pw2" title="პაროლის ჩვენება">👁️</button>' +
               "</div>" +
             "</div>" +
-            '<button type="submit" class="btn btn-primary" style="width:100%; margin-top:6px; padding:12px;">🚀 ანგარიშის შექმნა და დაწყება</button>' +
+            '<button type="submit" class="btn btn-primary" id="fp-reg-submit-btn" style="width:100%; margin-top:6px; padding:12px;">🚀 ანგარიშის შექმნა</button>' +
           "</form>"
         : '<form id="fp-login-form" autocomplete="on">' +
             '<div class="fp-form-group">' +
@@ -452,21 +646,21 @@
                 '<button type="button" class="fp-pw-toggle" data-toggle-pw="fp-login-pw" title="პაროლის ჩვენება">👁️</button>' +
               "</div>" +
             "</div>" +
-            '<button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px; padding:12px;">🔑 სისტემაში შესვლა</button>' +
+            '<button type="submit" class="btn btn-primary" id="fp-login-submit-btn" style="width:100%; margin-top:8px; padding:12px;">🔑 სისტემაში შესვლა</button>' +
           "</form>";
 
       modalElement.innerHTML =
         '<div class="fp-auth-modal" role="dialog" aria-modal="true">' +
           '<button type="button" class="fp-auth-close-btn" id="fp-modal-close-btn" title="დახურვა">✕</button>' +
           '<div style="text-align:center;">' +
-            '<div style="font-size:2.1rem; margin-bottom:4px;">🎓</div>' +
-            '<h3 class="section-title" style="font-size:1.35rem;">' + (isReg ? "შექმენით პირადი ანგარიში" : "შესვლა პირად ანგარიშზე") + "</h3>" +
-            '<p style="font-size:0.84rem; color:var(--text-secondary); margin-top:4px;">შეინახეთ თქვენი XP, სტრიკი, ბარათების ყუთები და გახსნილი თემები.</p>' +
+            '<div style="font-size:2rem; margin-bottom:4px;">☁️</div>' +
+            '<h3 class="section-title" style="font-size:1.3rem;">' + (isReg ? "რეგისტრაცია (Supabase Cloud)" : "შესვლა ანგარიშზე") + "</h3>" +
+            '<p style="font-size:0.82rem; color:var(--text-secondary); margin-top:4px;">ყველა მონაცემი ინახება მხოლოდ Supabase-ის ღრუბლოვან ბაზაში.</p>' +
           "</div>" +
 
           '<div class="fp-auth-tabs">' +
-            '<button type="button" class="fp-auth-tab ' + (isReg ? "active" : "") + '" data-switch-auth-tab="register">📝 რეგისტრაცია</button>' +
             '<button type="button" class="fp-auth-tab ' + (!isReg ? "active" : "") + '" data-switch-auth-tab="login">🔑 შესვლა</button>' +
+            '<button type="button" class="fp-auth-tab ' + (isReg ? "active" : "") + '" data-switch-auth-tab="register">📝 რეგისტრაცია</button>' +
           "</div>" +
 
           '<div class="fp-auth-error" id="fp-auth-error-box"></div>' +
@@ -495,6 +689,27 @@
         });
       });
 
+      // პაროლის ცოცხალი ვალიდაციის ინდიკატორი
+      const regPwInput = modalElement.querySelector("#fp-reg-pw");
+      if (regPwInput) {
+        regPwInput.addEventListener("input", function () {
+          const rules = evaluatePasswordRules(regPwInput.value);
+          Object.keys(rules).forEach(function (ruleKey) {
+            const ruleEl = modalElement.querySelector('[data-pw-rule="' + ruleKey + '"]');
+            if (ruleEl) {
+              const dotEl = ruleEl.querySelector(".fp-pw-rule-dot");
+              if (rules[ruleKey]) {
+                ruleEl.classList.add("met");
+                if (dotEl) dotEl.textContent = "✓";
+              } else {
+                ruleEl.classList.remove("met");
+                if (dotEl) dotEl.textContent = "•";
+              }
+            }
+          });
+        });
+      }
+
       const regForm = modalElement.querySelector("#fp-register-form");
       if (regForm) {
         regForm.addEventListener("submit", function (e) {
@@ -505,7 +720,7 @@
             level: modalElement.querySelector("#fp-reg-level").value,
             password: modalElement.querySelector("#fp-reg-pw").value,
             confirmPassword: modalElement.querySelector("#fp-reg-pw2").value
-          });
+          }, modalElement.querySelector("#fp-reg-submit-btn"));
         });
       }
 
@@ -516,14 +731,11 @@
           Auth.handleLogin({
             email: modalElement.querySelector("#fp-login-email").value,
             password: modalElement.querySelector("#fp-login-pw").value
-          });
+          }, modalElement.querySelector("#fp-login-submit-btn"));
         });
       }
     },
 
-    /**
-     * ამატებს ან აახლებს "შესვლა / რეგისტრაცია" ან მომხმარებლის პროფილის ღილაკს Header-ში
-     */
     syncHeaderAuthUI: function () {
       const headerRight = document.querySelector(".top-header__right, .header-actions, header");
       if (!headerRight) return;
@@ -535,7 +747,6 @@
         container.style.display = "inline-flex";
         container.style.alignItems = "center";
 
-        // თუ არსებობს ძველი auth ღილაკი, ჩავანაცვლოთ ან ჩავსვათ გვერდით
         const existingAuthBtn = document.getElementById("header-auth-btn") || document.getElementById("auth-trigger-btn");
         if (existingAuthBtn && existingAuthBtn.parentNode) {
           existingAuthBtn.style.display = "none";
@@ -545,12 +756,11 @@
         }
       }
 
-      const user = getActiveUser();
-      if (user) {
+      if (currentCloudUser) {
         container.innerHTML =
-          '<button type="button" class="header-user-chip" id="fp-open-profile-btn" title="პირადი პროფილი და გამოსვლა">' +
-            '<span class="header-user-avatar">' + App.UI.escapeHTML(getInitials(user.fullName)) + "</span>" +
-            '<span>' + App.UI.escapeHTML(user.fullName.split(" ")[0]) + "</span>" +
+          '<button type="button" class="header-user-chip" id="fp-open-profile-btn" title="Supabase პროფილი">' +
+            '<span class="header-user-avatar">' + App.UI.escapeHTML(getInitials(currentCloudUser.fullName)) + "</span>" +
+            '<span>' + App.UI.escapeHTML(currentCloudUser.fullName.split(" ")[0]) + "</span>" +
           "</button>";
         container.querySelector("#fp-open-profile-btn").addEventListener("click", function () {
           Auth.openModal();
@@ -558,10 +768,10 @@
       } else {
         container.innerHTML =
           '<button type="button" class="header-auth-btn" id="fp-open-auth-btn">' +
-            '<span>👤 რეგისტრაცია / შესვლა</span>' +
+            '<span>☁️ შესვლა / რეგისტრაცია</span>' +
           "</button>";
         container.querySelector("#fp-open-auth-btn").addEventListener("click", function () {
-          Auth.openModal("register");
+          Auth.openModal("login");
         });
       }
     }
@@ -569,34 +779,11 @@
 
   App.Auth = Auth;
 
-  // ყოველ ჯერზე, როცა მომხმარებელი სწავლობს და XP ან ყუთები ეცვლება, ავტომატურად შევინახოთ მის პროფილზე
-  window.addEventListener("beforeunload", function () {
-    const u = getActiveUser();
-    if (u && u.email) {
-      saveUserProgressSnapshot(u.email);
-    }
-  });
-
-  document.addEventListener("click", function () {
-    const u = getActiveUser();
-    if (u && u.email) {
-      saveUserProgressSnapshot(u.email);
-    }
-  });
-
-  function initAuthSystem() {
-    const u = getActiveUser();
-    if (u && u.email) {
-      loadUserProgressSnapshot(u.email, u.level);
-    }
-    Auth.syncHeaderAuthUI();
-  }
-
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
-      window.setTimeout(initAuthSystem, 40);
+      window.setTimeout(function () { Auth.initClient(); }, 35);
     });
   } else {
-    window.setTimeout(initAuthSystem, 40);
+    window.setTimeout(function () { Auth.initClient(); }, 35);
   }
 })(window);

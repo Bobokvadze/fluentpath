@@ -199,20 +199,16 @@
 
   const Flashcards = {
     loadSavedLevels: function () {
-      try {
-        const rawLocal = window.localStorage.getItem(LOCAL_LEVELS_STORAGE_KEY);
-        const parsed = rawLocal ? JSON.parse(rawLocal) : App.Storage.get("vocabulary.selectedFcLevels", null);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const valid = parsed.filter(function (lvl) { return ALL_CEFR_LEVELS.indexOf(lvl) !== -1; });
-          if (valid.length > 0) selectedLevels = valid;
-        }
-      } catch (e) {}
+      const saved = App.Storage.get("vocabulary.selectedFcLevels", null);
+      if (Array.isArray(saved) && saved.length > 0) {
+        const valid = saved.filter(function (lvl) { return ALL_CEFR_LEVELS.indexOf(lvl) !== -1; });
+        selectedLevels = valid.length > 0 ? valid : ALL_CEFR_LEVELS.slice();
+      } else {
+        selectedLevels = ALL_CEFR_LEVELS.slice();
+      }
     },
 
     saveSelectedLevels: function () {
-      try {
-        window.localStorage.setItem(LOCAL_LEVELS_STORAGE_KEY, JSON.stringify(selectedLevels));
-      } catch (e) {}
       if (App.Storage && typeof App.Storage.set === "function") {
         App.Storage.set("vocabulary.selectedFcLevels", selectedLevels);
       }
@@ -232,30 +228,14 @@
     },
 
     getBoxMap: function () {
-      let merged = {};
-      try {
-        const fromState = App.Storage.get("vocabulary.boxByWordId", null);
-        if (fromState && typeof fromState === "object") Object.assign(merged, fromState);
-      } catch (e) {}
-      try {
-        const rawLocal = window.localStorage.getItem(LOCAL_BOX_STORAGE_KEY);
-        if (rawLocal) {
-          const parsedLocal = JSON.parse(rawLocal);
-          if (parsedLocal && typeof parsedLocal === "object") Object.assign(merged, parsedLocal);
-        }
-      } catch (e) {}
-      return merged;
+      const fromState = App.Storage.get("vocabulary.boxByWordId", {});
+      return (fromState && typeof fromState === "object") ? fromState : {};
     },
 
     saveBoxMap: function (boxMap) {
-      try {
-        window.localStorage.setItem(LOCAL_BOX_STORAGE_KEY, JSON.stringify(boxMap));
-      } catch (e) {}
-      try {
-        if (App.Storage && typeof App.Storage.set === "function") {
-          App.Storage.set("vocabulary.boxByWordId", boxMap);
-        }
-      } catch (e) {}
+      if (App.Storage && typeof App.Storage.set === "function") {
+        App.Storage.set("vocabulary.boxByWordId", boxMap);
+      }
     },
 
     getWordBox: function (wordId, boxMap, learnedIds) {

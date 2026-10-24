@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AUTH.CSS — რეგისტრაციის, ავტორიზაციისა და პროფილის მოდალის სტილები
+   AUTH.CSS — Supabase რეგისტრაციის, მკაცრი პაროლის ვალიდაციისა და პროფილის სტილები
    ========================================================================== */
 
 .header-auth-btn {
@@ -53,16 +53,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  letter-spacing: 0.02em;
 }
 
-/* მოდალური ფანჯარა */
 .fp-auth-backdrop {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background-color: rgba(15, 23, 42, 0.62);
-  backdrop-filter: blur(5px);
+  background-color: rgba(15, 23, 42, 0.68);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,11 +77,11 @@
 
 .fp-auth-modal {
   width: 100%;
-  max-width: 460px;
+  max-width: 470px;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: 22px;
-  box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.28);
+  box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.32);
   padding: 28px;
   position: relative;
   transform: translateY(12px) scale(0.98);
@@ -127,7 +125,7 @@
   background-color: var(--bg-surface-muted);
   padding: 5px;
   border-radius: var(--radius-lg);
-  margin: 18px 0 20px;
+  margin: 16px 0 18px;
 }
 
 .fp-auth-tab {
@@ -149,15 +147,15 @@
 }
 
 .fp-form-group {
-  margin-bottom: 14px;
+  margin-bottom: 13px;
 }
 
 .fp-form-label {
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.81rem;
   font-weight: 700;
   color: var(--text-secondary);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 .fp-input-wrap {
@@ -168,12 +166,12 @@
 
 .fp-input {
   width: 100%;
-  padding: 11px 14px;
+  padding: 10px 14px;
   border-radius: var(--radius-md);
   border: 1.5px solid var(--border-strong);
   background-color: var(--bg-surface);
   color: var(--text-primary);
-  font-size: 0.92rem;
+  font-size: 0.91rem;
   font-family: inherit;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
@@ -195,12 +193,50 @@
   padding: 4px;
 }
 
+/* პაროლის მოთხოვნების ცოცხალი სია */
+.fp-pw-checklist {
+  background-color: var(--bg-surface-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.fp-pw-rule {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s ease;
+}
+
+.fp-pw-rule.met {
+  color: var(--color-success);
+}
+
+.fp-pw-rule-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.64rem;
+  flex-shrink: 0;
+}
+
 .fp-auth-error {
   padding: 10px 12px;
   border-radius: var(--radius-md);
   background-color: var(--color-danger-soft);
   color: var(--color-danger);
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   font-weight: 700;
   margin-bottom: 14px;
   display: none;
@@ -236,4 +272,10 @@
   color: var(--text-secondary);
   font-weight: 600;
   margin-top: 2px;
+}
+
+@media (max-width: 520px) {
+  .fp-pw-checklist {
+    grid-template-columns: 1fr;
+  }
 }
