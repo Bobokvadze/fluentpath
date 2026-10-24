@@ -1,10 +1,113 @@
 /**
- * STREAK-ONLY-UI.JS — დეშბორდისა და პროგრესის გვერდის სრული განახლება XP-ის გარეშე (მხოლოდ სტრიკებით!)
+ * STREAK-ONLY-UI.JS
+ * 1) აქრობს მარცხენა მენიუდან ყველა "მზადაა" და "ფაზა 4 / 5" ბეიჯს.
+ * 2) ხის სტილის სწავლის მოდულს (App.Learn) უკავშირებს რეგისტრაციის ტესტით დადგენილ დონეს.
+ * 3) დეშბორდსა და პროგრესის გვერდზე XP-ის ნაცვლად აჩვენებს მხოლოდ სტრიკებს (🔥).
  */
 (function (window) {
   "use strict";
 
   const App = window.App = window.App || {};
+  const CEFR_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
+
+  /**
+   * 100%-ით შლის მარცხენა მენიუდან "მზადაა", "ფაზა 4", "ფაზა 5" ბეიჯებს ნებისმიერი კლასის მიუხედავად
+   */
+  function removeSidebarPhaseBadges() {
+    const sidebar = document.querySelector("aside, .sidebar, .app-sidebar, .side-nav, nav");
+    const root = sidebar || document;
+
+    root.querySelectorAll("span, small, div, badge").forEach(function (el) {
+      if (el.children.length === 0) {
+        const txt = (el.textContent || "").trim();
+        if (txt === "მზადაა" || /^ფაზა\s*\d+$/i.test(txt)) {
+          el.remove();
+        }
+      }
+    });
+
+    // ასევე შევცვალოთ ქვესათაური "100% უფასო • ლოკალური" თუ სადმე ჩანს
+    document.querySelectorAll("*").forEach(function (el) {
+      if (el.children.length === 0 && (el.textContent || "").indexOf("100% უფასო") !== -1) {
+        el.textContent = "A1–C2 სასწავლო პლატფორმა";
+      }
+    });
+  }
+
+  /**
+   * ხის სტილის იუნიტებში (js/learn.js) ავტომატურად ხსნის ყველა იუნიტს მომხმარებლის
+   * დადგენილ დონემდე (progress.level) და ააქტიურებს დადგენილი დონის ტაბს/კვანძს.
+   */
+  function syncTreeUnitsWithUserLevel() {
+    if (!App.Storage || typeof App.Storage.get !== "function") return;
+    const userLevel = App.Storage.get("progress.level", "A1") || "A1";
+    const userLvlIdx = CEFR_ORDER.indexOf(userLevel);
+
+    if (userLvlIdx > 0 && App.Learn) {
+      const passedLevels = CEFR_ORDER.slice(0, userLvlIdx);
+
+      // მოვძებნოთ ხის ყველა იუნიტი App.Learn-ში (როგორც არ უნდა ერქვას მეთოდს ან მასივს)
+      let treeUnits = [];
+      if (typeof App.Learn.getAllUnits === "function") treeUnits = App.Learn.getAllUnits() || [];
+      else if (typeof App.Learn.getUnits === "function") treeUnits = App.Learn.getUnits() || [];
+      else if (Array.isArray(App.Learn.units)) treeUnits = App.Learn.units;
+      else if (Array.isArray(App.LearnData)) treeUnits = App.LearnData;
+
+      if (treeUnits.length > 0) {
+        const passedIds = treeUnits
+          .filter(function (u) { return u && passedLevels.indexOf(u.level) !== -1; })
+          .map(function (u) { return u.id; });
+
+        if (passedIds.length > 0) {
+          ["learn.completedUnitIds", "learn.completedUnits", "learn.completedIds", "progress.completedLearnUnits", "progress.completedUnits"].forEach(function (storageKey) {
+            const existing = App.Storage.get(storageKey, []) || [];
+            const merged = existing.slice();
+            passedIds.forEach(function (id) {
+              if (merged.indexOf(id) === -1) merged.push(id);
+            });
+            App.Storage.set(storageKey, merged);
+          });
+        }
+      }
+    }
+  }
+
+  /**
+   * როცა მომხმარებელი ხსნის #learn გვერდს, თუ ხეს აქვს დონის ფილტრი/ტაბი ან კვანძები,
+   * ავტომატურად გადართავს მომხმარებლის დადგენილ დონეზე (მაგ. B1, B2...)
+   */
+  let lastAutoFocusedLevel = null;
+  function autoFocusTreeLevelInDOM() {
+    const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
+    if (hash !== "learn") return;
+
+    const userLevel = App.Storage.get("progress.level", "A1") || "A1";
+    const container = document.getElementById("app-view");
+    if (!container) return;
+
+    // თუ ხის გვერდზე არის დონის ტაბები (A1, A2, B1...), პირველ შესვლაზე ავირჩიოთ მომხმარებლის დონე
+    if (lastAutoFocusedLevel !== userLevel) {
+      const levelTabBtn = container.querySelector(
+        '[data-level="' + userLevel + '"], [data-learn-level="' + userLevel + '"], [data-lvl="' + userLevel + '"]'
+      );
+      if (levelTabBtn && !levelTabBtn.classList.contains("active")) {
+        lastAutoFocusedLevel = userLevel;
+        levelTabBtn.click();
+        return;
+      }
+
+      // თუ ყველა დონე ერთიან ვერტიკალურ ხეზეა, ჩამოვსქროლოთ მომხმარებლის დონის პირველ იუნიტთან
+      const levelSection = container.querySelector(
+        '[data-tree-level="' + userLevel + '"], #tree-level-' + userLevel + ', [data-section-level="' + userLevel + '"]'
+      );
+      if (levelSection) {
+        lastAutoFocusedLevel = userLevel;
+        window.setTimeout(function () {
+          levelSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 80);
+      }
+    }
+  }
 
   function getStatsSummary() {
     const streak = Number(App.Storage.get("progress.streak", 1)) || 1;
@@ -34,9 +137,6 @@
     };
   }
 
-  /**
-   * ახალი, სუფთა Dashboard (მთავარი გვერდი) XP-ის გარეშე — ფოკუსირებული სტრიკზე, დონესა და მოდულებზე
-   */
   function renderCleanDashboard() {
     const container = document.getElementById("app-view");
     if (!container) return;
@@ -47,6 +147,7 @@
     const dailyPct = Math.min(100, Math.round(((reviewedToday + st.totalLessonsDone) / dailyTargetItems) * 100));
 
     const modules = [
+      { route: "learn", icon: "🌳", title: "სწავლის ხე (იუნიტები)", count: "დონე " + st.level, pct: Math.min(100, Math.round((st.totalLessonsDone / 90) * 100)), desc: "ინტერაქტიული სასწავლო ხე — გაიარეთ იუნიტები ნაბიჯ-ნაბიჯ თქვენი დონიდან." },
       { route: "vocabulary", icon: "🗂️", title: "ლექსიკონი", count: st.wordsCount + " / 3,000 სიტყვა", pct: Math.min(100, Math.round((st.wordsCount / 3000) * 100)), desc: "3,000 აუცილებელი სიტყვა და ფრაზა A1–C2 დონეებზე." },
       { route: "grammar", icon: "🌐", title: "გრამატიკა", count: st.grammarDone + " / 90 თემა", pct: Math.min(100, Math.round((st.grammarDone / 90) * 100)), desc: "90 სრული გრამატიკული გაკვეთილი წესებითა და ტესტებით." },
       { route: "reading", icon: "📖", title: "კითხვა", count: st.readingDone + " / 90 ტექსტი", pct: Math.min(100, Math.round((st.readingDone / 90) * 100)), desc: "90 ადაპტირებული ისტორია და სტატია გააზრების კითხვებით." },
@@ -81,7 +182,6 @@
 
     container.innerHTML =
       '<div class="dashboard-grid">' +
-        '<!-- სტატისტიკის 4 მთავარი ბარათი (XP-ის გარეშე!) -->' +
         '<section style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">' +
           '<div class="card" style="display:flex; align-items:center; gap:14px; padding:20px;">' +
             '<div style="font-size:2.2rem;">🔥</div>' +
@@ -116,12 +216,11 @@
           "</div>" +
         "</section>" +
 
-        '<!-- დღის სტრიკის აქტივობის პანელი -->' +
         '<section class="card">' +
           '<div class="section-header" style="margin-bottom:12px;">' +
             "<div>" +
               '<h2 class="section-title">🔥 დღევანდელი სასწავლო აქტივობა</h2>' +
-              '<p class="section-subtitle">შეინარჩუნეთ ყოველდღიური უწყვეტი სტრიკი — გაიარეთ ბარათები ან დაასრულეთ ერთი სასწავლო თემა.</p>' +
+              '<p class="section-subtitle">შეინარჩუნეთ ყოველდღიური უწყვეტი სტრიკი — გაიარეთ იუნიტი ან ბარათები.</p>' +
             "</div>" +
             '<span class="stat-pill stat-pill--streak">🔥 სტრიკი: ' + st.streak + " დღე</span>" +
           "</div>" +
@@ -130,16 +229,12 @@
             : "") +
         "</section>" +
 
-        '<!-- სასწავლო მოდულები -->' +
         '<section style="display:grid; grid-template-columns:repeat(auto-fill, minmax(290px, 1fr)); gap:18px;">' +
           moduleCardsHtml +
         "</section>" +
       "</div>";
   }
 
-  /**
-   * ახალი, სუფთა Progress (პროგრესის გვერდი) XP-ის გარეშე
-   */
   function renderCleanProgressPage() {
     const container = document.getElementById("app-view");
     if (!container) return;
@@ -200,14 +295,29 @@
       "</div>";
   }
 
-  function hookDashboardAndProgress() {
+  function hookEverything() {
+    removeSidebarPhaseBadges();
+    syncTreeUnitsWithUserLevel();
+
     if (App.Dashboard) {
       App.Dashboard.render = renderCleanDashboard;
     }
+
+    if (App.Learn && typeof App.Learn.render === "function" && !App.Learn.render._treeLevelHooked) {
+      const origLearnRender = App.Learn.render;
+      const wrappedLearnRender = function () {
+        syncTreeUnitsWithUserLevel();
+        const res = origLearnRender.apply(this, arguments);
+        window.setTimeout(autoFocusTreeLevelInDOM, 20);
+        return res;
+      };
+      wrappedLearnRender._treeLevelHooked = true;
+      App.Learn.render = wrappedLearnRender;
+    }
+
     if (App.Progress) {
       App.Progress.render = renderCleanProgressPage;
 
-      // syncHeaderStats-ში გავასწოროთ სტრიკის ჩვენება XP-ის გარეშე
       const origSync = App.Progress.syncHeaderStats;
       App.Progress.syncHeaderStats = function () {
         if (typeof origSync === "function") {
@@ -223,6 +333,7 @@
           const lvl = App.Storage.get("progress.level", "A1") || "A1";
           levelEl.textContent = "დონე: " + lvl;
         }
+        removeSidebarPhaseBadges();
       };
     }
 
@@ -231,6 +342,8 @@
       renderCleanDashboard();
     } else if (hash === "progress") {
       renderCleanProgressPage();
+    } else if (hash === "learn" && App.Learn) {
+      App.Learn.render();
     }
     if (App.Progress && typeof App.Progress.syncHeaderStats === "function") {
       App.Progress.syncHeaderStats();
@@ -238,21 +351,24 @@
   }
 
   window.addEventListener("hashchange", function () {
+    removeSidebarPhaseBadges();
     window.setTimeout(function () {
       const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
       if (!hash || hash === "dashboard") {
         renderCleanDashboard();
       } else if (hash === "progress") {
         renderCleanProgressPage();
+      } else if (hash === "learn") {
+        autoFocusTreeLevelInDOM();
       }
-    }, 5);
+    }, 10);
   });
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
-      window.setTimeout(hookDashboardAndProgress, 50);
+      window.setTimeout(hookEverything, 45);
     });
   } else {
-    window.setTimeout(hookDashboardAndProgress, 50);
+    window.setTimeout(hookEverything, 45);
   }
 })(window);
