@@ -58,9 +58,9 @@
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 8px !important;
+  gap: 16px !important;
   width: 100% !important;
-  flex-wrap: wrap !important;
+  margin-bottom: 6px !important;
 }
 
 .vg-badge-level {

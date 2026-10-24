@@ -13,9 +13,12 @@
   /**
    * 100%-ით შლის მარცხენა მენიუდან "მზადაა", "ფაზა 4", "ფაზა 5" ბეიჯებს ნებისმიერი კლასის მიუხედავად
    */
-  function removeSidebarPhaseBadges() {
-    document.querySelectorAll(".nav-badge").forEach(function (el) {
-      el.style.display = "none";
+    function removeSidebarPhaseBadges() {
+    document.querySelectorAll(".nav-badge, [class*='badge'], [class*='phase']").forEach(function (el) {
+      const txt = (el.textContent || "").trim();
+      if (txt === "მზადაა" || /^ფაზა\s*\d+$/i.test(txt) || el.classList.contains("nav-badge")) {
+        el.remove();
+      }
     });
   }
 
