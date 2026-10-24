@@ -171,7 +171,7 @@
                   '<div class="lesson-badge-row">' +
                     '<span class="lesson-level-tag">დონე ' + App.UI.escapeHTML(topic.level) + ' &bull; #' + topic.topicNumber + '</span>' +
                     '<span class="lesson-status-tag ' + (isDone ? 'done' : '') + '">' +
-                      (!isUnlocked ? '🔒 ჩაკეტილია' : (isDone ? '✓ ათვისებულია' : (isFrontier ? '📍 მიმდინარე (+40 XP)' : '+40 XP'))) +
+                      (!isUnlocked ? '🔒 ჩაკეტილია' : (isDone ? '✓ ათვისებულია' : (isFrontier ? '📍 მიმდინარე ()' : ''))) +
                     '</span>' +
                   '</div>' +
                   '<div style="margin-top: 12px;">' +

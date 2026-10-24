@@ -122,7 +122,7 @@
                   'სწავლის გაგრძელება (' + App.UI.escapeHTML(currentLevelObj.code) + ')' +
                 '</button>' +
                 '<button type="button" class="btn btn-hero-secondary" id="simulate-activity-btn">' +
-                  'სისტემის ტესტი (+10 XP)' +
+                  'სისტემის ტესტი ()' +
                 '</button>' +
               '</div>' +
             '</div>' +
@@ -268,7 +268,7 @@
             metricKey: 'lessonsCompleted'
           });
           App.UI.playSound('success');
-          App.UI.toast('დაგერიცხათ +10 XP! პროგრესი და სერია შეინახა LocalStorage-ში.', 'success');
+          App.UI.toast('დაგერიცხათ ! პროგრესი და სერია შეინახა LocalStorage-ში.', 'success');
           this.render();
         });
       }

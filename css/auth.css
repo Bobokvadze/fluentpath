@@ -327,3 +327,48 @@
     grid-template-columns: 1fr;
   }
 }
+/* ==========================================================================
+   HEADER STABILIZATION & GLOBAL XP REMOVAL
+   ========================================================================== */
+header,
+.top-header,
+.app-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+}
+
+#header-page-title {
+  margin-right: auto !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.top-header__right,
+.header-actions,
+.header-right {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+}
+
+#fp-header-auth-slot {
+  display: inline-flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  margin-left: 4px !important;
+}
+
+/* დავმალოთ ნებისმიერი XP ბეიჯი და ველი */
+.stat-pill--xp,
+#header-xp,
+[data-stat="xp"],
+.xp-badge,
+.xp-pill {
+  display: none !important;
+}

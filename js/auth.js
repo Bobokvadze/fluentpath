@@ -971,23 +971,42 @@
     },
 
     syncHeaderAuthUI: function () {
-      const headerRight = document.querySelector(".top-header__right, .header-actions, header");
+      // ვიპოვოთ ზუსტად ის მარჯვენა კონტეინერი, სადაც ზის დონე, სტრიკი, თემა და პარამეტრები
+      const anchorEl =
+        document.getElementById("settings-btn") ||
+        document.getElementById("theme-toggle-btn") ||
+        document.getElementById("header-streak") ||
+        document.querySelector(".stat-pill--streak") ||
+        document.querySelector(".stat-pill--level");
+
+      const headerRight = (anchorEl && anchorEl.parentElement)
+        ? anchorEl.parentElement
+        : document.querySelector(".top-header__right, .header-actions, .header-right, header");
+
       if (!headerRight) return;
+
+      headerRight.style.display = "flex";
+      headerRight.style.alignItems = "center";
+      headerRight.style.gap = "10px";
+      headerRight.style.marginLeft = "auto";
+      headerRight.style.flexShrink = "0";
 
       let container = document.getElementById("fp-header-auth-slot");
       if (!container) {
         container = document.createElement("div");
         container.id = "fp-header-auth-slot";
-        container.style.display = "inline-flex";
-        container.style.alignItems = "center";
+      }
 
-        const existingAuthBtn = document.getElementById("header-auth-btn") || document.getElementById("auth-trigger-btn");
-        if (existingAuthBtn && existingAuthBtn.parentNode) {
-          existingAuthBtn.style.display = "none";
-          existingAuthBtn.parentNode.insertBefore(container, existingAuthBtn);
-        } else {
-          headerRight.appendChild(container);
-        }
+      // თუ სხვა მშობელში იჯდა (მაგ. პირდაპირ header-ში), გადმოვიტანოთ მარჯვენა ჯგუფის ბოლოში
+      if (container.parentElement !== headerRight) {
+        headerRight.appendChild(container);
+      }
+
+      // სტრიკის ტექსტი გავასწოროთ (მინიმუმ 1 დღე როცა აქტიურია)
+      const streakBadge = document.getElementById("header-streak") || document.querySelector(".stat-pill--streak");
+      if (streakBadge) {
+        const stCount = getByPath(inMemoryState, "progress.streak", 1) || 1;
+        streakBadge.innerHTML = "🔥 " + stCount + " დღე";
       }
 
       if (currentCloudUser) {

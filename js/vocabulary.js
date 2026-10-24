@@ -843,7 +843,7 @@
           category: 'ლექსიკონი'
         });
         App.UI.playSound('success');
-        App.UI.toast('✓ სიტყვა მოინიშნა ნასწავლად (+5 XP)!', 'success', 1800);
+        App.UI.toast('✓ სიტყვა მოინიშნა ნასწავლად ()!', 'success', 1800);
       } else {
         learned.splice(idx, 1);
         state.vocabulary.learnedIds = learned;
