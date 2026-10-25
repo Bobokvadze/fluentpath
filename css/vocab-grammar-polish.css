@@ -2,6 +2,13 @@
    VOCAB-GRAMMAR-POLISH.CSS — ლექსიკონისა და გრამატიკის ბარათების პრემიუმ დიზაინი
    ========================================================================== */
 
+/* მარცხენა მენიუში "მზადაა" და "ფაზა" ბეიჯების სრული გაქრობა */
+.nav-badge,
+.sidebar .badge,
+.nav-item .badge {
+  display: none !important;
+}
+
 .vg-cards-grid {
   display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)) !important;
@@ -13,7 +20,7 @@
   position: relative !important;
   background-color: var(--bg-surface) !important;
   border: 1px solid var(--border-subtle) !important;
-   outline: none !important;
+  outline: none !important;
   border-radius: 20px !important;
   padding: 22px 24px 18px !important;
   display: flex !important;
@@ -27,7 +34,6 @@
   overflow: hidden !important;
 }
 
-/* ზედა ფერადი ზოლი დონის მიხედვით */
 .vg-polished-card::before {
   content: "";
   position: absolute;
@@ -53,14 +59,14 @@
 .vg-polished-card[data-vg-level="C1"] { --vg-accent: #7c3aed; --vg-accent-light: #a78bfa; --vg-soft: rgba(124, 58, 237, 0.1); }
 .vg-polished-card[data-vg-level="C2"] { --vg-accent: #e11d48; --vg-accent-light: #fb7185; --vg-soft: rgba(225, 29, 72, 0.1); }
 
-/* ბარათის ზედა მეტა-ზოლი */
+/* ზედა ზოლი: დონე მარცხნივ, სტატუსი/სიტყვები უკიდურეს მარჯვნივ */
 .vg-card-top {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 16px !important;
+  gap: 10px !important;
   width: 100% !important;
-  margin-bottom: 6px !important;
+  margin-bottom: 4px !important;
 }
 
 .vg-badge-level {
@@ -80,21 +86,14 @@
   display: inline-flex !important;
   align-items: center !important;
   gap: 5px !important;
-  padding: 5px 11px !important;
+  padding: 5px 12px !important;
   border-radius: 999px !important;
   font-size: 0.75rem !important;
   font-weight: 700 !important;
   background-color: var(--bg-surface-muted) !important;
   color: var(--text-secondary) !important;
   border: 1px solid var(--border-subtle) !important;
-}
-
-/* სათაურის ბლოკი */
-.vg-card-body {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 6px !important;
-  margin: 2px 0 !important;
+  margin-left: auto !important;
 }
 
 .vg-card-title {
@@ -103,26 +102,6 @@
   color: var(--text-primary) !important;
   line-height: 1.4 !important;
   margin: 0 !important;
-}
-
-.vg-card-subtitle {
-  font-size: 0.84rem !important;
-  font-weight: 600 !important;
-  color: var(--text-secondary) !important;
-  line-height: 1.45 !important;
-}
-
-/* გრამატიკის ფორმულის ყუთი ბარათზე */
-.vg-formula-pill {
-  margin-top: 4px !important;
-  padding: 8px 12px !important;
-  border-radius: 10px !important;
-  background-color: var(--bg-surface-muted) !important;
-  border-left: 3px solid var(--vg-accent, var(--brand-primary)) !important;
-  font-size: 0.8rem !important;
-  font-weight: 700 !important;
-  color: var(--text-primary) !important;
-  font-family: "Inter", system-ui, sans-serif !important;
 }
 
 /* პროგრესის ბლოკი */
@@ -144,7 +123,7 @@
   background: linear-gradient(90deg, var(--vg-accent, #2563eb), var(--vg-accent-light, #60a5fa)) !important;
 }
 
-/* ქვედა ზოლი (Footer) — აშორებს წარწერასა და ღილაკს ერთმანეთისგან */
+/* ქვედა ზოლი (Footer) */
 .vg-card-footer {
   display: flex !important;
   align-items: center !important;
@@ -181,6 +160,7 @@
   transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease !important;
   box-shadow: 0 4px 10px -2px rgba(37, 99, 235, 0.25) !important;
   flex-shrink: 0 !important;
+  margin-left: auto !important;
 }
 
 .vg-open-btn:hover {

@@ -1,8 +1,9 @@
 /**
- * VOCAB-GRAMMAR-POLISH.JS — უსაფრთხო ვიზუალური დამხვეწი (DOM-ის დონეზე, კოდის დაზიანების გარეშე)
- * 1) ეკრანზე გამოტანილ ტექსტებში ცვლის "—"-ს "-"-ით და აქრობს ცარიელ "()"-ს.
- * 2) გრამატიკის ბარათებზე აქრობს ზედმეტ აღწერას და "8 მაგალითი • 20 ტესტი" ტექსტს.
- * 3) მარცხენა მენიუში მალავს მხოლოდ ".nav-badge" ელემენტებს ("მზადაა" / "ფაზა").
+ * VOCAB-GRAMMAR-POLISH.JS
+ * 1) ლექსიკონისა და გრამატიკის ბარათებზე "დონე A1..." რჩება ზედა მარცხენა კუთხეში,
+ *    ხოლო "📍 0/50 სიტყვა" და "📍 მიმდინარე" გადადის უკიდურეს ზედა მარჯვენა კუთხეში!
+ * 2) მარცხენა მენიუდან აქრობს ყველა "მზადაა" და "ფაზა" ბეიჯს.
+ * 3) ყველა "—"-ს ცვლის "-"-ით.
  */
 (function (window) {
   "use strict";
@@ -16,7 +17,15 @@
 
   function cleanSidebarBadgesSafely() {
     document.querySelectorAll(".nav-badge").forEach(function (badge) {
-      badge.style.display = "none";
+      badge.remove();
+    });
+
+    // დამატებით შევამოწმოთ მარცხენა მენიუს ლინკების შიგნით ნებისმიერი span, სადაც წერია "მზადაა" ან "ფაზა"
+    document.querySelectorAll('a[href^="#"] span, [data-route] span').forEach(function (sp) {
+      const txt = (sp.textContent || "").trim();
+      if (txt === "მზადაა" || /^ფაზა\s*\d+$/i.test(txt)) {
+        sp.remove();
+      }
     });
   }
 
@@ -81,27 +90,38 @@
           card.parentElement.classList.add("vg-cards-grid");
         }
 
-        // 1. ზედა ბეიჯები
+        // 1. ზედა ბეიჯების განცალკევება: მარცხნივ დონე, უკიდურეს მარჯვნივ "📍 0/50 სიტყვა" ან "📍 მიმდინარე"
         const pills = Array.from(card.querySelectorAll(".stat-pill, .badge"));
         if (pills.length >= 1) {
-          const topRow = pills[0].parentElement;
-          if (topRow && topRow !== card) {
-            topRow.classList.add("vg-card-top");
-          }
-          pills[0].classList.add("vg-badge-level");
-          if (pills[1]) {
-            pills[1].classList.add("vg-badge-status");
-            const cleanStatus = (pills[1].textContent || "").replace(/\s*\(\s*\)/g, "").trim();
-            if (pills[1].textContent !== cleanStatus) {
-              pills[1].textContent = cleanStatus;
+          const firstPill = pills[0];
+          const secondPill = pills[1] || null;
+
+          firstPill.classList.add("vg-badge-level");
+          if (secondPill) {
+            secondPill.classList.add("vg-badge-status");
+            secondPill.style.marginLeft = "auto";
+            const cleanStatus = (secondPill.textContent || "").replace(/\s*\(\s*\)/g, "").trim();
+            if (secondPill.textContent !== cleanStatus) {
+              secondPill.textContent = cleanStatus;
             }
+          }
+
+          // გავუწეროთ მშობელ კონტეინერს და მის მშობელსაც 100% სიგანე და space-between,
+          // რომ მეორე ბეიჯი აუცილებლად მარჯვენა კიდეში დადგეს!
+          let parentRow = firstPill.parentElement;
+          while (parentRow && parentRow !== card) {
+            parentRow.style.display = "flex";
+            parentRow.style.alignItems = "center";
+            parentRow.style.justifyContent = "space-between";
+            parentRow.style.width = "100%";
+            parentRow = parentRow.parentElement;
           }
         }
 
         // 2. სათაური
         titleEl.classList.add("vg-card-title");
 
-        // 3. გრამატიკის ბარათზე დავმალოთ შეწყვეტილი აღწერის ტექსტი ("ინგლისურ წინადადებაში...")
+        // 3. გრამატიკის ბარათზე დავმალოთ შეწყვეტილი აღწერის ტექსტი
         if (isGrammarPage) {
           card.querySelectorAll("p").forEach(function (pEl) {
             pEl.style.display = "none";
@@ -123,7 +143,6 @@
           footerEl.style.width = "100%";
 
           if (isGrammarPage) {
-            // გრამატიკის ბარათზე დავმალოთ "🔊 8 მაგალითი • ✍️ 20 ტესტი" და დავტოვოთ მხოლოდ ღილაკი
             Array.from(footerEl.childNodes).forEach(function (node) {
               if (node !== actionBtn) {
                 if (node.nodeType === 3) {
@@ -160,6 +179,7 @@
   }
 
   function initPolisher() {
+    cleanSidebarBadgesSafely();
     polishCardsInView();
 
     const appView = document.getElementById("app-view");
@@ -167,21 +187,21 @@
       let timer = null;
       const observer = new MutationObserver(function () {
         if (timer) window.clearTimeout(timer);
-        timer = window.setTimeout(polishCardsInView, 25);
+        timer = window.setTimeout(polishCardsInView, 20);
       });
       observer.observe(appView, { childList: true, subtree: true });
     }
   }
 
   window.addEventListener("hashchange", function () {
-    window.setTimeout(polishCardsInView, 20);
+    window.setTimeout(polishCardsInView, 15);
   });
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
-      window.setTimeout(initPolisher, 40);
+      window.setTimeout(initPolisher, 30);
     });
   } else {
-    window.setTimeout(initPolisher, 40);
+    window.setTimeout(initPolisher, 30);
   }
 })(window);
