@@ -1,5 +1,7 @@
 /**
- * VOCAB-GRAMMAR-POLISH.JS — მენიუს ბეიჯების, ქვესათაურის და ბარათების სრული გასწორება
+ * VOCAB-GRAMMAR-POLISH.JS
+ * - მთლიან გვერდზე (მათ შორის მარცხენა მენიუში) შლის "მზადაა", "ფაზა 4/5" და "A1-C2 სასწავლო პლატფორმა" წარწერებს.
+ * - ლექსიკონისა და გრამატიკის ბარათებზე "📍 0/50 სიტყვა" და "📍 მიმდინარე" გადააქვს ზედა მარჯვენა კუთხეში.
  */
 (function (window) {
   "use strict";
@@ -11,8 +13,8 @@
     return m ? m[1] : "A1";
   }
 
-  function cleanSidebarAndSubtitle() {
-    // 1. წავშალოთ ნებისმიერი ელემენტი, რომლის ტექსტია "მზადაა", "ფაზა 4", "ფაზა 5" ან "A1–C2 სასწავლო პლატფორმა"
+  function cleanSidebarAndBrand() {
+    // 1. წავშალოთ ყველა ბეიჯი ან ელემენტი, სადაც წერია "მზადაა", "ფაზა X" ან "სასწავლო პლატფორმა"
     document.querySelectorAll("aside *, .sidebar *, nav *, header *").forEach(function (el) {
       if (el.children.length === 0) {
         const txt = (el.textContent || "").trim();
@@ -25,6 +27,11 @@
           el.remove();
         }
       }
+    });
+
+    // 2. თუ მენიუს პუნქტში (a ან button) 2 ან მეტი ტექსტური ელემენტია და ბოლო ცარიელი ბეიჯია, მოვაშოროთ
+    document.querySelectorAll(".nav-badge, .sidebar-badge").forEach(function (b) {
+      b.remove();
     });
   }
 
@@ -43,12 +50,12 @@
     }
   }
 
-  function polishCardsInView() {
+  function polishAll() {
     if (isRunning) return;
     isRunning = true;
 
     try {
-      cleanSidebarAndSubtitle();
+      cleanSidebarAndBrand();
 
       const container = document.getElementById("app-view");
       if (!container) {
@@ -96,7 +103,7 @@
           if (el === card || el === titleEl || el === actionBtn) return;
           if (el.children.length > 0) return;
           const txt = (el.textContent || "").trim();
-          if (!txt || txt.length > 42) return;
+          if (!txt || txt.length > 40) return;
 
           if (!leftBadge && /^დონე\s+(A1|A2|B1|B2|C1|C2)/i.test(txt)) {
             leftBadge = el;
@@ -107,7 +114,7 @@
              txt.indexOf("დასრულებული") !== -1 ||
              txt.indexOf("ჩათვლილი") !== -1 ||
              txt.indexOf("დაბლოკილი") !== -1 ||
-             /\d+\s*\/\s*\d+\s*სიტყვა/.test(txt))
+             /^\d+\s*\/\s*\d+\s*სიტყვა/.test(txt))
           ) {
             rightBadge = el;
           }
@@ -181,28 +188,27 @@
   }
 
   function initPolisher() {
-    cleanSidebarAndSubtitle();
-    polishCardsInView();
+    polishAll();
 
-    if (typeof MutationObserver !== "undefined") {
+    if (document.body && typeof MutationObserver !== "undefined") {
       let timer = null;
       const observer = new MutationObserver(function () {
         if (timer) window.clearTimeout(timer);
-        timer = window.setTimeout(polishCardsInView, 15);
+        timer = window.setTimeout(polishAll, 15);
       });
       observer.observe(document.body, { childList: true, subtree: true });
     }
   }
 
   window.addEventListener("hashchange", function () {
-    window.setTimeout(polishCardsInView, 10);
+    window.setTimeout(polishAll, 15);
   });
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
-      window.setTimeout(initPolisher, 15);
+      window.setTimeout(initPolisher, 20);
     });
   } else {
-    window.setTimeout(initPolisher, 15);
+    window.setTimeout(initPolisher, 20);
   }
 })(window);

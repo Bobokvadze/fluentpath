@@ -163,3 +163,21 @@ aside .badge,
   border: 1px solid var(--border-strong) !important;
   box-shadow: none !important;
 }
+/* ==========================================================================
+   SIDEBAR CLEANUP: HIDE SUBTITLE & ALL NAV BADGES PERMANENTLY
+   ========================================================================== */
+.nav-badge,
+.sidebar-badge,
+.brand-subtitle,
+.logo-subtitle,
+.sidebar-brand p,
+.sidebar-brand small,
+.sidebar-header p,
+.sidebar-header small,
+.app-logo p,
+.app-logo small,
+aside nav a span:nth-of-type(2),
+.sidebar nav a span:nth-of-type(2),
+.nav-item > span:last-child:not(:first-child) {
+  display: none !important;
+}

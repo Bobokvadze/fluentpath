@@ -1,6 +1,6 @@
 /**
  * STREAK-ONLY-UI.JS
- * 1) აქრობს მარცხენა მენიუდან ყველა "მზადაა" და "ფაზა 4 / 5" ბეიჯს.
+ * 1) აქრობს მარცხენა მენიუდან ყველა "" და "ფაზა 4 / 5" ბეიჯს.
  * 2) ხის სტილის სწავლის მოდულს (App.Learn) უკავშირებს რეგისტრაციის ტესტით დადგენილ დონეს.
  * 3) დეშბორდსა და პროგრესის გვერდზე XP-ის ნაცვლად აჩვენებს მხოლოდ სტრიკებს (🔥).
  */
@@ -11,12 +11,12 @@
   const CEFR_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
 
   /**
-   * 100%-ით შლის მარცხენა მენიუდან "მზადაა", "", "" ბეიჯებს ნებისმიერი კლასის მიუხედავად
+   * 100%-ით შლის მარცხენა მენიუდან "", "", "" ბეიჯებს ნებისმიერი კლასის მიუხედავად
    */
     function removeSidebarPhaseBadges() {
     document.querySelectorAll(".nav-badge, [class*='badge'], [class*='phase']").forEach(function (el) {
       const txt = (el.textContent || "").trim();
-      if (txt === "მზადაა" || /^ფაზა\s*\d+$/i.test(txt) || el.classList.contains("nav-badge")) {
+      if (txt === "" || /^ფაზა\s*\d+$/i.test(txt) || el.classList.contains("nav-badge")) {
         el.remove();
       }
     });

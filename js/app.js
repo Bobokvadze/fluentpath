@@ -53,7 +53,7 @@
 
     if (sidebarNav) {
       sidebarNav.innerHTML = modules.map((mod) => {
-        const badgeText = mod.phase <= 3 ? 'მზადაა' : 'ფაზა ' + mod.phase;
+        const badgeText = mod.phase <= 3 ? '' : 'ფაზა ' + mod.phase;
         return (
           '<button type="button" class="nav-item" data-route-link="' + App.UI.escapeHTML(mod.id) + '">' +
             '<span class="nav-icon">' + App.UI.getIcon(mod.id) + '</span>' +

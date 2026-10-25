@@ -580,7 +580,7 @@
     if (navLink) {
       const badge = navLink.querySelector('.nav-badge');
       if (badge) {
-        badge.textContent = 'მზადაა';
+        badge.textContent = '';
         badge.classList.add('');
       }
     }
