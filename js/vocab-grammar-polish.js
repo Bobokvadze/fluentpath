@@ -1,9 +1,6 @@
 /**
- * VOCAB-GRAMMAR-POLISH.JS
- * 1) ლექსიკონისა და გრამატიკის ბარათებზე "დონე A1..." რჩება ზედა მარცხენა კუთხეში,
- *    ხოლო "📍 0/50 სიტყვა" და "📍 მიმდინარე" გადადის უკიდურეს ზედა მარჯვენა კუთხეში!
- * 2) მარცხენა მენიუდან აქრობს ყველა "მზადაა" და "ფაზა" ბეიჯს.
- * 3) ყველა "—"-ს ცვლის "-"-ით.
+ * VOCAB-GRAMMAR-POLISH.JS — პოულობს ბარათის ზედა ბეიჯებს ნებისმიერი HTML სტრუქტურით
+ * და სვამს: პირველს ზედა მარცხენა კუთხეში, მეორეს ("📍 0/50 სიტყვა" / "📍 მიმდინარე") — ზედა მარჯვენა კუთხეში!
  */
 (function (window) {
   "use strict";
@@ -16,16 +13,19 @@
   }
 
   function cleanSidebarBadgesSafely() {
-    document.querySelectorAll(".nav-badge").forEach(function (badge) {
-      badge.remove();
+    document.querySelectorAll(".nav-badge").forEach(function (b) {
+      b.remove();
     });
-
-    // დამატებით შევამოწმოთ მარცხენა მენიუს ლინკების შიგნით ნებისმიერი span, სადაც წერია "მზადაა" ან "ფაზა"
-    document.querySelectorAll('a[href^="#"] span, [data-route] span').forEach(function (sp) {
-      const txt = (sp.textContent || "").trim();
-      if (txt === "მზადაა" || /^ფაზა\s*\d+$/i.test(txt)) {
-        sp.remove();
-      }
+    const navLinks = document.querySelectorAll('aside a, .sidebar a, nav a, [data-route]');
+    navLinks.forEach(function (link) {
+      link.querySelectorAll("span, small, div").forEach(function (child) {
+        if (child.children.length === 0) {
+          const t = (child.textContent || "").trim();
+          if (t === "მზადაა" || /^ფაზა\s*\d+$/i.test(t)) {
+            child.remove();
+          }
+        }
+      });
     });
   }
 
@@ -90,51 +90,55 @@
           card.parentElement.classList.add("vg-cards-grid");
         }
 
-        // 1. ზედა ბეიჯების განცალკევება: მარცხნივ დონე, უკიდურეს მარჯვნივ "📍 0/50 სიტყვა" ან "📍 მიმდინარე"
-        const pills = Array.from(card.querySelectorAll(".stat-pill, .badge"));
-        if (pills.length >= 1) {
-          const firstPill = pills[0];
-          const secondPill = pills[1] || null;
+        // ვიპოვოთ ბარათის ზედა ბეიჯები ტექსტით (კლასის სახელის მიუხედავად!)
+        let leftBadge = null;
+        let rightBadge = null;
 
-          firstPill.classList.add("vg-badge-level");
-          if (secondPill) {
-            secondPill.classList.add("vg-badge-status");
-            secondPill.style.marginLeft = "auto";
-            const cleanStatus = (secondPill.textContent || "").replace(/\s*\(\s*\)/g, "").trim();
-            if (secondPill.textContent !== cleanStatus) {
-              secondPill.textContent = cleanStatus;
-            }
-          }
+        card.querySelectorAll("span, div, small").forEach(function (el) {
+          if (el === card || el === titleEl || el === actionBtn) return;
+          if (el.children.length > 0) return; // მხოლოდ უშუალო ტექსტური ბეიჯი
+          const txt = (el.textContent || "").trim();
+          if (!txt || txt.length > 40) return;
 
-          // გავუწეროთ მშობელ კონტეინერს და მის მშობელსაც 100% სიგანე და space-between,
-          // რომ მეორე ბეიჯი აუცილებლად მარჯვენა კიდეში დადგეს!
-          let parentRow = firstPill.parentElement;
-          while (parentRow && parentRow !== card) {
-            parentRow.style.display = "flex";
-            parentRow.style.alignItems = "center";
-            parentRow.style.justifyContent = "space-between";
-            parentRow.style.width = "100%";
-            parentRow = parentRow.parentElement;
+          if (!leftBadge && /^დონე\s+(A1|A2|B1|B2|C1|C2)/i.test(txt)) {
+            leftBadge = el;
+          } else if (
+            !rightBadge &&
+            (txt.indexOf("📍") !== -1 ||
+             txt.indexOf("მიმდინარე") !== -1 ||
+             txt.indexOf("დასრულებული") !== -1 ||
+             txt.indexOf("ჩათვლილი") !== -1 ||
+             txt.indexOf("დაბლოკილი") !== -1 ||
+             /^\d+\s*\/\s*\d+\s*სიტყვა/.test(txt))
+          ) {
+            rightBadge = el;
           }
+        });
+
+        if (leftBadge) {
+          leftBadge.classList.add("vg-pinned-left-badge");
+        }
+        if (rightBadge) {
+          const cleanTxt = (rightBadge.textContent || "").replace(/\s*\(\s*\)/g, "").trim();
+          if (rightBadge.textContent !== cleanTxt) {
+            rightBadge.textContent = cleanTxt;
+          }
+          rightBadge.classList.add("vg-pinned-right-badge");
         }
 
-        // 2. სათაური
         titleEl.classList.add("vg-card-title");
 
-        // 3. გრამატიკის ბარათზე დავმალოთ შეწყვეტილი აღწერის ტექსტი
         if (isGrammarPage) {
           card.querySelectorAll("p").forEach(function (pEl) {
             pEl.style.display = "none";
           });
         }
 
-        // 4. პროგრეს-ბარი
         const progTrack = card.querySelector(".progress-track");
         if (progTrack && progTrack.parentElement) {
           progTrack.parentElement.classList.add("vg-progress-wrap");
         }
 
-        // 5. ქვედა ზოლი (Footer)
         const footerEl = actionBtn.parentElement;
         if (footerEl && footerEl !== card) {
           footerEl.classList.add("vg-card-footer");
@@ -187,7 +191,7 @@
       let timer = null;
       const observer = new MutationObserver(function () {
         if (timer) window.clearTimeout(timer);
-        timer = window.setTimeout(polishCardsInView, 20);
+        timer = window.setTimeout(polishCardsInView, 15);
       });
       observer.observe(appView, { childList: true, subtree: true });
     }
@@ -199,9 +203,9 @@
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
-      window.setTimeout(initPolisher, 30);
+      window.setTimeout(initPolisher, 25);
     });
   } else {
-    window.setTimeout(initPolisher, 30);
+    window.setTimeout(initPolisher, 25);
   }
 })(window);

@@ -1,9 +1,9 @@
 /* ==========================================================================
-   VOCAB-GRAMMAR-POLISH.CSS — ლექსიკონისა და გრამატიკის ბარათების პრემიუმ დიზაინი
+   VOCAB-GRAMMAR-POLISH.CSS — ლექსიკონისა და გრამატიკის ბარათების სუფთა დიზაინი
    ========================================================================== */
 
-/* მარცხენა მენიუში "მზადაა" და "ფაზა" ბეიჯების სრული გაქრობა */
 .nav-badge,
+aside .badge,
 .sidebar .badge,
 .nav-item .badge {
   display: none !important;
@@ -11,7 +11,7 @@
 
 .vg-cards-grid {
   display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)) !important;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
   gap: 20px !important;
   align-items: stretch !important;
 }
@@ -22,7 +22,7 @@
   border: 1px solid var(--border-subtle) !important;
   outline: none !important;
   border-radius: 20px !important;
-  padding: 22px 24px 18px !important;
+  padding: 58px 24px 18px 24px !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
@@ -41,8 +41,8 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--vg-accent, #2563eb), var(--vg-accent-light, #60a5fa));
-  opacity: 0.9;
+  background: linear-gradient(90deg, var(--vg-accent, #10b981), var(--vg-accent-light, #34d399));
+  opacity: 0.95;
 }
 
 .vg-polished-card:hover {
@@ -51,41 +51,38 @@
   box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.05) !important;
 }
 
-/* დონეების ფერები */
-.vg-polished-card[data-vg-level="A1"] { --vg-accent: #10b981; --vg-accent-light: #34d399; --vg-soft: rgba(16, 185, 129, 0.1); }
-.vg-polished-card[data-vg-level="A2"] { --vg-accent: #0d9488; --vg-accent-light: #2dd4bf; --vg-soft: rgba(13, 148, 136, 0.1); }
-.vg-polished-card[data-vg-level="B1"] { --vg-accent: #2563eb; --vg-accent-light: #60a5fa; --vg-soft: rgba(37, 99, 235, 0.1); }
-.vg-polished-card[data-vg-level="B2"] { --vg-accent: #4f46e5; --vg-accent-light: #818cf8; --vg-soft: rgba(79, 70, 229, 0.1); }
-.vg-polished-card[data-vg-level="C1"] { --vg-accent: #7c3aed; --vg-accent-light: #a78bfa; --vg-soft: rgba(124, 58, 237, 0.1); }
-.vg-polished-card[data-vg-level="C2"] { --vg-accent: #e11d48; --vg-accent-light: #fb7185; --vg-soft: rgba(225, 29, 72, 0.1); }
+.vg-polished-card[data-vg-level="A1"] { --vg-accent: #10b981; --vg-accent-light: #34d399; --vg-soft: rgba(16, 185, 129, 0.12); }
+.vg-polished-card[data-vg-level="A2"] { --vg-accent: #0d9488; --vg-accent-light: #2dd4bf; --vg-soft: rgba(13, 148, 136, 0.12); }
+.vg-polished-card[data-vg-level="B1"] { --vg-accent: #2563eb; --vg-accent-light: #60a5fa; --vg-soft: rgba(37, 99, 235, 0.12); }
+.vg-polished-card[data-vg-level="B2"] { --vg-accent: #4f46e5; --vg-accent-light: #818cf8; --vg-soft: rgba(79, 70, 229, 0.12); }
+.vg-polished-card[data-vg-level="C1"] { --vg-accent: #7c3aed; --vg-accent-light: #a78bfa; --vg-soft: rgba(124, 58, 237, 0.12); }
+.vg-polished-card[data-vg-level="C2"] { --vg-accent: #e11d48; --vg-accent-light: #fb7185; --vg-soft: rgba(225, 29, 72, 0.12); }
 
-/* ზედა ზოლი: დონე მარცხნივ, სტატუსი/სიტყვები უკიდურეს მარჯვნივ */
-.vg-card-top {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 10px !important;
-  width: 100% !important;
-  margin-bottom: 4px !important;
-}
-
-.vg-badge-level {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
+/* მარცხენა ზედა ბეიჯი (დონე A1 • ...) */
+.vg-pinned-left-badge {
+  position: absolute !important;
+  top: 18px !important;
+  left: 22px !important;
+  margin: 0 !important;
   padding: 5px 12px !important;
   border-radius: 999px !important;
   font-size: 0.76rem !important;
   font-weight: 800 !important;
-  background-color: var(--vg-soft, var(--brand-primary-soft)) !important;
-  color: var(--vg-accent, var(--brand-primary)) !important;
-  letter-spacing: 0.02em !important;
-}
-
-.vg-badge-status {
+  background-color: var(--vg-soft, rgba(37, 99, 235, 0.1)) !important;
+  color: var(--vg-accent, #2563eb) !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 5px !important;
+  z-index: 2 !important;
+}
+
+/* მარჯვენა ზედა ბეიჯი (📍 0/50 სიტყვა / 📍 მიმდინარე) — ფიქსირებული ზედა მარჯვენა კუთხეში! */
+.vg-pinned-right-badge {
+  position: absolute !important;
+  top: 18px !important;
+  right: 22px !important;
+  left: auto !important;
+  margin: 0 !important;
   padding: 5px 12px !important;
   border-radius: 999px !important;
   font-size: 0.75rem !important;
@@ -93,37 +90,25 @@
   background-color: var(--bg-surface-muted) !important;
   color: var(--text-secondary) !important;
   border: 1px solid var(--border-subtle) !important;
-  margin-left: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  z-index: 2 !important;
 }
 
 .vg-card-title {
   font-size: 1.12rem !important;
   font-weight: 800 !important;
   color: var(--text-primary) !important;
-  line-height: 1.4 !important;
-  margin: 0 !important;
+  line-height: 1.42 !important;
+  margin: 2px 0 0 0 !important;
 }
 
-/* პროგრესის ბლოკი */
 .vg-progress-wrap {
   width: 100% !important;
-  margin-top: 2px !important;
+  margin-top: 4px !important;
 }
 
-.vg-progress-wrap .progress-track {
-  height: 8px !important;
-  border-radius: 999px !important;
-  background-color: var(--bg-surface-muted) !important;
-  overflow: hidden !important;
-}
-
-.vg-progress-wrap .progress-fill {
-  height: 100% !important;
-  border-radius: 999px !important;
-  background: linear-gradient(90deg, var(--vg-accent, #2563eb), var(--vg-accent-light, #60a5fa)) !important;
-}
-
-/* ქვედა ზოლი (Footer) */
 .vg-card-footer {
   display: flex !important;
   align-items: center !important;
@@ -139,7 +124,7 @@
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
-  font-size: 0.83rem !important;
+  font-size: 0.84rem !important;
   font-weight: 700 !important;
   color: var(--text-secondary) !important;
 }
@@ -149,16 +134,16 @@
   align-items: center !important;
   justify-content: center !important;
   gap: 6px !important;
-  padding: 8px 18px !important;
+  padding: 8px 20px !important;
   border-radius: 999px !important;
-  font-size: 0.84rem !important;
+  font-size: 0.85rem !important;
   font-weight: 800 !important;
   background-color: var(--vg-accent, var(--brand-primary)) !important;
   color: #ffffff !important;
   border: none !important;
   cursor: pointer !important;
-  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease !important;
-  box-shadow: 0 4px 10px -2px rgba(37, 99, 235, 0.25) !important;
+  transition: transform 0.15s ease, filter 0.15s ease !important;
+  box-shadow: 0 4px 10px -2px rgba(16, 185, 129, 0.25) !important;
   flex-shrink: 0 !important;
   margin-left: auto !important;
 }
