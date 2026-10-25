@@ -614,7 +614,7 @@
   App.Quizzes = Quizzes;
 
   // ============================================================================
-  // ROUTER INTERCEPTOR — ხსნის #flashcards და #quizzes მარშრუტებს ("ფაზა 5"-ის ნაცვლად)
+  // ROUTER INTERCEPTOR — ხსნის #flashcards და #quizzes მარშრუტებს (""-ის ნაცვლად)
   // ============================================================================
   function activatePhase5RoutesIfNeeded() {
     ["flashcards", "quizzes"].forEach((r) => {

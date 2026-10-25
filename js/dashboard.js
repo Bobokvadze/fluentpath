@@ -107,7 +107,7 @@
           '<section class="hero-banner" aria-label="მისალმების ბანერი">' +
             '<div class="hero-content">' +
               '<div class="hero-eyebrow">' +
-                '<span>100% უფასო &bull; ოფლაინ რეჟიმი &bull; ულიმიტო</span>' +
+                '' +
               '</div>' +
               '<h2 class="hero-title">' +
                 App.UI.escapeHTML(getGreeting()) + ', ' + App.UI.escapeHTML(settings.userName || 'მოსწავლე') + '!' +

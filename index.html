@@ -16,7 +16,37 @@
   <link rel="stylesheet" href="css/phase3.css" />
   <link rel="stylesheet" href="css/auth.css" />
   <link rel="stylesheet" href="css/phase5.css" />
-  <link rel="stylesheet" href="css/vocab-grammar-polish.css?v=9" />
+    <link rel="stylesheet" href="css/vocab-grammar-polish.css?v=25" />
+  <style id="fp-critical-clean-style">
+    /* 1. მარცხენა მენიუში ყველა ბეიჯის და ლოგოს ქვესათაურის სრული გაქრობა */
+    .nav-badge,
+    .sidebar__subtitle,
+    .brand-subtitle,
+    .logo-subtitle,
+    aside .nav-item span:nth-of-type(2),
+    .sidebar .nav-item span:nth-of-type(2),
+    nav a span:nth-of-type(2) {
+      display: none !important;
+    }
+
+    /* 2. ბარათის ზედა მარჯვენა ბეიჯი უკიდურეს მარჯვენა კუთხეში */
+    .vg-polished-card {
+      position: relative !important;
+      padding-top: 56px !important;
+    }
+    .vg-pinned-left-badge {
+      position: absolute !important;
+      top: 16px !important;
+      left: 20px !important;
+    }
+    .vg-pinned-right-badge {
+      position: absolute !important;
+      top: 16px !important;
+      right: 20px !important;
+      left: auto !important;
+      margin-left: auto !important;
+    }
+  </style>
 </head>
 <body>
   <a href="#app-view" class="skip-link">ძირითად შინაარსზე გადასვლა</a>
@@ -27,7 +57,7 @@
         <img src="assets/icons/icon.svg" alt="FluentPath ლოგო" class="brand-logo" />
         <div class="brand-text">
           <span class="brand-name">FluentPath</span>
-          <span class="brand-badge">A1–C2 სასწავლო პლატფორმა</span>
+          
         </div>
       </div>
 
@@ -167,6 +197,6 @@
   <script defer src="js/quizzes.js"></script>
   <script defer src="js/audio-engine.js"></script>
   <script defer src="js/streak-only-ui.js"></script>
-  <script defer src="js/vocab-grammar-polish.js?v=9"></script>
+    <script defer src="js/vocab-grammar-polish.js?v=25"></script>
 </body>
 </html>

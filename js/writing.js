@@ -588,7 +588,7 @@
   App.Writing = Writing;
 
   // ============================================================================
-  // ROUTER INTERCEPTOR — ანაცვლებს "ფაზა 4"-ის Placeholder-ს წერის სტუდიით
+  // ROUTER INTERCEPTOR — ანაცვლებს ""-ის Placeholder-ს წერის სტუდიით
   // ============================================================================
   function activateWritingRouteIfNeeded() {
     const navLink = document.querySelector('[data-route="writing"], a[href="#writing"]');

@@ -573,7 +573,7 @@
   App.Listening = Listening;
 
   // ============================================================================
-  // ROUTER INTERCEPTOR — ანაცვლებს "ფაზა 4"-ის Placeholder-ს მოსმენის სტუდიით
+  // ROUTER INTERCEPTOR — ანაცვლებს ""-ის Placeholder-ს მოსმენის სტუდიით
   // ============================================================================
   function activateListeningRouteIfNeeded() {
     const navLink = document.querySelector('[data-route="listening"], a[href="#listening"]');

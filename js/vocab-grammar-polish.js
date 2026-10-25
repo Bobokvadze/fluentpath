@@ -1,6 +1,5 @@
 /**
- * VOCAB-GRAMMAR-POLISH.JS — პოულობს ბარათის ზედა ბეიჯებს ნებისმიერი HTML სტრუქტურით
- * და სვამს: პირველს ზედა მარცხენა კუთხეში, მეორეს ("📍 0/50 სიტყვა" / "📍 მიმდინარე") — ზედა მარჯვენა კუთხეში!
+ * VOCAB-GRAMMAR-POLISH.JS — მენიუს ბეიჯების, ქვესათაურის და ბარათების სრული გასწორება
  */
 (function (window) {
   "use strict";
@@ -12,20 +11,20 @@
     return m ? m[1] : "A1";
   }
 
-  function cleanSidebarBadgesSafely() {
-    document.querySelectorAll(".nav-badge").forEach(function (b) {
-      b.remove();
-    });
-    const navLinks = document.querySelectorAll('aside a, .sidebar a, nav a, [data-route]');
-    navLinks.forEach(function (link) {
-      link.querySelectorAll("span, small, div").forEach(function (child) {
-        if (child.children.length === 0) {
-          const t = (child.textContent || "").trim();
-          if (t === "მზადაა" || /^ფაზა\s*\d+$/i.test(t)) {
-            child.remove();
-          }
+  function cleanSidebarAndSubtitle() {
+    // 1. წავშალოთ ნებისმიერი ელემენტი, რომლის ტექსტია "მზადაა", "ფაზა 4", "ფაზა 5" ან "A1–C2 სასწავლო პლატფორმა"
+    document.querySelectorAll("aside *, .sidebar *, nav *, header *").forEach(function (el) {
+      if (el.children.length === 0) {
+        const txt = (el.textContent || "").trim();
+        if (
+          txt === "მზადაა" ||
+          /^ფაზა\s*\d+$/i.test(txt) ||
+          txt.indexOf("სასწავლო პლატფორმა") !== -1 ||
+          txt.indexOf("100% უფასო") !== -1
+        ) {
+          el.remove();
         }
-      });
+      }
     });
   }
 
@@ -49,7 +48,7 @@
     isRunning = true;
 
     try {
-      cleanSidebarBadgesSafely();
+      cleanSidebarAndSubtitle();
 
       const container = document.getElementById("app-view");
       if (!container) {
@@ -90,15 +89,14 @@
           card.parentElement.classList.add("vg-cards-grid");
         }
 
-        // ვიპოვოთ ბარათის ზედა ბეიჯები ტექსტით (კლასის სახელის მიუხედავად!)
         let leftBadge = null;
         let rightBadge = null;
 
         card.querySelectorAll("span, div, small").forEach(function (el) {
           if (el === card || el === titleEl || el === actionBtn) return;
-          if (el.children.length > 0) return; // მხოლოდ უშუალო ტექსტური ბეიჯი
+          if (el.children.length > 0) return;
           const txt = (el.textContent || "").trim();
-          if (!txt || txt.length > 40) return;
+          if (!txt || txt.length > 42) return;
 
           if (!leftBadge && /^დონე\s+(A1|A2|B1|B2|C1|C2)/i.test(txt)) {
             leftBadge = el;
@@ -109,7 +107,7 @@
              txt.indexOf("დასრულებული") !== -1 ||
              txt.indexOf("ჩათვლილი") !== -1 ||
              txt.indexOf("დაბლოკილი") !== -1 ||
-             /^\d+\s*\/\s*\d+\s*სიტყვა/.test(txt))
+             /\d+\s*\/\s*\d+\s*სიტყვა/.test(txt))
           ) {
             rightBadge = el;
           }
@@ -183,29 +181,28 @@
   }
 
   function initPolisher() {
-    cleanSidebarBadgesSafely();
+    cleanSidebarAndSubtitle();
     polishCardsInView();
 
-    const appView = document.getElementById("app-view");
-    if (appView && typeof MutationObserver !== "undefined") {
+    if (typeof MutationObserver !== "undefined") {
       let timer = null;
       const observer = new MutationObserver(function () {
         if (timer) window.clearTimeout(timer);
         timer = window.setTimeout(polishCardsInView, 15);
       });
-      observer.observe(appView, { childList: true, subtree: true });
+      observer.observe(document.body, { childList: true, subtree: true });
     }
   }
 
   window.addEventListener("hashchange", function () {
-    window.setTimeout(polishCardsInView, 15);
+    window.setTimeout(polishCardsInView, 10);
   });
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
-      window.setTimeout(initPolisher, 25);
+      window.setTimeout(initPolisher, 15);
     });
   } else {
-    window.setTimeout(initPolisher, 25);
+    window.setTimeout(initPolisher, 15);
   }
 })(window);

@@ -11,7 +11,7 @@
   const CEFR_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
 
   /**
-   * 100%-ით შლის მარცხენა მენიუდან "მზადაა", "ფაზა 4", "ფაზა 5" ბეიჯებს ნებისმიერი კლასის მიუხედავად
+   * 100%-ით შლის მარცხენა მენიუდან "მზადაა", "", "" ბეიჯებს ნებისმიერი კლასის მიუხედავად
    */
     function removeSidebarPhaseBadges() {
     document.querySelectorAll(".nav-badge, [class*='badge'], [class*='phase']").forEach(function (el) {
