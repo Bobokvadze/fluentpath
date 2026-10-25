@@ -1,8 +1,19 @@
 /* ==========================================================================
-   VOCAB-GRAMMAR-POLISH.CSS — ლექსიკონისა და გრამატიკის ბარათების სუფთა დიზაინი
+   VOCAB-GRAMMAR-POLISH.CSS — მენიუსა და ბარათების სუფთა დიზაინი
    ========================================================================== */
 
-/* ვმალავთ მხოლოდ ბეიჯებს და არა მენიუს სათაურებს! */
+/* მენიუს ქართული წარწერა ყოველთვის ხილულია */
+.fp-sidebar-label {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  color: inherit !important;
+}
+
+/* ვმალავთ ნებისმიერ ბეიჯს მენიუში */
 .nav-badge,
 .sidebar-badge {
   display: none !important;
@@ -57,7 +68,6 @@
 .vg-polished-card[data-vg-level="C1"] { --vg-accent: #7c3aed; --vg-accent-light: #a78bfa; --vg-soft: rgba(124, 58, 237, 0.12); }
 .vg-polished-card[data-vg-level="C2"] { --vg-accent: #e11d48; --vg-accent-light: #fb7185; --vg-soft: rgba(225, 29, 72, 0.12); }
 
-/* მარცხენა ზედა ბეიჯი (დონე A1 • ...) */
 .vg-pinned-left-badge {
   position: absolute !important;
   top: 18px !important;
@@ -75,7 +85,6 @@
   z-index: 2 !important;
 }
 
-/* მარჯვენა ზედა ბეიჯი (📍 0/50 სიტყვა / 📍 მიმდინარე) — ზედა მარჯვენა კუთხეში */
 .vg-pinned-right-badge {
   position: absolute !important;
   top: 18px !important;

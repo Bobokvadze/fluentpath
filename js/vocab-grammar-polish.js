@@ -1,37 +1,94 @@
 /**
  * VOCAB-GRAMMAR-POLISH.JS
- * - მთლიან გვერდზე (მათ შორის მარცხენა მენიუში) შლის "მზადაა", "ფაზა 4/5" და "A1-C2 სასწავლო პლატფორმა" წარწერებს.
- * - ლექსიკონისა და გრამატიკის ბარათებზე "📍 0/50 სიტყვა" და "📍 მიმდინარე" გადააქვს ზედა მარჯვენა კუთხეში.
+ * - მარცხენა მენიუს 11-ვე პუნქტს გარანტირებულად უბრუნებს ქართულ წარწერას და შლის ცარიელ ბეიჯებს.
+ * - აწესრიგებს ლექსიკონისა და გრამატიკის ბარათებს.
  */
 (function (window) {
   "use strict";
 
   let isRunning = false;
 
+  const MENU_LABELS_BY_ROUTE = {
+    dashboard: "მთავარი",
+    learn: "სწავლა",
+    vocabulary: "ლექსიკონი",
+    grammar: "გრამატიკა",
+    reading: "კითხვა",
+    listening: "მოსმენა",
+    writing: "წერა",
+    flashcards: "ბარათები",
+    quizzes: "ტესტები",
+    progress: "პროგრესი",
+    settings: "პარამეტრები"
+  };
+
+  const ORDERED_FALLBACK_LABELS = [
+    "მთავარი",
+    "სწავლა",
+    "ლექსიკონი",
+    "გრამატიკა",
+    "კითხვა",
+    "მოსმენა",
+    "წერა",
+    "ბარათები",
+    "ტესტები",
+    "პროგრესი",
+    "პარამეტრები"
+  ];
+
   function detectLevelFromText(text) {
     const m = String(text || "").match(/\b(A1|A2|B1|B2|C1|C2)\b/);
     return m ? m[1] : "A1";
   }
 
-  function cleanSidebarAndBrand() {
-    // 1. წავშალოთ ყველა ბეიჯი ან ელემენტი, სადაც წერია "მზადაა", "ფაზა X" ან "სასწავლო პლატფორმა"
-    document.querySelectorAll("aside *, .sidebar *, nav *, header *").forEach(function (el) {
-      if (el.children.length === 0) {
-        const txt = (el.textContent || "").trim();
-        if (
-          txt === "მზადაა" ||
-          /^ფაზა\s*\d+$/i.test(txt) ||
-          txt.indexOf("სასწავლო პლატფორმა") !== -1 ||
-          txt.indexOf("100% უფასო") !== -1
-        ) {
-          el.remove();
-        }
-      }
-    });
+  /**
+   * აღადგენს მარცხენა მენიუს ქართულ წარწერებს და შლის მარჯვენა ცარიელ ბეიჯებს
+   */
+  function fixSidebarMenuLabels() {
+    const sidebar = document.querySelector("aside, .sidebar, .app-sidebar, nav");
+    if (!sidebar) return;
 
-    // 2. თუ მენიუს პუნქტში (a ან button) 2 ან მეტი ტექსტური ელემენტია და ბოლო ცარიელი ბეიჯია, მოვაშოროთ
-    document.querySelectorAll(".nav-badge, .sidebar-badge").forEach(function (b) {
-      b.remove();
+    const navItems = Array.from(
+      sidebar.querySelectorAll('a[href^="#"], [data-route], .nav-item')
+    );
+
+    navItems.forEach(function (item, idx) {
+      const href = (item.getAttribute("href") || "").replace(/^#\/?/, "").trim();
+      const dataRoute = (item.getAttribute("data-route") || "").trim();
+      const routeKey = href || dataRoute;
+
+      const labelText = MENU_LABELS_BY_ROUTE[routeKey] || ORDERED_FALLBACK_LABELS[idx] || "";
+      if (!labelText) return;
+
+      // ვიპოვოთ SVG აიქონი (ან მისი მშობელი span)
+      const svgEl = item.querySelector("svg");
+      let iconHolder = svgEl;
+      if (svgEl && svgEl.parentElement && svgEl.parentElement !== item) {
+        iconHolder = svgEl.parentElement;
+      }
+
+      // წავშალოთ ყველა სხვა შვილობილი ელემენტი (მათ შორის ცარიელი ლურჯი/ნაცრისფერი ბეიჯები)
+      Array.from(item.childNodes).forEach(function (node) {
+        if (node === iconHolder) return;
+        if (node.nodeType === 1 && node.classList && node.classList.contains("fp-sidebar-label")) return;
+        item.removeChild(node);
+      });
+
+      // შევამოწმოთ ან დავამატოთ სუფთა ქართული წარწერა აიქონის გვერდით
+      let labelSpan = item.querySelector(".fp-sidebar-label");
+      if (!labelSpan) {
+        labelSpan = document.createElement("span");
+        labelSpan.className = "fp-sidebar-label";
+        item.appendChild(labelSpan);
+      }
+      if (labelSpan.textContent !== labelText) {
+        labelSpan.textContent = labelText;
+      }
+
+      item.style.display = "flex";
+      item.style.alignItems = "center";
+      item.style.justifyContent = "flex-start";
+      item.style.gap = "12px";
     });
   }
 
@@ -55,7 +112,7 @@
     isRunning = true;
 
     try {
-      cleanSidebarAndBrand();
+      fixSidebarMenuLabels();
 
       const container = document.getElementById("app-view");
       if (!container) {
