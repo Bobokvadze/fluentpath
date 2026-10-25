@@ -2,10 +2,9 @@
    VOCAB-GRAMMAR-POLISH.CSS — ლექსიკონისა და გრამატიკის ბარათების სუფთა დიზაინი
    ========================================================================== */
 
+/* ვმალავთ მხოლოდ ბეიჯებს და არა მენიუს სათაურებს! */
 .nav-badge,
-aside .badge,
-.sidebar .badge,
-.nav-item .badge {
+.sidebar-badge {
   display: none !important;
 }
 
@@ -76,7 +75,7 @@ aside .badge,
   z-index: 2 !important;
 }
 
-/* მარჯვენა ზედა ბეიჯი (📍 0/50 სიტყვა / 📍 მიმდინარე) — ფიქსირებული ზედა მარჯვენა კუთხეში! */
+/* მარჯვენა ზედა ბეიჯი (📍 0/50 სიტყვა / 📍 მიმდინარე) — ზედა მარჯვენა კუთხეში */
 .vg-pinned-right-badge {
   position: absolute !important;
   top: 18px !important;
@@ -162,22 +161,4 @@ aside .badge,
   color: var(--text-secondary) !important;
   border: 1px solid var(--border-strong) !important;
   box-shadow: none !important;
-}
-/* ==========================================================================
-   SIDEBAR CLEANUP: HIDE SUBTITLE & ALL NAV BADGES PERMANENTLY
-   ========================================================================== */
-.nav-badge,
-.sidebar-badge,
-.brand-subtitle,
-.logo-subtitle,
-.sidebar-brand p,
-.sidebar-brand small,
-.sidebar-header p,
-.sidebar-header small,
-.app-logo p,
-.app-logo small,
-aside nav a span:nth-of-type(2),
-.sidebar nav a span:nth-of-type(2),
-.nav-item > span:last-child:not(:first-child) {
-  display: none !important;
 }
