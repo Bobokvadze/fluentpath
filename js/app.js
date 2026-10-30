@@ -128,9 +128,13 @@
 
   function registerServiceWorker() {
     if ('serviceWorker' in navigator && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
-      });
+      const register = () => navigator.serviceWorker.register('./sw.js').catch(() => {});
+      // initApp ელოდება config.json-ს, ამიტომ load შეიძლება უკვე მომხდარი იყოს
+      if (document.readyState === 'complete') {
+        register();
+      } else {
+        window.addEventListener('load', register);
+      }
     }
   }
 

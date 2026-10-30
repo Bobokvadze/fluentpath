@@ -18,6 +18,66 @@
     'settings'
   ];
 
+  // დიდი შინაარსის პაკეტები იტვირთება მოთხოვნისამებრ (sw.js მაინც წინასწარ ქეშავს ყველას ოფლაინისთვის)
+  const DATA_PACKS = {
+    grammar: ['js/grammar-a.js', 'js/grammar-b.js', 'js/grammar-c.js'],
+    reading: ['js/reading-a.js', 'js/reading-b.js', 'js/reading-c.js'],
+    listening: ['js/listening-a.js', 'js/listening-b.js', 'js/listening-c.js'],
+    writing: ['js/writing-a.js', 'js/writing-b.js', 'js/writing-c.js'],
+    ipa: ['js/ipa-dict.js']
+  };
+
+  // რომელ გვერდს რომელი პაკეტები სჭირდება რენდერამდე
+  const ROUTE_DATA = {
+    grammar: ['grammar'],
+    reading: ['reading'],
+    listening: ['listening'],
+    writing: ['writing'],
+    flashcards: ['ipa'],
+    quizzes: ['grammar', 'reading', 'listening', 'writing', 'ipa']
+  };
+
+  const scriptPromises = {};
+  const loadedScripts = {};
+
+  function loadScriptOnce(src) {
+    if (scriptPromises[src]) return scriptPromises[src];
+    scriptPromises[src] = new Promise((resolve, reject) => {
+      const el = document.createElement('script');
+      el.src = src;
+      el.async = false; // ჩასმის რიგითობა შენარჩუნდეს
+      el.onload = () => {
+        loadedScripts[src] = true;
+        resolve();
+      };
+      el.onerror = () => {
+        // შეცდომისას ვშლით, რომ ხელახალი ცდა შესაძლებელი იყოს
+        delete scriptPromises[src];
+        el.remove();
+        reject(new Error('ვერ ჩაიტვირთა: ' + src));
+      };
+      document.head.appendChild(el);
+    });
+    return scriptPromises[src];
+  }
+
+  function packNames(names) {
+    return (Array.isArray(names) ? names : [names]).filter((n) => DATA_PACKS[n]);
+  }
+
+  // App.loadModuleData('grammar') ან App.loadModuleData(['grammar', 'reading']) → Promise
+  App.loadModuleData = function (names) {
+    const srcs = [];
+    packNames(names).forEach((n) => { srcs.push.apply(srcs, DATA_PACKS[n]); });
+    return Promise.all(srcs.map(loadScriptOnce)).then(() => undefined);
+  };
+
+  App.isModuleDataLoaded = function (names) {
+    return packNames(names).every((n) => DATA_PACKS[n].every((src) => loadedScripts[src]));
+  };
+
+  let renderToken = 0;
+
   const Router = {
     currentRoute: 'dashboard',
 
@@ -134,14 +194,38 @@
         progress: 'Progress',
         settings: 'Settings'
       };
-      const mod = App[VIEW_MODULES[routeId]];
+      const token = ++renderToken;
+      const draw = () => {
+        const mod = App[VIEW_MODULES[routeId]];
+        if (mod && typeof mod.render === 'function') {
+          mod.render();
+        } else {
+          const modConfig = this.getModuleConfig(routeId);
+          container.innerHTML = App.UI.renderModuleEmptyState(modConfig);
+        }
+      };
 
-      if (mod && typeof mod.render === 'function') {
-        mod.render();
-      } else {
-        const modConfig = this.getModuleConfig(routeId);
-        container.innerHTML = App.UI.renderModuleEmptyState(modConfig);
+      const packs = ROUTE_DATA[routeId] || [];
+      if (App.isModuleDataLoaded(packs)) {
+        draw();
+        return Promise.resolve();
       }
+
+      App.UI.showLoading(container);
+      return App.loadModuleData(packs).then(() => {
+        // სანამ იტვირთებოდა, მომხმარებელი შეიძლება სხვა გვერდზე გადავიდა
+        if (token === renderToken) draw();
+      }, (err) => {
+        if (token !== renderToken) return;
+        console.warn(err);
+        container.innerHTML =
+          '<div class="loading-state" role="alert">' +
+            '<p>მასალა ვერ ჩაიტვირთა. შეამოწმეთ ინტერნეტთან კავშირი.</p>' +
+            '<button type="button" class="btn btn-primary" id="route-data-retry-btn">თავიდან ცდა</button>' +
+          '</div>';
+        const retryBtn = document.getElementById('route-data-retry-btn');
+        if (retryBtn) retryBtn.addEventListener('click', () => this.renderView(routeId));
+      });
     },
 
     // ხელახლა ხატავს მიმდინარე გვერდს (მაგ. ღრუბლიდან მონაცემების ჩატვირთვის შემდეგ)

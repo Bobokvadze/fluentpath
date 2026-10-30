@@ -121,7 +121,7 @@
       // 3. კითხვის, მოსმენისა და წერის კითხვები
       if (mode === "ALL" || mode === "PLACEMENT" || mode === "LEVEL_EXAM" || mode === "SKILLS") {
         const skillSources = [
-          { mod: App.Reading, getFn: "getAllStories", label: "კითხვა" },
+          { mod: App.Reading, getFn: "getAllPassages", label: "კითხვა" },
           { mod: App.Listening, getFn: "getAllTopics", label: "მოსმენა" },
           { mod: App.Writing, getFn: "getAllTopics", label: "წერა" }
         ];

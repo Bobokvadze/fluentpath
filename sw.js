@@ -1,5 +1,5 @@
 // ქეშის ვერსია: გაზარდეთ, როცა ფაილების სია იცვლება (ძველი ქეში ავტომატურად წაიშლება)
-const CACHE_NAME = 'fluentpath-cache-v2';
+const CACHE_NAME = 'fluentpath-cache-v3';
 
 const APP_SHELL = [
   './',

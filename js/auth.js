@@ -584,49 +584,55 @@
       const userCacheKey = USER_CACHE_PREFIX + supaUser.id;
 
       if (isNewRegistration) {
-        inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
-        setByPath(inMemoryState, "vocabulary.selectedFcLevels", [fallbackLevel]);
+        // წინა დონეების გასახსნელად სრული თემების სიებია საჭირო — პაკეტები შეიძლება ჯერ არ იყოს ჩატვირთული
+        const packsReady = typeof App.loadModuleData === "function"
+          ? App.loadModuleData(["grammar", "reading", "listening", "writing"]).catch(function (err) { console.warn(err); })
+          : Promise.resolve();
+        return packsReady.then(function () {
+          inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
+          setByPath(inMemoryState, "vocabulary.selectedFcLevels", [fallbackLevel]);
 
-        // გავუხსნათ დადგენილ დონემდე არსებული წინა დონეების თემები ყველა მოდულში
-        const levelOrder = ["A1", "A2", "B1", "B2", "C1", "C2"];
-        const assignedIdx = levelOrder.indexOf(fallbackLevel);
-        if (assignedIdx > 0) {
-          const passedLevels = levelOrder.slice(0, assignedIdx);
-          if (App.Grammar && typeof App.Grammar.getAllTopics === "function") {
-            const gIds = App.Grammar.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
-            setByPath(inMemoryState, "progress.completedGrammarIds", gIds);
+          // გავუხსნათ დადგენილ დონემდე არსებული წინა დონეების თემები ყველა მოდულში
+          const levelOrder = ["A1", "A2", "B1", "B2", "C1", "C2"];
+          const assignedIdx = levelOrder.indexOf(fallbackLevel);
+          if (assignedIdx > 0) {
+            const passedLevels = levelOrder.slice(0, assignedIdx);
+            if (App.Grammar && typeof App.Grammar.getAllTopics === "function") {
+              const gIds = App.Grammar.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+              setByPath(inMemoryState, "progress.completedGrammarIds", gIds);
+            }
+            if (App.Reading && typeof App.Reading.getAllPassages === "function") {
+              const rIds = App.Reading.getAllPassages().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+              setByPath(inMemoryState, "progress.completedReadingIds", rIds);
+            }
+            if (App.Listening && typeof App.Listening.getAllTopics === "function") {
+              const lIds = App.Listening.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+              setByPath(inMemoryState, "progress.completedListeningIds", lIds);
+            }
+            if (App.Writing && typeof App.Writing.getAllTopics === "function") {
+              const wIds = App.Writing.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+              setByPath(inMemoryState, "progress.completedWritingIds", wIds);
+            }
           }
-          if (App.Reading && typeof App.Reading.getAllStories === "function") {
-            const rIds = App.Reading.getAllStories().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
-            setByPath(inMemoryState, "progress.completedReadingIds", rIds);
-          }
-          if (App.Listening && typeof App.Listening.getAllTopics === "function") {
-            const lIds = App.Listening.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
-            setByPath(inMemoryState, "progress.completedListeningIds", lIds);
-          }
-          if (App.Writing && typeof App.Writing.getAllTopics === "function") {
-            const wIds = App.Writing.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
-            setByPath(inMemoryState, "progress.completedWritingIds", wIds);
-          }
-        }
 
-        if (App.Learn && typeof App.Learn.setActiveLevelTab === "function") {
-          App.Learn.setActiveLevelTab(fallbackLevel);
-        }
+          if (App.Learn && typeof App.Learn.setActiveLevelTab === "function") {
+            App.Learn.setActiveLevelTab(fallbackLevel);
+          }
 
-        mergeGuestProgressInto(inMemoryState);
-        inMemoryState = normalizeState(inMemoryState);
+          mergeGuestProgressInto(inMemoryState);
+          inMemoryState = normalizeState(inMemoryState);
 
-        currentCloudUser = {
-          id: supaUser.id,
-          email: supaUser.email,
-          fullName: fallbackName,
-          level: fallbackLevel
-        };
-        activeLocalKey = userCacheKey;
-        persistLocally();
-        return pushStateToSupabaseNow().then(function () {
-          refreshEntireAppUI();
+          currentCloudUser = {
+            id: supaUser.id,
+            email: supaUser.email,
+            fullName: fallbackName,
+            level: fallbackLevel
+          };
+          activeLocalKey = userCacheKey;
+          persistLocally();
+          return pushStateToSupabaseNow().then(function () {
+            refreshEntireAppUI();
+          });
         });
       }
 
