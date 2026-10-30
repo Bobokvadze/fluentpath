@@ -817,6 +817,8 @@
         email: regData.email,
         password: regData.password,
         options: {
+          // დადასტურების ბმული დააბრუნებს იმავე მისამართზე, სადაც საიტი გაიხსნა (უნდა იყოს Supabase-ის Redirect URLs სიაში)
+          emailRedirectTo: window.location.origin + window.location.pathname,
           data: {
             full_name: regData.fullName,
             cefr_level: assignedLevel
