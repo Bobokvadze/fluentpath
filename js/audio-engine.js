@@ -12,6 +12,33 @@
   let playbackSessionId = 0;
   const apiAudioCache = {};
 
+  // ბრაუზერის ჩაშენებული ხმის სინთეზატორი (ქვემოთ speechSynthesis.speak გადაიფარება, ამიტომ ორიგინალს ვინახავთ).
+  // გამოიყენება ოფლაინ რეჟიმში ან როცა ყველა ონლაინ აუდიო-წყარო მიუწვდომელია.
+  const nativeSynth = ("speechSynthesis" in window && typeof window.SpeechSynthesisUtterance === "function")
+    ? {
+        speak: window.speechSynthesis.speak.bind(window.speechSynthesis),
+        cancel: window.speechSynthesis.cancel.bind(window.speechSynthesis)
+      }
+    : null;
+
+  function speakNatively(text, acc, playbackRate, sessionId, onDone) {
+    if (!nativeSynth || sessionId !== playbackSessionId) {
+      onDone();
+      return;
+    }
+    try {
+      const utterance = new window.SpeechSynthesisUtterance(text);
+      utterance.lang = (acc === "UK") ? "en-GB" : "en-US";
+      utterance.rate = (playbackRate && playbackRate < 0.88) ? 0.8 : 1.0;
+      utterance.onend = utterance.onerror = function () {
+        if (sessionId === playbackSessionId) onDone();
+      };
+      nativeSynth.speak(utterance);
+    } catch (e) {
+      onDone();
+    }
+  }
+
   try {
     const savedAcc = window.localStorage.getItem(ACCENT_STORAGE_KEY);
     if (savedAcc === "UK" || savedAcc === "US") {
@@ -102,13 +129,17 @@
 
   function playSingleChunkWithFallback(chunkText, acc, playbackRate, sessionId, onChunkFinished) {
     if (sessionId !== playbackSessionId) return;
+    if (navigator.onLine === false) {
+      speakNatively(chunkText, acc, playbackRate, sessionId, onChunkFinished);
+      return;
+    }
     const urls = buildCandidateUrlsForChunk(chunkText, acc);
     let urlIdx = 0;
 
     function tryNextUrl() {
       if (sessionId !== playbackSessionId) return;
       if (urlIdx >= urls.length) {
-        onChunkFinished();
+        speakNatively(chunkText, acc, playbackRate, sessionId, onChunkFinished);
         return;
       }
 
@@ -167,6 +198,9 @@
      */
     stop: function () {
       playbackSessionId++;
+      if (nativeSynth) {
+        try { nativeSynth.cancel(); } catch (e) {}
+      }
       if (activeAudioPool.length > 0) {
         activeAudioPool.forEach(function (aud) {
           try {

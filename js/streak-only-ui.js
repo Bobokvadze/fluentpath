@@ -340,13 +340,10 @@
 
   window.addEventListener("hashchange", function () {
     removeSidebarPhaseBadges();
+    // გვერდებს თავად Router ხატავს; აქ მხოლოდ სასწავლო ხის დონეზე ფოკუსი გვჭირდება
     window.setTimeout(function () {
       const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
-      if (!hash || hash === "dashboard") {
-        renderCleanDashboard();
-      } else if (hash === "progress") {
-        renderCleanProgressPage();
-      } else if (hash === "learn") {
+      if (hash === "learn") {
         autoFocusTreeLevelInDOM();
       }
     }, 10);

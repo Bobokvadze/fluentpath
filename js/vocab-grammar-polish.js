@@ -15,26 +15,13 @@
     grammar: "გრამატიკა",
     reading: "კითხვა",
     listening: "მოსმენა",
+    speaking: "საუბარი",
     writing: "წერა",
     flashcards: "ბარათები",
     quizzes: "ტესტები",
     progress: "პროგრესი",
     settings: "პარამეტრები"
   };
-
-  const ORDERED_FALLBACK_LABELS = [
-    "მთავარი",
-    "სწავლა",
-    "ლექსიკონი",
-    "გრამატიკა",
-    "კითხვა",
-    "მოსმენა",
-    "წერა",
-    "ბარათები",
-    "ტესტები",
-    "პროგრესი",
-    "პარამეტრები"
-  ];
 
   function detectLevelFromText(text) {
     const m = String(text || "").match(/\b(A1|A2|B1|B2|C1|C2)\b/);
@@ -49,15 +36,16 @@
     if (!sidebar) return;
 
     const navItems = Array.from(
-      sidebar.querySelectorAll('a[href^="#"], [data-route], .nav-item')
+      sidebar.querySelectorAll('a[href^="#"], [data-route], [data-route-link], .nav-item')
     );
 
-    navItems.forEach(function (item, idx) {
+    navItems.forEach(function (item) {
       const href = (item.getAttribute("href") || "").replace(/^#\/?/, "").trim();
-      const dataRoute = (item.getAttribute("data-route") || "").trim();
-      const routeKey = href || dataRoute;
+      const dataRoute = (item.getAttribute("data-route-link") || item.getAttribute("data-route") || "").trim();
+      const routeKey = dataRoute || href;
 
-      const labelText = MENU_LABELS_BY_ROUTE[routeKey] || ORDERED_FALLBACK_LABELS[idx] || "";
+      // წარწერა მხოლოდ მარშრუტის მიხედვით (რიგითობით მინიჭება არასწორ სახელებს იძლეოდა)
+      const labelText = MENU_LABELS_BY_ROUTE[routeKey] || "";
       if (!labelText) return;
 
       // ვიპოვოთ SVG აიქონი (ან მისი მშობელი span)

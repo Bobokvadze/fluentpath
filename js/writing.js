@@ -587,54 +587,5 @@
 
   App.Writing = Writing;
 
-  // ============================================================================
-  // ROUTER INTERCEPTOR — ანაცვლებს ""-ის Placeholder-ს წერის სტუდიით
-  // ============================================================================
-  function activateWritingRouteIfNeeded() {
-    const navLink = document.querySelector('[data-route="writing"], a[href="#writing"]');
-    if (navLink) {
-      const badge = navLink.querySelector(".nav-badge");
-      if (badge) {
-        badge.remove();
-        badge.classList.add("");
-      }
-    }
-
-    const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
-    if (hash === "writing") {
-      const titleEl = document.getElementById("header-page-title");
-      if (titleEl) titleEl.textContent = "წერა";
-      App.Writing.render();
-    }
-  }
-
-  function hookWritingIntoRouter() {
-    if (App.Router) {
-      Object.keys(App.Router).forEach((key) => {
-        if (typeof App.Router[key] === "function" && !App.Router[key]._writingHooked) {
-          const origFn = App.Router[key];
-          const wrapped = function () {
-            const result = origFn.apply(this, arguments);
-            activateWritingRouteIfNeeded();
-            return result;
-          };
-          wrapped._writingHooked = true;
-          App.Router[key] = wrapped;
-        }
-      });
-    }
-    activateWritingRouteIfNeeded();
-  }
-
-  window.addEventListener("hashchange", () => {
-    window.setTimeout(activateWritingRouteIfNeeded, 0);
-  });
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      window.setTimeout(hookWritingIntoRouter, 25);
-    });
-  } else {
-    window.setTimeout(hookWritingIntoRouter, 25);
-  }
+  // Routing is handled centrally by App.Router.renderView (js/router.js).
 })(window);

@@ -732,27 +732,7 @@
 
   App.Flashcards = Flashcards;
 
-  // როუტერის პირდაპირი დამჭერი #flashcards გვერდისთვის
-  function checkFlashcardsRoute() {
-    const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
-    if (hash === "flashcards") {
-      const titleEl = document.getElementById("header-page-title");
-      if (titleEl) titleEl.textContent = "ბარათები";
-      Flashcards.render();
-    }
-  }
-
-  window.addEventListener("hashchange", function () {
-    window.setTimeout(checkFlashcardsRoute, 0);
-  });
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      window.setTimeout(checkFlashcardsRoute, 35);
-    });
-  } else {
-    window.setTimeout(checkFlashcardsRoute, 35);
-  }
+  // Routing is handled centrally by App.Router.renderView (js/router.js).
 
   window.addEventListener("keydown", function (e) {
     const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();

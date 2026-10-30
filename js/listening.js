@@ -572,52 +572,5 @@
 
   App.Listening = Listening;
 
-  // ============================================================================
-  // ROUTER INTERCEPTOR — ანაცვლებს ""-ის Placeholder-ს მოსმენის სტუდიით
-  // ============================================================================
-  function activateListeningRouteIfNeeded() {
-    const navLink = document.querySelector('[data-route="listening"], a[href="#listening"]');
-    if (navLink) {
-      const badge = navLink.querySelector('.nav-badge');
-      if (badge) {
-        badge.textContent = '';
-        badge.classList.add('');
-      }
-    }
-
-    const hash = (window.location.hash || '').replace(/^#\/?/, '').trim();
-    if (hash === 'listening') {
-      const titleEl = document.getElementById('header-page-title');
-      if (titleEl) titleEl.textContent = 'მოსმენა';
-      App.Listening.render();
-    }
-  }
-
-  function hookIntoRouter() {
-    if (App.Router) {
-      Object.keys(App.Router).forEach((key) => {
-        if (typeof App.Router[key] === 'function') {
-          const origFn = App.Router[key];
-          App.Router[key] = function () {
-            const result = origFn.apply(this, arguments);
-            activateListeningRouteIfNeeded();
-            return result;
-          };
-        }
-      });
-    }
-    activateListeningRouteIfNeeded();
-  }
-
-  window.addEventListener('hashchange', () => {
-    window.setTimeout(activateListeningRouteIfNeeded, 0);
-  });
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      window.setTimeout(hookIntoRouter, 20);
-    });
-  } else {
-    window.setTimeout(hookIntoRouter, 20);
-  }
+  // Routing is handled centrally by App.Router.renderView (js/router.js).
 })(window);

@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html lang="ka" data-theme="light">
 <head>
-  <meta name="referrer" content="no-referrer" />
   <meta charset="UTF-8" />
+  <meta name="referrer" content="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="FluentPath — ინგლისური ენის 100% უფასო, ოფლაინ რეჟიმში მომუშავე, ულიმიტო სასწავლო პლატფორმა." />
   <meta name="theme-color" content="#2563eb" />
   <title>FluentPath — ინგლისური ენის უფასო სასწავლო პლატფორმა</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="FluentPath — ინგლისური ენის უფასო სასწავლო პლატფორმა" />
+  <meta property="og:description" content="ინგლისური A1-დან C2-მდე ქართული ინტერფეისით: გაკვეთილები, ლექსიკონი, გრამატიკა, კითხვა, მოსმენა, წერა და ტესტები." />
+  <meta property="og:locale" content="ka_GE" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg" />
+  <script>
+    // შენახული თემის გამოყენება პირველ დახატვამდე (თეთრი "ციმციმის" თავიდან ასაცილებლად)
+    (function () {
+      try {
+        var keys = ['fluentpath_app_state_v1'];
+        for (var i = 0; i < localStorage.length; i++) {
+          var k = localStorage.key(i);
+          if (k.indexOf('fluentpath_user_cache_') === 0) keys.unshift(k);
+        }
+        for (var j = 0; j < keys.length; j++) {
+          var st = JSON.parse(localStorage.getItem(keys[j]) || 'null');
+          if (st && st.settings && st.settings.theme) {
+            document.documentElement.setAttribute('data-theme', st.settings.theme === 'dark' ? 'dark' : 'light');
+            break;
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="css/themes.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/responsive.css" />
@@ -16,16 +40,14 @@
   <link rel="stylesheet" href="css/phase3.css" />
   <link rel="stylesheet" href="css/auth.css" />
   <link rel="stylesheet" href="css/phase5.css" />
-    <link rel="stylesheet" href="css/vocab-grammar-polish.css?v=12" />
+  <link rel="stylesheet" href="css/vocab-grammar-polish.css?v=13" />
   <style id="fp-critical-clean-style">
-    /* 1. მარცხენა მენიუში ყველა ბეიჯის და ლოგოს ქვესათაურის სრული გაქრობა */
+    /* 1. მარცხენა მენიუში ბეიჯების და ლოგოს ქვესათაურის დამალვა (სექციების სახელები რჩება ხილული) */
     .nav-badge,
+    .nav-pill,
     .sidebar__subtitle,
     .brand-subtitle,
-    .logo-subtitle,
-    aside .nav-item span:nth-of-type(2),
-    .sidebar .nav-item span:nth-of-type(2),
-    nav a span:nth-of-type(2) {
+    .logo-subtitle {
       display: none !important;
     }
 
@@ -181,8 +203,8 @@
   <script defer src="js/settings.js"></script>
   <script defer src="js/router.js"></script>
   <script defer src="js/app.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script defer src="js/supabase-config.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js" integrity="sha384-TcHRA3zBbn+Lexh5n+Oil4guNPOS3rjNDpGRAN46u/s/mB2IZ50ceC6TYDU2yvgK" crossorigin="anonymous"></script>
+  <script defer src="js/supabase-config.js"></script>
   <script defer src="js/auth.js"></script>
   <script defer src="js/listening-a.js"></script>
   <script defer src="js/listening-b.js"></script>
@@ -192,11 +214,12 @@
   <script defer src="js/writing-b.js"></script>
   <script defer src="js/writing-c.js"></script>
   <script defer src="js/writing.js"></script>
-    <script defer src="js/ipa-dict.js"></script>
+  <script defer src="js/ipa-dict.js"></script>
   <script defer src="js/flashcards.js"></script>
   <script defer src="js/quizzes.js"></script>
+  <script defer src="js/speaking.js"></script>
   <script defer src="js/audio-engine.js"></script>
   <script defer src="js/streak-only-ui.js"></script>
-    <script defer src="js/vocab-grammar-polish.js?v=12"></script>
+  <script defer src="js/vocab-grammar-polish.js?v=13"></script>
 </body>
 </html>

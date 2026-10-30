@@ -14,6 +14,7 @@
   let activeTab = "login"; // "login" | "register"
   let modalElement = null;
   let syncDebounceTimer = null;
+  let lastFocusedBeforeModal = null;
 
   // სარეგისტრაციო ტესტის დროებითი მდგომარეობა
   let pendingRegistrationData = null; // { fullName, email, password }
@@ -102,23 +103,143 @@
     return "A1";
   }
 
-  function purgeAllLocalProgressKeys() {
+  // ===== ლოკალური შენახვა (LocalStorage) =====
+  // სტუმრის პროგრესი ინახება GUEST_STATE_KEY-ზე, შესული მომხმარებლის ოფლაინ ასლი — USER_CACHE_PREFIX + id-ზე.
+  const GUEST_STATE_KEY = "fluentpath_app_state_v1";
+  const USER_CACHE_PREFIX = "fluentpath_user_cache_";
+  const CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
+  let activeLocalKey = GUEST_STATE_KEY;
+
+  function readLocalJSON(key) {
     try {
-      const keysToRemove = [];
-      for (let i = 0; i < window.localStorage.length; i++) {
-        const k = window.localStorage.key(i);
-        if (k && k.indexOf("sb-") !== 0 && k !== "fluentpath_preferred_accent_v1") {
-          keysToRemove.push(k);
-        }
-      }
-      keysToRemove.forEach(function (k) {
-        window.localStorage.removeItem(k);
-      });
+      const raw = window.localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeLocalJSON(key, value) {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function removeLocalKey(key) {
+    try {
+      window.localStorage.removeItem(key);
     } catch (e) {}
   }
 
+  // Supabase-ის სესიიდან (თუ არსებობს) ვიღებთ მომხმარებლის id-ს, რომ ოფლაინ ასლი მყისიერად ჩაიტვირთოს
+  function readStoredSessionUserId() {
+    try {
+      const ref = new URL(App.SupabaseConfig.url).hostname.split(".")[0];
+      const session = readLocalJSON("sb-" + ref + "-auth-token");
+      return session && session.user && session.user.id ? session.user.id : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function isPlainObject(v) {
+    return v !== null && typeof v === "object" && !Array.isArray(v);
+  }
+
+  // ავსებს დაკარგულ ველებს ნაგულისხმევი მნიშვნელობებით (არსებულ მონაცემებს არ ეხება)
+  function fillDefaults(target, defaults) {
+    Object.keys(defaults).forEach(function (key) {
+      if (target[key] === undefined || target[key] === null) {
+        target[key] = defaults[key];
+      } else if (isPlainObject(target[key]) && isPlainObject(defaults[key])) {
+        fillDefaults(target[key], defaults[key]);
+      }
+    });
+    return target;
+  }
+
+  function normalizeState(raw) {
+    const state = isPlainObject(raw) ? raw : {};
+    fillDefaults(state, createCleanBlankState("A1", "", ""));
+    // ძველი (ფაზა 1) მოდულები — progress.js, settings.js, ui.js — ამ ველებს ელოდება
+    fillDefaults(state, {
+      settings: { dailyGoalXP: 20, soundEnabled: true, userName: "მოსწავლე" },
+      progress: { dailyXP: 0, levelProgress: { A1: 0, A2: 0, B1: 0, B2: 0, C1: 0, C2: 0 } },
+      streak: { current: 0, longest: 0, lastActiveDate: null, activeDates: [] },
+      quiz: { attempts: 0, history: [], bestScore: 0 },
+      achievements: { unlockedIds: [] },
+      recentActivity: []
+    });
+    let level = state.progress.level;
+    if (CEFR_LEVELS.indexOf(level) === -1) level = state.settings.cefrLevel;
+    if (CEFR_LEVELS.indexOf(level) === -1) level = "A1";
+    state.progress.level = level;
+    state.settings.cefrLevel = level;
+    return state;
+  }
+
+  function getStateTimestamp(state) {
+    const t = state && state.meta ? Date.parse(state.meta.updatedAt) : NaN;
+    return isNaN(t) ? 0 : t;
+  }
+
+  function persistLocally() {
+    inMemoryState.meta = inMemoryState.meta || {};
+    inMemoryState.meta.updatedAt = new Date().toISOString();
+    writeLocalJSON(activeLocalKey, inMemoryState);
+  }
+
+  function hasAnyProgress(state) {
+    const p = (state && state.progress) || {};
+    const v = (state && state.vocabulary) || {};
+    return ["completedGrammarIds", "completedReadingIds", "completedListeningIds", "completedWritingIds", "completedLessonIds"]
+      .some(function (k) { return Array.isArray(p[k]) && p[k].length > 0; }) ||
+      (Array.isArray(v.learnedIds) && v.learnedIds.length > 0) ||
+      (isPlainObject(v.boxByWordId) && Object.keys(v.boxByWordId).length > 0);
+  }
+
+  // სტუმრად დაგროვებულ პროგრესს უერთებს ახალ/ცარიელ ღრუბლოვან პროფილს, რომ რეგისტრაციისას არაფერი დაიკარგოს
+  function mergeGuestProgressInto(target) {
+    const guest = readLocalJSON(GUEST_STATE_KEY);
+    if (!hasAnyProgress(guest)) return target;
+
+    function unionAt(path) {
+      const a = getByPath(target, path, []);
+      const b = getByPath(guest, path, []);
+      if (!Array.isArray(b) || !b.length) return;
+      const merged = (Array.isArray(a) ? a : []).slice();
+      b.forEach(function (id) {
+        if (merged.indexOf(id) === -1) merged.push(id);
+      });
+      setByPath(target, path, merged);
+    }
+
+    ["progress.completedGrammarIds", "progress.completedReadingIds", "progress.completedListeningIds",
+      "progress.completedWritingIds", "progress.completedLessonIds", "progress.completedSpeakingIds",
+      "vocabulary.learnedIds", "vocabulary.bookmarkedIds"]
+      .forEach(unionAt);
+
+    const boxes = Object.assign({}, getByPath(guest, "vocabulary.boxByWordId", {}), getByPath(target, "vocabulary.boxByWordId", {}));
+    setByPath(target, "vocabulary.boxByWordId", boxes);
+
+    const crowns = Object.assign({}, getByPath(guest, "progress.nodeCrowns", {}));
+    const ownCrowns = getByPath(target, "progress.nodeCrowns", {});
+    Object.keys(ownCrowns || {}).forEach(function (k) {
+      crowns[k] = Math.max(Number(crowns[k]) || 0, Number(ownCrowns[k]) || 0);
+    });
+    setByPath(target, "progress.nodeCrowns", crowns);
+
+    setByPath(target, "progress.vocabularyLearned", getByPath(target, "vocabulary.learnedIds", []).length);
+    return target;
+  }
+
   function getTodayDateString() {
-    return new Date().toISOString().slice(0, 10);
+    // ადგილობრივი (და არა UTC) თარიღი — სტრიკი შუაღამისას უნდა განახლდეს მომხმარებლის საათით
+    const d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   }
 
   function createCleanBlankState(level, fullName, email) {
@@ -228,7 +349,13 @@
     setByPath(inMemoryState, "progress.streak", currentStreak);
   }
 
-  function hookStorageToSupabaseOnly() {
+  function commitStateChange() {
+    updateDailyStreakInState();
+    persistLocally();
+    scheduleCloudPush();
+  }
+
+  function hookStorage() {
     if (!App.Storage) return;
 
     App.Storage.getState = function () {
@@ -237,10 +364,9 @@
 
     App.Storage.saveState = function (newState) {
       if (newState && typeof newState === "object") {
-        inMemoryState = newState;
+        inMemoryState = normalizeState(newState);
       }
-      updateDailyStreakInState();
-      scheduleCloudPush();
+      commitStateChange();
       return inMemoryState;
     };
 
@@ -250,26 +376,61 @@
 
     App.Storage.set = function (path, value) {
       setByPath(inMemoryState, path, value);
-      updateDailyStreakInState();
-      scheduleCloudPush();
+      // CEFR დონე ორ ადგილას ინახება (ძველი და ახალი მოდულები) — ვინარჩუნებთ სინქრონში
+      if ((path === "settings.cefrLevel" || path === "progress.level") && CEFR_LEVELS.indexOf(value) !== -1) {
+        setByPath(inMemoryState, "settings.cefrLevel", value);
+        setByPath(inMemoryState, "progress.level", value);
+      }
+      commitStateChange();
       return value;
     };
 
     App.Storage.resetAll = function () {
       const lvl = getByPath(inMemoryState, "progress.level", "A1");
-      const name = currentCloudUser ? currentCloudUser.fullName : "";
+      const name = currentCloudUser ? currentCloudUser.fullName : getByPath(inMemoryState, "user.name", "");
       const email = currentCloudUser ? currentCloudUser.email : "";
-      inMemoryState = createCleanBlankState(lvl, name, email);
-      scheduleCloudPush();
+      inMemoryState = normalizeState(createCleanBlankState(lvl, name, email));
+      commitStateChange();
       return inMemoryState;
+    };
+    App.Storage.reset = App.Storage.resetAll;
+
+    // storage.js-ის importData ძველ სქემაზეა მორგებული და კარგავს user/flashcards ველებს
+    App.Storage.importData = function (jsonString) {
+      try {
+        const parsed = JSON.parse(jsonString);
+        if (!isPlainObject(parsed) || !isPlainObject(parsed.settings) || !isPlainObject(parsed.progress)) {
+          throw new Error("არჩეული ფაილი არ წარმოადგენს FluentPath-ის სარეზერვო ასლს.");
+        }
+        inMemoryState = normalizeState(parsed);
+        commitStateChange();
+        return { success: true, state: inMemoryState };
+      } catch (err) {
+        return { success: false, error: (err && err.message) || "უცნობი შეცდომა ფაილის იმპორტისას." };
+      }
+    };
+
+    App.Storage.getStorageSizeKB = function () {
+      try {
+        const raw = window.localStorage.getItem(activeLocalKey) || "";
+        return (new Blob([raw]).size / 1024).toFixed(2);
+      } catch (e) {
+        return "0.00";
+      }
     };
   }
 
+  let cloudSyncFailed = false;
+
   function pushStateToSupabaseNow() {
-    if (!supabaseClient || !currentCloudUser || !currentCloudUser.id) return Promise.resolve();
+    if (syncDebounceTimer) {
+      window.clearTimeout(syncDebounceTimer);
+      syncDebounceTimer = null;
+    }
+    if (!supabaseClient || !currentCloudUser || !currentCloudUser.id) return Promise.resolve(false);
 
     const boxes = getByPath(inMemoryState, "vocabulary.boxByWordId", {});
-    const fcLevels = getByPath(inMemoryState, "vocabulary.selectedFcLevels", ["A1", "A2", "B1", "B2", "C1", "C2"]);
+    const fcLevels = getByPath(inMemoryState, "vocabulary.selectedFcLevels", CEFR_LEVELS);
     const curLevel = getByPath(inMemoryState, "progress.level", currentCloudUser.level || "A1");
 
     const payload = {
@@ -283,11 +444,26 @@
       updated_at: new Date().toISOString()
     };
 
+    // supabase-js შეცდომისას Promise-ს არ უარყოფს — ვამოწმებთ res.error-ს
     return supabaseClient
       .from("user_profiles")
       .upsert(payload, { onConflict: "id" })
-      .then(function () {})
-      .catch(function () {});
+      .then(function (res) {
+        if (res && res.error) throw res.error;
+        if (cloudSyncFailed && App.UI) {
+          App.UI.toast("☁️ პროგრესი ღრუბელთან კვლავ სინქრონიზებულია.", "success", 2600);
+        }
+        cloudSyncFailed = false;
+        return true;
+      })
+      .catch(function () {
+        // მონაცემები ლოკალურად უკვე შენახულია; ვცდით ხელახლა, როცა კავშირი აღდგება
+        if (!cloudSyncFailed && App.UI) {
+          App.UI.toast("⚠️ ღრუბელთან სინქრონიზაცია ვერ მოხერხდა. პროგრესი შენახულია ამ მოწყობილობაზე და გაიგზავნება კავშირის აღდგენისას.", "warning", 5000);
+        }
+        cloudSyncFailed = true;
+        return false;
+      });
   }
 
   function scheduleCloudPush() {
@@ -298,6 +474,37 @@
     syncDebounceTimer = window.setTimeout(function () {
       pushStateToSupabaseNow();
     }, 350);
+  }
+
+  window.addEventListener("online", function () {
+    if (currentCloudUser && cloudSyncFailed) pushStateToSupabaseNow();
+  });
+
+  // გვერდის დახურვისას დაუგზავნელი ცვლილებები მაშინვე გავგზავნოთ
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden" && syncDebounceTimer) pushStateToSupabaseNow();
+  });
+
+  // ადრეული ჩატვირთვა: სტორიჯი უნდა იყოს მიბმული სანამ app.js ინიციალიზაციას დაიწყებს
+  (function bootstrapLocalState() {
+    const cachedUserId = App.SupabaseConfig ? readStoredSessionUserId() : null;
+    const cached = cachedUserId ? readLocalJSON(USER_CACHE_PREFIX + cachedUserId) : null;
+    if (cached) {
+      activeLocalKey = USER_CACHE_PREFIX + cachedUserId;
+      inMemoryState = normalizeState(cached);
+    } else {
+      activeLocalKey = GUEST_STATE_KEY;
+      inMemoryState = normalizeState(readLocalJSON(GUEST_STATE_KEY));
+    }
+    updateDailyStreakInState();
+    hookStorage();
+  })();
+
+  function switchToGuestState() {
+    currentCloudUser = null;
+    activeLocalKey = GUEST_STATE_KEY;
+    inMemoryState = normalizeState(readLocalJSON(GUEST_STATE_KEY));
+    updateDailyStreakInState();
   }
 
   function evaluatePasswordRules(pw) {
@@ -324,6 +531,9 @@
   }
 
   function refreshEntireAppUI() {
+    if (App.UI && typeof App.UI.applyTheme === "function") {
+      App.UI.applyTheme(getByPath(inMemoryState, "settings.theme", "light"));
+    }
     Auth.syncHeaderAuthUI();
     if (App.Progress && typeof App.Progress.syncHeaderStats === "function") {
       App.Progress.syncHeaderStats();
@@ -335,9 +545,6 @@
 
   const Auth = {
     initClient: function () {
-      purgeAllLocalProgressKeys();
-      hookStorageToSupabaseOnly();
-
       if (!window.supabase || !App.SupabaseConfig || !App.SupabaseConfig.url || !App.SupabaseConfig.anonKey) {
         return;
       }
@@ -350,8 +557,19 @@
         if (session && session.user) {
           Auth.loadUserProfileFromSupabase(session.user, false);
         } else {
-          currentCloudUser = null;
-          inMemoryState = createCleanBlankState("A1", "", "");
+          // ოფლაინ ასლი ეკუთვნოდა ვადაგასულ სესიას — ვბრუნდებით სტუმრის პროგრესზე
+          if (activeLocalKey !== GUEST_STATE_KEY) switchToGuestState();
+          refreshEntireAppUI();
+        }
+      }).catch(function () {
+        // ქსელი მიუწვდომელია — ვაგრძელებთ ლოკალური მონაცემებით
+        refreshEntireAppUI();
+      });
+
+      supabaseClient.auth.onAuthStateChange(function (event) {
+        // სესია სხვა ჩანართში ან ვადის გასვლით დასრულდა
+        if (event === "SIGNED_OUT" && currentCloudUser) {
+          switchToGuestState();
           refreshEntireAppUI();
         }
       });
@@ -362,6 +580,8 @@
 
       const fallbackName = chosenName || (supaUser.user_metadata && supaUser.user_metadata.full_name) || supaUser.email.split("@")[0];
       const fallbackLevel = assignedLevel || (supaUser.user_metadata && supaUser.user_metadata.cefr_level) || "A1";
+
+      const userCacheKey = USER_CACHE_PREFIX + supaUser.id;
 
       if (isNewRegistration) {
         inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
@@ -394,12 +614,17 @@
           App.Learn.setActiveLevelTab(fallbackLevel);
         }
 
+        mergeGuestProgressInto(inMemoryState);
+        inMemoryState = normalizeState(inMemoryState);
+
         currentCloudUser = {
           id: supaUser.id,
           email: supaUser.email,
           fullName: fallbackName,
           level: fallbackLevel
         };
+        activeLocalKey = userCacheKey;
+        persistLocally();
         return pushStateToSupabaseNow().then(function () {
           refreshEntireAppUI();
         });
@@ -411,8 +636,19 @@
         .eq("id", supaUser.id)
         .maybeSingle()
         .then(function (result) {
+          if (result && result.error) throw result.error;
           const row = result && result.data ? result.data : null;
+          const localCache = readLocalJSON(userCacheKey);
+          const cloudTime = row && row.updated_at ? (Date.parse(row.updated_at) || 0) : 0;
+          let source = "blank";
+
           if (row && row.state_json && Object.keys(row.state_json).length > 0) {
+            source = (localCache && getStateTimestamp(localCache) > cloudTime) ? "local" : "cloud";
+          } else if (localCache) {
+            source = "local";
+          }
+
+          if (source === "cloud") {
             inMemoryState = row.state_json;
             inMemoryState.vocabulary = inMemoryState.vocabulary || {};
             if (row.leitner_boxes) {
@@ -424,27 +660,41 @@
             if (row.cefr_level) {
               setByPath(inMemoryState, "progress.level", row.cefr_level);
             }
-            updateDailyStreakInState();
-            currentCloudUser = {
-              id: supaUser.id,
-              email: supaUser.email,
-              fullName: row.full_name || fallbackName,
-              level: row.cefr_level || fallbackLevel
-            };
-            pushStateToSupabaseNow();
+          } else if (source === "local") {
+            // ამ მოწყობილობაზე ოფლაინ შეტანილი ცვლილებები ღრუბელზე ახალია
+            inMemoryState = localCache;
           } else {
-            inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
-            currentCloudUser = {
-              id: supaUser.id,
-              email: supaUser.email,
-              fullName: fallbackName,
-              level: fallbackLevel
-            };
-            pushStateToSupabaseNow();
+            inMemoryState = mergeGuestProgressInto(createCleanBlankState(fallbackLevel, fallbackName, supaUser.email));
           }
+
+          inMemoryState = normalizeState(inMemoryState);
+          if (row && row.cefr_level && source === "cloud") {
+            inMemoryState.settings.cefrLevel = inMemoryState.progress.level;
+          }
+          updateDailyStreakInState();
+          currentCloudUser = {
+            id: supaUser.id,
+            email: supaUser.email,
+            fullName: (row && row.full_name) || fallbackName,
+            level: inMemoryState.progress.level
+          };
+          activeLocalKey = userCacheKey;
+          persistLocally();
+          pushStateToSupabaseNow();
           refreshEntireAppUI();
         })
         .catch(function () {
+          // ქსელის შეცდომა: ვიყენებთ ამ მოწყობილობაზე შენახულ ასლს (თუ არსებობს)
+          const localCache = readLocalJSON(userCacheKey);
+          currentCloudUser = {
+            id: supaUser.id,
+            email: supaUser.email,
+            fullName: fallbackName,
+            level: fallbackLevel
+          };
+          activeLocalKey = userCacheKey;
+          inMemoryState = normalizeState(localCache || createCleanBlankState(fallbackLevel, fallbackName, supaUser.email));
+          cloudSyncFailed = true;
           refreshEntireAppUI();
         });
     },
@@ -454,8 +704,16 @@
       const backdrop = document.createElement("div");
       backdrop.className = "fp-auth-backdrop";
       backdrop.id = "fp-auth-backdrop";
+      backdrop.setAttribute("role", "dialog");
+      backdrop.setAttribute("aria-modal", "true");
+      backdrop.setAttribute("aria-label", "ანგარიში");
       backdrop.addEventListener("click", function (e) {
         if (e.target === backdrop && !pendingRegistrationData) {
+          Auth.closeModal();
+        }
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && backdrop.classList.contains("is-open") && !pendingRegistrationData) {
           Auth.closeModal();
         }
       });
@@ -472,8 +730,11 @@
       }
       this.ensureModalCreated();
       this.renderModalContent();
+      lastFocusedBeforeModal = document.activeElement;
       window.setTimeout(function () {
         modalElement.classList.add("is-open");
+        const firstField = modalElement.querySelector("input") || modalElement.querySelector("button");
+        if (firstField) firstField.focus();
       }, 10);
     },
 
@@ -482,6 +743,10 @@
       pendingRegistrationData = null;
       regPlacementFinishedResult = null;
       modalElement.classList.remove("is-open");
+      if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === "function") {
+        lastFocusedBeforeModal.focus();
+      }
+      lastFocusedBeforeModal = null;
     },
 
     showError: function (msg) {
@@ -547,9 +812,6 @@
           '<p style="color:var(--text-secondary); margin-top:6px;">მიმდინარეობს დონე ' + assignedLevel + '-ის შენახვა Supabase-ში.</p>' +
         "</div>";
 
-      purgeAllLocalProgressKeys();
-      inMemoryState = createCleanBlankState(assignedLevel, regData.fullName, regData.email);
-
       supabaseClient.auth.signUp({
         email: regData.email,
         password: regData.password,
@@ -574,6 +836,19 @@
           activeTab = "register";
           Auth.renderModalContent();
           Auth.showError("მომხმარებლის შექმნა ვერ მოხერხდა.");
+          return;
+        }
+
+        if (!res.data.session) {
+          // ელ-ფოსტის დადასტურება ჩართულია: სესია ჯერ არ არსებობს, ამიტომ დადგენილ დონეს ვინახავთ
+          // ამ მოწყობილობაზე და პირველი შესვლისას ავტომატურად აიტვირთება ღრუბელში
+          const pendingState = normalizeState(mergeGuestProgressInto(createCleanBlankState(assignedLevel, regData.fullName, regData.email)));
+          pendingState.meta = { updatedAt: new Date().toISOString() };
+          writeLocalJSON(USER_CACHE_PREFIX + user.id, pendingState);
+          pendingRegistrationData = null;
+          activeTab = "login";
+          Auth.renderModalContent();
+          Auth.showError("ანგარიში შეიქმნა (დონე " + assignedLevel + "). დაადასტურეთ ელ-ფოსტა წერილში მოცემული ბმულით და შემდეგ შედით სისტემაში.");
           return;
         }
 
@@ -613,8 +888,6 @@
         submitBtn.textContent = "⏳ მიმდინარეობს შესვლა...";
       }
 
-      purgeAllLocalProgressKeys();
-
       supabaseClient.auth.signInWithPassword({
         email: email,
         password: password
@@ -651,9 +924,9 @@
         if (supabaseClient) {
           supabaseClient.auth.signOut();
         }
-        currentCloudUser = null;
-        purgeAllLocalProgressKeys();
-        inMemoryState = createCleanBlankState("A1", "", "");
+        const userId = currentCloudUser ? currentCloudUser.id : null;
+        if (userId) removeLocalKey(USER_CACHE_PREFIX + userId);
+        switchToGuestState();
         refreshEntireAppUI();
         Auth.closeModal();
         if (App.UI) {
@@ -996,17 +1269,17 @@
 
       if (currentCloudUser) {
         container.innerHTML =
-          '<button type="button" class="header-user-chip" id="fp-open-profile-btn" title="პირადი პროფილი">' +
-            '<span class="header-user-avatar">' + App.UI.escapeHTML(getInitials(currentCloudUser.fullName)) + "</span>" +
-            '<span>' + App.UI.escapeHTML(currentCloudUser.fullName.split(" ")[0]) + "</span>" +
+          '<button type="button" class="header-user-chip" id="fp-open-profile-btn" title="პირადი პროფილი" aria-label="პირადი პროფილი">' +
+            '<span class="header-user-avatar" aria-hidden="true">' + App.UI.escapeHTML(getInitials(currentCloudUser.fullName)) + "</span>" +
+            '<span class="header-user-name">' + App.UI.escapeHTML(currentCloudUser.fullName.split(" ")[0]) + "</span>" +
           "</button>";
         container.querySelector("#fp-open-profile-btn").addEventListener("click", function () {
           Auth.openModal();
         });
       } else {
         container.innerHTML =
-          '<button type="button" class="header-auth-btn" id="fp-open-auth-btn">' +
-            '<span>☁️ შესვლა / რეგისტრაცია</span>' +
+          '<button type="button" class="header-auth-btn" id="fp-open-auth-btn" aria-label="შესვლა / რეგისტრაცია">' +
+            '<span aria-hidden="true">☁️</span> <span class="header-auth-label">შესვლა / რეგისტრაცია</span>' +
           "</button>";
         container.querySelector("#fp-open-auth-btn").addEventListener("click", function () {
           Auth.openModal("login");

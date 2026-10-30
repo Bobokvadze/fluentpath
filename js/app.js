@@ -117,6 +117,13 @@
         }
       });
     }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawerBackdrop && drawerBackdrop.classList.contains('open')) {
+        App.Router.closeMobileDrawer();
+        if (moreBtn) moreBtn.focus();
+      }
+    });
   }
 
   function registerServiceWorker() {

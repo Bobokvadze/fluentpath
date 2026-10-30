@@ -120,24 +120,34 @@
       const container = document.getElementById('app-view');
       if (!container) return;
 
-      if (routeId === 'dashboard') {
-        App.Dashboard.render();
-      } else if (routeId === 'learn' && App.Learn) {
-        App.Learn.render();
-      } else if (routeId === 'vocabulary' && App.Vocabulary) {
-        App.Vocabulary.render();
-      } else if (routeId === 'grammar' && App.Grammar) {
-        App.Grammar.render();
-      } else if (routeId === 'reading' && App.Reading) {
-        App.Reading.render();
-      } else if (routeId === 'progress') {
-        App.Progress.render();
-      } else if (routeId === 'settings') {
-        App.Settings.render();
+      const VIEW_MODULES = {
+        dashboard: 'Dashboard',
+        learn: 'Learn',
+        vocabulary: 'Vocabulary',
+        grammar: 'Grammar',
+        reading: 'Reading',
+        listening: 'Listening',
+        speaking: 'Speaking',
+        writing: 'Writing',
+        flashcards: 'Flashcards',
+        quizzes: 'Quizzes',
+        progress: 'Progress',
+        settings: 'Settings'
+      };
+      const mod = App[VIEW_MODULES[routeId]];
+
+      if (mod && typeof mod.render === 'function') {
+        mod.render();
       } else {
         const modConfig = this.getModuleConfig(routeId);
         container.innerHTML = App.UI.renderModuleEmptyState(modConfig);
       }
+    },
+
+    // ხელახლა ხატავს მიმდინარე გვერდს (მაგ. ღრუბლიდან მონაცემების ჩატვირთვის შემდეგ)
+    handleRoute: function () {
+      this.updateActiveNav(this.currentRoute);
+      this.renderView(this.currentRoute);
     },
 
     openMobileDrawer: function () {

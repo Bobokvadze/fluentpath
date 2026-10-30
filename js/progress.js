@@ -3,14 +3,19 @@
 
   const App = window.App = window.App || {};
 
+  // ადგილობრივი თარიღი (YYYY-MM-DD) — UTC-ით დღე საქართველოში დილის 4 საათზე იცვლებოდა
+  function toLocalDateString(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
   function getTodayDateString() {
-    return new Date().toISOString().split('T')[0];
+    return toLocalDateString(new Date());
   }
 
   function getYesterdayDateString() {
     const d = new Date();
     d.setDate(d.getDate() - 1);
-    return d.toISOString().split('T')[0];
+    return toLocalDateString(d);
   }
 
   const Progress = {
@@ -90,6 +95,17 @@
         isDemo: false
       });
       state.recentActivity = state.recentActivity.slice(0, 10);
+
+      // დეშბორდი და პროგრესის გვერდი კითხულობს progress.recentActivities-ს
+      if (!Array.isArray(state.progress.recentActivities)) {
+        state.progress.recentActivities = [];
+      }
+      state.progress.recentActivities.unshift({
+        title: title,
+        category: category,
+        timestamp: new Date().toISOString()
+      });
+      state.progress.recentActivities = state.progress.recentActivities.slice(0, 20);
 
       App.Storage.saveState(state);
       App.UI.updateTopbarStats();
