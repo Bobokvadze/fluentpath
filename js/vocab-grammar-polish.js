@@ -1,6 +1,5 @@
 /**
  * VOCAB-GRAMMAR-POLISH.JS
- * - მარცხენა მენიუს 11-ვე პუნქტს გარანტირებულად უბრუნებს ქართულ წარწერას და შლის ცარიელ ბეიჯებს.
  * - აწესრიგებს ლექსიკონისა და გრამატიკის ბარათებს.
  */
 (function (window) {
@@ -8,76 +7,9 @@
 
   let isRunning = false;
 
-  const MENU_LABELS_BY_ROUTE = {
-    dashboard: "მთავარი",
-    learn: "სწავლა",
-    vocabulary: "ლექსიკონი",
-    grammar: "გრამატიკა",
-    reading: "კითხვა",
-    listening: "მოსმენა",
-    speaking: "საუბარი",
-    writing: "წერა",
-    flashcards: "ბარათები",
-    quizzes: "ტესტები",
-    progress: "პროგრესი",
-    settings: "პარამეტრები"
-  };
-
   function detectLevelFromText(text) {
     const m = String(text || "").match(/\b(A1|A2|B1|B2|C1|C2)\b/);
     return m ? m[1] : "A1";
-  }
-
-  /**
-   * აღადგენს მარცხენა მენიუს ქართულ წარწერებს და შლის მარჯვენა ცარიელ ბეიჯებს
-   */
-  function fixSidebarMenuLabels() {
-    const sidebar = document.querySelector("aside, .sidebar, .app-sidebar, nav");
-    if (!sidebar) return;
-
-    const navItems = Array.from(
-      sidebar.querySelectorAll('a[href^="#"], [data-route], [data-route-link], .nav-item')
-    );
-
-    navItems.forEach(function (item) {
-      const href = (item.getAttribute("href") || "").replace(/^#\/?/, "").trim();
-      const dataRoute = (item.getAttribute("data-route-link") || item.getAttribute("data-route") || "").trim();
-      const routeKey = dataRoute || href;
-
-      // წარწერა მხოლოდ მარშრუტის მიხედვით (რიგითობით მინიჭება არასწორ სახელებს იძლეოდა)
-      const labelText = MENU_LABELS_BY_ROUTE[routeKey] || "";
-      if (!labelText) return;
-
-      // ვიპოვოთ SVG აიქონი (ან მისი მშობელი span)
-      const svgEl = item.querySelector("svg");
-      let iconHolder = svgEl;
-      if (svgEl && svgEl.parentElement && svgEl.parentElement !== item) {
-        iconHolder = svgEl.parentElement;
-      }
-
-      // წავშალოთ ყველა სხვა შვილობილი ელემენტი (მათ შორის ცარიელი ლურჯი/ნაცრისფერი ბეიჯები)
-      Array.from(item.childNodes).forEach(function (node) {
-        if (node === iconHolder) return;
-        if (node.nodeType === 1 && node.classList && node.classList.contains("fp-sidebar-label")) return;
-        item.removeChild(node);
-      });
-
-      // შევამოწმოთ ან დავამატოთ სუფთა ქართული წარწერა აიქონის გვერდით
-      let labelSpan = item.querySelector(".fp-sidebar-label");
-      if (!labelSpan) {
-        labelSpan = document.createElement("span");
-        labelSpan.className = "fp-sidebar-label";
-        item.appendChild(labelSpan);
-      }
-      if (labelSpan.textContent !== labelText) {
-        labelSpan.textContent = labelText;
-      }
-
-      item.style.display = "flex";
-      item.style.alignItems = "center";
-      item.style.justifyContent = "flex-start";
-      item.style.gap = "12px";
-    });
   }
 
   function replaceDashesInContainer(rootEl) {
@@ -100,8 +32,6 @@
     isRunning = true;
 
     try {
-      fixSidebarMenuLabels();
-
       const container = document.getElementById("app-view");
       if (!container) {
         isRunning = false;

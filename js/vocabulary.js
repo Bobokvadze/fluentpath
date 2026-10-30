@@ -758,6 +758,80 @@
   let searchQuery = '';
   let visibleLimit = 50;
 
+  // ===== IPA ტრანსკრიფცია და ნამდვილი მაგალითები =====
+  // IPA მოდის ipa-dict.js-დან (იტვირთება ლექსიკონის გვერდზე). ფრაზისთვის ვაერთებთ თითოეული სიტყვის IPA-ს;
+  // თუ რომელიმე სიტყვა არ მოიძებნა, ტრანსკრიფციას არ ვაჩვენებთ (ყალბი "/word/" აღარ ჩანს).
+  function getIpaForWord(word) {
+    const dict = App.IPADictionary;
+    if (!dict) return '';
+    const tokens = String(word || '').toLowerCase().replace(/\([^)]*\)/g, ' ').split(/[\s/]+/)
+      .map((t) => t.replace(/[^a-z'-]/g, '')).filter(Boolean);
+    if (!tokens.length) return '';
+    const parts = [];
+    for (let i = 0; i < tokens.length; i++) {
+      const ipa = dict[tokens[i]];
+      if (!ipa) return '';
+      parts.push(String(ipa).replace(/^\/|\/$/g, ''));
+    }
+    return '/' + parts.join(' ') + '/';
+  }
+
+  // უფასო, გასაღების გარეშე API: https://dictionaryapi.dev — შედეგები ინახება ამ მოწყობილობაზე
+  const DICT_CACHE_KEY = 'fluentpath_dict_cache_v1';
+  const DICT_CACHE_LIMIT = 400;
+
+  function readDictCache() {
+    try {
+      return JSON.parse(window.localStorage.getItem(DICT_CACHE_KEY) || '{}') || {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function writeDictCache(cache) {
+    try {
+      const keys = Object.keys(cache);
+      if (keys.length > DICT_CACHE_LIMIT) {
+        keys.sort((a, b) => (cache[a].t || 0) - (cache[b].t || 0));
+        keys.slice(0, keys.length - DICT_CACHE_LIMIT).forEach((k) => { delete cache[k]; });
+      }
+      window.localStorage.setItem(DICT_CACHE_KEY, JSON.stringify(cache));
+    } catch (e) {}
+  }
+
+  function lookupDictionaryExample(word) {
+    const clean = String(word || '').replace(/\([^)]*\)/g, '').replace(/\/.*$/, '').trim().toLowerCase();
+    if (!clean) return Promise.resolve(null);
+    const cache = readDictCache();
+    if (cache[clean]) return Promise.resolve(cache[clean].v);
+
+    return fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(clean))
+      .then((res) => {
+        if (res.status === 404) return [];
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then((data) => {
+        let result = null;
+        (Array.isArray(data) ? data : []).some((entry) => (entry.meanings || []).some((m) => (m.definitions || []).some((d) => {
+          if (d.example) {
+            result = { example: d.example, definition: d.definition || '', pos: m.partOfSpeech || '' };
+            return true;
+          }
+          if (!result && d.definition) result = { example: '', definition: d.definition, pos: m.partOfSpeech || '' };
+          return false;
+        })));
+        cache[clean] = { v: result, t: Date.now() };
+        writeDictCache(cache);
+        return result;
+      }, (err) => {
+        // API-ს 404 პასუხს CORS სათაური არ აქვს, ამიტომ ბრაუზერი მას ქსელის შეცდომად აჩვენებს.
+        // ონლაინ ყოფნისას ეს ნიშნავს "სიტყვა ვერ მოიძებნა" (არ ვქეშავთ — შეიძლება დროებითი იყოს).
+        if (navigator.onLine !== false) return null;
+        throw err;
+      });
+  }
+
   const Vocabulary = {
     getAllWords: function () {
       const customWords = App.Storage.get('vocabulary.customWords', []);
@@ -960,7 +1034,7 @@
             phonetic: '/' + en + '/',
             pos: 'პირადი',
             ka: ka,
-            exEn: ex || ('Example sentence with "' + en + '".'),
+            exEn: ex || '',
             exKa: 'მომხმარებლის მიერ დამატებული სიტყვა.'
           });
 
@@ -988,13 +1062,14 @@
             '</div>' +
             '<div style="margin-top:8px;">' +
               '<div class="vocab-word">' + App.UI.escapeHTML(item.word) + '</div>' +
-              '<div class="vocab-phonetic">' + App.UI.escapeHTML(item.phonetic) + '</div>' +
+              (getIpaForWord(item.word) ? '<div class="vocab-phonetic" lang="en">' + App.UI.escapeHTML(getIpaForWord(item.word)) + '</div>' : '') +
               '<div class="vocab-translation">' + App.UI.escapeHTML(item.ka) + '</div>' +
             '</div>' +
-            '<div class="vocab-example-box" style="margin-top:10px;">' +
-              '<div class="vocab-ex-en">' + App.UI.escapeHTML(item.exEn) + '</div>' +
-              '<div class="vocab-ex-ka">' + App.UI.escapeHTML(item.exKa) + '</div>' +
-            '</div>' +
+            (item.packId === 'custom' && item.exEn && !/^Example sentence with/.test(item.exEn)
+              ? '<div class="vocab-example-box" style="margin-top:10px;"><div class="vocab-ex-en" lang="en">' + App.UI.escapeHTML(item.exEn) + '</div></div>'
+              : '<div class="vocab-example-slot" data-example-slot="' + App.UI.escapeHTML(item.id) + '">' +
+                  '<button type="button" class="vocab-example-btn" data-vocab-example="' + App.UI.escapeHTML(item.word) + '" data-example-target="' + App.UI.escapeHTML(item.id) + '">📖 განმარტება და მაგალითი</button>' +
+                '</div>') +
           '</div>' +
           '<div class="vocab-actions">' +
             '<button type="button" class="btn btn-sm ' + (isLearned ? 'btn-secondary' : 'btn-outline') + '" data-toggle-learned="' + App.UI.escapeHTML(item.id) + '">' +
@@ -1205,6 +1280,31 @@
     },
 
     bindCommonWordEvents: function (container) {
+      container.querySelectorAll('[data-vocab-example]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const slot = container.querySelector('[data-example-slot="' + btn.getAttribute('data-example-target') + '"]');
+          if (!slot) return;
+          btn.disabled = true;
+          btn.textContent = '⏳ იტვირთება...';
+          lookupDictionaryExample(btn.getAttribute('data-vocab-example')).then((res) => {
+            if (!res) {
+              slot.innerHTML = '<p class="vocab-example-empty">ამ სიტყვისთვის/ფრაზისთვის მაგალითი ლექსიკონში ვერ მოიძებნა.</p>';
+              return;
+            }
+            slot.innerHTML =
+              '<div class="vocab-example-box">' +
+                (res.example ? '<div class="vocab-ex-en" lang="en">“' + App.UI.escapeHTML(res.example) + '”</div>' : '') +
+                (res.definition ? '<div class="vocab-ex-ka" lang="en">' + (res.pos ? '<em>' + App.UI.escapeHTML(res.pos) + '</em> — ' : '') + App.UI.escapeHTML(res.definition) + '</div>' : '') +
+                '<div class="vocab-example-source">წყარო: dictionaryapi.dev (Wiktionary)</div>' +
+              '</div>';
+          }).catch(() => {
+            btn.disabled = false;
+            btn.textContent = '📖 განმარტება და მაგალითი';
+            App.UI.toast('ლექსიკონთან დაკავშირება ვერ მოხერხდა. შეამოწმეთ ინტერნეტი.', 'warning');
+          });
+        });
+      });
+
       container.querySelectorAll('[data-vocab-speak]').forEach((btn) => {
         btn.addEventListener('click', () => {
           this.speak(btn.getAttribute('data-vocab-speak'));

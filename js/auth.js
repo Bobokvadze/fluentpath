@@ -164,14 +164,9 @@
   function normalizeState(raw) {
     const state = isPlainObject(raw) ? raw : {};
     fillDefaults(state, createCleanBlankState("A1", "", ""));
-    // ძველი (ფაზა 1) მოდულები — progress.js, settings.js, ui.js — ამ ველებს ელოდება
+    // პარამეტრების გვერდის ველები
     fillDefaults(state, {
-      settings: { dailyGoalXP: 20, soundEnabled: true, userName: "მოსწავლე" },
-      progress: { dailyXP: 0, levelProgress: { A1: 0, A2: 0, B1: 0, B2: 0, C1: 0, C2: 0 } },
-      streak: { current: 0, longest: 0, lastActiveDate: null, activeDates: [] },
-      quiz: { attempts: 0, history: [], bestScore: 0 },
-      achievements: { unlockedIds: [] },
-      recentActivity: []
+      settings: { dailyGoalActivities: 5, soundEnabled: true, userName: "მოსწავლე" }
     });
     let level = state.progress.level;
     if (CEFR_LEVELS.indexOf(level) === -1) level = state.settings.cefrLevel;
@@ -254,8 +249,8 @@
       },
       progress: {
         xp: 0,
-        streak: 1,
-        lastActiveDate: getTodayDateString(),
+        streak: 0,
+        lastActiveDate: "",
         level: level || "A1",
         vocabularyLearned: 0,
         grammarCompleted: 0,
@@ -319,34 +314,33 @@
     cur[parts[parts.length - 1]] = value;
   }
 
+  function daysSinceLastStudy() {
+    const lastDate = getByPath(inMemoryState, "progress.lastActiveDate", "");
+    if (!lastDate) return null;
+    const d1 = new Date(lastDate + "T00:00:00Z");
+    const d2 = new Date(getTodayDateString() + "T00:00:00Z");
+    const diff = Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
+    return isNaN(diff) ? null : diff;
+  }
+
   /**
-   * ამოწმებს და აახლებს მომხმარებლის დღიურ სტრიკს (Streak)
+   * სტრიკი ითვლის სწავლის დღეებს (და არა საიტის გახსნას). აქ მხოლოდ ვამოწმებთ, ხომ არ გაწყდა:
+   * თუ ბოლო სასწავლო დღე გუშინდელზე ადრე იყო, სტრიკი ნულდება.
    */
   function updateDailyStreakInState() {
-    const today = getTodayDateString();
-    const lastDate = getByPath(inMemoryState, "progress.lastActiveDate", "");
-    let currentStreak = Number(getByPath(inMemoryState, "progress.streak", 1)) || 1;
-
-    if (!lastDate) {
-      setByPath(inMemoryState, "progress.lastActiveDate", today);
-      setByPath(inMemoryState, "progress.streak", 1);
-      return;
+    const diff = daysSinceLastStudy();
+    if (diff !== null && diff > 1 && Number(getByPath(inMemoryState, "progress.streak", 0)) !== 0) {
+      setByPath(inMemoryState, "progress.streak", 0);
     }
+  }
 
-    if (lastDate === today) return;
-
-    const d1 = new Date(lastDate + "T00:00:00Z");
-    const d2 = new Date(today + "T00:00:00Z");
-    const diffDays = Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
-
-    if (diffDays === 1) {
-      currentStreak += 1;
-    } else if (diffDays > 1) {
-      currentStreak = 1;
-    }
-
-    setByPath(inMemoryState, "progress.lastActiveDate", today);
-    setByPath(inMemoryState, "progress.streak", currentStreak);
+  // იძახებს Progress.recordActivity — ანუ როცა მომხმარებელმა რეალურად ისწავლა რამე
+  function registerStudyDay() {
+    const diff = daysSinceLastStudy();
+    if (diff === 0) return;
+    const current = Number(getByPath(inMemoryState, "progress.streak", 0)) || 0;
+    setByPath(inMemoryState, "progress.streak", diff === 1 ? current + 1 : 1);
+    setByPath(inMemoryState, "progress.lastActiveDate", getTodayDateString());
   }
 
   function commitStateChange() {
@@ -394,6 +388,7 @@
       return inMemoryState;
     };
     App.Storage.reset = App.Storage.resetAll;
+    App.Storage.registerStudyDay = registerStudyDay;
 
     // storage.js-ის importData ძველ სქემაზეა მორგებული და კარგავს user/flashcards ველებს
     App.Storage.importData = function (jsonString) {
@@ -1030,7 +1025,7 @@
 
       // 3. თუ მომხმარებელი უკვე შესულია — პროფილის ფანჯარა (XP-ის გარეშე, მხოლოდ სტრიკი, დონე და სიტყვები)
       if (currentCloudUser) {
-        const streak = getByPath(inMemoryState, "progress.streak", 1);
+        const streak = Number(getByPath(inMemoryState, "progress.streak", 0)) || 0;
         const learned = (getByPath(inMemoryState, "vocabulary.learnedIds", []) || []).length;
         const curLevel = getByPath(inMemoryState, "progress.level", currentCloudUser.level || "A1");
 
@@ -1264,13 +1259,6 @@
       // თუ სხვა მშობელში იჯდა (მაგ. პირდაპირ header-ში), გადმოვიტანოთ მარჯვენა ჯგუფის ბოლოში
       if (container.parentElement !== headerRight) {
         headerRight.appendChild(container);
-      }
-
-      // სტრიკის ტექსტი გავასწოროთ (მინიმუმ 1 დღე როცა აქტიურია)
-      const streakBadge = document.getElementById("header-streak") || document.querySelector(".stat-pill--streak");
-      if (streakBadge) {
-        const stCount = getByPath(inMemoryState, "progress.streak", 1) || 1;
-        streakBadge.innerHTML = "🔥 " + stCount + " დღე";
       }
 
       if (currentCloudUser) {

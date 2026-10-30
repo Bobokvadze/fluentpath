@@ -762,3 +762,38 @@
   .duo-node-row--pos-5,
   .duo-node-row--pos-6 { transform: translateX(26px); }
 }
+
+/* ლექსიკონი: მაგალითის ღილაკი და წყარო */
+.vocab-example-slot {
+  margin-top: 10px;
+}
+
+.vocab-example-btn {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--brand-primary);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background-color: var(--brand-primary-soft);
+  transition: background-color var(--transition-fast);
+}
+
+.vocab-example-btn:hover:not(:disabled) {
+  background-color: var(--bg-surface-hover);
+}
+
+.vocab-example-btn:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.vocab-example-empty {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.vocab-example-source {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}

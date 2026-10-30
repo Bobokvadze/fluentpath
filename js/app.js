@@ -16,10 +16,10 @@
       { code: 'C2', name: 'სრულყოფილი', summary: 'ნებისმიერი სირთულის წაკითხული თუ მოსმენილი ინფორმაციის სრულყოფილი გაგება და გადმოცემა.' }
     ],
     dailyGoals: [
-      { xp: 10, label: 'მსუბუქი' },
-      { xp: 20, label: 'სტანდარტული' },
-      { xp: 30, label: 'სერიოზული' },
-      { xp: 50, label: 'ინტენსიური' }
+      { activities: 3, label: 'მსუბუქი' },
+      { activities: 5, label: 'სტანდარტული' },
+      { activities: 8, label: 'სერიოზული' },
+      { activities: 12, label: 'ინტენსიური' }
     ],
     modules: [
       { id: 'dashboard', title: 'მთავარი', category: 'core', phase: 1, description: 'თქვენი ყოველდღიური სასწავლო პანელი და სტატისტიკის მიმოხილვა.' },
@@ -53,12 +53,10 @@
 
     if (sidebarNav) {
       sidebarNav.innerHTML = modules.map((mod) => {
-        const badgeText = mod.phase <= 3 ? '' : 'ფაზა ' + mod.phase;
         return (
           '<button type="button" class="nav-item" data-route-link="' + App.UI.escapeHTML(mod.id) + '">' +
             '<span class="nav-icon">' + App.UI.getIcon(mod.id) + '</span>' +
-            '<span>' + App.UI.escapeHTML(mod.title) + '</span>' +
-            '<span class="nav-pill">' + App.UI.escapeHTML(badgeText) + '</span>' +
+            '<span class="nav-label">' + App.UI.escapeHTML(mod.title) + '</span>' +
           '</button>'
         );
       }).join('');
@@ -142,7 +140,6 @@
     await loadConfig();
 
     const state = App.Storage.getState();
-    App.Progress.syncDailyState();
 
     App.UI.applyTheme(state.settings.theme);
 

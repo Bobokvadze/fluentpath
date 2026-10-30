@@ -341,7 +341,7 @@
         '<div class="grammar-detail-wrap">' +
           '<div class="player-topbar">' +
             '<button type="button" class="btn btn-outline btn-sm" id="back-grammar-list-btn">&larr; გრამატიკის სიაში დაბრუნება</button>' +
-            '<span class="stat-pill stat-pill--level">დონე ' + App.UI.escapeHTML(t.level) + ' &bull; თემა #' + t.topicNumber + ' &bull; +' + t.xp + ' XP</span>' +
+            '<span class="stat-pill stat-pill--level">დონე ' + App.UI.escapeHTML(t.level) + ' &bull; თემა #' + t.topicNumber + '</span>' +
           '</div>' +
 
           '<section class="card">' +
@@ -379,7 +379,7 @@
             '</div>' +
             drillsHtml +
             '<div style="display:flex; justify-content:flex-end; margin-top:14px;">' +
-              '<button type="button" class="btn btn-primary" id="complete-grammar-btn">თემის დასრულება და მომდევნოს გახსნა (+' + t.xp + ' XP) &rarr;</button>' +
+              '<button type="button" class="btn btn-primary" id="complete-grammar-btn">თემის დასრულება და მომდევნოს გახსნა &rarr;</button>' +
             '</div>' +
           '</section>' +
         '</div>';
@@ -442,6 +442,14 @@
             App.Storage.set('progress.completedGrammarIds', completedIds);
           }
 
+          // სუსტი მხარეების ანალიზისთვის ვინახავთ თითოეული თემის საუკეთესო შედეგს
+          const scores = Object.assign({}, App.Storage.get('progress.grammarScores', {}) || {});
+          const prev = scores[t.id];
+          if (!prev || correctCount >= prev.score) {
+            scores[t.id] = { score: correctCount, total: totalDrills, title: t.title, level: t.level, topicNumber: t.topicNumber };
+            App.Storage.set('progress.grammarScores', scores);
+          }
+
           App.Progress.recordActivity({
             xp: t.xp,
             title: 'ათვისებულია გრამატიკა #' + t.topicNumber + ' (' + correctCount + '/' + totalDrills + '): ' + t.title,
@@ -452,7 +460,7 @@
           const nextTopic = allTopics[currentGlobalIdx + 1];
           App.UI.playSound('success');
           App.UI.toast(
-            '✓ თემა #' + t.topicNumber + ' დასრულდა (შედეგი: ' + correctCount + '/20, +' + t.xp + ' XP)! ' +
+            '✓ თემა #' + t.topicNumber + ' დასრულდა (შედეგი: ' + correctCount + '/20)! ' +
             (nextTopic ? 'გაიხსნა: ' + nextTopic.title : ''),
             'success',
             4200

@@ -202,6 +202,22 @@
 
       const total = activeExamSession.questions.length;
       const pct = total ? Math.round((correctCount / total) * 100) : 0;
+
+      // უნარების სტატისტიკა (ლექსიკონი / გრამატიკა / კითხვა ...) და გრამატიკის თემები, სადაც შეცდომები იყო
+      const skillStats = Object.assign({}, App.Storage.get("progress.skillStats", {}) || {});
+      const missedTopics = Object.assign({}, App.Storage.get("progress.quizMissedTopics", {}) || {});
+      activeExamSession.questions.forEach((q, idx) => {
+        const parts = String(q.source || "").split(" • ");
+        const skill = parts[0] || "სხვა";
+        const ok = activeExamSession.answers[idx] === q.correct;
+        const entry = skillStats[skill] || { correct: 0, total: 0 };
+        skillStats[skill] = { correct: entry.correct + (ok ? 1 : 0), total: entry.total + 1 };
+        if (!ok && skill === "გრამატიკა" && parts[1]) {
+          missedTopics[parts[1]] = (Number(missedTopics[parts[1]]) || 0) + 1;
+        }
+      });
+      App.Storage.set("progress.skillStats", skillStats);
+      App.Storage.set("progress.quizMissedTopics", missedTopics);
       const earnedXp = Math.max(15, correctCount * 5);
 
       const completedCount = Number(App.Storage.get("progress.quizzesCompleted", 0)) + 1;
@@ -223,8 +239,7 @@
         App.Progress.recordActivity({
           xp: earnedXp,
           title: "ტესტი: " + activeExamSession.title + " (" + pct + "%)",
-          category: "ტესტები",
-          metricKey: "quizzesCompleted"
+          category: "ტესტები"
         });
       }
 
@@ -234,9 +249,26 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     },
 
+    // მთავარი გვერდიდან "დონის განსაზღვრის" ღილაკი: ტესტი იწყება, როგორც კი გვერდი (და მასალა) ჩაიტვირთება
+    requestPlacement: function () {
+      this.pendingPlacement = true;
+    },
+
     render: function () {
       const container = document.getElementById("app-view");
       if (!container) return;
+
+      if (this.pendingPlacement) {
+        this.pendingPlacement = false;
+        this.startQuizSession({
+          title: "CEFR დონის განმსაზღვრელი დიაგნოსტიკური ტესტი",
+          subtitle: "Placement Exam (A1–C2)",
+          mode: "PLACEMENT",
+          level: "ALL",
+          count: 24
+        });
+        return;
+      }
 
       if (activeExamSession) {
         if (activeExamSession.finished) {

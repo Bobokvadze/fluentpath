@@ -33,6 +33,7 @@
     reading: ['reading'],
     listening: ['listening'],
     writing: ['writing'],
+    vocabulary: ['ipa'],
     flashcards: ['ipa'],
     quizzes: ['grammar', 'reading', 'listening', 'writing', 'ipa']
   };

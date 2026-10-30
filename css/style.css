@@ -1557,3 +1557,154 @@ p {
     font-size: 1.15rem;
   }
 }
+
+
+/* პროგრესი: გასაძლიერებელი მხარეები */
+.fp-weak__heading {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 14px 0 10px;
+}
+
+.fp-weak__heading:first-child {
+  margin-top: 0;
+}
+
+.fp-weak__list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.fp-weak__list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface-muted);
+  font-size: 0.9rem;
+}
+
+.fp-weak__list small {
+  color: var(--text-muted);
+}
+
+.fp-weak__score {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--color-warning);
+}
+
+
+/* საუბარი: ფრაზა, სიტყვების შეფასება და დიალოგები */
+.sp-phrase {
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.sp-word {
+  display: inline-block;
+  margin: 2px 4px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.sp-word--ok {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.sp-word--miss {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+  text-decoration: underline wavy;
+}
+
+.sp-dialogue {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sp-line {
+  display: flex;
+  flex-direction: column;
+  max-width: 78%;
+  transition: opacity var(--transition-normal);
+}
+
+.sp-line--you {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.sp-line--upcoming {
+  opacity: 0.45;
+}
+
+.sp-line__who {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 0 6px 3px;
+}
+
+.sp-line__bubble {
+  position: relative;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background-color: var(--bg-surface-muted);
+  border: 1px solid var(--border-subtle);
+}
+
+.sp-line--partner .sp-line__bubble {
+  border-top-left-radius: 4px;
+  padding-right: 40px;
+}
+
+.sp-line--you .sp-line__bubble {
+  border-top-right-radius: 4px;
+  background-color: var(--brand-primary-soft);
+  border-color: transparent;
+}
+
+.sp-line--current .sp-line__bubble {
+  box-shadow: 0 0 0 2px var(--brand-primary);
+}
+
+.sp-line__en {
+  font-weight: 600;
+}
+
+.sp-line__ka {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+}
+
+.sp-line__replay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 0.95rem;
+  opacity: 0.75;
+}
+
+.sp-line__replay:hover {
+  opacity: 1;
+}
+
+@media (max-width: 560px) {
+  .sp-line {
+    max-width: 92%;
+  }
+  .sp-phrase {
+    font-size: 1.2rem;
+  }
+}

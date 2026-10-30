@@ -398,7 +398,16 @@
   });
 
   let activeLevelFilter = 'ALL';
+  let levelFilterInitializedFor = null; // რომელი დონისთვის შეირჩა ჩანართი ავტომატურად
   let activeSession = null;
+
+  const LEVEL_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+
+  // მომხმარებლის დონე (დონის ტესტიდან ან პარამეტრებიდან) — უფრო დაბალი დონეების იუნიტები ღიაა
+  function getUserLevelIndex() {
+    const lvl = App.Storage && App.Storage.get('progress.level', 'A1');
+    return Math.max(0, LEVEL_ORDER.indexOf(lvl));
+  }
 
   const Learn = {
     getNodeCrownsMap: function () {
@@ -413,19 +422,35 @@
 
     isNodeUnlocked: function (globalIndex) {
       if (globalIndex <= 0) return true;
+      const node = ORDERED_NODES[globalIndex];
       const prevNode = ORDERED_NODES[globalIndex - 1];
       if (!prevNode) return true;
+      const userLvlIdx = getUserLevelIndex();
+      const nodeLvlIdx = node ? LEVEL_ORDER.indexOf(node.level) : 0;
+      // დაბალი დონეები ღიაა, ხოლო მომხმარებლის დონის პირველი კვანძიდან შეიძლება დაწყება
+      if (nodeLvlIdx < userLvlIdx) return true;
+      if (nodeLvlIdx === userLvlIdx && prevNode.level !== node.level) return true;
       return this.getNodeCrownCount(prevNode.nodeId) >= 1;
     },
 
     getCurrentFrontierNodeId: function () {
+      const userLvlIdx = getUserLevelIndex();
       for (let i = 0; i < ORDERED_NODES.length; i++) {
         const n = ORDERED_NODES[i];
+        if (LEVEL_ORDER.indexOf(n.level) < userLvlIdx) continue;
         if (this.getNodeCrownCount(n.nodeId) === 0) {
           return n.nodeId;
         }
       }
       return ORDERED_NODES[ORDERED_NODES.length - 1].nodeId;
+    },
+
+    // რეგისტრაციის/დონის ტესტის შემდეგ იხსნება შესაბამისი დონის ჩანართი
+    setActiveLevelTab: function (level) {
+      if (LEVEL_ORDER.indexOf(level) !== -1) {
+        activeLevelFilter = level;
+        levelFilterInitializedFor = level;
+      }
     },
 
     incrementNodeCrown: function (nodeId) {
@@ -960,6 +985,13 @@
         return;
       }
 
+      // პირველ გახსნაზე (ან დონის შეცვლის შემდეგ) ვაჩვენებთ მომხმარებლის დონის იუნიტებს (A1-ზე — ყველას)
+      const userLvlIdx = getUserLevelIndex();
+      if (levelFilterInitializedFor !== LEVEL_ORDER[userLvlIdx]) {
+        levelFilterInitializedFor = LEVEL_ORDER[userLvlIdx];
+        activeLevelFilter = userLvlIdx > 0 ? LEVEL_ORDER[userLvlIdx] : 'ALL';
+      }
+
       const totalNodesCount = ORDERED_NODES.length;
       const totalLessonsCount = totalNodesCount * CROWNS_PER_NODE;
 
@@ -1020,7 +1052,7 @@
             : (crowns >= CROWNS_PER_NODE
                 ? '👑 5/5 ლეგენდარული!'
                 : (crowns >= 1
-                    ? '✓ გახსნილია &bull; რაუნდი ' + (crowns + 1) + '/5 (+' + nt.xpBase + ' XP)'
+                    ? '✓ გახსნილია &bull; რაუნდი ' + (crowns + 1) + '/5'
                     : '📍 მიმდინარე &bull; ' + nt.subtitle));
 
           return (
@@ -1675,7 +1707,7 @@
           '<div><span class="empty-state-badge">გვირგვინი ' + newCrownCount + ' / ' + CROWNS_PER_NODE + ' მოპოვებულია!</span></div>' +
           '<h2 class="empty-state-title">' + App.UI.escapeHTML(s.nodeTemplate.title) + ' დასრულდა!</h2>' +
           '<p class="empty-state-desc">' +
-            'თქვენ უშეცდომოდ დაასრულეთ ყველა დავალება და მოიპოვეთ <strong>+' + xpEarned + ' XP</strong>! ' +
+            'თქვენ უშეცდომოდ დაასრულეთ ყველა დავალება! ' +
             (nextNodeMeta && newCrownCount === 1
               ? 'ბილიკზე გაიხსნა მომდევნო საფეხური: <strong>«' + App.UI.escapeHTML(nextNodeMeta.nodeTitle) + '»</strong>!'
               : 'შეგიძლიათ გადახვიდეთ მომდევნო საფეხურზე ან გააძლიეროთ ეს საფეხური 5/5 გვირგვინამდე.') +

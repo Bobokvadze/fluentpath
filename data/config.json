@@ -6,15 +6,31 @@
   "defaultSettings": {
     "theme": "light",
     "cefrLevel": "A1",
-    "dailyGoalXP": 20,
     "soundEnabled": true,
-    "userName": "მოსწავლე"
+    "userName": "მოსწავლე",
+    "dailyGoalActivities": 5
   },
   "dailyGoals": [
-    { "xp": 10, "label": "მსუბუქი", "description": "10 XP / დღეში — დაახლოებით 5 წუთი" },
-    { "xp": 20, "label": "სტანდარტული", "description": "20 XP / დღეში — დაახლოებით 10 წუთი" },
-    { "xp": 30, "label": "სერიოზული", "description": "30 XP / დღეში — დაახლოებით 15 წუთი" },
-    { "xp": 50, "label": "ინტენსიური", "description": "50 XP / დღეში — დაახლოებით 25 წუთი" }
+    {
+      "activities": 3,
+      "label": "მსუბუქი",
+      "description": "3 აქტივობა დღეში — დაახლოებით 5–10 წუთი"
+    },
+    {
+      "activities": 5,
+      "label": "სტანდარტული",
+      "description": "5 აქტივობა დღეში — დაახლოებით 15 წუთი"
+    },
+    {
+      "activities": 8,
+      "label": "სერიოზული",
+      "description": "8 აქტივობა დღეში — დაახლოებით 25 წუთი"
+    },
+    {
+      "activities": 12,
+      "label": "ინტენსიური",
+      "description": "12 აქტივობა დღეში — 40 წუთი და მეტი"
+    }
   ],
   "cefrLevels": [
     {
@@ -61,17 +77,89 @@
     }
   ],
   "modules": [
-    { "id": "dashboard", "title": "მთავარი", "category": "core", "phase": 1, "description": "თქვენი ყოველდღიური სასწავლო პანელი და სტატისტიკის მიმოხილვა." },
-    { "id": "learn", "title": "სწავლა", "category": "study", "phase": 2, "description": "ნაბიჯ-ნაბიჯ გაწერილი ინტერაქტიული გაკვეთილები CEFR დონეების მიხედვით." },
-    { "id": "vocabulary", "title": "ლექსიკონი", "category": "study", "phase": 2, "description": "თემატური სიტყვების ბაზა განმარტებებით, ტრანსკრიფციითა და მაგალითებით." },
-    { "id": "grammar", "title": "გრამატიკა", "category": "study", "phase": 3, "description": "მკაფიოდ ახსნილი გრამატიკული წესები, ფორმულები და პრაქტიკული სავარჯიშოები." },
-    { "id": "reading", "title": "კითხვა", "category": "skills", "phase": 3, "description": "დონეების მიხედვით დახარისხებული საკითხავი ტექსტები გააზრების კითხვებით." },
-    { "id": "listening", "title": "მოსმენა", "category": "skills", "phase": 4, "description": "აუდიო სავარჯიშოები და კარნახები ბრაუზერის ხმოვანი სინთეზატორის გამოყენებით." },
-    { "id": "speaking", "title": "საუბარი", "category": "skills", "phase": 4, "description": "გამოთქმის ვარჯიში, ფრაზების გამეორება და სასაუბრო თემები." },
-    { "id": "writing", "title": "წერა", "category": "skills", "phase": 4, "description": "წერითი დავალებები, წინადადებების აწყობა და თვითშეფასების კრიტერიუმები." },
-    { "id": "flashcards", "title": "ბარათები", "category": "practice", "phase": 5, "description": "სიტყვებისა და ფრაზების სწრაფი დამახსოვრების ბარათები (Flashcards)." },
-    { "id": "quizzes", "title": "ტესტები", "category": "practice", "phase": 5, "description": "ულიმიტო შემაჯამებელი ტესტები დეტალური განმარტებებითა და შედეგებით." },
-    { "id": "progress", "title": "პროგრესი", "category": "core", "phase": 1, "description": "თქვენი XP ქულების, უწყვეტი სერიისა და CEFR დონეების დეტალური ანალიტიკა." },
-    { "id": "settings", "title": "პარამეტრები", "category": "core", "phase": 1, "description": "თემის, CEFR დონის, დღიური მიზნისა და მონაცემთა სარეზერვო ასლების მართვა." }
+    {
+      "id": "dashboard",
+      "title": "მთავარი",
+      "category": "core",
+      "phase": 1,
+      "description": "თქვენი ყოველდღიური სასწავლო პანელი და სტატისტიკის მიმოხილვა."
+    },
+    {
+      "id": "learn",
+      "title": "სწავლა",
+      "category": "study",
+      "phase": 2,
+      "description": "ნაბიჯ-ნაბიჯ გაწერილი ინტერაქტიული გაკვეთილები CEFR დონეების მიხედვით."
+    },
+    {
+      "id": "vocabulary",
+      "title": "ლექსიკონი",
+      "category": "study",
+      "phase": 2,
+      "description": "თემატური სიტყვების ბაზა განმარტებებით, ტრანსკრიფციითა და მაგალითებით."
+    },
+    {
+      "id": "grammar",
+      "title": "გრამატიკა",
+      "category": "study",
+      "phase": 3,
+      "description": "მკაფიოდ ახსნილი გრამატიკული წესები, ფორმულები და პრაქტიკული სავარჯიშოები."
+    },
+    {
+      "id": "reading",
+      "title": "კითხვა",
+      "category": "skills",
+      "phase": 3,
+      "description": "დონეების მიხედვით დახარისხებული საკითხავი ტექსტები გააზრების კითხვებით."
+    },
+    {
+      "id": "listening",
+      "title": "მოსმენა",
+      "category": "skills",
+      "phase": 4,
+      "description": "აუდიო სავარჯიშოები და კარნახები ბრაუზერის ხმოვანი სინთეზატორის გამოყენებით."
+    },
+    {
+      "id": "speaking",
+      "title": "საუბარი",
+      "category": "skills",
+      "phase": 4,
+      "description": "გამოთქმის ვარჯიში, ფრაზების გამეორება და სასაუბრო თემები."
+    },
+    {
+      "id": "writing",
+      "title": "წერა",
+      "category": "skills",
+      "phase": 4,
+      "description": "წერითი დავალებები, წინადადებების აწყობა და თვითშეფასების კრიტერიუმები."
+    },
+    {
+      "id": "flashcards",
+      "title": "ბარათები",
+      "category": "practice",
+      "phase": 5,
+      "description": "სიტყვებისა და ფრაზების სწრაფი დამახსოვრების ბარათები (Flashcards)."
+    },
+    {
+      "id": "quizzes",
+      "title": "ტესტები",
+      "category": "practice",
+      "phase": 5,
+      "description": "ულიმიტო შემაჯამებელი ტესტები დეტალური განმარტებებითა და შედეგებით."
+    },
+    {
+      "id": "progress",
+      "title": "პროგრესი",
+      "category": "core",
+      "phase": 1,
+      "description": "თქვენი XP ქულების, უწყვეტი სერიისა და CEFR დონეების დეტალური ანალიტიკა."
+    },
+    {
+      "id": "settings",
+      "title": "პარამეტრები",
+      "category": "core",
+      "phase": 1,
+      "description": "თემის, CEFR დონის, დღიური მიზნისა და მონაცემთა სარეზერვო ასლების მართვა."
+    }
   ]
 }

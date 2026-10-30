@@ -1,5 +1,5 @@
 // ქეშის ვერსია: გაზარდეთ, როცა ფაილების სია იცვლება (ძველი ქეში ავტომატურად წაიშლება)
-const CACHE_NAME = 'fluentpath-cache-v3';
+const CACHE_NAME = 'fluentpath-cache-v4';
 
 const APP_SHELL = [
   './',
@@ -8,6 +8,10 @@ const APP_SHELL = [
   './data/config.json',
   './assets/icons/icon.svg',
   './assets/icons/badge.svg',
+  './assets/icons/icon-192.png',
+  './assets/icons/icon-512.png',
+  './assets/icons/icon-maskable-512.png',
+  './assets/icons/apple-touch-icon.png',
   './css/themes.css',
   './css/style.css',
   './css/responsive.css',
@@ -47,7 +51,6 @@ const APP_SHELL = [
   './js/flashcards.js',
   './js/quizzes.js',
   './js/audio-engine.js',
-  './js/streak-only-ui.js',
   './js/speaking.js',
   './js/vocab-grammar-polish.js?v=13'
 ];

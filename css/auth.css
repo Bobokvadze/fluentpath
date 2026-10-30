@@ -2,13 +2,6 @@
    AUTH.CSS — Supabase ავტორიზაცია, სარეგისტრაციო ტესტი და XP-ის სრული დამალვა
    ========================================================================== */
 
-/* გლობალურად ვმალავთ ყველა XP ელემენტს, ვტოვებთ მხოლოდ სტრიკებსა და დონეს */
-.stat-pill--xp,
-#header-xp,
-[data-stat="xp"] {
-  display: none !important;
-}
-
 .header-auth-btn {
   display: inline-flex;
   align-items: center;
@@ -364,13 +357,5 @@ header,
   margin-left: 4px !important;
 }
 
-/* დავმალოთ ნებისმიერი XP ბეიჯი და ველი */
-.stat-pill--xp,
-#header-xp,
-[data-stat="xp"],
-.xp-badge,
-.xp-pill {
-  display: none !important;
-}
 /* მარცხენა მენიუში ფაზებისა და 'მზადაა' ბეიჯების სრული გაქრობა */
 .nav-badge { display: none !important; }

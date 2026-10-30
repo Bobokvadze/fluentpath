@@ -262,19 +262,11 @@
       const state = App.Storage.getState();
       const levelEl = document.getElementById('topbar-level-value');
       const streakEl = document.getElementById('topbar-streak-value');
-      const xpEl = document.getElementById('topbar-xp-value');
 
-      const settings = state.settings || {};
       const progress = state.progress || {};
 
-      if (levelEl) levelEl.textContent = progress.level || settings.cefrLevel || 'A1';
-      if (streakEl) streakEl.textContent = progress.streak || (state.streak && state.streak.current) || 0;
-      if (xpEl) xpEl.textContent = progress.xp || 0;
-
-      // streak-only-ui.js ცვლის ჰედერის ბეიჯებს — მისი სინქრონიზაციაც გამოვიძახოთ
-      if (App.Progress && typeof App.Progress.syncHeaderStats === 'function') {
-        App.Progress.syncHeaderStats();
-      }
+      if (levelEl) levelEl.textContent = progress.level || 'A1';
+      if (streakEl) streakEl.textContent = Number(progress.streak) || 0;
     }
   };
 

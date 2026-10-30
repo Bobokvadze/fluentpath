@@ -432,7 +432,7 @@
             "</div>" +
             questionsHtml +
             '<div style="display:flex; justify-content:flex-end; margin-top:12px;">' +
-              '<button type="button" class="btn btn-primary" id="complete-listening-btn">დასრულება და მომდევნოს გახსნა (+' + t.xp + " XP) &rarr;</button>" +
+              '<button type="button" class="btn btn-primary" id="complete-listening-btn">დასრულება და მომდევნოს გახსნა &rarr;</button>' +
             "</div>" +
           "</section>" +
         "</div>";
