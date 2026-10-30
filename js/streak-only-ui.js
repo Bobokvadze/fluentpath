@@ -125,100 +125,111 @@
     };
   }
 
+  // დღეს შესრულებული აქტივობების რაოდენობა (ადგილობრივი თარიღით)
+  function countTodayActivities() {
+    const activities = App.Storage.get("progress.recentActivities", []) || [];
+    const today = new Date().toDateString();
+    return activities.filter(function (a) {
+      return a && a.timestamp && new Date(a.timestamp).toDateString() === today;
+    }).length;
+  }
+
   function renderCleanDashboard() {
     const container = document.getElementById("app-view");
     if (!container) return;
 
+    const esc = App.UI.escapeHTML;
     const st = getStatsSummary();
-    const reviewedToday = Number(App.Storage.get("flashcards.reviewedToday", 0)) || 0;
-    const dailyTargetItems = 10;
-    const dailyPct = Math.min(100, Math.round(((reviewedToday + st.totalLessonsDone) / dailyTargetItems) * 100));
+    const speakingDone = (App.Storage.get("progress.completedSpeakingIds", []) || []).length;
+    const dailyTarget = 5;
+    const todayDone = countTodayActivities();
+    const dailyPct = Math.min(100, Math.round((todayDone / dailyTarget) * 100));
+    const rawName = String(App.Storage.get("user.name", "") || App.Storage.get("settings.userName", "") || "").trim();
+    const firstName = rawName && rawName !== "მოსწავლე" ? rawName.split(/\s+/)[0] : "";
+    const hour = new Date().getHours();
+    const greeting = hour < 12 ? "დილა მშვიდობისა" : (hour < 18 ? "გამარჯობა" : "საღამო მშვიდობისა");
 
+    const pct = function (done, total) { return Math.min(100, Math.round((done / total) * 100)); };
     const modules = [
-      { route: "learn", icon: "🌳", title: "სწავლის ხე (იუნიტები)", count: "დონე " + st.level, pct: Math.min(100, Math.round((st.totalLessonsDone / 90) * 100)), desc: "ინტერაქტიული სასწავლო ხე — გაიარეთ იუნიტები ნაბიჯ-ნაბიჯ თქვენი დონიდან." },
-      { route: "vocabulary", icon: "🗂️", title: "ლექსიკონი", count: st.wordsCount + " / 3,000 სიტყვა", pct: Math.min(100, Math.round((st.wordsCount / 3000) * 100)), desc: "3,000 აუცილებელი სიტყვა და ფრაზა A1–C2 დონეებზე." },
-      { route: "grammar", icon: "🌐", title: "გრამატიკა", count: st.grammarDone + " / 90 თემა", pct: Math.min(100, Math.round((st.grammarDone / 90) * 100)), desc: "90 სრული გრამატიკული გაკვეთილი წესებითა და ტესტებით." },
-      { route: "reading", icon: "📖", title: "კითხვა", count: st.readingDone + " / 90 ტექსტი", pct: Math.min(100, Math.round((st.readingDone / 90) * 100)), desc: "90 ადაპტირებული ისტორია და სტატია გააზრების კითხვებით." },
-      { route: "listening", icon: "🎧", title: "მოსმენა", count: st.listeningDone + " / 90 აუდიო", pct: Math.min(100, Math.round((st.listeningDone / 90) * 100)), desc: "90 სტუდიური დიალოგი და პოდკასტი A1–C2 დონეებზე." },
-      { route: "writing", icon: "✍️", title: "წერა", count: st.writingDone + " / 90 თემა", pct: Math.min(100, Math.round((st.writingDone / 90) * 100)), desc: "90 წერითი ნიმუში, შაბლონი და პრაქტიკული დავალება." },
-      { route: "flashcards", icon: "🎴", title: "ბარათები", count: "5-ყუთიანი სისტემა", pct: Math.min(100, Math.round((st.wordsCount / 500) * 100)), desc: "3D ბარათები US/UK აქცენტებითა და IPA ტრანსკრიპციებით." },
-      { route: "quizzes", icon: "☑️", title: "ტესტები და გამოცდები", count: st.quizzesDone + " ჩაბარებული", pct: Math.min(100, st.quizzesDone * 10), desc: "დიაგნოსტიკური ტესტი და A1–C2 სასერტიფიკატო გამოცდები." }
+      { route: "learn", icon: "🌳", tone: "green", title: "სწავლის ხე", count: "დონე " + st.level, pct: pct(st.totalLessonsDone, 90), desc: "ინტერაქტიული იუნიტები ნაბიჯ-ნაბიჯ, თქვენი დონიდან." },
+      { route: "vocabulary", icon: "🗂️", tone: "amber", title: "ლექსიკონი", count: st.wordsCount + " / 3,000", pct: pct(st.wordsCount, 3000), desc: "3,000 აუცილებელი სიტყვა და ფრაზა A1–C2 დონეებზე." },
+      { route: "grammar", icon: "🌐", tone: "blue", title: "გრამატიკა", count: st.grammarDone + " / 90", pct: pct(st.grammarDone, 90), desc: "90 გაკვეთილი მკაფიო წესებითა და სავარჯიშოებით." },
+      { route: "reading", icon: "📖", tone: "violet", title: "კითხვა", count: st.readingDone + " / 90", pct: pct(st.readingDone, 90), desc: "ადაპტირებული ისტორიები და სტატიები კითხვებით." },
+      { route: "listening", icon: "🎧", tone: "teal", title: "მოსმენა", count: st.listeningDone + " / 90", pct: pct(st.listeningDone, 90), desc: "დიალოგები და პოდკასტები ტრანსკრიპტით." },
+      { route: "speaking", icon: "🎙️", tone: "rose", title: "საუბარი", count: speakingDone + " / 60", pct: pct(speakingDone, 60), desc: "გამოთქმის ვარჯიში სიტყვა-სიტყვით შეფასებით." },
+      { route: "writing", icon: "✍️", tone: "orange", title: "წერა", count: st.writingDone + " / 90", pct: pct(st.writingDone, 90), desc: "წერითი ნიმუშები, შაბლონები და დავალებები." },
+      { route: "flashcards", icon: "🎴", tone: "indigo", title: "ბარათები", count: "5 ყუთი", pct: pct(st.wordsCount, 500), desc: "სიტყვების გამეორება ინტერვალური სისტემით." },
+      { route: "quizzes", icon: "☑️", tone: "slate", title: "ტესტები", count: st.quizzesDone + " ჩაბარებული", pct: Math.min(100, st.quizzesDone * 10), desc: "დიაგნოსტიკური ტესტი და დონის გამოცდები." }
     ];
 
     const moduleCardsHtml = modules.map(function (m) {
       return (
-        '<article class="card" style="display:flex; flex-direction:column; justify-content:space-between; gap:14px;">' +
-          "<div>" +
-            '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
-              '<span style="font-size:1.7rem;">' + m.icon + "</span>" +
-              '<span class="stat-pill stat-pill--level">' + App.UI.escapeHTML(m.count) + "</span>" +
-            "</div>" +
-            '<h3 class="section-title" style="font-size:1.12rem; margin-bottom:6px;">' + App.UI.escapeHTML(m.title) + "</h3>" +
-            '<p style="font-size:0.86rem; color:var(--text-secondary); line-height:1.5;">' + App.UI.escapeHTML(m.desc) + "</p>" +
+        '<a class="card fp-module-card" href="#' + m.route + '">' +
+          '<div class="fp-module-card__head">' +
+            '<span class="fp-icon-tile fp-tone-' + m.tone + '" aria-hidden="true">' + m.icon + "</span>" +
+            '<span class="fp-module-card__count">' + esc(m.count) + "</span>" +
           "</div>" +
-          "<div>" +
-            '<div style="margin-bottom:12px;">' +
-              (App.UI && typeof App.UI.renderProgressBar === "function"
-                ? App.UI.renderProgressBar(m.pct, "პროგრესი", m.pct + "%")
-                : "") +
+          '<h3 class="fp-module-card__title">' + esc(m.title) + "</h3>" +
+          '<p class="fp-module-card__desc">' + esc(m.desc) + "</p>" +
+          '<div class="fp-module-card__foot">' +
+            '<div class="progress-track" role="progressbar" aria-label="' + esc(m.title) + ' — პროგრესი" aria-valuenow="' + m.pct + '" aria-valuemin="0" aria-valuemax="100">' +
+              '<div class="progress-fill" style="width:' + m.pct + '%;"></div>' +
             "</div>" +
-            '<a href="#' + m.route + '" class="btn btn-primary btn-sm" style="width:100%; justify-content:center; text-decoration:none;">გაგრძელება &rarr;</a>' +
+            '<span class="fp-module-card__cta">' + (m.pct > 0 ? "გაგრძელება" : "დაწყება") + ' <span aria-hidden="true">→</span></span>' +
           "</div>" +
-        "</article>"
+        "</a>"
       );
     }).join("");
 
+    const stat = function (icon, tone, value, label, valueClass) {
+      return (
+        '<div class="card fp-stat">' +
+          '<span class="fp-icon-tile fp-tone-' + tone + '" aria-hidden="true">' + icon + "</span>" +
+          "<div>" +
+            '<div class="fp-stat__value' + (valueClass ? " " + valueClass : "") + '">' + value + "</div>" +
+            '<div class="fp-stat__label">' + label + "</div>" +
+          "</div>" +
+        "</div>"
+      );
+    };
+
     container.innerHTML =
       '<div class="dashboard-grid">' +
-        '<section style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">' +
-          '<div class="card" style="display:flex; align-items:center; gap:14px; padding:20px;">' +
-            '<div style="font-size:2.2rem;">🔥</div>' +
-            "<div>" +
-              '<div style="font-size:1.55rem; font-weight:800; color:var(--text-primary);">' + st.streak + " დღე</div>" +
-              '<div style="font-size:0.82rem; font-weight:700; color:var(--text-secondary);">უწყვეტი სტრიკი</div>' +
+        '<section class="fp-hero">' +
+          '<div class="fp-hero__content">' +
+            '<span class="fp-hero__eyebrow">🎯 დონე ' + esc(st.level) + " • 🔥 " + st.streak + " დღიანი სტრიკი</span>" +
+            '<h2 class="fp-hero__title">' + greeting + (firstName ? ", " + esc(firstName) : "") + "! 👋</h2>" +
+            '<p class="fp-hero__subtitle">' +
+              (todayDone >= dailyTarget
+                ? "დღევანდელი მიზანი შესრულებულია — შესანიშნავი შედეგია! სწავლა შეგიძლიათ განაგრძოთ ულიმიტოდ."
+                : "დღეს დაგრჩათ " + (dailyTarget - todayDone) + " აქტივობა დღიური მიზნის შესასრულებლად. გააგრძელეთ იქიდან, სადაც გაჩერდით.") +
+            "</p>" +
+            '<div class="fp-hero__actions">' +
+              '<a href="#learn" class="btn fp-btn-light">სწავლის გაგრძელება <span aria-hidden="true">→</span></a>' +
+              '<a href="#flashcards" class="btn fp-btn-ghost-light">🎴 სიტყვების გამეორება</a>' +
             "</div>" +
           "</div>" +
-
-          '<div class="card" style="display:flex; align-items:center; gap:14px; padding:20px;">' +
-            '<div style="font-size:2.2rem;">🎯</div>' +
-            "<div>" +
-              '<div style="font-size:1.55rem; font-weight:800; color:var(--brand-primary);">დონე ' + App.UI.escapeHTML(st.level) + "</div>" +
-              '<div style="font-size:0.82rem; font-weight:700; color:var(--text-secondary);">მიმდინარე CEFR საფეხური</div>' +
-            "</div>" +
-          "</div>" +
-
-          '<div class="card" style="display:flex; align-items:center; gap:14px; padding:20px;">' +
-            '<div style="font-size:2.2rem;">🗂️</div>' +
-            "<div>" +
-              '<div style="font-size:1.55rem; font-weight:800; color:var(--text-primary);">' + st.wordsCount + "</div>" +
-              '<div style="font-size:0.82rem; font-weight:700; color:var(--text-secondary);">ნასწავლი სიტყვა</div>' +
-            "</div>" +
-          "</div>" +
-
-          '<div class="card" style="display:flex; align-items:center; gap:14px; padding:20px;">' +
-            '<div style="font-size:2.2rem;">✅</div>' +
-            "<div>" +
-              '<div style="font-size:1.55rem; font-weight:800; color:var(--color-success);">' + st.totalLessonsDone + "</div>" +
-              '<div style="font-size:0.82rem; font-weight:700; color:var(--text-secondary);">დასრულებული თემა</div>' +
+          '<div class="fp-ring" style="--pct:' + dailyPct + ';" role="img" aria-label="დღიური მიზანი: ' + Math.min(todayDone, dailyTarget) + " / " + dailyTarget + '">' +
+            '<div class="fp-ring__inner">' +
+              '<strong>' + Math.min(todayDone, dailyTarget) + "/" + dailyTarget + "</strong>" +
+              "<span>დღიური მიზანი</span>" +
             "</div>" +
           "</div>" +
         "</section>" +
 
-        '<section class="card">' +
-          '<div class="section-header" style="margin-bottom:12px;">' +
-            "<div>" +
-              '<h2 class="section-title">🔥 დღევანდელი სასწავლო აქტივობა</h2>' +
-              '<p class="section-subtitle">შეინარჩუნეთ ყოველდღიური უწყვეტი სტრიკი — გაიარეთ იუნიტი ან ბარათები.</p>' +
-            "</div>" +
-            '<span class="stat-pill stat-pill--streak">🔥 სტრიკი: ' + st.streak + " დღე</span>" +
-          "</div>" +
-          (App.UI && typeof App.UI.renderProgressBar === "function"
-            ? App.UI.renderProgressBar(dailyPct, "დღევანდელი აქტივობის პროგრესი", dailyPct + "%")
-            : "") +
+        '<section class="fp-stats-grid" aria-label="სტატისტიკა">' +
+          stat("🔥", "orange", st.streak + " დღე", "უწყვეტი სტრიკი") +
+          stat("🎯", "blue", esc(st.level), "მიმდინარე დონე", "fp-text-brand") +
+          stat("🗂️", "amber", st.wordsCount, "ნასწავლი სიტყვა") +
+          stat("✅", "green", st.totalLessonsDone, "დასრულებული თემა", "fp-text-success") +
         "</section>" +
 
-        '<section style="display:grid; grid-template-columns:repeat(auto-fill, minmax(290px, 1fr)); gap:18px;">' +
-          moduleCardsHtml +
+        '<section aria-labelledby="fp-modules-title">' +
+          '<div class="section-header">' +
+            '<div><h2 class="section-title" id="fp-modules-title">სასწავლო მოდულები</h2>' +
+            '<p class="section-subtitle">აირჩიეთ უნარი, რომლის განვითარებაც დღეს გსურთ.</p></div>' +
+          "</div>" +
+          '<div class="fp-modules-grid">' + moduleCardsHtml + "</div>" +
         "</section>" +
       "</div>";
   }

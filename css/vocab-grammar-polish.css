@@ -76,7 +76,7 @@
   padding: 5px 12px !important;
   border-radius: 999px !important;
   font-size: 0.76rem !important;
-  font-weight: 800 !important;
+  font-weight: 700 !important;
   background-color: var(--vg-soft, rgba(37, 99, 235, 0.1)) !important;
   color: var(--vg-accent, #2563eb) !important;
   display: inline-flex !important;
@@ -106,7 +106,7 @@
 
 .vg-card-title {
   font-size: 1.12rem !important;
-  font-weight: 800 !important;
+  font-weight: 700 !important;
   color: var(--text-primary) !important;
   line-height: 1.42 !important;
   margin: 2px 0 0 0 !important;
@@ -145,7 +145,7 @@
   padding: 8px 20px !important;
   border-radius: 999px !important;
   font-size: 0.85rem !important;
-  font-weight: 800 !important;
+  font-weight: 700 !important;
   background-color: var(--vg-accent, var(--brand-primary)) !important;
   color: #ffffff !important;
   border: none !important;

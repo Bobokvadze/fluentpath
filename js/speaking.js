@@ -295,7 +295,7 @@
         const passed = lastResult.score >= PASS_SCORE;
         feedbackHtml =
           '<div role="status" style="margin-top:4px;">' +
-            '<p style="font-weight:800; font-size:1.1rem; margin-bottom:8px;">' + (passed ? "✅ " : "🔁 ") + "შედეგი: " + lastResult.score + "%" +
+            '<p style="font-weight:700; font-size:1.1rem; margin-bottom:8px;">' + (passed ? "✅ " : "🔁 ") + "შედეგი: " + lastResult.score + "%" +
               (passed ? "" : ' <span style="font-weight:600; font-size:0.88rem; color:var(--text-secondary);">(ჩასათვლელად საჭიროა ' + PASS_SCORE + "%)</span>") + "</p>" +
             '<div style="margin-bottom:8px;">' + wordsHtml + "</div>" +
             '<p style="font-size:0.88rem; color:var(--text-secondary);">ამოცნობილი ტექსტი: «' + esc(lastResult.transcript || "—") + "»</p>" +
@@ -322,7 +322,7 @@
           '<section class="card" aria-live="polite">' +
             '<div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px;">' + listHtml + "</div>" +
             '<p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:6px;">ფრაზა ' + (activeIndex + 1) + " / " + phrases.length + (isDone ? " • ✓ ჩათვლილია" : "") + "</p>" +
-            '<p lang="en" style="font-size:1.45rem; font-weight:800; line-height:1.4; margin-bottom:6px;">' + esc(phrase.en) + "</p>" +
+            '<p lang="en" style="font-size:1.45rem; font-weight:700; line-height:1.4; margin-bottom:6px;">' + esc(phrase.en) + "</p>" +
             '<p style="color:var(--text-secondary); margin-bottom:18px;">' + esc(phrase.ka) + "</p>" +
             '<div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px;">' +
               '<button type="button" class="btn btn-outline" id="speak-listen-btn">🔊 მოსმენა</button>' +
