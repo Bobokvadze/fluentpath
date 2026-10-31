@@ -196,6 +196,9 @@
 
       const allTopics = this.getAllTopics();
 
+      const pendingId = App.takePendingOpen ? App.takePendingOpen('grammar') : null;
+      if (pendingId) this.openTopic(pendingId);
+
       if (selectedTopic) {
         this.renderTopicDetail(container, allTopics);
         return;

@@ -156,6 +156,14 @@
 
       const allPassages = this.getAllPassages();
 
+      const pendingId = App.takePendingOpen ? App.takePendingOpen("reading") : null;
+      if (pendingId) {
+        activePassage = allPassages.find((p) => p.id === pendingId) || null;
+        if (activePassage) this.prepareRandomizedQuestions(activePassage);
+        quizAnswers = {};
+        showTranslations = false;
+      }
+
       if (activePassage) {
         this.renderPassageReader(container, allPassages);
         return;

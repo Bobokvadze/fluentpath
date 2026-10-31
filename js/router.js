@@ -82,6 +82,25 @@
 
   let renderToken = 0;
 
+  // სასწავლო გეგმიდან კონკრეტული მასალის გახსნა: მოდული ჩატვირთვის შემდეგ თავად "აიღებს" მოთხოვნას
+  let pendingOpen = null;
+  App.openContent = function (module, id) {
+    pendingOpen = { module: module, id: id };
+    if ((window.location.hash || '').replace(/^#\/?/, '') === module) {
+      App.Router.handleRoute();
+    } else {
+      window.location.hash = module;
+    }
+  };
+  App.takePendingOpen = function (module) {
+    if (pendingOpen && pendingOpen.module === module) {
+      const id = pendingOpen.id;
+      pendingOpen = null;
+      return id;
+    }
+    return null;
+  };
+
   const Router = {
     currentRoute: 'dashboard',
 

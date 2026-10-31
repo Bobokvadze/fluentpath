@@ -160,6 +160,14 @@
 
       const allTopics = this.getAllTopics();
 
+      const pendingId = App.takePendingOpen ? App.takePendingOpen("writing") : null;
+      if (pendingId) {
+        activeTopic = allTopics.find((t) => t.id === pendingId) || null;
+        if (activeTopic) this.prepareRandomizedQuestions(activeTopic);
+        quizAnswers = {};
+        showTranslations = false;
+      }
+
       if (activeTopic) {
         this.renderTopicPlayer(container, allTopics);
         return;

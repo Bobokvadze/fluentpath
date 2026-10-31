@@ -230,6 +230,20 @@
     ]
   };
 
+  // სასწავლო გეგმის ერთეულების დიალოგები (js/content/dialogues.js) — თითოეული დონის სიის დასაწყისში
+  (App.UnitDialogues || []).slice().reverse().forEach(function (d) {
+    if (!DIALOGUES[d.level]) return;
+    DIALOGUES[d.level].unshift({
+      id: d.id,
+      title: d.title,
+      fn: d.function,
+      expressions: d.expressions || [],
+      lines: d.lines.map(function (l, i) {
+        return { who: l[0], en: l[1], ka: App.tr ? App.tr("dialogues", d.id, "line" + i) : "" };
+      })
+    });
+  });
+
   let activeLevel = null;
   let activeIndex = 0;
   let recognition = null;
@@ -498,6 +512,9 @@
       const container = document.getElementById("app-view");
       if (!container) return;
 
+      const pending = App.takePendingOpen ? App.takePendingOpen("speaking") : null;
+      if (pending) this.openDialogue(pending);
+
       if (!activeLevel) {
         const userLevel = App.Storage.get("progress.level", "A1");
         activeLevel = LEVELS.indexOf(userLevel) !== -1 ? userLevel : "A1";
@@ -580,7 +597,7 @@
               '<div class="sp-line__who">' + (line.who === "you" ? "თქვენ" : "პარტნიორი") + "</div>" +
               '<div class="sp-line__bubble">' +
                 '<p lang="en" class="sp-line__en">' + (hidden ? "• • •" : esc(line.en)) + "</p>" +
-                (hidden ? "" : '<p class="sp-line__ka">' + esc(line.ka) + "</p>") +
+                (hidden || !line.ka ? "" : '<p class="sp-line__ka" lang="ka">' + esc(line.ka) + "</p>") +
                 (line.who === "partner" && state !== "upcoming" ? '<button type="button" class="sp-line__replay" data-speak-say="' + esc(line.en) + '" aria-label="ხელახლა მოსმენა">🔊</button>' : "") +
               "</div>" +
             "</div>"
@@ -606,6 +623,8 @@
                 return '<button type="button" class="btn btn-sm ' + (idx === activeDialogueIdx ? "btn-primary" : "btn-outline") + '" data-dialogue-index="' + idx + '">' + (doneDlg.indexOf(d.id) !== -1 ? "✓ " : "") + esc(d.title) + "</button>";
               }).join("") +
             "</div>" +
+            (dlg && dlg.fn ? '<p class="sp-fn" lang="en"><strong>Goal:</strong> ' + esc(dlg.fn) + "</p>" : "") +
+            (dlg && dlg.expressions && dlg.expressions.length ? '<div class="sp-expr" lang="en"><strong>Useful expressions:</strong> ' + dlg.expressions.map(esc).join(" · ") + "</div>" : "") +
             '<div class="sp-dialogue">' + linesHtml + "</div>" +
             '<div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:18px;">' + controls + "</div>" +
             renderFeedbackHtml(esc) +
@@ -615,6 +634,35 @@
 
       container.innerHTML = '<div class="dashboard-grid">' + header + body + "</div>";
       this.bindEvents(container);
+    },
+
+    // სასწავლო გეგმიდან კონკრეტული დიალოგის გახსნა
+    openDialogue: function (id) {
+      let found = false;
+      LEVELS.forEach(function (lvl) {
+        (DIALOGUES[lvl] || []).forEach(function (d, idx) {
+          if (d.id === id) {
+            activeLevel = lvl;
+            activeDialogueIdx = idx;
+            found = true;
+          }
+        });
+      });
+      if (!found) return false;
+      mode = "dialogues";
+      dialogueStep = 0;
+      lastResult = null;
+      const dlg = DIALOGUES[activeLevel][activeDialogueIdx];
+      if (dlg.lines[0].who === "partner") dialogueStep = 1;
+      return true;
+    },
+
+    getDialogue: function (id) {
+      let out = null;
+      LEVELS.forEach(function (lvl) {
+        (DIALOGUES[lvl] || []).forEach(function (d) { if (d.id === id) out = d; });
+      });
+      return out;
     },
 
     goTo: function (level, index) {
