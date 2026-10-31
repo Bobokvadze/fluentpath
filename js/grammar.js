@@ -40,6 +40,15 @@
   let selectedTopic = null;
   let preparedDrills = [];
   let drillAnswers = {};
+  let practiceAnswers = {}; // ინგლისური „გაგების შემოწმება“ (GrammarEN.practice)
+
+  // "question|correct|w1|w2|w3|explanation" → { q, options (shuffled), correct, why }
+  function parsePractice(line) {
+    const f = line.split('|');
+    const correctText = f[1];
+    const options = shuffleArray(f.slice(1, 5));
+    return { q: f[0], options: options, correct: options.indexOf(correctText), why: f[5] || '' };
+  }
 
   const Grammar = {
     getAllTopics: function () {
@@ -50,8 +59,11 @@
 
       return combined.map((item, idx) => {
         const topicNum = item.num || (idx + 1);
+        const en = (App.GrammarEN || {})['grammar-topic-' + topicNum] || null;
         return {
           id: 'grammar-topic-' + topicNum,
+          en: en,
+          titleEn: en ? en.title : item.subtitle,
           topicNumber: topicNum,
           level: item.level,
           title: 'თემა ' + topicNum + ': ' + item.title,
@@ -96,6 +108,8 @@
     },
 
     prepareRandomizedDrills: function (topic) {
+      practiceAnswers = {};
+      topic.practiceItems = topic.en && Array.isArray(topic.en.practice) ? topic.en.practice.map(parsePractice) : [];
       preparedDrills = topic.drills.map((d, idx) => {
         const correctText = d.options[d.correct];
         const mixed = shuffleArray(d.options);
@@ -106,6 +120,63 @@
           correct: mixed.indexOf(correctText)
         };
       });
+    },
+
+    // ინგლისური სასწავლო ბლოკი: მიზანი, ახსნა, ფორმები, შედარება
+    renderEnglishLesson: function (t) {
+      const esc = App.UI.escapeHTML;
+      const en = t.en;
+      return (
+        '<div class="gx-objective" lang="en"><strong>🎯 Objective:</strong> ' + esc(en.objective) + '</div>' +
+        '<p class="gx-explanation" lang="en">' + esc(en.explanation) + '</p>' +
+        '<h3 class="section-title" style="margin-top:18px; margin-bottom:8px;">🧩 Key patterns</h3>' +
+        '<ul class="gx-patterns" lang="en">' + en.patterns.map((p) => '<li>' + esc(p) + '</li>').join('') + '</ul>' +
+        '<div class="gx-compare" lang="en"><strong>⚖️ Don\'t confuse:</strong> ' + esc(en.compare) + '</div>'
+      );
+    },
+
+    // „გაგების შემოწმება“ — 5 ინგლისური კითხვა, პასუხის შემდეგ ახსნით
+    renderPractice: function (t) {
+      const esc = App.UI.escapeHTML;
+      let answered = 0;
+      let right = 0;
+      const items = t.practiceItems.map((item, qIdx) => {
+        const chosen = practiceAnswers[qIdx];
+        const done = chosen !== undefined;
+        if (done) {
+          answered++;
+          if (chosen === item.correct) right++;
+        }
+        const opts = item.options.map((opt, oIdx) => {
+          let cls = 'option-btn';
+          if (done && oIdx === item.correct) cls += ' correct';
+          else if (done && oIdx === chosen) cls += ' wrong';
+          return '<button type="button" class="' + cls + '" data-practice-q="' + qIdx + '" data-practice-opt="' + oIdx + '"' + (done ? ' disabled' : '') + ' lang="en">' + esc(opt) + '</button>';
+        }).join('');
+        const feedback = done
+          ? '<div class="gx-feedback ' + (chosen === item.correct ? 'ok' : 'bad') + '" role="status" lang="en">' +
+              (chosen === item.correct ? '✓ Correct. ' : '✗ Not quite. ') + esc(item.why) + '</div>'
+          : '';
+        return '<div class="drill-question-box"><div class="drill-q-title" lang="en">' + (qIdx + 1) + '. ' + esc(item.q) + '</div><div class="drill-options">' + opts + '</div>' + feedback + '</div>';
+      }).join('');
+      return (
+        '<section class="card">' +
+          '<div class="section-header"><div>' +
+            '<h3 class="section-title">✅ Check your understanding</h3>' +
+            '<p class="section-subtitle">5 კითხვა ახსნებით — ყოველი პასუხის შემდეგ ნახავთ, რატომ არის ასე.</p>' +
+          '</div><span class="stat-pill stat-pill--level">' + right + ' / ' + answered + '</span></div>' +
+          items +
+        '</section>'
+      );
+    },
+
+    // სასწავლო გეგმიდან კონკრეტული თემის პირდაპირ გახსნა
+    openTopic: function (topicId) {
+      const topic = this.getAllTopics().find((x) => x.id === topicId);
+      if (!topic) return;
+      selectedTopic = topic;
+      drillAnswers = {};
+      this.prepareRandomizedDrills(topic);
     },
 
     speak: function (text) {
@@ -175,11 +246,11 @@
                     '</span>' +
                   '</div>' +
                   '<div style="margin-top: 12px;">' +
-                    '<h3 class="lesson-title">' + App.UI.escapeHTML(topic.title) + '</h3>' +
-                    '<div style="font-size:0.8rem; font-weight:700; color:var(--brand-secondary); margin-bottom:6px;">' +
-                      App.UI.escapeHTML(topic.subtitle) +
+                    '<h3 class="lesson-title" lang="en">' + App.UI.escapeHTML(topic.titleEn) + '</h3>' +
+                    '<div lang="ka" style="font-size:0.8rem; font-weight:600; color:var(--text-secondary); margin-bottom:6px;">' +
+                      App.UI.escapeHTML(topic.title) +
                     '</div>' +
-                    '<p class="lesson-desc">' + App.UI.escapeHTML(topic.summary) + '</p>' +
+                    '<p class="lesson-desc" lang="en">' + App.UI.escapeHTML(topic.en ? topic.en.objective : topic.summary) + '</p>' +
                   '</div>' +
                 '</div>' +
                 '<div class="lesson-meta-footer">' +
@@ -329,6 +400,9 @@
           '<div class="drill-question-box">' +
             '<div class="drill-q-title">' + App.UI.escapeHTML(d.q) + '</div>' +
             '<div class="drill-options">' + optsHtml + '</div>' +
+            (hasAnswered && answeredChoice !== d.correct && t.en
+              ? '<div class="gx-feedback bad" role="status" lang="en">💡 Rule: ' + App.UI.escapeHTML(t.en.tip) + '</div>'
+              : '') +
           '</div>'
         );
       }).join('');
@@ -345,9 +419,12 @@
           '</div>' +
 
           '<section class="card">' +
-            '<h2 class="section-title" style="font-size:1.38rem; margin-bottom:4px;">' + App.UI.escapeHTML(t.title) + '</h2>' +
-            '<p style="color:var(--brand-secondary); font-weight:700; font-size:0.9rem; margin-bottom:14px;">' + App.UI.escapeHTML(t.subtitle) + '</p>' +
-            '<p style="font-size:0.98rem; color:var(--text-primary); line-height:1.75;">' + App.UI.escapeHTML(t.ruleExplanation) + '</p>' +
+            '<h2 class="section-title" lang="en" style="font-size:1.38rem; margin-bottom:4px;">' + App.UI.escapeHTML(t.titleEn) + '</h2>' +
+            '<p lang="ka" style="color:var(--text-secondary); font-weight:600; font-size:0.9rem; margin-bottom:14px;">' + App.UI.escapeHTML(t.title) + '</p>' +
+            (t.en ? this.renderEnglishLesson(t) : '') +
+            '<details class="gx-ka"' + (t.en ? '' : ' open') + '><summary>ქართული ახსნა</summary>' +
+              '<p lang="ka" style="font-size:0.95rem; color:var(--text-primary); line-height:1.75; margin-top:8px;">' + App.UI.escapeHTML(t.ruleExplanation) + '</p>' +
+            '</details>' +
 
             '<h3 class="section-title" style="margin-top:22px; margin-bottom:8px;">📐 სტრუქტურა, ფორმულები და მართლწერა</h3>' +
             '<table class="formula-table">' +
@@ -361,6 +438,7 @@
             '<h3 class="section-title" style="margin-top:22px; margin-bottom:8px;">⚠️ ხშირი შეცდომები და სწორი ფორმები</h3>' +
             mistakesHtml +
           '</section>' +
+          (t.practiceItems && t.practiceItems.length ? this.renderPractice(t) : '') +
 
           '<section class="card">' +
             '<div class="section-header">' +
@@ -406,6 +484,19 @@
       container.querySelectorAll('[data-grammar-speak]').forEach((btn) => {
         btn.addEventListener('click', () => {
           this.speak(btn.getAttribute('data-grammar-speak'));
+        });
+      });
+
+      container.querySelectorAll('[data-practice-q]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const qIdx = Number(btn.getAttribute('data-practice-q'));
+          if (practiceAnswers[qIdx] !== undefined) return;
+          const optIdx = Number(btn.getAttribute('data-practice-opt'));
+          const scrollY = window.scrollY;
+          practiceAnswers[qIdx] = optIdx;
+          App.UI.playSound(optIdx === t.practiceItems[qIdx].correct ? 'success' : 'click');
+          this.renderTopicDetail(container, allTopics);
+          window.scrollTo({ top: scrollY, behavior: 'instant' });
         });
       });
 

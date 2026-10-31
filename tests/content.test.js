@@ -44,3 +44,22 @@ test('legacy vocabulary ids are migrated by word and unknown ones are preserved'
   env.App.Vocabulary.ensureMigrated();
   same(env.App.Storage.get('vocabulary.learnedIds'), ['v-hello-int']);
 });
+
+test('every A1-C1 grammar topic has a complete English lesson and valid practice items', () => {
+  const env = loadScripts(['js/content/grammar-en-a.js', 'js/content/grammar-en-b.js', 'js/content/grammar-en-c.js']);
+  const G = env.App.GrammarEN;
+  for (let i = 1; i <= 75; i++) {
+    const t = G['grammar-topic-' + i];
+    assert.ok(t, 'missing English layer for topic ' + i);
+    ['title', 'objective', 'explanation', 'compare', 'tip'].forEach((k) => assert.ok(t[k] && t[k].length > 8, i + ': ' + k));
+    assert.ok(t.patterns.length >= 3, i + ': patterns');
+    assert.strictEqual(t.practice.length, 5, i + ': practice count');
+    t.practice.forEach((line, j) => {
+      const f = line.split('|');
+      assert.strictEqual(f.length, 6, i + '.' + j + ': fields');
+      assert.strictEqual(new Set(f.slice(1, 5)).size, 4, i + '.' + j + ': duplicate options');
+      assert.ok(f[5].length > 10, i + '.' + j + ': explanation');
+    });
+    assert.ok(!/[Ⴀ-ჿ]/.test(JSON.stringify(t)), i + ': Georgian text in English source');
+  }
+});
