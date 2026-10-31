@@ -482,8 +482,8 @@
         const isFrontEnglish = (cardDirection === "EN_TO_KA");
 
         const currentAcc = (App.AudioEngine && typeof App.AudioEngine.getAccent === "function") ? App.AudioEngine.getAccent() : "US";
-        const usActiveStyle = currentAcc === "US" ? "background-color:var(--brand-primary); color:#fff;" : "";
-        const ukActiveStyle = currentAcc === "UK" ? "background-color:var(--brand-primary); color:#fff;" : "";
+        const usActiveStyle = currentAcc === "US" ? "background-color:var(--brand-solid); color:#fff;" : "";
+        const ukActiveStyle = currentAcc === "UK" ? "background-color:var(--brand-solid); color:#fff;" : "";
 
         const englishSideCenterHtml =
           '<span class="fc-lang-label">🇬🇧 ინგლისური</span>' +

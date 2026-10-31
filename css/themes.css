@@ -1,5 +1,31 @@
-/* შრიფტები: Noto Sans Georgian (ქართული) + Inter (ლათინური). ოფლაინ რეჟიმში გამოიყენება სისტემური შრიფტი. */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Noto+Sans+Georgian:wght@400..800&display=swap");
+/* შრიფტები ინახება საიტზევე (ოფლაინ რეჟიმისთვის): Inter (ლათინური) და Noto Sans Georgian (ქართული).
+   ორივე SIL Open Font License-ით ვრცელდება — იხ. assets/fonts/LICENSE.txt */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Noto Sans Georgian";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../assets/fonts/noto-sans-georgian.woff2") format("woff2");
+  unicode-range: U+0589, U+10A0-10FF, U+1C90-1CBA, U+1CBD-1CBF, U+205A, U+2D00-2D2F, U+2E31;
+}
 
 :root,
 [data-theme="light"] {
@@ -20,14 +46,18 @@
 
   --brand-primary: #2563eb;
   --brand-primary-hover: #1d4ed8;
+  /* ფონი თეთრი ტექსტისთვის (ღილაკები, აქტიური ჩანართები) — კონტრასტი ≥ 4.5:1 ორივე თემაში */
+  --brand-solid: #2563eb;
+  --brand-solid-hover: #1d4ed8;
+  --brand-secondary-solid: #0f766e;
   --brand-primary-soft: rgba(37, 99, 235, 0.12);
-  --brand-secondary: #0d9488;
-  --brand-secondary-hover: #0f766e;
+  --brand-secondary: #0f766e;
+  --brand-secondary-hover: #115e59;
   --brand-secondary-soft: rgba(13, 148, 136, 0.12);
 
-  --color-success: #16a34a;
+  --color-success: #15803d;
   --color-success-soft: rgba(22, 163, 74, 0.14);
-  --color-warning: #d97706;
+  --color-warning: #b45309;
   --color-warning-soft: rgba(217, 119, 6, 0.14);
   --color-danger: #dc2626;
   --color-danger-soft: rgba(220, 38, 38, 0.14);
@@ -35,7 +65,7 @@
   --color-info-soft: rgba(2, 132, 199, 0.14);
   --color-xp: #7c3aed;
   --color-xp-soft: rgba(124, 58, 237, 0.13);
-  --color-streak: #ea580c;
+  --color-streak: #c2410c;
   --color-streak-soft: rgba(234, 88, 12, 0.14);
 
   --border-subtle: #e5e9f0;
@@ -77,6 +107,9 @@
 
   --brand-primary: #4c8dff;
   --brand-primary-hover: #60a5fa;
+  --brand-solid: #2563eb;
+  --brand-solid-hover: #1d4ed8;
+  --brand-secondary-solid: #0f766e;
   --brand-primary-soft: rgba(59, 130, 246, 0.18);
   --brand-secondary: #14b8a6;
   --brand-secondary-hover: #2dd4bf;

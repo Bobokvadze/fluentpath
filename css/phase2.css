@@ -35,7 +35,7 @@
 }
 
 .pill-tab.active {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-solid);
   color: #ffffff;
   border-color: var(--brand-primary);
   box-shadow: 0 2px 8px -2px rgba(37, 99, 235, 0.45);
@@ -169,7 +169,7 @@
 }
 
 .duo-start-callout {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-solid);
   color: #ffffff;
   font-size: 0.76rem;
   font-weight: 700;
@@ -735,7 +735,7 @@
 }
 
 .audio-btn:hover {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-solid);
   color: #ffffff;
   transform: scale(1.06);
 }

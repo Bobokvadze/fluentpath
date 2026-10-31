@@ -18,7 +18,7 @@
 }
 
 .header-auth-btn:hover {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-solid);
   color: #ffffff;
 }
 
@@ -359,3 +359,32 @@ header,
 
 /* მარცხენა მენიუში ფაზებისა და 'მზადაა' ბეიჯების სრული გაქრობა */
 .nav-badge { display: none !important; }
+
+
+/* ანგარიში: დამატებითი ბმულები და შენიშვნები */
+.fp-auth-link {
+  display: block;
+  margin: 12px auto 0;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--brand-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fp-auth-link--danger {
+  color: var(--color-danger);
+  margin-top: 18px;
+}
+
+#fp-auth-extra:not(:empty) {
+  margin-top: 12px;
+}
+
+.fp-auth-note {
+  font-size: 0.85rem;
+  color: var(--color-success);
+  background: var(--color-success-soft);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+}

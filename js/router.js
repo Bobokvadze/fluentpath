@@ -20,22 +20,25 @@
 
   // დიდი შინაარსის პაკეტები იტვირთება მოთხოვნისამებრ (sw.js მაინც წინასწარ ქეშავს ყველას ოფლაინისთვის)
   const DATA_PACKS = {
+    vocabulary: ['js/vocabulary.js'],
+    learn: ['js/learn.js'],
     grammar: ['js/grammar-a.js', 'js/grammar-b.js', 'js/grammar-c.js'],
     reading: ['js/reading-a.js', 'js/reading-b.js', 'js/reading-c.js'],
-    listening: ['js/listening-a.js', 'js/listening-b.js', 'js/listening-c.js'],
+    listening: ['js/listening-a.js', 'js/listening-b.js', 'js/listening-c1a.js', 'js/listening-c1b.js', 'js/listening-c1c.js', 'js/listening-c.js'],
     writing: ['js/writing-a.js', 'js/writing-b.js', 'js/writing-c.js'],
     ipa: ['js/ipa-dict.js']
   };
 
   // რომელ გვერდს რომელი პაკეტები სჭირდება რენდერამდე
   const ROUTE_DATA = {
+    learn: ['vocabulary', 'learn'],
     grammar: ['grammar'],
     reading: ['reading'],
     listening: ['listening'],
     writing: ['writing'],
-    vocabulary: ['ipa'],
-    flashcards: ['ipa'],
-    quizzes: ['grammar', 'reading', 'listening', 'writing', 'ipa']
+    vocabulary: ['vocabulary', 'ipa'],
+    flashcards: ['vocabulary', 'ipa'],
+    quizzes: ['vocabulary', 'grammar', 'reading', 'listening', 'writing', 'ipa']
   };
 
   const scriptPromises = {};
@@ -242,15 +245,24 @@
       backdrop.classList.add('open');
       backdrop.setAttribute('aria-hidden', 'false');
       if (moreBtn) moreBtn.setAttribute('aria-expanded', 'true');
+      if (this._releaseDrawerFocus) this._releaseDrawerFocus();
+      this._releaseDrawerFocus = App.UI.trapFocus(backdrop);
+      const firstItem = backdrop.querySelector('.drawer-nav-item, button');
+      if (firstItem) firstItem.focus();
     },
 
     closeMobileDrawer: function () {
       const backdrop = document.getElementById('mobile-drawer-backdrop');
       const moreBtn = document.getElementById('mobile-more-btn');
       if (!backdrop) return;
+      const wasOpen = backdrop.classList.contains('open');
       backdrop.classList.remove('open');
       backdrop.setAttribute('aria-hidden', 'true');
       if (moreBtn) moreBtn.setAttribute('aria-expanded', 'false');
+      if (wasOpen && this._releaseDrawerFocus) {
+        this._releaseDrawerFocus();
+        this._releaseDrawerFocus = null;
+      }
     }
   };
 

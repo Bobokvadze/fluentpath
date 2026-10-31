@@ -1,5 +1,5 @@
 // ქეშის ვერსია: გაზარდეთ, როცა ფაილების სია იცვლება (ძველი ქეში ავტომატურად წაიშლება)
-const CACHE_NAME = 'fluentpath-cache-v4';
+const CACHE_NAME = 'fluentpath-cache-v6';
 
 const APP_SHELL = [
   './',
@@ -12,6 +12,9 @@ const APP_SHELL = [
   './assets/icons/icon-512.png',
   './assets/icons/icon-maskable-512.png',
   './assets/icons/apple-touch-icon.png',
+  './assets/fonts/inter-latin.woff2',
+  './assets/fonts/inter-latin-ext.woff2',
+  './assets/fonts/noto-sans-georgian.woff2',
   './css/themes.css',
   './css/style.css',
   './css/responsive.css',
@@ -41,6 +44,9 @@ const APP_SHELL = [
   './js/auth.js',
   './js/listening-a.js',
   './js/listening-b.js',
+  './js/listening-c1a.js',
+  './js/listening-c1b.js',
+  './js/listening-c1c.js',
   './js/listening-c.js',
   './js/listening.js',
   './js/writing-a.js',

@@ -15,6 +15,8 @@
   let modalElement = null;
   let syncDebounceTimer = null;
   let lastFocusedBeforeModal = null;
+  let authView = null; // null | "forgot" | "recovery" | "delete"
+  let releaseAuthFocus = null;
 
   // სარეგისტრაციო ტესტის დროებითი მდგომარეობა
   let pendingRegistrationData = null; // { fullName, email, password }
@@ -518,6 +520,11 @@
     return r.minLen && r.hasUpper && r.hasLower && r.hasDigit && r.hasSpecial;
   }
 
+  // ელ-ფოსტის ბმულები (დადასტურება, პაროლის აღდგენა) აბრუნებს იმავე გვერდზე, სადაც საიტი გაიხსნა
+  function getAuthRedirectUrl() {
+    return window.location.origin + window.location.pathname;
+  }
+
   function getInitials(name) {
     const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
     if (!parts.length) return "U";
@@ -540,9 +547,20 @@
 
   const Auth = {
     initClient: function () {
-      if (!window.supabase || !App.SupabaseConfig || !App.SupabaseConfig.url || !App.SupabaseConfig.anonKey) {
+      if (!App.SupabaseConfig || !App.SupabaseConfig.url || !App.SupabaseConfig.anonKey) {
         return;
       }
+      if (!window.supabase) {
+        // Supabase SDK იტვირთება async-ით (CDN-ის ნელი ქსელი აპის ჩატვირთვას აღარ აფერხებს) — ჩატვირთვას ვუცდით
+        Auth.syncHeaderAuthUI();
+        const sdk = document.getElementById("supabase-sdk");
+        if (sdk && !sdk._fpWaiting) {
+          sdk._fpWaiting = true;
+          sdk.addEventListener("load", function () { Auth.initClient(); }, { once: true });
+        }
+        return;
+      }
+      if (supabaseClient) return;
 
       supabaseClient = window.supabase.createClient(App.SupabaseConfig.url, App.SupabaseConfig.anonKey);
 
@@ -562,6 +580,12 @@
       });
 
       supabaseClient.auth.onAuthStateChange(function (event) {
+        // მომხმარებელი დაბრუნდა პაროლის აღდგენის ბმულით — ვთავაზობთ ახალი პაროლის დაყენებას
+        if (event === "PASSWORD_RECOVERY") {
+          authView = "recovery";
+          window.setTimeout(function () { Auth.openModal(); }, 50);
+          return;
+        }
         // სესია სხვა ჩანართში ან ვადის გასვლით დასრულდა
         if (event === "SIGNED_OUT" && currentCloudUser) {
           switchToGuestState();
@@ -709,12 +733,12 @@
       backdrop.setAttribute("aria-modal", "true");
       backdrop.setAttribute("aria-label", "ანგარიში");
       backdrop.addEventListener("click", function (e) {
-        if (e.target === backdrop && !pendingRegistrationData) {
+        if (e.target === backdrop && !pendingRegistrationData && authView !== "recovery") {
           Auth.closeModal();
         }
       });
       document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && backdrop.classList.contains("is-open") && !pendingRegistrationData) {
+        if (e.key === "Escape" && backdrop.classList.contains("is-open") && !pendingRegistrationData && authView !== "recovery") {
           Auth.closeModal();
         }
       });
@@ -724,6 +748,7 @@
     },
 
     openModal: function (defaultTab) {
+      if (defaultTab) authView = null;
       pendingRegistrationData = null;
       regPlacementFinishedResult = null;
       if (defaultTab === "login" || defaultTab === "register") {
@@ -732,6 +757,8 @@
       this.ensureModalCreated();
       this.renderModalContent();
       lastFocusedBeforeModal = document.activeElement;
+      if (releaseAuthFocus) releaseAuthFocus();
+      releaseAuthFocus = App.UI && typeof App.UI.trapFocus === "function" ? App.UI.trapFocus(modalElement) : null;
       window.setTimeout(function () {
         modalElement.classList.add("is-open");
         const firstField = modalElement.querySelector("input") || modalElement.querySelector("button");
@@ -743,7 +770,12 @@
       if (!modalElement) return;
       pendingRegistrationData = null;
       regPlacementFinishedResult = null;
+      if (authView !== "recovery") authView = null;
       modalElement.classList.remove("is-open");
+      if (releaseAuthFocus) {
+        releaseAuthFocus();
+        releaseAuthFocus = null;
+      }
       if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === "function") {
         lastFocusedBeforeModal.focus();
       }
@@ -756,6 +788,220 @@
       if (errEl) {
         errEl.textContent = "⚠️ " + msg;
         errEl.classList.add("visible");
+      }
+    },
+
+    showResendButton: function (email) {
+      if (!modalElement) return;
+      const slot = modalElement.querySelector("#fp-auth-extra");
+      if (!slot) return;
+      slot.innerHTML = '<button type="button" class="btn btn-outline btn-sm" id="fp-resend-btn" style="width:100%;">📧 დადასტურების წერილის ხელახლა გაგზავნა</button>';
+      slot.querySelector("#fp-resend-btn").addEventListener("click", function () {
+        Auth.resendConfirmation(email, this);
+      });
+    },
+
+    resendConfirmation: function (email, btn) {
+      if (!supabaseClient || !email) return;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ იგზავნება...";
+      }
+      supabaseClient.auth.resend({ type: "signup", email: email, options: { emailRedirectTo: getAuthRedirectUrl() } })
+        .then(function (res) {
+          if (res.error) throw res.error;
+          if (btn) btn.textContent = "✓ წერილი გაიგზავნა";
+          App.UI.toast("📧 დადასტურების წერილი ხელახლა გაიგზავნა: " + email, "success", 4000);
+        })
+        .catch(function (err) {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "📧 დადასტურების წერილის ხელახლა გაგზავნა";
+          }
+          // Supabase ზღუდავს წერილების სიხშირეს (rate limit)
+          Auth.showError((err && /rate|seconds/i.test(err.message || "")) ? "გთხოვთ, დაელოდოთ ერთ წუთს და სცადოთ თავიდან." : "წერილის გაგზავნა ვერ მოხერხდა.");
+        });
+    },
+
+    requestPasswordReset: function (email, btn) {
+      const clean = String(email || "").toLowerCase().trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) {
+        this.showError("გთხოვთ მიუთითოთ სწორი ელ-ფოსტის მისამართი.");
+        return;
+      }
+      if (!supabaseClient) return;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ იგზავნება...";
+      }
+      supabaseClient.auth.resetPasswordForEmail(clean, { redirectTo: getAuthRedirectUrl() })
+        .then(function (res) {
+          if (res.error) throw res.error;
+          // შეგნებულად არ ვამბობთ, არსებობს თუ არა ანგარიში (ელ-ფოსტების გამოცნობის თავიდან ასაცილებლად)
+          modalElement.querySelector("#fp-auth-extra").innerHTML =
+            '<p class="fp-auth-note">✓ თუ ამ მისამართზე ანგარიში არსებობს, მასზე გაიგზავნა პაროლის აღდგენის ბმული. შეამოწმეთ შემოსულები (და Spam).</p>';
+          if (btn) btn.textContent = "✓ გაიგზავნა";
+        })
+        .catch(function (err) {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "📧 აღდგენის ბმულის გაგზავნა";
+          }
+          Auth.showError((err && /rate|seconds/i.test(err.message || "")) ? "გთხოვთ, დაელოდოთ ერთ წუთს და სცადოთ თავიდან." : "ბმულის გაგზავნა ვერ მოხერხდა.");
+        });
+    },
+
+    saveNewPassword: function (pw, pw2, btn) {
+      if (!isPasswordValid(pw)) {
+        this.showError("პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს, 1 დიდ ასოს, 1 პატარა ასოს, 1 ციფრს და 1 სპეციალურ სიმბოლოს!");
+        return;
+      }
+      if (pw !== pw2) {
+        this.showError("პაროლები ერთმანეთს არ ემთხვევა.");
+        return;
+      }
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ ინახება...";
+      }
+      supabaseClient.auth.updateUser({ password: pw })
+        .then(function (res) {
+          if (res.error) throw res.error;
+          authView = null;
+          Auth.closeModal();
+          App.UI.toast("🔐 ახალი პაროლი შენახულია.", "success", 3500);
+          if (res.data && res.data.user && !currentCloudUser) {
+            Auth.loadUserProfileFromSupabase(res.data.user, false);
+          }
+        })
+        .catch(function (err) {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "🔐 ახალი პაროლის შენახვა";
+          }
+          Auth.showError((err && err.message) || "პაროლის შეცვლა ვერ მოხერხდა. მოითხოვეთ ახალი ბმული.");
+        });
+    },
+
+    // ანგარიშის სრული წაშლა: მონაცემთა ბაზის ფუნქცია delete_own_account() შლის მხოლოდ მიმდინარე მომხმარებელს
+    deleteAccount: function (btn) {
+      if (!supabaseClient || !currentCloudUser) return;
+      const userId = currentCloudUser.id;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ იშლება...";
+      }
+      supabaseClient.rpc("delete_own_account")
+        .then(function (res) {
+          if (res.error) throw res.error;
+          removeLocalKey(USER_CACHE_PREFIX + userId);
+          authView = null;
+          return supabaseClient.auth.signOut({ scope: "local" }).catch(function () {});
+        })
+        .then(function () {
+          switchToGuestState();
+          refreshEntireAppUI();
+          Auth.closeModal();
+          App.UI.toast("ანგარიში და მისი მონაცემები წაიშალა.", "info", 4000);
+        })
+        .catch(function () {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "🗑️ ანგარიშის საბოლოოდ წაშლა";
+          }
+          Auth.showError("ანგარიშის წაშლა ვერ მოხერხდა. სცადეთ მოგვიანებით.");
+        });
+    },
+
+    renderSpecialView: function () {
+      const esc = App.UI.escapeHTML;
+      let title = "";
+      let intro = "";
+      let body = "";
+
+      if (authView === "forgot") {
+        title = "პაროლის აღდგენა";
+        intro = "მიუთითეთ ანგარიშის ელ-ფოსტა — გამოგიგზავნით ბმულს ახალი პაროლის დასაყენებლად.";
+        body =
+          '<form id="fp-forgot-form">' +
+            '<div class="fp-form-group">' +
+              '<label class="fp-form-label" for="fp-forgot-email">ელ-ფოსტა</label>' +
+              '<input type="email" id="fp-forgot-email" class="fp-input" placeholder="name@example.com" autocomplete="email" required />' +
+            "</div>" +
+            '<button type="submit" class="btn btn-primary" id="fp-forgot-submit" style="width:100%;">📧 აღდგენის ბმულის გაგზავნა</button>' +
+          "</form>" +
+          '<button type="button" class="fp-auth-link" data-auth-back>← შესვლაზე დაბრუნება</button>';
+      } else if (authView === "recovery") {
+        title = "ახალი პაროლის დაყენება";
+        intro = "შეიყვანეთ ახალი პაროლი თქვენი ანგარიშისთვის.";
+        body =
+          '<form id="fp-recovery-form">' +
+            '<div class="fp-form-group">' +
+              '<label class="fp-form-label" for="fp-new-pw">ახალი პაროლი</label>' +
+              '<input type="password" id="fp-new-pw" class="fp-input" autocomplete="new-password" placeholder="მინ. 8 სიმბოლო (A-Z, a-z, 0-9, !@#)" required />' +
+            "</div>" +
+            '<div class="fp-form-group">' +
+              '<label class="fp-form-label" for="fp-new-pw2">გაიმეორეთ პაროლი</label>' +
+              '<input type="password" id="fp-new-pw2" class="fp-input" autocomplete="new-password" required />' +
+            "</div>" +
+            '<button type="submit" class="btn btn-primary" id="fp-recovery-submit" style="width:100%;">🔐 ახალი პაროლის შენახვა</button>' +
+          "</form>";
+      } else if (authView === "delete" && currentCloudUser) {
+        title = "ანგარიშის წაშლა";
+        intro = "ეს მოქმედება შეუქცევადია: წაიშლება თქვენი ანგარიში და ღრუბელში შენახული მთელი პროგრესი.";
+        body =
+          '<div class="fp-form-group">' +
+            '<label class="fp-form-label" for="fp-delete-confirm">დასადასტურებლად ჩაწერეთ თქვენი ელ-ფოსტა: <strong>' + esc(currentCloudUser.email) + "</strong></label>" +
+            '<input type="email" id="fp-delete-confirm" class="fp-input" autocomplete="off" />' +
+          "</div>" +
+          '<button type="button" class="btn btn-danger" id="fp-delete-submit" style="width:100%;" disabled>🗑️ ანგარიშის საბოლოოდ წაშლა</button>' +
+          '<button type="button" class="fp-auth-link" data-auth-back>← გაუქმება</button>';
+      }
+
+      modalElement.innerHTML =
+        '<div class="fp-auth-modal" role="dialog" aria-modal="true" aria-labelledby="fp-special-title">' +
+          (authView === "recovery" ? "" : '<button type="button" class="fp-auth-close-btn" id="fp-modal-close-btn" aria-label="დახურვა">✕</button>') +
+          '<div style="text-align:center; margin-bottom:12px;">' +
+            '<h3 class="section-title" id="fp-special-title" style="font-size:1.25rem;">' + title + "</h3>" +
+            '<p style="font-size:0.85rem; color:var(--text-secondary); margin-top:4px;">' + intro + "</p>" +
+          "</div>" +
+          '<div class="fp-auth-error" id="fp-auth-error-box" role="alert"></div>' +
+          body +
+          '<div id="fp-auth-extra"></div>' +
+        "</div>";
+
+      const closeBtn = modalElement.querySelector("#fp-modal-close-btn");
+      if (closeBtn) closeBtn.addEventListener("click", function () { Auth.closeModal(); });
+      modalElement.querySelectorAll("[data-auth-back]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          authView = null;
+          Auth.renderModalContent();
+        });
+      });
+
+      const forgotForm = modalElement.querySelector("#fp-forgot-form");
+      if (forgotForm) {
+        forgotForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          Auth.requestPasswordReset(modalElement.querySelector("#fp-forgot-email").value, modalElement.querySelector("#fp-forgot-submit"));
+        });
+      }
+      const recoveryForm = modalElement.querySelector("#fp-recovery-form");
+      if (recoveryForm) {
+        recoveryForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          Auth.saveNewPassword(modalElement.querySelector("#fp-new-pw").value, modalElement.querySelector("#fp-new-pw2").value, modalElement.querySelector("#fp-recovery-submit"));
+        });
+      }
+      const delInput = modalElement.querySelector("#fp-delete-confirm");
+      const delBtn = modalElement.querySelector("#fp-delete-submit");
+      if (delInput && delBtn) {
+        delInput.addEventListener("input", function () {
+          delBtn.disabled = delInput.value.trim().toLowerCase() !== String(currentCloudUser.email || "").toLowerCase();
+        });
+        delBtn.addEventListener("click", function () {
+          Auth.deleteAccount(delBtn);
+        });
       }
     },
 
@@ -818,7 +1064,7 @@
         password: regData.password,
         options: {
           // დადასტურების ბმული დააბრუნებს იმავე მისამართზე, სადაც საიტი გაიხსნა (უნდა იყოს Supabase-ის Redirect URLs სიაში)
-          emailRedirectTo: window.location.origin + window.location.pathname,
+          emailRedirectTo: getAuthRedirectUrl(),
           data: {
             full_name: regData.fullName,
             cefr_level: assignedLevel
@@ -900,7 +1146,13 @@
           submitBtn.textContent = "🔑 სისტემაში შესვლა";
         }
         if (res.error) {
-          Auth.showError("ელ-ფოსტა ან პაროლი არასწორია.");
+          const code = res.error.code || "";
+          if (code === "email_not_confirmed" || /not confirmed/i.test(res.error.message || "")) {
+            Auth.showError("ელ-ფოსტა ჯერ არ არის დადასტურებული. იპოვეთ ჩვენი წერილი (შეამოწმეთ Spam) ან გამოგიგზავნით ხელახლა.");
+            Auth.showResendButton(email);
+          } else {
+            Auth.showError("ელ-ფოსტა ან პაროლი არასწორია.");
+          }
           return;
         }
         const user = res.data ? res.data.user : null;
@@ -940,6 +1192,11 @@
 
     renderModalContent: function () {
       if (!modalElement) return;
+
+      if (authView === "forgot" || authView === "recovery" || (authView === "delete" && currentCloudUser)) {
+        this.renderSpecialView();
+        return;
+      }
 
       // 1. თუ ახლახან დასრულდა სარეგისტრაციო ტესტი — ვაჩვენოთ დადგენილი დონის შედეგი
       if (regPlacementFinishedResult) {
@@ -1066,6 +1323,7 @@
               '<button type="button" class="btn btn-outline" id="fp-logout-btn" style="color:var(--color-danger); border-color:var(--color-danger);">🚪 გამოსვლა</button>' +
               '<button type="button" class="btn btn-primary" id="fp-save-profile-btn">☁️ სახელის შენახვა</button>' +
             "</div>" +
+            '<button type="button" class="fp-auth-link fp-auth-link--danger" id="fp-delete-account-link">ანგარიშის წაშლა</button>' +
           "</div>";
 
         modalElement.querySelector("#fp-modal-close-btn").addEventListener("click", function () {
@@ -1074,6 +1332,11 @@
 
         modalElement.querySelector("#fp-logout-btn").addEventListener("click", function () {
           Auth.handleLogout();
+        });
+
+        modalElement.querySelector("#fp-delete-account-link").addEventListener("click", function () {
+          authView = "delete";
+          Auth.renderModalContent();
         });
 
         modalElement.querySelector("#fp-save-profile-btn").addEventListener("click", function () {
@@ -1140,6 +1403,7 @@
               "</div>" +
             "</div>" +
             '<button type="submit" class="btn btn-primary" id="fp-login-submit-btn" style="width:100%; margin-top:8px; padding:12px;">🔑 სისტემაში შესვლა</button>' +
+            '<button type="button" class="fp-auth-link" id="fp-forgot-link">დაგავიწყდათ პაროლი?</button>' +
           "</form>";
 
       modalElement.innerHTML =
@@ -1160,9 +1424,10 @@
             '<button type="button" class="fp-auth-tab ' + (isReg ? "active" : "") + '" data-switch-auth-tab="register">📝 რეგისტრაცია</button>' +
           "</div>" +
 
-          '<div class="fp-auth-error" id="fp-auth-error-box"></div>' +
+          '<div class="fp-auth-error" id="fp-auth-error-box" role="alert"></div>' +
 
           formHtml +
+          '<div id="fp-auth-extra"></div>' +
         "</div>";
 
       modalElement.querySelector("#fp-modal-close-btn").addEventListener("click", function () {
@@ -1216,6 +1481,16 @@
             password: modalElement.querySelector("#fp-reg-pw").value,
             confirmPassword: modalElement.querySelector("#fp-reg-pw2").value
           });
+        });
+      }
+
+      const forgotLink = modalElement.querySelector("#fp-forgot-link");
+      if (forgotLink) {
+        forgotLink.addEventListener("click", function () {
+          authView = "forgot";
+          Auth.renderModalContent();
+          const emailField = modalElement.querySelector("#fp-forgot-email");
+          if (emailField) emailField.focus();
         });
       }
 

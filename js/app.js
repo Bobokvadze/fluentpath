@@ -152,9 +152,11 @@
     registerServiceWorker();
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initApp);
-  } else {
+  // app.js იტვირთება defer-ით, ანუ როცა document.readyState უკვე "interactive"-ია. DOMContentLoaded-ს ვუცდით,
+  // რათა ჯერ დანარჩენი defer სკრიპტები (მათ შორის auth.js — მონაცემების საცავი) შესრულდეს.
+  if (document.readyState === 'complete') {
     initApp();
+  } else {
+    document.addEventListener('DOMContentLoaded', initApp);
   }
 })(window);

@@ -44,7 +44,7 @@
 }
 
 .fc-level-check-chip.is-checked {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-solid);
   border-color: var(--brand-primary);
   color: #ffffff;
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.22);
@@ -202,7 +202,7 @@
   align-items: center;
   padding: 4px 11px;
   border-radius: var(--radius-full);
-  background-color: var(--brand-primary);
+  background-color: var(--brand-solid);
   color: #ffffff;
   font-size: 0.78rem;
   font-weight: 700;
@@ -329,7 +329,7 @@
 }
 
 .fc-speak-pill-btn:hover {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-solid);
   color: #ffffff;
   transform: scale(1.03);
 }
@@ -521,4 +521,7 @@
   .flashcard-3d-scene {
     height: 340px;
   }
+}
+[data-theme="dark"] .srs-btn--box4 {
+  color: #a78bfa;
 }

@@ -165,13 +165,15 @@
   function initPolisher() {
     polishAll();
 
-    if (document.body && typeof MutationObserver !== "undefined") {
+    // მხოლოდ მთავარი შინაარსის სრულ გადახატვაზე რეაგირებს (და არა გვერდის ყოველ მცირე ცვლილებაზე)
+    const view = document.getElementById("app-view");
+    if (view && typeof MutationObserver !== "undefined") {
       let timer = null;
       const observer = new MutationObserver(function () {
         if (timer) window.clearTimeout(timer);
         timer = window.setTimeout(polishAll, 15);
       });
-      observer.observe(document.body, { childList: true, subtree: true });
+      observer.observe(view, { childList: true });
     }
   }
 
