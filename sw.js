@@ -1,5 +1,5 @@
 // ქეშის ვერსია: გაზარდეთ, როცა ფაილების სია იცვლება (ძველი ქეში ავტომატურად წაიშლება)
-const CACHE_NAME = 'fluentpath-cache-v6';
+const CACHE_NAME = 'fluentpath-cache-v7';
 
 const APP_SHELL = [
   './',
@@ -28,6 +28,14 @@ const APP_SHELL = [
   './js/progress.js',
   './js/dashboard.js',
   './js/learn.js',
+  './js/content/i18n.js',
+  './js/content/i18n-ka.js',
+  './js/content/vocab-a1.js',
+  './js/content/vocab-a2.js',
+  './js/content/vocab-b1.js',
+  './js/content/vocab-b2.js',
+  './js/content/vocab-c1.js',
+  './js/content/vocab-legacy-ids.js',
   './js/vocabulary.js',
   './js/grammar-a.js',
   './js/grammar-b.js',

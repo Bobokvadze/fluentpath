@@ -20,7 +20,7 @@
 
   // დიდი შინაარსის პაკეტები იტვირთება მოთხოვნისამებრ (sw.js მაინც წინასწარ ქეშავს ყველას ოფლაინისთვის)
   const DATA_PACKS = {
-    vocabulary: ['js/vocabulary.js'],
+    vocabulary: ['js/content/vocab-a1.js', 'js/content/vocab-a2.js', 'js/content/vocab-b1.js', 'js/content/vocab-b2.js', 'js/content/vocab-c1.js', 'js/content/vocab-legacy-ids.js', 'js/vocabulary.js'],
     learn: ['js/learn.js'],
     grammar: ['js/grammar-a.js', 'js/grammar-b.js', 'js/grammar-c.js'],
     reading: ['js/reading-a.js', 'js/reading-b.js', 'js/reading-c.js'],

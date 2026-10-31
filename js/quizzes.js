@@ -56,40 +56,44 @@
     buildQuestionPool: function (mode, targetLevel) {
       const pool = [];
 
-      // 1. ლექსიკის კითხვების გენერაცია
+      // 1. ლექსიკის კითხვები: განმარტება → სიტყვა და სიტყვა კონტექსტში (გამოტოვებული სიტყვა მაგალითში).
+      //    არასწორი პასუხები იგივე დონისა და მეტყველების ნაწილისაა, რომ სარწმუნო იყოს.
       if (mode === "ALL" || mode === "PLACEMENT" || mode === "LEVEL_EXAM" || mode === "VOCAB") {
-        const allWords = (App.Flashcards && typeof App.Flashcards.getAllWordsPool === "function") ? App.Flashcards.getAllWordsPool() : ((App.Vocabulary && typeof App.Vocabulary.getAllWords === "function")
-          ? App.Vocabulary.getAllWords() : []);
+        const allWords = (App.Vocabulary && typeof App.Vocabulary.getAllWords === "function") ? App.Vocabulary.getAllWords() : [];
         const levelWords = allWords.filter((w) => !targetLevel || targetLevel === "ALL" || w.level === targetLevel);
         const sampledWords = shuffleArray(levelWords).slice(0, 40);
+        const escapeRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
         sampledWords.forEach((w, idx) => {
-          const distractors = shuffleArray(
-            levelWords.filter((other) => other.id !== w.id)
-          ).slice(0, 3);
-
-          if (distractors.length === 3) {
-            if (idx % 2 === 0) {
-              const opts = shuffleArray([w.ka, distractors[0].ka, distractors[1].ka, distractors[2].ka]);
-              pool.push({
-                level: w.level,
-                source: "ლექსიკონი • " + w.level,
-                q: "როგორ ითარგმნება ქართულად სიტყვა «" + w.en + "»?",
-                options: opts,
-                correct: opts.indexOf(w.ka),
-                explanation: w.en + " = " + w.ka + (w.exampleEn ? ' ("' + w.exampleEn + '")' : "")
-              });
-            } else {
-              const opts = shuffleArray([w.en, distractors[0].en, distractors[1].en, distractors[2].en]);
-              pool.push({
-                level: w.level,
-                source: "ლექსიკონი • " + w.level,
-                q: "რომელი ინგლისური სიტყვა ნიშნავს: «" + w.ka + "»?",
-                options: opts,
-                correct: opts.indexOf(w.en),
-                explanation: w.ka + " = " + w.en
-              });
-            }
+          const samePos = levelWords.filter((o) => o.id !== w.id && o.pos === w.pos && o.word.toLowerCase() !== w.word.toLowerCase());
+          const pool2 = samePos.length >= 3 ? samePos : levelWords.filter((o) => o.id !== w.id);
+          const distractors = shuffleArray(pool2).slice(0, 3);
+          if (distractors.length < 3) return;
+          const explanation = w.word + " — " + w.def + " Example: " + w.ex;
+          const re = new RegExp("\\b" + escapeRe(w.word) + "\\b", "i");
+          // გამოტოვება მხოლოდ მაშინ, როცა სიტყვის ფუძე მაგალითში ერთხელ გვხვდება (სხვაგვარად პასუხი ჩანს)
+          const stem = w.word.toLowerCase().split(" ")[0].slice(0, 4);
+          const stemCount = w.ex.toLowerCase().split(stem).length - 1;
+          if (idx % 2 === 1 && re.test(w.ex) && stemCount === 1) {
+            const opts = shuffleArray([w.word].concat(distractors.map((d) => d.word)));
+            pool.push({
+              level: w.level,
+              source: "ლექსიკონი • " + w.level,
+              q: "Complete the sentence: " + w.ex.replace(re, "_____"),
+              options: opts,
+              correct: opts.indexOf(w.word),
+              explanation: explanation
+            });
+          } else {
+            const opts = shuffleArray([w.word].concat(distractors.map((d) => d.word)));
+            pool.push({
+              level: w.level,
+              source: "ლექსიკონი • " + w.level,
+              q: "Which word or phrase matches this definition? «" + w.def + "»",
+              options: opts,
+              correct: opts.indexOf(w.word),
+              explanation: explanation
+            });
           }
         });
       }
