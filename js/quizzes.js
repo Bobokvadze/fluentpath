@@ -262,6 +262,7 @@
       const container = document.getElementById("app-view");
       if (!container) return;
 
+      if (App.takePendingOpen && App.takePendingOpen("quizzes") === "placement") this.pendingPlacement = true;
       if (this.pendingPlacement) {
         this.pendingPlacement = false;
         this.startQuizSession({

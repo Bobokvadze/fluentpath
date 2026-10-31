@@ -120,3 +120,15 @@ test('existing module progress counts towards lessons, checkpoints unlock units 
   assert.strictEqual(App.Storage.get('progress.level'), 'A2');
   same(App.Curriculum.state().levels.map((l) => l.mode), ['review', 'current', 'locked', 'locked', 'locked']);
 });
+
+test('dashboard recommends the next lesson, due reviews, weak grammar and the least-practised skill', () => {
+  const App = loadScripts(CORE.concat(['js/flashcards.js', 'js/dashboard.js']), { localStorage: { fluentpath_app_state_v1: JSON.stringify({
+    progress: { level: 'A2', completedGrammarIds: ['grammar-topic-16'], grammarScores: { 'grammar-topic-17': { score: 2, total: 5 } } },
+    vocabulary: { boxByWordId: { 'v-angry-adj': 1 } }
+  }) } }).App;
+  const recs = App.Dashboard.buildRecommendations();
+  same(recs.map((r) => r.kind), ['lesson', 'review', 'content', 'lesson']);
+  assert.strictEqual(recs[0].lessonId, 'A2-u1-vocab-feelings');
+  assert.strictEqual(recs[2].ref, 'grammar-topic-17');
+  assert.strictEqual(recs[3].lessonId, 'A2-u1-reading-16');
+});

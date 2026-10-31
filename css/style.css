@@ -2023,3 +2023,39 @@ p {
     text-align: left;
   }
 }
+
+/* მთავარი გვერდის რეკომენდაციები */
+.fp-recs {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+}
+
+.fp-rec {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.fp-rec__icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.fp-rec__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.fp-rec__title {
+  font-weight: 600;
+}
+
+.fp-rec__reason {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}

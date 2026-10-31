@@ -15,6 +15,70 @@
     }).length;
   }
 
+  // პერსონალური რეკომენდაციები: შემდეგი გაკვეთილი, გამეორება, სუსტი გრამატიკა, ნაკლებად ნავარჯიშები უნარი
+  function buildRecommendations() {
+    const recs = [];
+    const C = App.Curriculum;
+    const idx = App.ContentIndex || {};
+    const activities = App.Storage.get("progress.recentActivities", []) || [];
+
+    const next = C ? C.next() : null;
+    if (next) {
+      recs.push({
+        kind: "lesson", icon: C.TYPE_ICONS[next.lesson.type] || "▶️", lessonId: next.lesson.id,
+        title: C.lessonTitle(next.lesson),
+        reason: "შემდეგი ნაბიჯი სასწავლო გეგმაში: " + next.level.code + " · Unit " + next.unit.number + " — " + next.unit.title
+      });
+    }
+
+    const due = (App.Flashcards && typeof App.Flashcards.getDueWordIds === "function") ? App.Flashcards.getDueWordIds().length : 0;
+    if (due) {
+      const last = activities[0];
+      const away = last && last.timestamp ? Math.floor((Date.now() - new Date(last.timestamp).getTime()) / 86400000) : 0;
+      recs.push({
+        kind: "review", icon: "🔁", title: "Review " + due + (due === 1 ? " word" : " words"),
+        reason: (away >= 3 ? "კარგია, რომ დაბრუნდით! " : "") + "დღევანდელი ინტერვალური გამეორება — ასე სიტყვები გრძელვადიან მეხსიერებაში რჩება."
+      });
+    }
+
+    const scores = App.Storage.get("progress.grammarScores", {}) || {};
+    const weak = Object.keys(scores)
+      .map(function (id) { const g = scores[id]; return { id: id, pct: g && g.total ? Math.round((g.score / g.total) * 100) : 100 }; })
+      .filter(function (g) { return g.pct < 80; })
+      .sort(function (a, b) { return a.pct - b.pct; })[0];
+    if (weak) {
+      recs.push({
+        kind: "content", module: "grammar", ref: weak.id, icon: "🌐", title: "Revise: " + ((idx.grammar && idx.grammar[weak.id]) || "grammar"),
+        reason: "ბოლო შედეგი " + weak.pct + "% — გაიმეორეთ წესი და სავარჯიშოები."
+      });
+    }
+
+    // უნარი, რომელიც მიმდინარე დონეზე ყველაზე ნაკლებადაა ნავარჯიშები
+    if (C) {
+      const level = C.state().levels.find(function (l) { return l.mode === "current"; });
+      if (level) {
+        const skills = ["reading", "listening", "speaking", "writing"].map(function (type) {
+          const lessons = [];
+          level.units.forEach(function (u) { u.lessons.forEach(function (l) { if (l.type === type) lessons.push(l); }); });
+          return {
+            type: type,
+            done: lessons.filter(function (l) { return l.status === "done"; }).length,
+            open: lessons.find(function (l) { return l.status === "available"; })
+          };
+        }).filter(function (sk) { return sk.open && (!next || sk.open.id !== next.lesson.id); })
+          .sort(function (a, b) { return a.done - b.done; });
+        if (skills.length) {
+          const sk = skills[0];
+          recs.push({
+            kind: "lesson", icon: C.TYPE_ICONS[sk.type], lessonId: sk.open.id, title: C.lessonTitle(sk.open),
+            reason: C.TYPE_LABELS[sk.type] + " — ამ დონეზე ყველაზე ნაკლებად ნავარჯიშები უნარი (" + sk.done + " გაკვეთილი)."
+          });
+        }
+      }
+    }
+    return recs.slice(0, 4);
+  }
+
   function renderDashboard() {
     const container = document.getElementById("app-view");
     if (!container) return;
@@ -34,9 +98,15 @@
     const greeting = hour < 12 ? "დილა მშვიდობისა" : (hour < 18 ? "გამარჯობა" : "საღამო მშვიდობისა");
 
     const pct = function (done, total) { return Math.min(100, Math.round((done / total) * 100)); };
+    const vocabTotal = Object.values((App.ContentIndex || {}).vocabTopics || {}).reduce(function (sum, topics) {
+      return sum + Object.values(topics).reduce(function (a, b) { return a + b; }, 0);
+    }, 0);
+    const vocabLabel = vocabTotal.toLocaleString("en-US");
+    const checkpoints = App.Storage.get("progress.curriculum.checkpoints", {}) || {};
+    const unitsPassed = Object.keys(checkpoints).filter(function (k) { return Number(checkpoints[k]) >= 70; }).length;
     const modules = [
-      { route: "learn", icon: "🌳", tone: "green", title: "სწავლის ხე", count: "დონე " + st.level, pct: pct(st.totalLessonsDone, 90), desc: "ინტერაქტიული იუნიტები ნაბიჯ-ნაბიჯ, თქვენი დონიდან." },
-      { route: "vocabulary", icon: "🗂️", tone: "amber", title: "ლექსიკონი", count: st.wordsCount + " / 3,000", pct: pct(st.wordsCount, 3000), desc: "3,000 აუცილებელი სიტყვა და ფრაზა A1–C2 დონეებზე." },
+      { route: "learn", icon: "🌳", tone: "green", title: "სასწავლო გეგმა", count: unitsPassed + " / 25 ერთეული", pct: pct(unitsPassed, 25), desc: "A1–C1: 25 ერთეული ლექსიკით, გრამატიკით, უნარებითა და შემაჯამებელი ტესტებით." },
+      { route: "vocabulary", icon: "🗂️", tone: "amber", title: "ლექსიკონი", count: st.wordsCount + " / " + vocabLabel, pct: pct(st.wordsCount, vocabTotal || 1), desc: vocabLabel + " შერჩეული სიტყვა და ფრაზა A1–C1 დონეებზე, განმარტებებითა და გამოთქმით." },
       { route: "grammar", icon: "🌐", tone: "blue", title: "გრამატიკა", count: st.grammarDone + " / 90", pct: pct(st.grammarDone, 90), desc: "90 გაკვეთილი მკაფიო წესებითა და სავარჯიშოებით." },
       { route: "reading", icon: "📖", tone: "violet", title: "კითხვა", count: st.readingDone + " / 90", pct: pct(st.readingDone, 90), desc: "ადაპტირებული ისტორიები და სტატიები კითხვებით." },
       { route: "listening", icon: "🎧", tone: "teal", title: "მოსმენა", count: st.listeningDone + " / 90", pct: pct(st.listeningDone, 90), desc: "დიალოგები და პოდკასტები ტრანსკრიპტით." },
@@ -77,6 +147,19 @@
       );
     };
 
+    const recs = buildRecommendations();
+    const primary = recs.find(function (r) { return r.kind === "lesson"; });
+    const recsHtml = recs.length
+      ? '<section class="card" aria-labelledby="fp-recs-title">' +
+          '<div class="section-header"><div><h2 class="section-title" id="fp-recs-title">რეკომენდებული დღეს</h2>' +
+          '<p class="section-subtitle">თქვენი დონის, სასწავლო გეგმის, გამეორებებისა და შედეგების მიხედვით.</p></div></div>' +
+          '<ul class="fp-recs">' + recs.map(function (r, i) {
+            return '<li class="fp-rec"><span class="fp-rec__icon" aria-hidden="true">' + r.icon + "</span>" +
+              '<div class="fp-rec__body"><div class="fp-rec__title" lang="en">' + esc(r.title) + '</div><div class="fp-rec__reason">' + esc(r.reason) + "</div></div>" +
+              '<button type="button" class="btn btn-sm ' + (i === 0 ? "btn-primary" : "btn-outline") + '" data-rec="' + i + '">დაწყება</button></li>';
+          }).join("") + "</ul></section>"
+      : "";
+
     container.innerHTML =
       '<div class="dashboard-grid">' +
         '<section class="fp-hero">' +
@@ -89,7 +172,9 @@
                 : "დღეს დაგრჩათ " + (dailyTarget - todayDone) + " აქტივობა დღიური მიზნის შესასრულებლად. გააგრძელეთ იქიდან, სადაც გაჩერდით.") +
             "</p>" +
             '<div class="fp-hero__actions">' +
-              '<a href="#learn" class="btn fp-btn-light">სწავლის გაგრძელება <span aria-hidden="true">→</span></a>' +
+              (primary
+                ? '<button type="button" class="btn fp-btn-light" data-rec="' + recs.indexOf(primary) + '">სწავლის გაგრძელება <span aria-hidden="true">→</span></button>'
+                : '<a href="#learn" class="btn fp-btn-light">სწავლის გაგრძელება <span aria-hidden="true">→</span></a>') +
               (isNewLearner
                 ? '<a href="#quizzes" class="btn fp-btn-ghost-light" data-start-placement>🧭 დონის განსაზღვრა (24 კითხვა)</a>'
                 : dueCount
@@ -104,6 +189,8 @@
             "</div>" +
           "</div>" +
         "</section>" +
+
+        recsHtml +
 
         '<section class="fp-stats-grid" aria-label="სტატისტიკა">' +
           stat("🔥", "orange", st.streak + " დღე", "უწყვეტი სტრიკი") +
@@ -124,9 +211,19 @@
     const placementBtn = container.querySelector("[data-start-placement]");
     if (placementBtn) {
       placementBtn.addEventListener("click", function () {
-        if (App.Quizzes && typeof App.Quizzes.requestPlacement === "function") App.Quizzes.requestPlacement();
+        App.openContent("quizzes", "placement");
       });
     }
+
+    container.querySelectorAll("[data-rec]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const r = recs[Number(btn.getAttribute("data-rec"))];
+        if (!r) return;
+        if (r.kind === "lesson") App.Curriculum.openLesson(r.lessonId);
+        else if (r.kind === "review") App.Flashcards.startDueReview();
+        else if (r.kind === "content") App.openContent(r.module, r.ref);
+      });
+    });
 
     const dueBtn = container.querySelector("[data-start-due-review]");
     if (dueBtn) {
@@ -138,6 +235,7 @@
 
   App.Dashboard = {
     render: renderDashboard,
+    buildRecommendations: buildRecommendations,
     countTodayActivities: countTodayActivities
   };
 })(window);
