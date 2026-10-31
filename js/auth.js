@@ -14,6 +14,9 @@
   let activeTab = "login"; // "login" | "register"
   let modalElement = null;
   let syncDebounceTimer = null;
+  let lastFocusedBeforeModal = null;
+  let authView = null; // null | "forgot" | "recovery" | "delete"
+  let releaseAuthFocus = null;
 
   // სარეგისტრაციო ტესტის დროებითი მდგომარეობა
   let pendingRegistrationData = null; // { fullName, email, password }
@@ -102,23 +105,138 @@
     return "A1";
   }
 
-  function purgeAllLocalProgressKeys() {
+  // ===== ლოკალური შენახვა (LocalStorage) =====
+  // სტუმრის პროგრესი ინახება GUEST_STATE_KEY-ზე, შესული მომხმარებლის ოფლაინ ასლი — USER_CACHE_PREFIX + id-ზე.
+  const GUEST_STATE_KEY = "fluentpath_app_state_v1";
+  const USER_CACHE_PREFIX = "fluentpath_user_cache_";
+  const CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
+  let activeLocalKey = GUEST_STATE_KEY;
+
+  function readLocalJSON(key) {
     try {
-      const keysToRemove = [];
-      for (let i = 0; i < window.localStorage.length; i++) {
-        const k = window.localStorage.key(i);
-        if (k && k.indexOf("sb-") !== 0 && k !== "fluentpath_preferred_accent_v1") {
-          keysToRemove.push(k);
-        }
-      }
-      keysToRemove.forEach(function (k) {
-        window.localStorage.removeItem(k);
-      });
+      const raw = window.localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeLocalJSON(key, value) {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function removeLocalKey(key) {
+    try {
+      window.localStorage.removeItem(key);
     } catch (e) {}
   }
 
+  // Supabase-ის სესიიდან (თუ არსებობს) ვიღებთ მომხმარებლის id-ს, რომ ოფლაინ ასლი მყისიერად ჩაიტვირთოს
+  function readStoredSessionUserId() {
+    try {
+      const ref = new URL(App.SupabaseConfig.url).hostname.split(".")[0];
+      const session = readLocalJSON("sb-" + ref + "-auth-token");
+      return session && session.user && session.user.id ? session.user.id : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function isPlainObject(v) {
+    return v !== null && typeof v === "object" && !Array.isArray(v);
+  }
+
+  // ავსებს დაკარგულ ველებს ნაგულისხმევი მნიშვნელობებით (არსებულ მონაცემებს არ ეხება)
+  function fillDefaults(target, defaults) {
+    Object.keys(defaults).forEach(function (key) {
+      if (target[key] === undefined || target[key] === null) {
+        target[key] = defaults[key];
+      } else if (isPlainObject(target[key]) && isPlainObject(defaults[key])) {
+        fillDefaults(target[key], defaults[key]);
+      }
+    });
+    return target;
+  }
+
+  function normalizeState(raw) {
+    const state = isPlainObject(raw) ? raw : {};
+    fillDefaults(state, createCleanBlankState("A1", "", ""));
+    // პარამეტრების გვერდის ველები
+    fillDefaults(state, {
+      settings: { dailyGoalActivities: 5, soundEnabled: true, userName: "მოსწავლე" }
+    });
+    let level = state.progress.level;
+    if (CEFR_LEVELS.indexOf(level) === -1) level = state.settings.cefrLevel;
+    if (CEFR_LEVELS.indexOf(level) === -1) level = "A1";
+    state.progress.level = level;
+    state.settings.cefrLevel = level;
+    return state;
+  }
+
+  function getStateTimestamp(state) {
+    const t = state && state.meta ? Date.parse(state.meta.updatedAt) : NaN;
+    return isNaN(t) ? 0 : t;
+  }
+
+  function persistLocally() {
+    inMemoryState.meta = inMemoryState.meta || {};
+    inMemoryState.meta.updatedAt = new Date().toISOString();
+    writeLocalJSON(activeLocalKey, inMemoryState);
+  }
+
+  function hasAnyProgress(state) {
+    const p = (state && state.progress) || {};
+    const v = (state && state.vocabulary) || {};
+    return ["completedGrammarIds", "completedReadingIds", "completedListeningIds", "completedWritingIds", "completedLessonIds"]
+      .some(function (k) { return Array.isArray(p[k]) && p[k].length > 0; }) ||
+      (Array.isArray(v.learnedIds) && v.learnedIds.length > 0) ||
+      (isPlainObject(v.boxByWordId) && Object.keys(v.boxByWordId).length > 0);
+  }
+
+  // სტუმრად დაგროვებულ პროგრესს უერთებს ახალ/ცარიელ ღრუბლოვან პროფილს, რომ რეგისტრაციისას არაფერი დაიკარგოს
+  function mergeGuestProgressInto(target) {
+    const guest = readLocalJSON(GUEST_STATE_KEY);
+    if (!hasAnyProgress(guest)) return target;
+
+    function unionAt(path) {
+      const a = getByPath(target, path, []);
+      const b = getByPath(guest, path, []);
+      if (!Array.isArray(b) || !b.length) return;
+      const merged = (Array.isArray(a) ? a : []).slice();
+      b.forEach(function (id) {
+        if (merged.indexOf(id) === -1) merged.push(id);
+      });
+      setByPath(target, path, merged);
+    }
+
+    ["progress.completedGrammarIds", "progress.completedReadingIds", "progress.completedListeningIds",
+      "progress.completedWritingIds", "progress.completedLessonIds", "progress.completedSpeakingIds",
+      "vocabulary.learnedIds", "vocabulary.bookmarkedIds"]
+      .forEach(unionAt);
+
+    const boxes = Object.assign({}, getByPath(guest, "vocabulary.boxByWordId", {}), getByPath(target, "vocabulary.boxByWordId", {}));
+    setByPath(target, "vocabulary.boxByWordId", boxes);
+
+    const crowns = Object.assign({}, getByPath(guest, "progress.nodeCrowns", {}));
+    const ownCrowns = getByPath(target, "progress.nodeCrowns", {});
+    Object.keys(ownCrowns || {}).forEach(function (k) {
+      crowns[k] = Math.max(Number(crowns[k]) || 0, Number(ownCrowns[k]) || 0);
+    });
+    setByPath(target, "progress.nodeCrowns", crowns);
+
+    setByPath(target, "progress.vocabularyLearned", getByPath(target, "vocabulary.learnedIds", []).length);
+    return target;
+  }
+
   function getTodayDateString() {
-    return new Date().toISOString().slice(0, 10);
+    // ადგილობრივი (და არა UTC) თარიღი — სტრიკი შუაღამისას უნდა განახლდეს მომხმარებლის საათით
+    const d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   }
 
   function createCleanBlankState(level, fullName, email) {
@@ -133,8 +251,8 @@
       },
       progress: {
         xp: 0,
-        streak: 1,
-        lastActiveDate: getTodayDateString(),
+        streak: 0,
+        lastActiveDate: "",
         level: level || "A1",
         vocabularyLearned: 0,
         grammarCompleted: 0,
@@ -198,37 +316,42 @@
     cur[parts[parts.length - 1]] = value;
   }
 
-  /**
-   * ამოწმებს და აახლებს მომხმარებლის დღიურ სტრიკს (Streak)
-   */
-  function updateDailyStreakInState() {
-    const today = getTodayDateString();
+  function daysSinceLastStudy() {
     const lastDate = getByPath(inMemoryState, "progress.lastActiveDate", "");
-    let currentStreak = Number(getByPath(inMemoryState, "progress.streak", 1)) || 1;
-
-    if (!lastDate) {
-      setByPath(inMemoryState, "progress.lastActiveDate", today);
-      setByPath(inMemoryState, "progress.streak", 1);
-      return;
-    }
-
-    if (lastDate === today) return;
-
+    if (!lastDate) return null;
     const d1 = new Date(lastDate + "T00:00:00Z");
-    const d2 = new Date(today + "T00:00:00Z");
-    const diffDays = Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
-
-    if (diffDays === 1) {
-      currentStreak += 1;
-    } else if (diffDays > 1) {
-      currentStreak = 1;
-    }
-
-    setByPath(inMemoryState, "progress.lastActiveDate", today);
-    setByPath(inMemoryState, "progress.streak", currentStreak);
+    const d2 = new Date(getTodayDateString() + "T00:00:00Z");
+    const diff = Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
+    return isNaN(diff) ? null : diff;
   }
 
-  function hookStorageToSupabaseOnly() {
+  /**
+   * სტრიკი ითვლის სწავლის დღეებს (და არა საიტის გახსნას). აქ მხოლოდ ვამოწმებთ, ხომ არ გაწყდა:
+   * თუ ბოლო სასწავლო დღე გუშინდელზე ადრე იყო, სტრიკი ნულდება.
+   */
+  function updateDailyStreakInState() {
+    const diff = daysSinceLastStudy();
+    if (diff !== null && diff > 1 && Number(getByPath(inMemoryState, "progress.streak", 0)) !== 0) {
+      setByPath(inMemoryState, "progress.streak", 0);
+    }
+  }
+
+  // იძახებს Progress.recordActivity — ანუ როცა მომხმარებელმა რეალურად ისწავლა რამე
+  function registerStudyDay() {
+    const diff = daysSinceLastStudy();
+    if (diff === 0) return;
+    const current = Number(getByPath(inMemoryState, "progress.streak", 0)) || 0;
+    setByPath(inMemoryState, "progress.streak", diff === 1 ? current + 1 : 1);
+    setByPath(inMemoryState, "progress.lastActiveDate", getTodayDateString());
+  }
+
+  function commitStateChange() {
+    updateDailyStreakInState();
+    persistLocally();
+    scheduleCloudPush();
+  }
+
+  function hookStorage() {
     if (!App.Storage) return;
 
     App.Storage.getState = function () {
@@ -237,10 +360,9 @@
 
     App.Storage.saveState = function (newState) {
       if (newState && typeof newState === "object") {
-        inMemoryState = newState;
+        inMemoryState = normalizeState(newState);
       }
-      updateDailyStreakInState();
-      scheduleCloudPush();
+      commitStateChange();
       return inMemoryState;
     };
 
@@ -250,26 +372,62 @@
 
     App.Storage.set = function (path, value) {
       setByPath(inMemoryState, path, value);
-      updateDailyStreakInState();
-      scheduleCloudPush();
+      // CEFR დონე ორ ადგილას ინახება (ძველი და ახალი მოდულები) — ვინარჩუნებთ სინქრონში
+      if ((path === "settings.cefrLevel" || path === "progress.level") && CEFR_LEVELS.indexOf(value) !== -1) {
+        setByPath(inMemoryState, "settings.cefrLevel", value);
+        setByPath(inMemoryState, "progress.level", value);
+      }
+      commitStateChange();
       return value;
     };
 
     App.Storage.resetAll = function () {
       const lvl = getByPath(inMemoryState, "progress.level", "A1");
-      const name = currentCloudUser ? currentCloudUser.fullName : "";
+      const name = currentCloudUser ? currentCloudUser.fullName : getByPath(inMemoryState, "user.name", "");
       const email = currentCloudUser ? currentCloudUser.email : "";
-      inMemoryState = createCleanBlankState(lvl, name, email);
-      scheduleCloudPush();
+      inMemoryState = normalizeState(createCleanBlankState(lvl, name, email));
+      commitStateChange();
       return inMemoryState;
+    };
+    App.Storage.reset = App.Storage.resetAll;
+    App.Storage.registerStudyDay = registerStudyDay;
+
+    // storage.js-ის importData ძველ სქემაზეა მორგებული და კარგავს user/flashcards ველებს
+    App.Storage.importData = function (jsonString) {
+      try {
+        const parsed = JSON.parse(jsonString);
+        if (!isPlainObject(parsed) || !isPlainObject(parsed.settings) || !isPlainObject(parsed.progress)) {
+          throw new Error("არჩეული ფაილი არ წარმოადგენს FluentPath-ის სარეზერვო ასლს.");
+        }
+        inMemoryState = normalizeState(parsed);
+        commitStateChange();
+        return { success: true, state: inMemoryState };
+      } catch (err) {
+        return { success: false, error: (err && err.message) || "უცნობი შეცდომა ფაილის იმპორტისას." };
+      }
+    };
+
+    App.Storage.getStorageSizeKB = function () {
+      try {
+        const raw = window.localStorage.getItem(activeLocalKey) || "";
+        return (new Blob([raw]).size / 1024).toFixed(2);
+      } catch (e) {
+        return "0.00";
+      }
     };
   }
 
+  let cloudSyncFailed = false;
+
   function pushStateToSupabaseNow() {
-    if (!supabaseClient || !currentCloudUser || !currentCloudUser.id) return Promise.resolve();
+    if (syncDebounceTimer) {
+      window.clearTimeout(syncDebounceTimer);
+      syncDebounceTimer = null;
+    }
+    if (!supabaseClient || !currentCloudUser || !currentCloudUser.id) return Promise.resolve(false);
 
     const boxes = getByPath(inMemoryState, "vocabulary.boxByWordId", {});
-    const fcLevels = getByPath(inMemoryState, "vocabulary.selectedFcLevels", ["A1", "A2", "B1", "B2", "C1", "C2"]);
+    const fcLevels = getByPath(inMemoryState, "vocabulary.selectedFcLevels", CEFR_LEVELS);
     const curLevel = getByPath(inMemoryState, "progress.level", currentCloudUser.level || "A1");
 
     const payload = {
@@ -283,11 +441,26 @@
       updated_at: new Date().toISOString()
     };
 
+    // supabase-js შეცდომისას Promise-ს არ უარყოფს — ვამოწმებთ res.error-ს
     return supabaseClient
       .from("user_profiles")
       .upsert(payload, { onConflict: "id" })
-      .then(function () {})
-      .catch(function () {});
+      .then(function (res) {
+        if (res && res.error) throw res.error;
+        if (cloudSyncFailed && App.UI) {
+          App.UI.toast("☁️ პროგრესი ღრუბელთან კვლავ სინქრონიზებულია.", "success", 2600);
+        }
+        cloudSyncFailed = false;
+        return true;
+      })
+      .catch(function () {
+        // მონაცემები ლოკალურად უკვე შენახულია; ვცდით ხელახლა, როცა კავშირი აღდგება
+        if (!cloudSyncFailed && App.UI) {
+          App.UI.toast("⚠️ ღრუბელთან სინქრონიზაცია ვერ მოხერხდა. პროგრესი შენახულია ამ მოწყობილობაზე და გაიგზავნება კავშირის აღდგენისას.", "warning", 5000);
+        }
+        cloudSyncFailed = true;
+        return false;
+      });
   }
 
   function scheduleCloudPush() {
@@ -298,6 +471,37 @@
     syncDebounceTimer = window.setTimeout(function () {
       pushStateToSupabaseNow();
     }, 350);
+  }
+
+  window.addEventListener("online", function () {
+    if (currentCloudUser && cloudSyncFailed) pushStateToSupabaseNow();
+  });
+
+  // გვერდის დახურვისას დაუგზავნელი ცვლილებები მაშინვე გავგზავნოთ
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden" && syncDebounceTimer) pushStateToSupabaseNow();
+  });
+
+  // ადრეული ჩატვირთვა: სტორიჯი უნდა იყოს მიბმული სანამ app.js ინიციალიზაციას დაიწყებს
+  (function bootstrapLocalState() {
+    const cachedUserId = App.SupabaseConfig ? readStoredSessionUserId() : null;
+    const cached = cachedUserId ? readLocalJSON(USER_CACHE_PREFIX + cachedUserId) : null;
+    if (cached) {
+      activeLocalKey = USER_CACHE_PREFIX + cachedUserId;
+      inMemoryState = normalizeState(cached);
+    } else {
+      activeLocalKey = GUEST_STATE_KEY;
+      inMemoryState = normalizeState(readLocalJSON(GUEST_STATE_KEY));
+    }
+    updateDailyStreakInState();
+    hookStorage();
+  })();
+
+  function switchToGuestState() {
+    currentCloudUser = null;
+    activeLocalKey = GUEST_STATE_KEY;
+    inMemoryState = normalizeState(readLocalJSON(GUEST_STATE_KEY));
+    updateDailyStreakInState();
   }
 
   function evaluatePasswordRules(pw) {
@@ -316,6 +520,11 @@
     return r.minLen && r.hasUpper && r.hasLower && r.hasDigit && r.hasSpecial;
   }
 
+  // ელ-ფოსტის ბმულები (დადასტურება, პაროლის აღდგენა) აბრუნებს იმავე გვერდზე, სადაც საიტი გაიხსნა
+  function getAuthRedirectUrl() {
+    return window.location.origin + window.location.pathname;
+  }
+
   function getInitials(name) {
     const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
     if (!parts.length) return "U";
@@ -324,6 +533,9 @@
   }
 
   function refreshEntireAppUI() {
+    if (App.UI && typeof App.UI.applyTheme === "function") {
+      App.UI.applyTheme(getByPath(inMemoryState, "settings.theme", "light"));
+    }
     Auth.syncHeaderAuthUI();
     if (App.Progress && typeof App.Progress.syncHeaderStats === "function") {
       App.Progress.syncHeaderStats();
@@ -335,12 +547,20 @@
 
   const Auth = {
     initClient: function () {
-      purgeAllLocalProgressKeys();
-      hookStorageToSupabaseOnly();
-
-      if (!window.supabase || !App.SupabaseConfig || !App.SupabaseConfig.url || !App.SupabaseConfig.anonKey) {
+      if (!App.SupabaseConfig || !App.SupabaseConfig.url || !App.SupabaseConfig.anonKey) {
         return;
       }
+      if (!window.supabase) {
+        // Supabase SDK იტვირთება async-ით (CDN-ის ნელი ქსელი აპის ჩატვირთვას აღარ აფერხებს) — ჩატვირთვას ვუცდით
+        Auth.syncHeaderAuthUI();
+        const sdk = document.getElementById("supabase-sdk");
+        if (sdk && !sdk._fpWaiting) {
+          sdk._fpWaiting = true;
+          sdk.addEventListener("load", function () { Auth.initClient(); }, { once: true });
+        }
+        return;
+      }
+      if (supabaseClient) return;
 
       supabaseClient = window.supabase.createClient(App.SupabaseConfig.url, App.SupabaseConfig.anonKey);
 
@@ -350,8 +570,25 @@
         if (session && session.user) {
           Auth.loadUserProfileFromSupabase(session.user, false);
         } else {
-          currentCloudUser = null;
-          inMemoryState = createCleanBlankState("A1", "", "");
+          // ოფლაინ ასლი ეკუთვნოდა ვადაგასულ სესიას — ვბრუნდებით სტუმრის პროგრესზე
+          if (activeLocalKey !== GUEST_STATE_KEY) switchToGuestState();
+          refreshEntireAppUI();
+        }
+      }).catch(function () {
+        // ქსელი მიუწვდომელია — ვაგრძელებთ ლოკალური მონაცემებით
+        refreshEntireAppUI();
+      });
+
+      supabaseClient.auth.onAuthStateChange(function (event) {
+        // მომხმარებელი დაბრუნდა პაროლის აღდგენის ბმულით — ვთავაზობთ ახალი პაროლის დაყენებას
+        if (event === "PASSWORD_RECOVERY") {
+          authView = "recovery";
+          window.setTimeout(function () { Auth.openModal(); }, 50);
+          return;
+        }
+        // სესია სხვა ჩანართში ან ვადის გასვლით დასრულდა
+        if (event === "SIGNED_OUT" && currentCloudUser) {
+          switchToGuestState();
           refreshEntireAppUI();
         }
       });
@@ -363,45 +600,58 @@
       const fallbackName = chosenName || (supaUser.user_metadata && supaUser.user_metadata.full_name) || supaUser.email.split("@")[0];
       const fallbackLevel = assignedLevel || (supaUser.user_metadata && supaUser.user_metadata.cefr_level) || "A1";
 
+      const userCacheKey = USER_CACHE_PREFIX + supaUser.id;
+
       if (isNewRegistration) {
-        inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
-        setByPath(inMemoryState, "vocabulary.selectedFcLevels", [fallbackLevel]);
+        // წინა დონეების გასახსნელად სრული თემების სიებია საჭირო — პაკეტები შეიძლება ჯერ არ იყოს ჩატვირთული
+        const packsReady = typeof App.loadModuleData === "function"
+          ? App.loadModuleData(["grammar", "reading", "listening", "writing"]).catch(function (err) { console.warn(err); })
+          : Promise.resolve();
+        return packsReady.then(function () {
+          inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
+          setByPath(inMemoryState, "vocabulary.selectedFcLevels", [fallbackLevel]);
 
-        // გავუხსნათ დადგენილ დონემდე არსებული წინა დონეების თემები ყველა მოდულში
-        const levelOrder = ["A1", "A2", "B1", "B2", "C1", "C2"];
-        const assignedIdx = levelOrder.indexOf(fallbackLevel);
-        if (assignedIdx > 0) {
-          const passedLevels = levelOrder.slice(0, assignedIdx);
-          if (App.Grammar && typeof App.Grammar.getAllTopics === "function") {
-            const gIds = App.Grammar.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
-            setByPath(inMemoryState, "progress.completedGrammarIds", gIds);
+          // გავუხსნათ დადგენილ დონემდე არსებული წინა დონეების თემები ყველა მოდულში
+          const levelOrder = ["A1", "A2", "B1", "B2", "C1", "C2"];
+          const assignedIdx = levelOrder.indexOf(fallbackLevel);
+          if (assignedIdx > 0) {
+            const passedLevels = levelOrder.slice(0, assignedIdx);
+            if (App.Grammar && typeof App.Grammar.getAllTopics === "function") {
+              const gIds = App.Grammar.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+              setByPath(inMemoryState, "progress.completedGrammarIds", gIds);
+            }
+            if (App.Reading && typeof App.Reading.getAllPassages === "function") {
+              const rIds = App.Reading.getAllPassages().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+              setByPath(inMemoryState, "progress.completedReadingIds", rIds);
+            }
+            if (App.Listening && typeof App.Listening.getAllTopics === "function") {
+              const lIds = App.Listening.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+              setByPath(inMemoryState, "progress.completedListeningIds", lIds);
+            }
+            if (App.Writing && typeof App.Writing.getAllTopics === "function") {
+              const wIds = App.Writing.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
+              setByPath(inMemoryState, "progress.completedWritingIds", wIds);
+            }
           }
-          if (App.Reading && typeof App.Reading.getAllStories === "function") {
-            const rIds = App.Reading.getAllStories().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
-            setByPath(inMemoryState, "progress.completedReadingIds", rIds);
-          }
-          if (App.Listening && typeof App.Listening.getAllTopics === "function") {
-            const lIds = App.Listening.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
-            setByPath(inMemoryState, "progress.completedListeningIds", lIds);
-          }
-          if (App.Writing && typeof App.Writing.getAllTopics === "function") {
-            const wIds = App.Writing.getAllTopics().filter(function (x) { return passedLevels.indexOf(x.level) !== -1; }).map(function (x) { return x.id; });
-            setByPath(inMemoryState, "progress.completedWritingIds", wIds);
-          }
-        }
 
-        if (App.Learn && typeof App.Learn.setActiveLevelTab === "function") {
-          App.Learn.setActiveLevelTab(fallbackLevel);
-        }
+          if (App.Learn && typeof App.Learn.setActiveLevelTab === "function") {
+            App.Learn.setActiveLevelTab(fallbackLevel);
+          }
 
-        currentCloudUser = {
-          id: supaUser.id,
-          email: supaUser.email,
-          fullName: fallbackName,
-          level: fallbackLevel
-        };
-        return pushStateToSupabaseNow().then(function () {
-          refreshEntireAppUI();
+          mergeGuestProgressInto(inMemoryState);
+          inMemoryState = normalizeState(inMemoryState);
+
+          currentCloudUser = {
+            id: supaUser.id,
+            email: supaUser.email,
+            fullName: fallbackName,
+            level: fallbackLevel
+          };
+          activeLocalKey = userCacheKey;
+          persistLocally();
+          return pushStateToSupabaseNow().then(function () {
+            refreshEntireAppUI();
+          });
         });
       }
 
@@ -411,8 +661,19 @@
         .eq("id", supaUser.id)
         .maybeSingle()
         .then(function (result) {
+          if (result && result.error) throw result.error;
           const row = result && result.data ? result.data : null;
+          const localCache = readLocalJSON(userCacheKey);
+          const cloudTime = row && row.updated_at ? (Date.parse(row.updated_at) || 0) : 0;
+          let source = "blank";
+
           if (row && row.state_json && Object.keys(row.state_json).length > 0) {
+            source = (localCache && getStateTimestamp(localCache) > cloudTime) ? "local" : "cloud";
+          } else if (localCache) {
+            source = "local";
+          }
+
+          if (source === "cloud") {
             inMemoryState = row.state_json;
             inMemoryState.vocabulary = inMemoryState.vocabulary || {};
             if (row.leitner_boxes) {
@@ -424,27 +685,41 @@
             if (row.cefr_level) {
               setByPath(inMemoryState, "progress.level", row.cefr_level);
             }
-            updateDailyStreakInState();
-            currentCloudUser = {
-              id: supaUser.id,
-              email: supaUser.email,
-              fullName: row.full_name || fallbackName,
-              level: row.cefr_level || fallbackLevel
-            };
-            pushStateToSupabaseNow();
+          } else if (source === "local") {
+            // ამ მოწყობილობაზე ოფლაინ შეტანილი ცვლილებები ღრუბელზე ახალია
+            inMemoryState = localCache;
           } else {
-            inMemoryState = createCleanBlankState(fallbackLevel, fallbackName, supaUser.email);
-            currentCloudUser = {
-              id: supaUser.id,
-              email: supaUser.email,
-              fullName: fallbackName,
-              level: fallbackLevel
-            };
-            pushStateToSupabaseNow();
+            inMemoryState = mergeGuestProgressInto(createCleanBlankState(fallbackLevel, fallbackName, supaUser.email));
           }
+
+          inMemoryState = normalizeState(inMemoryState);
+          if (row && row.cefr_level && source === "cloud") {
+            inMemoryState.settings.cefrLevel = inMemoryState.progress.level;
+          }
+          updateDailyStreakInState();
+          currentCloudUser = {
+            id: supaUser.id,
+            email: supaUser.email,
+            fullName: (row && row.full_name) || fallbackName,
+            level: inMemoryState.progress.level
+          };
+          activeLocalKey = userCacheKey;
+          persistLocally();
+          pushStateToSupabaseNow();
           refreshEntireAppUI();
         })
         .catch(function () {
+          // ქსელის შეცდომა: ვიყენებთ ამ მოწყობილობაზე შენახულ ასლს (თუ არსებობს)
+          const localCache = readLocalJSON(userCacheKey);
+          currentCloudUser = {
+            id: supaUser.id,
+            email: supaUser.email,
+            fullName: fallbackName,
+            level: fallbackLevel
+          };
+          activeLocalKey = userCacheKey;
+          inMemoryState = normalizeState(localCache || createCleanBlankState(fallbackLevel, fallbackName, supaUser.email));
+          cloudSyncFailed = true;
           refreshEntireAppUI();
         });
     },
@@ -454,8 +729,16 @@
       const backdrop = document.createElement("div");
       backdrop.className = "fp-auth-backdrop";
       backdrop.id = "fp-auth-backdrop";
+      backdrop.setAttribute("role", "dialog");
+      backdrop.setAttribute("aria-modal", "true");
+      backdrop.setAttribute("aria-label", "ანგარიში");
       backdrop.addEventListener("click", function (e) {
-        if (e.target === backdrop && !pendingRegistrationData) {
+        if (e.target === backdrop && !pendingRegistrationData && authView !== "recovery") {
+          Auth.closeModal();
+        }
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && backdrop.classList.contains("is-open") && !pendingRegistrationData && authView !== "recovery") {
           Auth.closeModal();
         }
       });
@@ -465,6 +748,7 @@
     },
 
     openModal: function (defaultTab) {
+      if (defaultTab) authView = null;
       pendingRegistrationData = null;
       regPlacementFinishedResult = null;
       if (defaultTab === "login" || defaultTab === "register") {
@@ -472,8 +756,13 @@
       }
       this.ensureModalCreated();
       this.renderModalContent();
+      lastFocusedBeforeModal = document.activeElement;
+      if (releaseAuthFocus) releaseAuthFocus();
+      releaseAuthFocus = App.UI && typeof App.UI.trapFocus === "function" ? App.UI.trapFocus(modalElement) : null;
       window.setTimeout(function () {
         modalElement.classList.add("is-open");
+        const firstField = modalElement.querySelector("input") || modalElement.querySelector("button");
+        if (firstField) firstField.focus();
       }, 10);
     },
 
@@ -481,7 +770,16 @@
       if (!modalElement) return;
       pendingRegistrationData = null;
       regPlacementFinishedResult = null;
+      if (authView !== "recovery") authView = null;
       modalElement.classList.remove("is-open");
+      if (releaseAuthFocus) {
+        releaseAuthFocus();
+        releaseAuthFocus = null;
+      }
+      if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === "function") {
+        lastFocusedBeforeModal.focus();
+      }
+      lastFocusedBeforeModal = null;
     },
 
     showError: function (msg) {
@@ -490,6 +788,220 @@
       if (errEl) {
         errEl.textContent = "⚠️ " + msg;
         errEl.classList.add("visible");
+      }
+    },
+
+    showResendButton: function (email) {
+      if (!modalElement) return;
+      const slot = modalElement.querySelector("#fp-auth-extra");
+      if (!slot) return;
+      slot.innerHTML = '<button type="button" class="btn btn-outline btn-sm" id="fp-resend-btn" style="width:100%;">📧 დადასტურების წერილის ხელახლა გაგზავნა</button>';
+      slot.querySelector("#fp-resend-btn").addEventListener("click", function () {
+        Auth.resendConfirmation(email, this);
+      });
+    },
+
+    resendConfirmation: function (email, btn) {
+      if (!supabaseClient || !email) return;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ იგზავნება...";
+      }
+      supabaseClient.auth.resend({ type: "signup", email: email, options: { emailRedirectTo: getAuthRedirectUrl() } })
+        .then(function (res) {
+          if (res.error) throw res.error;
+          if (btn) btn.textContent = "✓ წერილი გაიგზავნა";
+          App.UI.toast("📧 დადასტურების წერილი ხელახლა გაიგზავნა: " + email, "success", 4000);
+        })
+        .catch(function (err) {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "📧 დადასტურების წერილის ხელახლა გაგზავნა";
+          }
+          // Supabase ზღუდავს წერილების სიხშირეს (rate limit)
+          Auth.showError((err && /rate|seconds/i.test(err.message || "")) ? "გთხოვთ, დაელოდოთ ერთ წუთს და სცადოთ თავიდან." : "წერილის გაგზავნა ვერ მოხერხდა.");
+        });
+    },
+
+    requestPasswordReset: function (email, btn) {
+      const clean = String(email || "").toLowerCase().trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) {
+        this.showError("გთხოვთ მიუთითოთ სწორი ელ-ფოსტის მისამართი.");
+        return;
+      }
+      if (!supabaseClient) return;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ იგზავნება...";
+      }
+      supabaseClient.auth.resetPasswordForEmail(clean, { redirectTo: getAuthRedirectUrl() })
+        .then(function (res) {
+          if (res.error) throw res.error;
+          // შეგნებულად არ ვამბობთ, არსებობს თუ არა ანგარიში (ელ-ფოსტების გამოცნობის თავიდან ასაცილებლად)
+          modalElement.querySelector("#fp-auth-extra").innerHTML =
+            '<p class="fp-auth-note">✓ თუ ამ მისამართზე ანგარიში არსებობს, მასზე გაიგზავნა პაროლის აღდგენის ბმული. შეამოწმეთ შემოსულები (და Spam).</p>';
+          if (btn) btn.textContent = "✓ გაიგზავნა";
+        })
+        .catch(function (err) {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "📧 აღდგენის ბმულის გაგზავნა";
+          }
+          Auth.showError((err && /rate|seconds/i.test(err.message || "")) ? "გთხოვთ, დაელოდოთ ერთ წუთს და სცადოთ თავიდან." : "ბმულის გაგზავნა ვერ მოხერხდა.");
+        });
+    },
+
+    saveNewPassword: function (pw, pw2, btn) {
+      if (!isPasswordValid(pw)) {
+        this.showError("პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს, 1 დიდ ასოს, 1 პატარა ასოს, 1 ციფრს და 1 სპეციალურ სიმბოლოს!");
+        return;
+      }
+      if (pw !== pw2) {
+        this.showError("პაროლები ერთმანეთს არ ემთხვევა.");
+        return;
+      }
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ ინახება...";
+      }
+      supabaseClient.auth.updateUser({ password: pw })
+        .then(function (res) {
+          if (res.error) throw res.error;
+          authView = null;
+          Auth.closeModal();
+          App.UI.toast("🔐 ახალი პაროლი შენახულია.", "success", 3500);
+          if (res.data && res.data.user && !currentCloudUser) {
+            Auth.loadUserProfileFromSupabase(res.data.user, false);
+          }
+        })
+        .catch(function (err) {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "🔐 ახალი პაროლის შენახვა";
+          }
+          Auth.showError((err && err.message) || "პაროლის შეცვლა ვერ მოხერხდა. მოითხოვეთ ახალი ბმული.");
+        });
+    },
+
+    // ანგარიშის სრული წაშლა: მონაცემთა ბაზის ფუნქცია delete_own_account() შლის მხოლოდ მიმდინარე მომხმარებელს
+    deleteAccount: function (btn) {
+      if (!supabaseClient || !currentCloudUser) return;
+      const userId = currentCloudUser.id;
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "⏳ იშლება...";
+      }
+      supabaseClient.rpc("delete_own_account")
+        .then(function (res) {
+          if (res.error) throw res.error;
+          removeLocalKey(USER_CACHE_PREFIX + userId);
+          authView = null;
+          return supabaseClient.auth.signOut({ scope: "local" }).catch(function () {});
+        })
+        .then(function () {
+          switchToGuestState();
+          refreshEntireAppUI();
+          Auth.closeModal();
+          App.UI.toast("ანგარიში და მისი მონაცემები წაიშალა.", "info", 4000);
+        })
+        .catch(function () {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "🗑️ ანგარიშის საბოლოოდ წაშლა";
+          }
+          Auth.showError("ანგარიშის წაშლა ვერ მოხერხდა. სცადეთ მოგვიანებით.");
+        });
+    },
+
+    renderSpecialView: function () {
+      const esc = App.UI.escapeHTML;
+      let title = "";
+      let intro = "";
+      let body = "";
+
+      if (authView === "forgot") {
+        title = "პაროლის აღდგენა";
+        intro = "მიუთითეთ ანგარიშის ელ-ფოსტა — გამოგიგზავნით ბმულს ახალი პაროლის დასაყენებლად.";
+        body =
+          '<form id="fp-forgot-form">' +
+            '<div class="fp-form-group">' +
+              '<label class="fp-form-label" for="fp-forgot-email">ელ-ფოსტა</label>' +
+              '<input type="email" id="fp-forgot-email" class="fp-input" placeholder="name@example.com" autocomplete="email" required />' +
+            "</div>" +
+            '<button type="submit" class="btn btn-primary" id="fp-forgot-submit" style="width:100%;">📧 აღდგენის ბმულის გაგზავნა</button>' +
+          "</form>" +
+          '<button type="button" class="fp-auth-link" data-auth-back>← შესვლაზე დაბრუნება</button>';
+      } else if (authView === "recovery") {
+        title = "ახალი პაროლის დაყენება";
+        intro = "შეიყვანეთ ახალი პაროლი თქვენი ანგარიშისთვის.";
+        body =
+          '<form id="fp-recovery-form">' +
+            '<div class="fp-form-group">' +
+              '<label class="fp-form-label" for="fp-new-pw">ახალი პაროლი</label>' +
+              '<input type="password" id="fp-new-pw" class="fp-input" autocomplete="new-password" placeholder="მინ. 8 სიმბოლო (A-Z, a-z, 0-9, !@#)" required />' +
+            "</div>" +
+            '<div class="fp-form-group">' +
+              '<label class="fp-form-label" for="fp-new-pw2">გაიმეორეთ პაროლი</label>' +
+              '<input type="password" id="fp-new-pw2" class="fp-input" autocomplete="new-password" required />' +
+            "</div>" +
+            '<button type="submit" class="btn btn-primary" id="fp-recovery-submit" style="width:100%;">🔐 ახალი პაროლის შენახვა</button>' +
+          "</form>";
+      } else if (authView === "delete" && currentCloudUser) {
+        title = "ანგარიშის წაშლა";
+        intro = "ეს მოქმედება შეუქცევადია: წაიშლება თქვენი ანგარიში და ღრუბელში შენახული მთელი პროგრესი.";
+        body =
+          '<div class="fp-form-group">' +
+            '<label class="fp-form-label" for="fp-delete-confirm">დასადასტურებლად ჩაწერეთ თქვენი ელ-ფოსტა: <strong>' + esc(currentCloudUser.email) + "</strong></label>" +
+            '<input type="email" id="fp-delete-confirm" class="fp-input" autocomplete="off" />' +
+          "</div>" +
+          '<button type="button" class="btn btn-danger" id="fp-delete-submit" style="width:100%;" disabled>🗑️ ანგარიშის საბოლოოდ წაშლა</button>' +
+          '<button type="button" class="fp-auth-link" data-auth-back>← გაუქმება</button>';
+      }
+
+      modalElement.innerHTML =
+        '<div class="fp-auth-modal" role="dialog" aria-modal="true" aria-labelledby="fp-special-title">' +
+          (authView === "recovery" ? "" : '<button type="button" class="fp-auth-close-btn" id="fp-modal-close-btn" aria-label="დახურვა">✕</button>') +
+          '<div style="text-align:center; margin-bottom:12px;">' +
+            '<h3 class="section-title" id="fp-special-title" style="font-size:1.25rem;">' + title + "</h3>" +
+            '<p style="font-size:0.85rem; color:var(--text-secondary); margin-top:4px;">' + intro + "</p>" +
+          "</div>" +
+          '<div class="fp-auth-error" id="fp-auth-error-box" role="alert"></div>' +
+          body +
+          '<div id="fp-auth-extra"></div>' +
+        "</div>";
+
+      const closeBtn = modalElement.querySelector("#fp-modal-close-btn");
+      if (closeBtn) closeBtn.addEventListener("click", function () { Auth.closeModal(); });
+      modalElement.querySelectorAll("[data-auth-back]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          authView = null;
+          Auth.renderModalContent();
+        });
+      });
+
+      const forgotForm = modalElement.querySelector("#fp-forgot-form");
+      if (forgotForm) {
+        forgotForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          Auth.requestPasswordReset(modalElement.querySelector("#fp-forgot-email").value, modalElement.querySelector("#fp-forgot-submit"));
+        });
+      }
+      const recoveryForm = modalElement.querySelector("#fp-recovery-form");
+      if (recoveryForm) {
+        recoveryForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          Auth.saveNewPassword(modalElement.querySelector("#fp-new-pw").value, modalElement.querySelector("#fp-new-pw2").value, modalElement.querySelector("#fp-recovery-submit"));
+        });
+      }
+      const delInput = modalElement.querySelector("#fp-delete-confirm");
+      const delBtn = modalElement.querySelector("#fp-delete-submit");
+      if (delInput && delBtn) {
+        delInput.addEventListener("input", function () {
+          delBtn.disabled = delInput.value.trim().toLowerCase() !== String(currentCloudUser.email || "").toLowerCase();
+        });
+        delBtn.addEventListener("click", function () {
+          Auth.deleteAccount(delBtn);
+        });
       }
     },
 
@@ -547,13 +1059,12 @@
           '<p style="color:var(--text-secondary); margin-top:6px;">მიმდინარეობს დონე ' + assignedLevel + '-ის შენახვა Supabase-ში.</p>' +
         "</div>";
 
-      purgeAllLocalProgressKeys();
-      inMemoryState = createCleanBlankState(assignedLevel, regData.fullName, regData.email);
-
       supabaseClient.auth.signUp({
         email: regData.email,
         password: regData.password,
         options: {
+          // დადასტურების ბმული დააბრუნებს იმავე მისამართზე, სადაც საიტი გაიხსნა (უნდა იყოს Supabase-ის Redirect URLs სიაში)
+          emailRedirectTo: getAuthRedirectUrl(),
           data: {
             full_name: regData.fullName,
             cefr_level: assignedLevel
@@ -574,6 +1085,19 @@
           activeTab = "register";
           Auth.renderModalContent();
           Auth.showError("მომხმარებლის შექმნა ვერ მოხერხდა.");
+          return;
+        }
+
+        if (!res.data.session) {
+          // ელ-ფოსტის დადასტურება ჩართულია: სესია ჯერ არ არსებობს, ამიტომ დადგენილ დონეს ვინახავთ
+          // ამ მოწყობილობაზე და პირველი შესვლისას ავტომატურად აიტვირთება ღრუბელში
+          const pendingState = normalizeState(mergeGuestProgressInto(createCleanBlankState(assignedLevel, regData.fullName, regData.email)));
+          pendingState.meta = { updatedAt: new Date().toISOString() };
+          writeLocalJSON(USER_CACHE_PREFIX + user.id, pendingState);
+          pendingRegistrationData = null;
+          activeTab = "login";
+          Auth.renderModalContent();
+          Auth.showError("ანგარიში შეიქმნა (დონე " + assignedLevel + "). დაადასტურეთ ელ-ფოსტა წერილში მოცემული ბმულით და შემდეგ შედით სისტემაში.");
           return;
         }
 
@@ -613,8 +1137,6 @@
         submitBtn.textContent = "⏳ მიმდინარეობს შესვლა...";
       }
 
-      purgeAllLocalProgressKeys();
-
       supabaseClient.auth.signInWithPassword({
         email: email,
         password: password
@@ -624,7 +1146,13 @@
           submitBtn.textContent = "🔑 სისტემაში შესვლა";
         }
         if (res.error) {
-          Auth.showError("ელ-ფოსტა ან პაროლი არასწორია.");
+          const code = res.error.code || "";
+          if (code === "email_not_confirmed" || /not confirmed/i.test(res.error.message || "")) {
+            Auth.showError("ელ-ფოსტა ჯერ არ არის დადასტურებული. იპოვეთ ჩვენი წერილი (შეამოწმეთ Spam) ან გამოგიგზავნით ხელახლა.");
+            Auth.showResendButton(email);
+          } else {
+            Auth.showError("ელ-ფოსტა ან პაროლი არასწორია.");
+          }
           return;
         }
         const user = res.data ? res.data.user : null;
@@ -651,9 +1179,9 @@
         if (supabaseClient) {
           supabaseClient.auth.signOut();
         }
-        currentCloudUser = null;
-        purgeAllLocalProgressKeys();
-        inMemoryState = createCleanBlankState("A1", "", "");
+        const userId = currentCloudUser ? currentCloudUser.id : null;
+        if (userId) removeLocalKey(USER_CACHE_PREFIX + userId);
+        switchToGuestState();
         refreshEntireAppUI();
         Auth.closeModal();
         if (App.UI) {
@@ -664,6 +1192,11 @@
 
     renderModalContent: function () {
       if (!modalElement) return;
+
+      if (authView === "forgot" || authView === "recovery" || (authView === "delete" && currentCloudUser)) {
+        this.renderSpecialView();
+        return;
+      }
 
       // 1. თუ ახლახან დასრულდა სარეგისტრაციო ტესტი — ვაჩვენოთ დადგენილი დონის შედეგი
       if (regPlacementFinishedResult) {
@@ -751,7 +1284,7 @@
 
       // 3. თუ მომხმარებელი უკვე შესულია — პროფილის ფანჯარა (XP-ის გარეშე, მხოლოდ სტრიკი, დონე და სიტყვები)
       if (currentCloudUser) {
-        const streak = getByPath(inMemoryState, "progress.streak", 1);
+        const streak = Number(getByPath(inMemoryState, "progress.streak", 0)) || 0;
         const learned = (getByPath(inMemoryState, "vocabulary.learnedIds", []) || []).length;
         const curLevel = getByPath(inMemoryState, "progress.level", currentCloudUser.level || "A1");
 
@@ -790,6 +1323,7 @@
               '<button type="button" class="btn btn-outline" id="fp-logout-btn" style="color:var(--color-danger); border-color:var(--color-danger);">🚪 გამოსვლა</button>' +
               '<button type="button" class="btn btn-primary" id="fp-save-profile-btn">☁️ სახელის შენახვა</button>' +
             "</div>" +
+            '<button type="button" class="fp-auth-link fp-auth-link--danger" id="fp-delete-account-link">ანგარიშის წაშლა</button>' +
           "</div>";
 
         modalElement.querySelector("#fp-modal-close-btn").addEventListener("click", function () {
@@ -798,6 +1332,11 @@
 
         modalElement.querySelector("#fp-logout-btn").addEventListener("click", function () {
           Auth.handleLogout();
+        });
+
+        modalElement.querySelector("#fp-delete-account-link").addEventListener("click", function () {
+          authView = "delete";
+          Auth.renderModalContent();
         });
 
         modalElement.querySelector("#fp-save-profile-btn").addEventListener("click", function () {
@@ -864,6 +1403,7 @@
               "</div>" +
             "</div>" +
             '<button type="submit" class="btn btn-primary" id="fp-login-submit-btn" style="width:100%; margin-top:8px; padding:12px;">🔑 სისტემაში შესვლა</button>' +
+            '<button type="button" class="fp-auth-link" id="fp-forgot-link">დაგავიწყდათ პაროლი?</button>' +
           "</form>";
 
       modalElement.innerHTML =
@@ -884,9 +1424,10 @@
             '<button type="button" class="fp-auth-tab ' + (isReg ? "active" : "") + '" data-switch-auth-tab="register">📝 რეგისტრაცია</button>' +
           "</div>" +
 
-          '<div class="fp-auth-error" id="fp-auth-error-box"></div>' +
+          '<div class="fp-auth-error" id="fp-auth-error-box" role="alert"></div>' +
 
           formHtml +
+          '<div id="fp-auth-extra"></div>' +
         "</div>";
 
       modalElement.querySelector("#fp-modal-close-btn").addEventListener("click", function () {
@@ -943,6 +1484,16 @@
         });
       }
 
+      const forgotLink = modalElement.querySelector("#fp-forgot-link");
+      if (forgotLink) {
+        forgotLink.addEventListener("click", function () {
+          authView = "forgot";
+          Auth.renderModalContent();
+          const emailField = modalElement.querySelector("#fp-forgot-email");
+          if (emailField) emailField.focus();
+        });
+      }
+
       const loginForm = modalElement.querySelector("#fp-login-form");
       if (loginForm) {
         loginForm.addEventListener("submit", function (e) {
@@ -987,26 +1538,19 @@
         headerRight.appendChild(container);
       }
 
-      // სტრიკის ტექსტი გავასწოროთ (მინიმუმ 1 დღე როცა აქტიურია)
-      const streakBadge = document.getElementById("header-streak") || document.querySelector(".stat-pill--streak");
-      if (streakBadge) {
-        const stCount = getByPath(inMemoryState, "progress.streak", 1) || 1;
-        streakBadge.innerHTML = "🔥 " + stCount + " დღე";
-      }
-
       if (currentCloudUser) {
         container.innerHTML =
-          '<button type="button" class="header-user-chip" id="fp-open-profile-btn" title="პირადი პროფილი">' +
-            '<span class="header-user-avatar">' + App.UI.escapeHTML(getInitials(currentCloudUser.fullName)) + "</span>" +
-            '<span>' + App.UI.escapeHTML(currentCloudUser.fullName.split(" ")[0]) + "</span>" +
+          '<button type="button" class="header-user-chip" id="fp-open-profile-btn" title="პირადი პროფილი" aria-label="პირადი პროფილი">' +
+            '<span class="header-user-avatar" aria-hidden="true">' + App.UI.escapeHTML(getInitials(currentCloudUser.fullName)) + "</span>" +
+            '<span class="header-user-name">' + App.UI.escapeHTML(currentCloudUser.fullName.split(" ")[0]) + "</span>" +
           "</button>";
         container.querySelector("#fp-open-profile-btn").addEventListener("click", function () {
           Auth.openModal();
         });
       } else {
         container.innerHTML =
-          '<button type="button" class="header-auth-btn" id="fp-open-auth-btn">' +
-            '<span>☁️ შესვლა / რეგისტრაცია</span>' +
+          '<button type="button" class="header-auth-btn" id="fp-open-auth-btn" aria-label="შესვლა / რეგისტრაცია">' +
+            '<span aria-hidden="true">☁️</span> <span class="header-auth-label">შესვლა / რეგისტრაცია</span>' +
           "</button>";
         container.querySelector("#fp-open-auth-btn").addEventListener("click", function () {
           Auth.openModal("login");

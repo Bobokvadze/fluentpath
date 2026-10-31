@@ -61,6 +61,7 @@
 
   let activeLevelFilter = "ALL";
   let activeTopic = null;
+  let sequenceSession = 0;     // სრული ტექსტის აბზაც-აბზაც მოსმენის სესია
   let preparedQuestions = [];
   let showTranscript = true;
   let showTranslations = false; // ქართული თარგმანი თავიდან დამალულია!
@@ -152,11 +153,60 @@
       }
     },
 
+    // სრული ტექსტის მოსმენა აბზაც-აბზაც: მიმდინარე მონაკვეთი ტრანსკრიპტში ინიშნება
+    playSequence: function (paragraphs, slowMode) {
+      const session = ++sequenceSession;
+      const engine = App.AudioEngine;
+      const mark = (idx) => {
+        document.querySelectorAll("[data-para-idx]").forEach((el) => {
+          const on = Number(el.getAttribute("data-para-idx")) === idx;
+          el.classList.toggle("is-playing", on);
+          if (on && showTranscript) el.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      };
+      const playAt = (idx) => {
+        if (session !== sequenceSession) return;
+        if (idx >= paragraphs.length) {
+          mark(-1);
+          return;
+        }
+        mark(idx);
+        const next = () => playAt(idx + 1);
+        if (engine && typeof engine.speak === "function") {
+          engine.speak(paragraphs[idx].en, engine.getAccent(), slowMode ? 0.8 : 1.0, next);
+        } else if ("speechSynthesis" in window) {
+          try {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(paragraphs[idx].en);
+            u.lang = "en-US";
+            u.rate = slowMode ? 0.68 : 0.92;
+            u.onend = next;
+            window.speechSynthesis.speak(u);
+          } catch (e) {}
+        }
+      };
+      playAt(0);
+    },
+
+    stopSequence: function () {
+      sequenceSession++;
+      document.querySelectorAll("[data-para-idx].is-playing").forEach((el) => el.classList.remove("is-playing"));
+      this.stopSpeaking();
+    },
+
     render: function () {
       const container = document.getElementById("app-view");
       if (!container) return;
 
       const allTopics = this.getAllTopics();
+
+      const pendingId = App.takePendingOpen ? App.takePendingOpen("listening") : null;
+      if (pendingId) {
+        activeTopic = allTopics.find((t) => t.id === pendingId) || null;
+        if (activeTopic) this.prepareRandomizedQuestions(activeTopic);
+        quizAnswers = {};
+        showTranslations = false;
+      }
 
       if (activeTopic) {
         this.renderTopicPlayer(container, allTopics);
@@ -318,9 +368,9 @@
     renderTopicPlayer: function (container, allTopics) {
       const t = activeTopic;
 
-      const paragraphsHtml = t.paragraphs.map((para) => {
+      const paragraphsHtml = t.paragraphs.map((para, idx) => {
         return (
-          '<div class="reading-paragraph-block">' +
+          '<div class="reading-paragraph-block" data-para-idx="' + idx + '">' +
             '<div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">' +
               (showTranscript
                 ? '<p class="reading-p-en">' + App.UI.escapeHTML(para.en) + "</p>"
@@ -432,7 +482,7 @@
             "</div>" +
             questionsHtml +
             '<div style="display:flex; justify-content:flex-end; margin-top:12px;">' +
-              '<button type="button" class="btn btn-primary" id="complete-listening-btn">დასრულება და მომდევნოს გახსნა (+' + t.xp + " XP) &rarr;</button>" +
+              '<button type="button" class="btn btn-primary" id="complete-listening-btn">დასრულება და მომდევნოს გახსნა &rarr;</button>' +
             "</div>" +
           "</section>" +
         "</div>";
@@ -482,26 +532,25 @@
       const listenFullBtn = container.querySelector("#listen-full-topic-btn");
       if (listenFullBtn) {
         listenFullBtn.addEventListener("click", () => {
-          const fullText = t.paragraphs.map((item) => item.en).join(" ");
-          this.speak(fullText, false);
+          this.playSequence(t.paragraphs, false);
         });
       }
 
       const listenSlowBtn = container.querySelector("#listen-slow-topic-btn");
       if (listenSlowBtn) {
         listenSlowBtn.addEventListener("click", () => {
-          const fullText = t.paragraphs.map((item) => item.en).join(" ");
-          this.speak(fullText, true);
+          this.playSequence(t.paragraphs, true);
         });
       }
 
       const stopAudioBtn = container.querySelector("#stop-topic-audio-btn");
       if (stopAudioBtn) {
-        stopAudioBtn.addEventListener("click", () => this.stopSpeaking());
+        stopAudioBtn.addEventListener("click", () => this.stopSequence());
       }
 
       container.querySelectorAll("[data-speak-para]").forEach((btn) => {
         btn.addEventListener("click", () => {
+          this.stopSequence();
           this.speak(btn.getAttribute("data-speak-para"), false);
         });
       });
@@ -572,52 +621,5 @@
 
   App.Listening = Listening;
 
-  // ============================================================================
-  // ROUTER INTERCEPTOR — ანაცვლებს ""-ის Placeholder-ს მოსმენის სტუდიით
-  // ============================================================================
-  function activateListeningRouteIfNeeded() {
-    const navLink = document.querySelector('[data-route="listening"], a[href="#listening"]');
-    if (navLink) {
-      const badge = navLink.querySelector('.nav-badge');
-      if (badge) {
-        badge.textContent = '';
-        badge.classList.add('');
-      }
-    }
-
-    const hash = (window.location.hash || '').replace(/^#\/?/, '').trim();
-    if (hash === 'listening') {
-      const titleEl = document.getElementById('header-page-title');
-      if (titleEl) titleEl.textContent = 'მოსმენა';
-      App.Listening.render();
-    }
-  }
-
-  function hookIntoRouter() {
-    if (App.Router) {
-      Object.keys(App.Router).forEach((key) => {
-        if (typeof App.Router[key] === 'function') {
-          const origFn = App.Router[key];
-          App.Router[key] = function () {
-            const result = origFn.apply(this, arguments);
-            activateListeningRouteIfNeeded();
-            return result;
-          };
-        }
-      });
-    }
-    activateListeningRouteIfNeeded();
-  }
-
-  window.addEventListener('hashchange', () => {
-    window.setTimeout(activateListeningRouteIfNeeded, 0);
-  });
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      window.setTimeout(hookIntoRouter, 20);
-    });
-  } else {
-    window.setTimeout(hookIntoRouter, 20);
-  }
+  // Routing is handled centrally by App.Router.renderView (js/router.js).
 })(window);

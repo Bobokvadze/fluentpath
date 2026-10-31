@@ -56,40 +56,44 @@
     buildQuestionPool: function (mode, targetLevel) {
       const pool = [];
 
-      // 1. ლექსიკის კითხვების გენერაცია
+      // 1. ლექსიკის კითხვები: განმარტება → სიტყვა და სიტყვა კონტექსტში (გამოტოვებული სიტყვა მაგალითში).
+      //    არასწორი პასუხები იგივე დონისა და მეტყველების ნაწილისაა, რომ სარწმუნო იყოს.
       if (mode === "ALL" || mode === "PLACEMENT" || mode === "LEVEL_EXAM" || mode === "VOCAB") {
-        const allWords = (App.Flashcards && typeof App.Flashcards.getAllWordsPool === "function") ? App.Flashcards.getAllWordsPool() : ((App.Vocabulary && typeof App.Vocabulary.getAllWords === "function")
-          ? App.Vocabulary.getAllWords() : []);
+        const allWords = (App.Vocabulary && typeof App.Vocabulary.getAllWords === "function") ? App.Vocabulary.getAllWords() : [];
         const levelWords = allWords.filter((w) => !targetLevel || targetLevel === "ALL" || w.level === targetLevel);
         const sampledWords = shuffleArray(levelWords).slice(0, 40);
+        const escapeRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
         sampledWords.forEach((w, idx) => {
-          const distractors = shuffleArray(
-            levelWords.filter((other) => other.id !== w.id)
-          ).slice(0, 3);
-
-          if (distractors.length === 3) {
-            if (idx % 2 === 0) {
-              const opts = shuffleArray([w.ka, distractors[0].ka, distractors[1].ka, distractors[2].ka]);
-              pool.push({
-                level: w.level,
-                source: "ლექსიკონი • " + w.level,
-                q: "როგორ ითარგმნება ქართულად სიტყვა «" + w.en + "»?",
-                options: opts,
-                correct: opts.indexOf(w.ka),
-                explanation: w.en + " = " + w.ka + (w.exampleEn ? ' ("' + w.exampleEn + '")' : "")
-              });
-            } else {
-              const opts = shuffleArray([w.en, distractors[0].en, distractors[1].en, distractors[2].en]);
-              pool.push({
-                level: w.level,
-                source: "ლექსიკონი • " + w.level,
-                q: "რომელი ინგლისური სიტყვა ნიშნავს: «" + w.ka + "»?",
-                options: opts,
-                correct: opts.indexOf(w.en),
-                explanation: w.ka + " = " + w.en
-              });
-            }
+          const samePos = levelWords.filter((o) => o.id !== w.id && o.pos === w.pos && o.word.toLowerCase() !== w.word.toLowerCase());
+          const pool2 = samePos.length >= 3 ? samePos : levelWords.filter((o) => o.id !== w.id);
+          const distractors = shuffleArray(pool2).slice(0, 3);
+          if (distractors.length < 3) return;
+          const explanation = w.word + " — " + w.def + " Example: " + w.ex;
+          const re = new RegExp("\\b" + escapeRe(w.word) + "\\b", "i");
+          // გამოტოვება მხოლოდ მაშინ, როცა სიტყვის ფუძე მაგალითში ერთხელ გვხვდება (სხვაგვარად პასუხი ჩანს)
+          const stem = w.word.toLowerCase().split(" ")[0].slice(0, 4);
+          const stemCount = w.ex.toLowerCase().split(stem).length - 1;
+          if (idx % 2 === 1 && re.test(w.ex) && stemCount === 1) {
+            const opts = shuffleArray([w.word].concat(distractors.map((d) => d.word)));
+            pool.push({
+              level: w.level,
+              source: "ლექსიკონი • " + w.level,
+              q: "Complete the sentence: " + w.ex.replace(re, "_____"),
+              options: opts,
+              correct: opts.indexOf(w.word),
+              explanation: explanation
+            });
+          } else {
+            const opts = shuffleArray([w.word].concat(distractors.map((d) => d.word)));
+            pool.push({
+              level: w.level,
+              source: "ლექსიკონი • " + w.level,
+              q: "Which word or phrase matches this definition? «" + w.def + "»",
+              options: opts,
+              correct: opts.indexOf(w.word),
+              explanation: explanation
+            });
           }
         });
       }
@@ -121,7 +125,7 @@
       // 3. კითხვის, მოსმენისა და წერის კითხვები
       if (mode === "ALL" || mode === "PLACEMENT" || mode === "LEVEL_EXAM" || mode === "SKILLS") {
         const skillSources = [
-          { mod: App.Reading, getFn: "getAllStories", label: "კითხვა" },
+          { mod: App.Reading, getFn: "getAllPassages", label: "კითხვა" },
           { mod: App.Listening, getFn: "getAllTopics", label: "მოსმენა" },
           { mod: App.Writing, getFn: "getAllTopics", label: "წერა" }
         ];
@@ -202,6 +206,22 @@
 
       const total = activeExamSession.questions.length;
       const pct = total ? Math.round((correctCount / total) * 100) : 0;
+
+      // უნარების სტატისტიკა (ლექსიკონი / გრამატიკა / კითხვა ...) და გრამატიკის თემები, სადაც შეცდომები იყო
+      const skillStats = Object.assign({}, App.Storage.get("progress.skillStats", {}) || {});
+      const missedTopics = Object.assign({}, App.Storage.get("progress.quizMissedTopics", {}) || {});
+      activeExamSession.questions.forEach((q, idx) => {
+        const parts = String(q.source || "").split(" • ");
+        const skill = parts[0] || "სხვა";
+        const ok = activeExamSession.answers[idx] === q.correct;
+        const entry = skillStats[skill] || { correct: 0, total: 0 };
+        skillStats[skill] = { correct: entry.correct + (ok ? 1 : 0), total: entry.total + 1 };
+        if (!ok && skill === "გრამატიკა" && parts[1]) {
+          missedTopics[parts[1]] = (Number(missedTopics[parts[1]]) || 0) + 1;
+        }
+      });
+      App.Storage.set("progress.skillStats", skillStats);
+      App.Storage.set("progress.quizMissedTopics", missedTopics);
       const earnedXp = Math.max(15, correctCount * 5);
 
       const completedCount = Number(App.Storage.get("progress.quizzesCompleted", 0)) + 1;
@@ -223,8 +243,7 @@
         App.Progress.recordActivity({
           xp: earnedXp,
           title: "ტესტი: " + activeExamSession.title + " (" + pct + "%)",
-          category: "ტესტები",
-          metricKey: "quizzesCompleted"
+          category: "ტესტები"
         });
       }
 
@@ -234,9 +253,27 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     },
 
+    // მთავარი გვერდიდან "დონის განსაზღვრის" ღილაკი: ტესტი იწყება, როგორც კი გვერდი (და მასალა) ჩაიტვირთება
+    requestPlacement: function () {
+      this.pendingPlacement = true;
+    },
+
     render: function () {
       const container = document.getElementById("app-view");
       if (!container) return;
+
+      if (App.takePendingOpen && App.takePendingOpen("quizzes") === "placement") this.pendingPlacement = true;
+      if (this.pendingPlacement) {
+        this.pendingPlacement = false;
+        this.startQuizSession({
+          title: "CEFR დონის განმსაზღვრელი დიაგნოსტიკური ტესტი",
+          subtitle: "Placement Exam (A1–C2)",
+          mode: "PLACEMENT",
+          level: "ALL",
+          count: 24
+        });
+        return;
+      }
 
       if (activeExamSession) {
         if (activeExamSession.finished) {
@@ -613,60 +650,5 @@
 
   App.Quizzes = Quizzes;
 
-  // ============================================================================
-  // ROUTER INTERCEPTOR — ხსნის #flashcards და #quizzes მარშრუტებს (""-ის ნაცვლად)
-  // ============================================================================
-  function activatePhase5RoutesIfNeeded() {
-    ["flashcards", "quizzes"].forEach((r) => {
-      const navLink = document.querySelector('[data-route="' + r + '"], a[href="#' + r + '"]');
-      if (navLink) {
-        const badge = navLink.querySelector(".nav-badge");
-        if (badge) {
-          badge.remove();
-          badge.classList.add("");
-        }
-      }
-    });
-
-    const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
-    if (hash === "flashcards") {
-      const titleEl = document.getElementById("header-page-title");
-      if (titleEl) titleEl.textContent = "ბარათები";
-      App.Flashcards.render();
-    } else if (hash === "quizzes") {
-      const titleEl = document.getElementById("header-page-title");
-      if (titleEl) titleEl.textContent = "ტესტები";
-      App.Quizzes.render();
-    }
-  }
-
-  function hookPhase5IntoRouter() {
-    if (App.Router) {
-      Object.keys(App.Router).forEach((key) => {
-        if (typeof App.Router[key] === "function" && !App.Router[key]._phase5Hooked) {
-          const origFn = App.Router[key];
-          const wrapped = function () {
-            const result = origFn.apply(this, arguments);
-            activatePhase5RoutesIfNeeded();
-            return result;
-          };
-          wrapped._phase5Hooked = true;
-          App.Router[key] = wrapped;
-        }
-      });
-    }
-    activatePhase5RoutesIfNeeded();
-  }
-
-  window.addEventListener("hashchange", () => {
-    window.setTimeout(activatePhase5RoutesIfNeeded, 0);
-  });
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      window.setTimeout(hookPhase5IntoRouter, 30);
-    });
-  } else {
-    window.setTimeout(hookPhase5IntoRouter, 30);
-  }
+  // Routing is handled centrally by App.Router.renderView (js/router.js).
 })(window);

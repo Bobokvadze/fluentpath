@@ -1,246 +1,198 @@
+/**
+ * PROGRESS.JS — აქტივობების აღრიცხვა, სტატისტიკა, პროგრესის გვერდი და ჰედერის მაჩვენებლები
+ */
 (function (window) {
   'use strict';
 
   const App = window.App = window.App || {};
 
-  function getTodayDateString() {
-    return new Date().toISOString().split('T')[0];
+  function getStatsSummary() {
+    const streak = Number(App.Storage.get("progress.streak", 0)) || 0;
+    const level = App.Storage.get("progress.level", "A1") || "A1";
+    const learnedWords = (App.Storage.get("vocabulary.learnedIds", []) || []).length;
+    const boxMap = App.Storage.get("vocabulary.boxByWordId", {}) || {};
+    const inBoxesCount = Object.keys(boxMap).filter(function (k) { return Number(boxMap[k]) >= 2; }).length;
+    const wordsCount = Math.max(learnedWords, inBoxesCount);
+
+    const grammarDone = (App.Storage.get("progress.completedGrammarIds", []) || []).length;
+    const readingDone = (App.Storage.get("progress.completedReadingIds", []) || []).length;
+    const listeningDone = (App.Storage.get("progress.completedListeningIds", []) || []).length;
+    const writingDone = (App.Storage.get("progress.completedWritingIds", []) || []).length;
+    const quizzesDone = Number(App.Storage.get("progress.quizzesCompleted", 0)) || 0;
+    const totalLessonsDone = grammarDone + readingDone + listeningDone + writingDone;
+
+    return {
+      streak: streak,
+      level: level,
+      wordsCount: wordsCount,
+      grammarDone: grammarDone,
+      readingDone: readingDone,
+      listeningDone: listeningDone,
+      writingDone: writingDone,
+      quizzesDone: quizzesDone,
+      totalLessonsDone: totalLessonsDone
+    };
   }
 
-  function getYesterdayDateString() {
-    const d = new Date();
-    d.setDate(d.getDate() - 1);
-    return d.toISOString().split('T')[0];
+  // სუსტი მხარეები: ტესტების უნარების სიზუსტე + გრამატიკის ყველაზე დაბალი შედეგები
+  function renderWeakAreasHtml() {
+    const esc = App.UI.escapeHTML;
+    const skillStats = App.Storage.get("progress.skillStats", {}) || {};
+    const grammarScores = App.Storage.get("progress.grammarScores", {}) || {};
+    const missed = App.Storage.get("progress.quizMissedTopics", {}) || {};
+
+    const skills = Object.keys(skillStats)
+      .filter(function (k) { return skillStats[k] && skillStats[k].total >= 3; })
+      .map(function (k) { return { name: k, pct: Math.round((skillStats[k].correct / skillStats[k].total) * 100), total: skillStats[k].total }; })
+      .sort(function (a, b) { return a.pct - b.pct; });
+
+    const weakGrammar = Object.keys(grammarScores)
+      .map(function (id) { const g = grammarScores[id]; return { id: id, title: g.title, level: g.level, pct: g.total ? Math.round((g.score / g.total) * 100) : 0 }; })
+      .filter(function (g) { return g.pct < 80; })
+      .sort(function (a, b) { return a.pct - b.pct; })
+      .slice(0, 5);
+
+    const missedList = Object.keys(missed)
+      .sort(function (a, b) { return missed[b] - missed[a]; })
+      .slice(0, 5);
+
+    if (!skills.length && !weakGrammar.length && !missedList.length) {
+      return '<p class="section-subtitle">ჯერ საკმარისი მონაცემები არ არის. გაიარეთ რამდენიმე გრამატიკის თემა ან ტესტი და აქ გამოჩნდება, რაზე ღირს მეტი ვარჯიში.</p>';
+    }
+
+    let html = "";
+    if (skills.length) {
+      html += '<h4 class="fp-weak__heading">უნარების სიზუსტე ტესტებში</h4>' + skills.map(function (s) {
+        const tone = s.pct >= 80 ? "progress-fill--success" : "";
+        return '<div style="margin-bottom:12px;">' + App.UI.renderProgressBar(s.pct, s.name + " (" + s.total + " კითხვა)", s.pct + "%", tone) + "</div>";
+      }).join("");
+    }
+    if (weakGrammar.length) {
+      html += '<h4 class="fp-weak__heading">გრამატიკის თემები გასამეორებლად</h4><ul class="fp-weak__list">' + weakGrammar.map(function (g) {
+        return '<li><span>' + esc(g.title) + ' <small>(' + esc(g.level) + ')</small></span><span class="fp-weak__score">' + g.pct + "%</span></li>";
+      }).join("") + "</ul>";
+    }
+    if (missedList.length) {
+      html += '<h4 class="fp-weak__heading">ტესტებში ხშირი შეცდომები</h4><ul class="fp-weak__list">' + missedList.map(function (t) {
+        return '<li><span lang="en">' + esc(t) + '</span><span class="fp-weak__score">' + missed[t] + " შეცდ.</span></li>";
+      }).join("") + "</ul>";
+    }
+    return html + '<a href="#grammar" class="btn btn-outline btn-sm" style="margin-top:6px;">გრამატიკაზე გადასვლა →</a>';
+  }
+
+  function renderProgressPage() {
+    const container = document.getElementById("app-view");
+    if (!container) return;
+
+    const st = getStatsSummary();
+    const activities = App.Storage.get("progress.recentActivities", []) || [];
+
+    const rows = [
+      { label: "🗂️ ლექსიკონი (3,000 სიტყვა)", done: st.wordsCount, total: 3000 },
+      { label: "🌐 გრამატიკა (90 თემა)", done: st.grammarDone, total: 90 },
+      { label: "📖 კითხვა (90 ისტორია)", done: st.readingDone, total: 90 },
+      { label: "🎧 მოსმენა (90 აუდიო თემა)", done: st.listeningDone, total: 90 },
+      { label: "✍️ წერა (90 წერითი თემა)", done: st.writingDone, total: 90 }
+    ];
+
+    const barsHtml = rows.map(function (r) {
+      const pct = r.total ? Math.min(100, Math.round((r.done / r.total) * 100)) : 0;
+      return (
+        '<div style="margin-bottom:16px;">' +
+          (App.UI && typeof App.UI.renderProgressBar === "function"
+            ? App.UI.renderProgressBar(pct, r.label, r.done + " / " + r.total + " (" + pct + "%)")
+            : "") +
+        "</div>"
+      );
+    }).join("");
+
+    const actHtml = activities.length > 0
+      ? activities.slice(0, 12).map(function (a) {
+          return (
+            '<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-radius:10px; background:var(--bg-surface-muted); margin-bottom:8px;">' +
+              '<div style="font-weight:700; font-size:0.9rem;">✓ ' + App.UI.escapeHTML(a.title || "სასწავლო აქტივობა") + "</div>" +
+              '<span class="stat-pill stat-pill--level">' + App.UI.escapeHTML(a.category || "მოდული") + "</span>" +
+            "</div>"
+          );
+        }).join("")
+      : '<p style="color:var(--text-secondary);">ჯერ აქტივობები არ დაფიქსირებულა. დაიწყეთ ნებისმიერი მოდული!</p>';
+
+    container.innerHTML =
+      '<div class="dashboard-grid">' +
+        '<section class="card">' +
+          '<div class="section-header">' +
+            "<div>" +
+              '<h2 class="section-title">📈 ჩემი სასწავლო პროგრესი</h2>' +
+              '<p class="section-subtitle">თქვენი უწყვეტი სტრიკი და მოდულების შესრულების დეტალური სტატისტიკა.</p>' +
+            "</div>" +
+            '<div style="display:flex; gap:10px;">' +
+              '<span class="stat-pill stat-pill--streak">🔥 სტრიკი: ' + st.streak + " დღე</span>" +
+              '<span class="stat-pill stat-pill--level">🎯 დონე: ' + App.UI.escapeHTML(st.level) + "</span>" +
+            "</div>" +
+          "</div>" +
+          barsHtml +
+        "</section>" +
+
+        '<section class="card">' +
+          '<h3 class="section-title" style="margin-bottom:14px;">🎯 გასაძლიერებელი მხარეები</h3>' +
+          renderWeakAreasHtml() +
+        "</section>" +
+
+        '<section class="card">' +
+          '<h3 class="section-title" style="margin-bottom:14px;">🕒 ბოლო აქტივობები</h3>' +
+          actHtml +
+        "</section>" +
+      "</div>";
+  }
+
+  // ჰედერის ბეიჯები: დონე და სტრიკი
+  function syncHeaderStats() {
+    const levelEl = document.getElementById('topbar-level-value');
+    const streakEl = document.getElementById('topbar-streak-value');
+    if (levelEl) levelEl.textContent = App.Storage.get('progress.level', 'A1') || 'A1';
+    if (streakEl) streakEl.textContent = Number(App.Storage.get('progress.streak', 0)) || 0;
   }
 
   const Progress = {
-    syncDailyState: function () {
-      const state = App.Storage.getState();
-      const today = getTodayDateString();
-      const yesterday = getYesterdayDateString();
+    getStatsSummary: getStatsSummary,
 
-      if (state.progress.lastStudyDate !== today) {
-        state.progress.dailyXP = 0;
-        state.progress.lastStudyDate = today;
-      }
-
-      const lastActive = state.streak.lastActiveDate;
-      if (lastActive && lastActive !== today && lastActive !== yesterday) {
-        state.streak.current = 0;
-      }
-
-      App.Storage.saveState(state);
-    },
-
+    /**
+     * ყველა მოდული იძახებს სასწავლო აქტივობის დასრულებისას: ზრდის სტრიკს (დღეში ერთხელ),
+     * ამატებს ჩანაწერს ბოლო აქტივობებში და (სურვილისამებრ) ზრდის progress[metricKey]-ს.
+     */
     recordActivity: function (options) {
-      const xpEarned = Number(options.xp) || 10;
-      const title = options.title || 'დასრულდა სასწავლო სესია';
-      const category = options.category || 'პრაქტიკა';
-      const metricKey = options.metricKey || null;
+      const opts = options || {};
+      const title = opts.title || 'დასრულდა სასწავლო სესია';
+      const category = opts.category || 'პრაქტიკა';
+
+      if (typeof App.Storage.registerStudyDay === 'function') {
+        App.Storage.registerStudyDay();
+      }
 
       const state = App.Storage.getState();
-      const today = getTodayDateString();
-      const yesterday = getYesterdayDateString();
+      state.progress = state.progress || {};
 
-      state.progress.xp = (Number(state.progress.xp) || 0) + xpEarned;
-      if (state.progress.lastStudyDate !== today) {
-        state.progress.dailyXP = xpEarned;
-        state.progress.lastStudyDate = today;
-      } else {
-        state.progress.dailyXP = (Number(state.progress.dailyXP) || 0) + xpEarned;
+      if (opts.metricKey && Object.prototype.hasOwnProperty.call(state.progress, opts.metricKey)) {
+        state.progress[opts.metricKey] = (Number(state.progress[opts.metricKey]) || 0) + 1;
       }
 
-      if (metricKey && Object.prototype.hasOwnProperty.call(state.progress, metricKey)) {
-        state.progress[metricKey] = (Number(state.progress[metricKey]) || 0) + 1;
+      if (!Array.isArray(state.progress.recentActivities)) {
+        state.progress.recentActivities = [];
       }
-
-      if (state.streak.lastActiveDate !== today) {
-        if (state.streak.lastActiveDate === yesterday) {
-          state.streak.current = (Number(state.streak.current) || 0) + 1;
-        } else {
-          state.streak.current = 1;
-        }
-        if (state.streak.current > (Number(state.streak.longest) || 0)) {
-          state.streak.longest = state.streak.current;
-        }
-        state.streak.lastActiveDate = today;
-        if (!Array.isArray(state.streak.activeDates)) {
-          state.streak.activeDates = [];
-        }
-        if (state.streak.activeDates.indexOf(today) === -1) {
-          state.streak.activeDates.push(today);
-        }
-      }
-
-      const level = state.settings.cefrLevel || 'A1';
-      const currentLevelPct = Number(state.progress.levelProgress[level]) || 0;
-      state.progress.levelProgress[level] = Math.min(100, currentLevelPct + 2);
-
-      const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
-      const sum = levels.reduce((acc, code) => acc + (Number(state.progress.levelProgress[code]) || 0), 0);
-      state.progress.overallPercent = Math.round(sum / levels.length);
-
-      state.recentActivity = state.recentActivity.filter((item) => !item.isDemo);
-      state.recentActivity.unshift({
-        id: 'act-' + Date.now(),
+      state.progress.recentActivities.unshift({
         title: title,
         category: category,
-        xp: xpEarned,
-        timestamp: new Date().toISOString(),
-        isDemo: false
+        timestamp: new Date().toISOString()
       });
-      state.recentActivity = state.recentActivity.slice(0, 10);
+      state.progress.recentActivities = state.progress.recentActivities.slice(0, 50);
 
       App.Storage.saveState(state);
-      App.UI.updateTopbarStats();
+      syncHeaderStats();
       return state;
     },
 
-    render: function () {
-      const container = document.getElementById('app-view');
-      if (!container) return;
-
-      const state = App.Storage.getState();
-      const prog = state.progress;
-      const streak = state.streak;
-      const settings = state.settings;
-      const dailyGoal = Number(settings.dailyGoalXP) || 20;
-      const dailyPct = Math.min(100, Math.round(((prog.dailyXP || 0) / dailyGoal) * 100));
-
-      const levels = (App.Config && App.Config.cefrLevels) || [
-        { code: 'A1', name: 'დამწყები' },
-        { code: 'A2', name: 'ელემენტარული' },
-        { code: 'B1', name: 'საშუალო' },
-        { code: 'B2', name: 'საშუალოზე მაღალი' },
-        { code: 'C1', name: 'მაღალი' },
-        { code: 'C2', name: 'სრულყოფილი' }
-      ];
-
-      const levelRowsHtml = levels.map((lvl) => {
-        const pct = Number(prog.levelProgress[lvl.code]) || 0;
-        return (
-          '<div style="margin-bottom: 14px;">' +
-            App.UI.renderProgressBar(
-              pct,
-              lvl.code + ' — ' + lvl.name,
-              pct + '% დასრულებულია'
-            ) +
-          '</div>'
-        );
-      }).join('');
-
-      container.innerHTML =
-        '<div class="dashboard-grid">' +
-          '<section class="card">' +
-            '<div class="section-header">' +
-              '<div>' +
-                '<h2 class="section-title">სწავლის დეტალური პროგრესი</h2>' +
-                '<p class="section-subtitle">ყველა მონაცემი ინახება ლოკალურად თქვენს ბრაუზერში, ყოველგვარი თვალთვალის გარეშე.</p>' +
-              '</div>' +
-              '<span class="stat-pill stat-pill--level">მიმდინარე დონე: ' + App.UI.escapeHTML(settings.cefrLevel) + '</span>' +
-            '</div>' +
-            App.UI.renderProgressBar(
-              prog.dailyXP ? dailyPct : 0,
-              'დღევანდელი მიზანი (' + (prog.dailyXP || 0) + ' / ' + dailyGoal + ' XP)',
-              dailyPct + '%',
-              'progress-fill--xp'
-            ) +
-          '</section>' +
-
-          '<section class="stats-grid" aria-label="უნარების დეტალური სტატისტიკა">' +
-            '<div class="card stat-card">' +
-              '<div class="stat-icon-box stat-icon-box--xp">' + App.UI.getIcon('bolt') + '</div>' +
-              '<div class="stat-info">' +
-                '<div class="stat-label">დაგროვებული XP</div>' +
-                '<div class="stat-value">' + (prog.xp || 0) + '</div>' +
-                '<div class="stat-meta">დღეს: ' + (prog.dailyXP || 0) + ' XP</div>' +
-              '</div>' +
-            '</div>' +
-
-            '<div class="card stat-card">' +
-              '<div class="stat-icon-box stat-icon-box--streak">' + App.UI.getIcon('flame') + '</div>' +
-              '<div class="stat-info">' +
-                '<div class="stat-label">უწყვეტი სერია (Streak)</div>' +
-                '<div class="stat-value">' + (streak.current || 0) + ' დღე</div>' +
-                '<div class="stat-meta">რეკორდი: ' + (streak.longest || 0) + ' დღე</div>' +
-              '</div>' +
-            '</div>' +
-
-            '<div class="card stat-card">' +
-              '<div class="stat-icon-box stat-icon-box--lessons">' + App.UI.getIcon('learn') + '</div>' +
-              '<div class="stat-info">' +
-                '<div class="stat-label">დასრულებული გაკვეთილები</div>' +
-                '<div class="stat-value">' + (prog.lessonsCompleted || 0) + '</div>' +
-                '<div class="stat-meta">ინტერაქტიული გაკვეთილი</div>' +
-              '</div>' +
-            '</div>' +
-
-            '<div class="card stat-card">' +
-              '<div class="stat-icon-box stat-icon-box--vocab">' + App.UI.getIcon('vocabulary') + '</div>' +
-              '<div class="stat-info">' +
-                '<div class="stat-label">ნასწავლი სიტყვები</div>' +
-                '<div class="stat-value">' + (prog.vocabularyLearned || 0) + '</div>' +
-                '<div class="stat-meta">ათვისებული ლექსიკა</div>' +
-              '</div>' +
-            '</div>' +
-
-            '<div class="card stat-card">' +
-              '<div class="stat-icon-box stat-icon-box--quiz">' + App.UI.getIcon('quizzes') + '</div>' +
-              '<div class="stat-info">' +
-                '<div class="stat-label">ტესტების საშუალო ქულა</div>' +
-                '<div class="stat-value">' + (prog.quizAverage || 0) + '%</div>' +
-                '<div class="stat-meta">ჩაბარებული ტესტი: ' + ((prog.quizScores && prog.quizScores.length) || 0) + '</div>' +
-              '</div>' +
-            '</div>' +
-
-            '<div class="card stat-card">' +
-              '<div class="stat-icon-box stat-icon-box--overall">' + App.UI.getIcon('reading') + '</div>' +
-              '<div class="stat-info">' +
-                '<div class="stat-label">კითხვა და მოსმენა</div>' +
-                '<div class="stat-value">' + ((prog.readingCompleted || 0) + (prog.listeningCompleted || 0)) + '</div>' +
-                '<div class="stat-meta">კითხვა: ' + (prog.readingCompleted || 0) + ' | მოსმენა: ' + (prog.listeningCompleted || 0) + '</div>' +
-              '</div>' +
-            '</div>' +
-
-            '<div class="card stat-card">' +
-              '<div class="stat-icon-box stat-icon-box--lessons">' + App.UI.getIcon('speaking') + '</div>' +
-              '<div class="stat-info">' +
-                '<div class="stat-label">საუბრის სესიები</div>' +
-                '<div class="stat-value">' + (prog.speakingSessions || 0) + '</div>' +
-                '<div class="stat-meta">გამოთქმა და სავარჯიშოები</div>' +
-              '</div>' +
-            '</div>' +
-
-            '<div class="card stat-card">' +
-              '<div class="stat-icon-box stat-icon-box--vocab">' + App.UI.getIcon('writing') + '</div>' +
-              '<div class="stat-info">' +
-                '<div class="stat-label">წერის სესიები</div>' +
-                '<div class="stat-value">' + (prog.writingSessions || 0) + '</div>' +
-                '<div class="stat-meta">წერითი დავალებები</div>' +
-              '</div>' +
-            '</div>' +
-
-            '<div class="card stat-card">' +
-              '<div class="stat-icon-box stat-icon-box--overall">' + App.UI.getIcon('progress') + '</div>' +
-              '<div class="stat-info">' +
-                '<div class="stat-label">კურსის საერთო ათვისება</div>' +
-                '<div class="stat-value">' + (prog.overallPercent || 0) + '%</div>' +
-                '<div class="stat-meta">A1–C2 დონეების ჯამი</div>' +
-              '</div>' +
-            '</div>' +
-          '</section>' +
-
-          '<section class="card">' +
-            '<div class="section-header">' +
-              '<div>' +
-                '<h3 class="section-title">პროგრესი CEFR დონეების მიხედვით (A1 – C2)</h3>' +
-                '<p class="section-subtitle">აკონტროლეთ თქვენი წინსვლა ენის ცოდნის ექვსივე საერთაშორისო საფეხურზე.</p>' +
-              '</div>' +
-            '</div>' +
-            levelRowsHtml +
-          '</section>' +
-        '</div>';
-    }
+    syncHeaderStats: syncHeaderStats,
+    render: renderProgressPage
   };
 
   App.Progress = Progress;

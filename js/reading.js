@@ -156,6 +156,14 @@
 
       const allPassages = this.getAllPassages();
 
+      const pendingId = App.takePendingOpen ? App.takePendingOpen("reading") : null;
+      if (pendingId) {
+        activePassage = allPassages.find((p) => p.id === pendingId) || null;
+        if (activePassage) this.prepareRandomizedQuestions(activePassage);
+        quizAnswers = {};
+        showTranslations = false;
+      }
+
       if (activePassage) {
         this.renderPassageReader(container, allPassages);
         return;
@@ -425,7 +433,7 @@
             "</div>" +
             questionsHtml +
             '<div style="display:flex; justify-content:flex-end; margin-top:12px;">' +
-              '<button type="button" class="btn btn-primary" id="complete-reading-btn">დასრულება და მომდევნოს გახსნა (+' + p.xp + " XP) &rarr;</button>" +
+              '<button type="button" class="btn btn-primary" id="complete-reading-btn">დასრულება და მომდევნოს გახსნა &rarr;</button>' +
             "</div>" +
           "</section>" +
         "</div>";

@@ -19,25 +19,26 @@
 }
 
 .pill-tab {
-  padding: 8px 15px;
+  padding: 7px 15px;
   border-radius: var(--radius-full);
-  background-color: var(--bg-surface-muted);
+  background-color: var(--bg-surface);
   color: var(--text-secondary);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.86rem;
   border: 1px solid var(--border-subtle);
-  transition: all var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .pill-tab:hover {
-  background-color: var(--bg-surface-hover);
+  border-color: var(--border-strong);
   color: var(--text-primary);
 }
 
 .pill-tab.active {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-solid);
   color: #ffffff;
   border-color: var(--brand-primary);
+  box-shadow: 0 2px 8px -2px rgba(37, 99, 235, 0.45);
 }
 
 /* ==========================================================================
@@ -93,7 +94,7 @@
 
 .duo-unit-eyebrow {
   font-size: 0.76rem;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   opacity: 0.92;
@@ -102,7 +103,7 @@
 
 .duo-unit-title {
   font-size: 1.22rem;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.25;
   margin-bottom: 4px;
 }
@@ -118,7 +119,7 @@
   color: #ffffff;
   padding: 10px 16px;
   border-radius: var(--radius-md);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 0.85rem;
   white-space: nowrap;
   transition: background var(--transition-fast), transform var(--transition-fast);
@@ -168,10 +169,10 @@
 }
 
 .duo-start-callout {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-solid);
   color: #ffffff;
   font-size: 0.76rem;
-  font-weight: 800;
+  font-weight: 700;
   padding: 6px 14px;
   border-radius: var(--radius-full);
   margin-bottom: 10px;
@@ -270,7 +271,7 @@
   border: 2px solid var(--border-strong);
   color: var(--text-primary);
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: 700;
   padding: 2px 7px;
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-xs);
@@ -291,7 +292,7 @@
 .duo-node-label {
   margin-top: 12px;
   font-size: 0.86rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-primary);
   text-align: center;
   max-width: 220px;
@@ -335,7 +336,7 @@
   background-color: var(--color-warning-soft);
   color: var(--color-warning);
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 700;
   padding: 5px 12px;
   border-radius: var(--radius-full);
   margin-bottom: 12px;
@@ -361,7 +362,7 @@
 
 .phrase-en {
   font-size: 1.05rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-primary);
 }
 
@@ -373,7 +374,7 @@
 
 .question-prompt {
   font-size: 1.22rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 8px;
 }
@@ -433,7 +434,7 @@
 
 .dialogue-speaker-name {
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 4px;
@@ -642,7 +643,7 @@
 
 .vocab-word {
   font-size: 1.25rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-primary);
 }
 
@@ -698,7 +699,7 @@
 
 .lesson-level-tag {
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   padding: 4px 10px;
   border-radius: var(--radius-full);
   background-color: var(--brand-primary-soft);
@@ -734,7 +735,7 @@
 }
 
 .audio-btn:hover {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-solid);
   color: #ffffff;
   transform: scale(1.06);
 }
@@ -760,4 +761,126 @@
   .duo-node-row--pos-4,
   .duo-node-row--pos-5,
   .duo-node-row--pos-6 { transform: translateX(26px); }
+}
+
+/* ლექსიკონი: მაგალითის ღილაკი და წყარო */
+.vocab-example-slot {
+  margin-top: 10px;
+}
+
+.vocab-example-btn {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--brand-primary);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background-color: var(--brand-primary-soft);
+  transition: background-color var(--transition-fast);
+}
+
+.vocab-example-btn:hover:not(:disabled) {
+  background-color: var(--bg-surface-hover);
+}
+
+.vocab-example-btn:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.vocab-example-empty {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.vocab-example-source {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ლექსიკონი (ახალი ბაზა) */
+.vx-filters {
+  display: grid;
+  grid-template-columns: minmax(200px, 2fr) repeat(3, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.vx-search input {
+  width: 100%;
+}
+
+.vx-resultbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+
+.vx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.vx-def {
+  margin-top: 6px;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+}
+
+.vx-details {
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
+
+.vx-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--brand-primary);
+}
+
+.vx-detail-row {
+  margin-top: 6px;
+  color: var(--text-secondary);
+}
+
+.vx-detail-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.vx-note {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--color-warning-soft);
+  color: var(--text-primary);
+}
+
+.vx-review-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-success);
+  align-self: center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .vx-filters {
+    grid-template-columns: 1fr 1fr;
+  }
+  .vx-search {
+    grid-column: 1 / -1;
+  }
 }

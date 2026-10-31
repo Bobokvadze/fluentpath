@@ -12,6 +12,64 @@
   let playbackSessionId = 0;
   const apiAudioCache = {};
 
+  // ბრაუზერის ჩაშენებული ხმის სინთეზატორი (ქვემოთ speechSynthesis.speak გადაიფარება, ამიტომ ორიგინალს ვინახავთ).
+  // გამოიყენება ოფლაინ რეჟიმში ან როცა ყველა ონლაინ აუდიო-წყარო მიუწვდომელია.
+  const nativeSynth = ("speechSynthesis" in window && typeof window.SpeechSynthesisUtterance === "function")
+    ? {
+        speak: window.speechSynthesis.speak.bind(window.speechSynthesis),
+        cancel: window.speechSynthesis.cancel.bind(window.speechSynthesis)
+      }
+    : null;
+
+  function pickNativeVoice(acc) {
+    if (!nativeSynth) return null;
+    const voices = window.speechSynthesis.getVoices() || [];
+    const wanted = (acc === "UK") ? "en-gb" : "en-us";
+    const norm = function (v) { return String(v.lang || "").toLowerCase().replace("_", "-"); };
+    return voices.find(function (v) { return norm(v) === wanted && v.localService; }) ||
+      voices.find(function (v) { return norm(v) === wanted; }) ||
+      voices.find(function (v) { return norm(v).indexOf("en") === 0; }) ||
+      null;
+  }
+
+  // ბრაუზერში ინგლისური ხმა თუ არ არის (მაგ. ზოგიერთი Linux/Firefox), ჩაშენებული სინთეზი ჩუმად "მთავრდება"
+  function hasNativeEnglishVoice() {
+    if (!nativeSynth) return false;
+    const voices = window.speechSynthesis.getVoices() || [];
+    // ხმების სია ზოგ ბრაუზერში ასინქრონულად იტვირთება — ცარიელი სია ჯერ არ ნიშნავს, რომ ხმა არ არის
+    if (!voices.length) return true;
+    return !!pickNativeVoice("US");
+  }
+
+  function speakNatively(text, acc, playbackRate, sessionId, onDone, onFail) {
+    if (!nativeSynth || sessionId !== playbackSessionId) {
+      (onFail || onDone)();
+      return;
+    }
+    try {
+      const utterance = new window.SpeechSynthesisUtterance(text);
+      const voice = pickNativeVoice(acc);
+      if (voice) utterance.voice = voice;
+      utterance.lang = (acc === "UK") ? "en-GB" : "en-US";
+      utterance.rate = (playbackRate && playbackRate < 0.88) ? 0.8 : 1.0;
+      let finished = false;
+      utterance.onend = function () {
+        if (finished) return;
+        finished = true;
+        if (sessionId === playbackSessionId) onDone();
+      };
+      utterance.onerror = function (e) {
+        if (finished) return;
+        finished = true;
+        if (sessionId !== playbackSessionId || (e && (e.error === "interrupted" || e.error === "canceled"))) return;
+        (onFail || onDone)();
+      };
+      nativeSynth.speak(utterance);
+    } catch (e) {
+      (onFail || onDone)();
+    }
+  }
+
   try {
     const savedAcc = window.localStorage.getItem(ACCENT_STORAGE_KEY);
     if (savedAcc === "UK" || savedAcc === "US") {
@@ -102,13 +160,34 @@
 
   function playSingleChunkWithFallback(chunkText, acc, playbackRate, sessionId, onChunkFinished) {
     if (sessionId !== playbackSessionId) return;
-    const urls = buildCandidateUrlsForChunk(chunkText, acc);
+
+    // 1) ლექსიკონის ოფიციალური ჩანაწერი (dictionaryapi.dev), თუ ამ სიტყვისთვის უკვე გვაქვს
+    // 2) ბრაუზერის ჩაშენებული ხმა — ნაგულისხმევი: უფასო, ოფლაინ მუშაობს და ტექსტი არსად იგზავნება
+    // 3) გარე TTS სერვისები მხოლოდ მაშინ, როცა ინგლისური ჩაშენებული ხმა საერთოდ არ არის
+    const singleWord = chunkText.split(/\s+/).length === 1 ? chunkText.toLowerCase().replace(/[^a-z'-]/g, "") : "";
+    const dictionaryUrl = singleWord ? apiAudioCache[singleWord + "_" + acc] : null;
+    const useRemote = !hasNativeEnglishVoice() && navigator.onLine !== false;
+    const urls = dictionaryUrl ? [dictionaryUrl] : [];
+    if (useRemote) {
+      buildCandidateUrlsForChunk(chunkText, acc).forEach(function (u) {
+        if (urls.indexOf(u) === -1) urls.push(u);
+      });
+    }
+
+    if (!urls.length) {
+      speakNatively(chunkText, acc, playbackRate, sessionId, onChunkFinished);
+      return;
+    }
     let urlIdx = 0;
 
     function tryNextUrl() {
       if (sessionId !== playbackSessionId) return;
       if (urlIdx >= urls.length) {
-        onChunkFinished();
+        if (useRemote) {
+          onChunkFinished();
+        } else {
+          speakNatively(chunkText, acc, playbackRate, sessionId, onChunkFinished);
+        }
         return;
       }
 
@@ -167,6 +246,9 @@
      */
     stop: function () {
       playbackSessionId++;
+      if (nativeSynth) {
+        try { nativeSynth.cancel(); } catch (e) {}
+      }
       if (activeAudioPool.length > 0) {
         activeAudioPool.forEach(function (aud) {
           try {
@@ -180,9 +262,13 @@
       }
     },
 
-    speak: function (text, accentOverride, rateOverride) {
+    // onDone (არასავალდებულო) გამოიძახება ბოლო ნაწილის დასრულებისას; stop()-ის შემთხვევაში — არა
+    speak: function (text, accentOverride, rateOverride, onDone) {
       const chunks = splitTextIntoStudioChunks(text);
-      if (!chunks.length) return;
+      if (!chunks.length) {
+        if (typeof onDone === "function") onDone();
+        return;
+      }
 
       this.stop();
       const currentSession = ++playbackSessionId;
@@ -203,20 +289,12 @@
 
       function playNextChunk() {
         if (currentSession !== playbackSessionId) return;
-        if (chunkIdx >= chunks.length) return;
+        if (chunkIdx >= chunks.length) {
+          if (typeof onDone === "function") onDone();
+          return;
+        }
 
         const textPart = chunks[chunkIdx++];
-
-        if (chunkIdx < chunks.length) {
-          try {
-            const nextPart = chunks[chunkIdx];
-            const voiceType = (acc === "UK") ? 1 : 2;
-            const preloadAudio = document.createElement("audio");
-            preloadAudio.preload = "auto";
-            preloadAudio.src = "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(nextPart) + "&type=" + voiceType;
-            activeAudioPool.push(preloadAudio);
-          } catch (e) {}
-        }
 
         playSingleChunkWithFallback(textPart, acc, rate, currentSession, function () {
           playNextChunk();

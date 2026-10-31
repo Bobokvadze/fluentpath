@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="ka" data-theme="light">
 <head>
-  <meta name="referrer" content="no-referrer" />
   <meta charset="UTF-8" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'sha256-VD6gkcUgaqrxlnoLw43y5AUr0Gg66v4ZdzGdaiSHy3Y='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; media-src 'self' https://api.dictionaryapi.dev https://ssl.gstatic.com https://dict.youdao.com https://translate.googleapis.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.dictionaryapi.dev https://cdn.jsdelivr.net; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="FluentPath — ინგლისური ენის 100% უფასო, ოფლაინ რეჟიმში მომუშავე, ულიმიტო სასწავლო პლატფორმა." />
   <meta name="theme-color" content="#2563eb" />
   <title>FluentPath — ინგლისური ენის უფასო სასწავლო პლატფორმა</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="FluentPath — ინგლისური ენის უფასო სასწავლო პლატფორმა" />
+  <meta property="og:description" content="ინგლისური A1-დან C2-მდე ქართული ინტერფეისით: გაკვეთილები, ლექსიკონი, გრამატიკა, კითხვა, მოსმენა, წერა და ტესტები." />
+  <meta property="og:locale" content="ka_GE" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg" />
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+  <script>
+    // შენახული თემის გამოყენება პირველ დახატვამდე (თეთრი "ციმციმის" თავიდან ასაცილებლად)
+    (function () {
+      try {
+        var keys = ['fluentpath_app_state_v1'];
+        for (var i = 0; i < localStorage.length; i++) {
+          var k = localStorage.key(i);
+          if (k.indexOf('fluentpath_user_cache_') === 0) keys.unshift(k);
+        }
+        for (var j = 0; j < keys.length; j++) {
+          var st = JSON.parse(localStorage.getItem(keys[j]) || 'null');
+          if (st && st.settings && st.settings.theme) {
+            document.documentElement.setAttribute('data-theme', st.settings.theme === 'dark' ? 'dark' : 'light');
+            break;
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="css/themes.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/responsive.css" />
@@ -16,16 +42,14 @@
   <link rel="stylesheet" href="css/phase3.css" />
   <link rel="stylesheet" href="css/auth.css" />
   <link rel="stylesheet" href="css/phase5.css" />
-    <link rel="stylesheet" href="css/vocab-grammar-polish.css?v=12" />
+  <link rel="stylesheet" href="css/vocab-grammar-polish.css?v=13" />
   <style id="fp-critical-clean-style">
-    /* 1. მარცხენა მენიუში ყველა ბეიჯის და ლოგოს ქვესათაურის სრული გაქრობა */
+    /* 1. მარცხენა მენიუში ბეიჯების და ლოგოს ქვესათაურის დამალვა (სექციების სახელები რჩება ხილული) */
     .nav-badge,
+    .nav-pill,
     .sidebar__subtitle,
     .brand-subtitle,
-    .logo-subtitle,
-    aside .nav-item span:nth-of-type(2),
-    .sidebar .nav-item span:nth-of-type(2),
-    nav a span:nth-of-type(2) {
+    .logo-subtitle {
       display: none !important;
     }
 
@@ -90,12 +114,6 @@
             <span aria-hidden="true">&#128293;</span>
             <strong id="topbar-streak-value">0</strong>
             <span class="pill-label-text">დღე</span>
-          </div>
-
-          <div class="stat-pill stat-pill--xp" title="დაგროვებული XP ქულები">
-            <span aria-hidden="true">&#9889;</span>
-            <strong id="topbar-xp-value">0</strong>
-            <span class="pill-label-text">XP</span>
           </div>
 
           <button type="button" id="topbar-theme-btn" class="icon-btn" aria-label="ფერების თემის შეცვლა" title="ფერების თემის შეცვლა"></button>
@@ -165,38 +183,29 @@
   <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
   <script defer src="js/storage.js"></script>
+  <script defer src="js/content/i18n.js"></script>
+  <script defer src="js/content/i18n-ka.js"></script>
+  <script defer src="js/content/curriculum.js"></script>
+  <script defer src="js/content/content-index.js"></script>
+  <script defer src="js/content/dialogues.js"></script>
+  <script defer src="js/curriculum-engine.js"></script>
   <script defer src="js/ui.js"></script>
   <script defer src="js/progress.js"></script>
   <script defer src="js/dashboard.js"></script>
-  <script defer src="js/learn.js"></script>
-  <script defer src="js/vocabulary.js"></script>
-  <script defer src="js/grammar-a.js"></script>
-  <script defer src="js/grammar-b.js"></script>
-  <script defer src="js/grammar-c.js"></script>
   <script defer src="js/grammar.js"></script>
-  <script defer src="js/reading-a.js"></script>
-  <script defer src="js/reading-b.js"></script>
-  <script defer src="js/reading-c.js"></script>
   <script defer src="js/reading.js"></script>
   <script defer src="js/settings.js"></script>
   <script defer src="js/router.js"></script>
   <script defer src="js/app.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script defer src="js/supabase-config.js"></script>
+  <script async id="supabase-sdk" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js" integrity="sha384-TcHRA3zBbn+Lexh5n+Oil4guNPOS3rjNDpGRAN46u/s/mB2IZ50ceC6TYDU2yvgK" crossorigin="anonymous"></script>
+  <script defer src="js/supabase-config.js"></script>
   <script defer src="js/auth.js"></script>
-  <script defer src="js/listening-a.js"></script>
-  <script defer src="js/listening-b.js"></script>
-  <script defer src="js/listening-c.js"></script>
   <script defer src="js/listening.js"></script>
-  <script defer src="js/writing-a.js"></script>
-  <script defer src="js/writing-b.js"></script>
-  <script defer src="js/writing-c.js"></script>
   <script defer src="js/writing.js"></script>
-    <script defer src="js/ipa-dict.js"></script>
   <script defer src="js/flashcards.js"></script>
   <script defer src="js/quizzes.js"></script>
+  <script defer src="js/speaking.js"></script>
   <script defer src="js/audio-engine.js"></script>
-  <script defer src="js/streak-only-ui.js"></script>
-    <script defer src="js/vocab-grammar-polish.js?v=12"></script>
+  <script defer src="js/vocab-grammar-polish.js?v=13"></script>
 </body>
 </html>
