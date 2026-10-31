@@ -216,7 +216,9 @@
           '<button type="button" class="cx-unit__head" data-cx-unit="' + u.id + '" aria-expanded="' + expanded + '">' +
             '<span class="cx-unit__num">' + u.number + '</span>' +
             '<span class="cx-unit__text"><span class="cx-unit__title" lang="en">' + esc(u.title) + '</span>' +
-            '<span class="cx-unit__goal" lang="en">' + esc(u.goal) + '</span></span>' +
+            '<span class="cx-unit__goal" lang="en">' + esc(u.goal) + '</span>' +
+            (App.tr && App.tr('curriculum', u.id, 'goal') ? '<span class="cx-unit__goal" lang="ka">' + esc(App.tr('curriculum', u.id, 'goal')) + '</span>' : '') +
+            '</span>' +
             badge +
           '</button>' +
           (expanded

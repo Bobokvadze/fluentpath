@@ -82,3 +82,20 @@ test('writing topics 1-75 have English tasks and every level has targets, criter
   const src = fs.readFileSync(path.join(ROOT, 'js', 'content', 'writing-en.js'), 'utf8');
   assert.ok(!/[Ⴀ-ჿ]/.test(src.slice(src.indexOf('App.WritingEN'))), 'Georgian text in writing-en.js');
 });
+
+test('translation export covers every translatable string and the translation file round-trips unchanged', () => {
+  const { collectSource, loadTranslations } = require('../scripts/i18n-source');
+  const source = collectSource();
+  const counts = {};
+  Object.keys(source).forEach((k) => { const s = k.split('|')[0]; counts[s] = (counts[s] || 0) + 1; });
+  assert.strictEqual(counts.vocab, 979);
+  assert.strictEqual(counts.writing, 75);
+  assert.strictEqual(counts.curriculum, 50);
+  assert.ok(counts.dialogues >= 150);
+  const ka = loadTranslations('ka');
+  Object.keys(ka).forEach((section) => Object.keys(ka[section]).forEach((id) => Object.keys(ka[section][id]).forEach((field) => {
+    const key = section + '|' + id + '|' + field;
+    assert.ok(source[key], 'translation for unknown source ' + key);
+    assert.notStrictEqual(ka[section][id][field], source[key].en, 'translation equals English: ' + key);
+  })));
+});

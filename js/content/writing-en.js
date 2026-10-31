@@ -1,6 +1,6 @@
 /**
  * WRITING-EN.JS — English writing tasks, level targets and assessment criteria for writing topics 1–75 (A1–C1).
- * English source only; translations live in App.I18n.ka.writing (keys: "<topicId>.task", "<topicId>.point<i>").
+ * English source only; translations live in App.I18n.ka.writing[topicId].task (see scripts/export-translations.js).
  *
  * levels[code]: { words: [min, max], criteria: [{ name, descriptor }], checklist: [string] }
  * tasks[topicId]: { task: string, points: [string] }  — the content points the text must cover.
