@@ -262,9 +262,13 @@
       }
     },
 
-    speak: function (text, accentOverride, rateOverride) {
+    // onDone (არასავალდებულო) გამოიძახება ბოლო ნაწილის დასრულებისას; stop()-ის შემთხვევაში — არა
+    speak: function (text, accentOverride, rateOverride, onDone) {
       const chunks = splitTextIntoStudioChunks(text);
-      if (!chunks.length) return;
+      if (!chunks.length) {
+        if (typeof onDone === "function") onDone();
+        return;
+      }
 
       this.stop();
       const currentSession = ++playbackSessionId;
@@ -285,7 +289,10 @@
 
       function playNextChunk() {
         if (currentSession !== playbackSessionId) return;
-        if (chunkIdx >= chunks.length) return;
+        if (chunkIdx >= chunks.length) {
+          if (typeof onDone === "function") onDone();
+          return;
+        }
 
         const textPart = chunks[chunkIdx++];
 

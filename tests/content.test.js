@@ -63,3 +63,22 @@ test('every A1-C1 grammar topic has a complete English lesson and valid practice
     assert.ok(!/[Ⴀ-ჿ]/.test(JSON.stringify(t)), i + ': Georgian text in English source');
   }
 });
+
+test('writing topics 1-75 have English tasks and every level has targets, criteria and a checklist', () => {
+  const env = loadScripts(['js/content/writing-en.js']);
+  const W = env.App.WritingEN;
+  let prevMax = 0;
+  ['A1', 'A2', 'B1', 'B2', 'C1'].forEach((lvl) => {
+    const spec = W.levels[lvl];
+    assert.ok(spec.words[0] < spec.words[1] && spec.words[1] > prevMax, lvl + ' word target grows with level');
+    prevMax = spec.words[1];
+    assert.ok(spec.criteria.length >= 4 && spec.checklist.length >= 5, lvl + ' criteria/checklist');
+  });
+  for (let i = 1; i <= 75; i++) {
+    const t = W.tasks['writing-topic-' + i];
+    assert.ok(t && /^(Write|Complete) /.test(t.task), 'task ' + i);
+    assert.ok(t.points.length >= 3, 'points ' + i);
+  }
+  const src = fs.readFileSync(path.join(ROOT, 'js', 'content', 'writing-en.js'), 'utf8');
+  assert.ok(!/[Ⴀ-ჿ]/.test(src.slice(src.indexOf('App.WritingEN'))), 'Georgian text in writing-en.js');
+});

@@ -25,7 +25,7 @@
     grammar: ['js/grammar-a.js', 'js/grammar-b.js', 'js/grammar-c.js', 'js/content/grammar-en-a.js', 'js/content/grammar-en-b.js', 'js/content/grammar-en-c.js'],
     reading: ['js/reading-a.js', 'js/reading-b.js', 'js/reading-c.js'],
     listening: ['js/listening-a.js', 'js/listening-b.js', 'js/listening-c1a.js', 'js/listening-c1b.js', 'js/listening-c1c.js', 'js/listening-c.js'],
-    writing: ['js/writing-a.js', 'js/writing-b.js', 'js/writing-c.js'],
+    writing: ['js/content/writing-en.js', 'js/writing-a.js', 'js/writing-b.js', 'js/writing-c.js'],
     ipa: ['js/ipa-dict.js']
   };
 

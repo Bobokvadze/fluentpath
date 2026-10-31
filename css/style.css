@@ -2059,3 +2059,113 @@ p {
   font-size: 0.82rem;
   color: var(--text-secondary);
 }
+
+/* წერის დავალება და თვითშეფასება */
+.wx-task__text {
+  font-size: 1.02rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.wx-task__ka {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.wx-task__label {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.wx-points {
+  margin: 4px 0 0 20px;
+  list-style: disc;
+  display: grid;
+  gap: 2px;
+  font-size: 0.92rem;
+}
+
+.wx-ka-prompt {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.wx-ka-prompt summary,
+.wx-criteria summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--brand-primary);
+}
+
+.wx-count {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.wx-count--low { color: var(--color-warning); }
+.wx-count--ok { color: var(--color-success); }
+.wx-count--high { color: var(--color-warning); }
+
+.wx-check {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface-muted);
+}
+
+.wx-check__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.wx-check__list {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.wx-check__list label {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.wx-check__list input {
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.wx-criteria {
+  margin-top: 12px;
+  font-size: 0.88rem;
+}
+
+.wx-criteria dl {
+  margin-top: 8px;
+  display: grid;
+  gap: 4px;
+}
+
+.wx-criteria dt {
+  font-weight: 700;
+}
+
+.wx-criteria dd {
+  margin: 0 0 6px;
+  color: var(--text-secondary);
+}
+
+/* მოსმენა: მიმდინარე აბზაცის მონიშვნა */
+.reading-paragraph-block.is-playing {
+  background: var(--brand-primary-soft);
+  border-left-color: var(--brand-primary);
+  transition: background 0.2s ease;
+}
