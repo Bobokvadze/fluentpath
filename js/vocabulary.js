@@ -7,7 +7,7 @@
   'use strict';
 
   const App = window.App = window.App || {};
-  const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1'];
+  const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
   const POS_LABELS = {
     n: 'noun', v: 'verb', adj: 'adjective', adv: 'adverb', prep: 'preposition', pron: 'pronoun', det: 'determiner',
     conj: 'conjunction', num: 'number', int: 'exclamation', phr: 'phrase', pv: 'phrasal verb'

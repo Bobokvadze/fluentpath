@@ -9,7 +9,7 @@ const vm = require('vm');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1'];
+const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 const POS = new Set(['n', 'v', 'adj', 'adv', 'prep', 'pron', 'det', 'conj', 'num', 'int', 'phr', 'pv']);
 const KEYS = new Set(['x', 'c', 's', 'a', 'f', 'w', 'n']);
 

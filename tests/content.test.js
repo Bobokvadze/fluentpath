@@ -10,12 +10,12 @@ const { validate } = require('../scripts/validate-vocab');
 test('vocabulary database is valid, duplicate-free and mostly covered by IPA', () => {
   const { errors, report, total, ipaHits } = validate();
   assert.deepStrictEqual(errors, []);
-  ['A1', 'A2', 'B1', 'B2', 'C1'].forEach((lvl) => assert.ok(report[lvl].entries >= 100, lvl + ' has too few entries'));
+  ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].forEach((lvl) => assert.ok(report[lvl].entries >= 100, lvl + ' has too few entries'));
   assert.ok(ipaHits / total > 0.9, 'IPA coverage below 90%');
 });
 
 test('vocabulary source files contain no Georgian text (translations live in i18n-ka.js)', () => {
-  ['a1', 'a2', 'b1', 'b2', 'c1'].forEach((lvl) => {
+  ['a1', 'a2', 'b1', 'b2', 'c1', 'c2'].forEach((lvl) => {
     const src = fs.readFileSync(path.join(ROOT, 'js', 'content', 'vocab-' + lvl + '.js'), 'utf8');
     const body = src.slice(src.indexOf('= ['));
     assert.ok(!/[Ⴀ-ჿ]/.test(body), 'Georgian characters found in vocab-' + lvl + '.js');
@@ -45,10 +45,10 @@ test('legacy vocabulary ids are migrated by word and unknown ones are preserved'
   same(env.App.Storage.get('vocabulary.learnedIds'), ['v-hello-int']);
 });
 
-test('every A1-C1 grammar topic has a complete English lesson and valid practice items', () => {
-  const env = loadScripts(['js/content/grammar-en-a.js', 'js/content/grammar-en-b.js', 'js/content/grammar-en-c.js']);
+test('every A1-C2 grammar topic has a complete English lesson and valid practice items', () => {
+  const env = loadScripts(['js/content/grammar-en-a.js', 'js/content/grammar-en-b.js', 'js/content/grammar-en-c.js', 'js/content/grammar-en-d.js']);
   const G = env.App.GrammarEN;
-  for (let i = 1; i <= 75; i++) {
+  for (let i = 1; i <= 90; i++) {
     const t = G['grammar-topic-' + i];
     assert.ok(t, 'missing English layer for topic ' + i);
     ['title', 'objective', 'explanation', 'compare', 'tip'].forEach((k) => assert.ok(t[k] && t[k].length > 8, i + ': ' + k));
@@ -64,19 +64,19 @@ test('every A1-C1 grammar topic has a complete English lesson and valid practice
   }
 });
 
-test('writing topics 1-75 have English tasks and every level has targets, criteria and a checklist', () => {
+test('writing topics 1-90 have English tasks and every level has targets, criteria and a checklist', () => {
   const env = loadScripts(['js/content/writing-en.js']);
   const W = env.App.WritingEN;
   let prevMax = 0;
-  ['A1', 'A2', 'B1', 'B2', 'C1'].forEach((lvl) => {
+  ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].forEach((lvl) => {
     const spec = W.levels[lvl];
     assert.ok(spec.words[0] < spec.words[1] && spec.words[1] > prevMax, lvl + ' word target grows with level');
     prevMax = spec.words[1];
     assert.ok(spec.criteria.length >= 4 && spec.checklist.length >= 5, lvl + ' criteria/checklist');
   });
-  for (let i = 1; i <= 75; i++) {
+  for (let i = 1; i <= 90; i++) {
     const t = W.tasks['writing-topic-' + i];
-    assert.ok(t && /^(Write|Complete) /.test(t.task), 'task ' + i);
+    assert.ok(t && /^(Write|Complete|Draft) /.test(t.task), 'task ' + i);
     assert.ok(t.points.length >= 3, 'points ' + i);
   }
   const src = fs.readFileSync(path.join(ROOT, 'js', 'content', 'writing-en.js'), 'utf8');
@@ -88,9 +88,11 @@ test('translation export covers every translatable string and the translation fi
   const source = collectSource();
   const counts = {};
   Object.keys(source).forEach((k) => { const s = k.split('|')[0]; counts[s] = (counts[s] || 0) + 1; });
-  assert.strictEqual(counts.vocab, 979);
-  assert.strictEqual(counts.writing, 75);
-  assert.strictEqual(counts.curriculum, 50);
+  assert.strictEqual(counts.vocab, 1140);
+  assert.strictEqual(counts.writing, 90);
+  assert.strictEqual(counts.curriculum, 60);
+  assert.ok(counts.courses >= 50);
+  assert.strictEqual(counts.reading, 72);
   assert.ok(counts.dialogues >= 150);
   const ka = loadTranslations('ka');
   Object.keys(ka).forEach((section) => Object.keys(ka[section]).forEach((id) => Object.keys(ka[section][id]).forEach((field) => {
@@ -98,4 +100,26 @@ test('translation export covers every translatable string and the translation fi
     assert.ok(source[key], 'translation for unknown source ' + key);
     assert.notStrictEqual(ka[section][id][field], source[key].en, 'translation equals English: ' + key);
   })));
+});
+
+test('extra reading passages are complete English texts with valid questions', () => {
+  const env = loadScripts(['js/content/reading-extra.js']);
+  const R = env.App.ReadingExtra;
+  assert.ok(R.length >= 12);
+  const nums = new Set();
+  R.forEach((r) => {
+    assert.ok(r.num > 90 && !nums.has(r.num), 'unique number ' + r.num);
+    nums.add(r.num);
+    assert.ok(['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].indexOf(r.level) !== -1, r.num + ' level');
+    assert.ok(r.paragraphs.length >= 4, r.num + ' paragraphs');
+    assert.ok(r.questions.length >= 6, r.num + ' questions');
+    r.questions.forEach((q) => {
+      const f = q.split('|');
+      assert.strictEqual(f.length, 5, r.num + ' question fields: ' + f[0]);
+      assert.strictEqual(new Set(f.slice(1)).size, 4, r.num + ' duplicate options: ' + f[0]);
+    });
+    r.glossary.forEach((g) => assert.strictEqual(g.split('|').length, 2, r.num + ' glossary ' + g));
+  });
+  const src = fs.readFileSync(path.join(ROOT, 'js', 'content', 'reading-extra.js'), 'utf8');
+  assert.ok(!/[Ⴀ-ჿ]/.test(src.slice(src.indexOf('App.ReadingExtra'))), 'Georgian text in reading-extra.js');
 });

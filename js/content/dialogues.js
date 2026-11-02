@@ -263,6 +263,62 @@
         ["you", "Online courses are free, but they assume a reliable connection and a quiet place to study."],
         ["partner", "So what determines the outcome?"],
         ["you", "To a large extent, it depends on whether governments invest in infrastructure and support."]
+      ] },
+    // C2
+    { id: "dlg-C2-u1", level: "C2", title: "Chairing a formal meeting", function: "Opening, steering and closing a formal meeting",
+      expressions: ["I propose that we...", "Be that as it may,...", "If I might draw this to a close,..."],
+      lines: [
+        ["you", "Good morning, everyone. I propose that we begin with the budget, as it affects every other item."],
+        ["partner", "Before we do, I must object: the figures were circulated only last night."],
+        ["you", "That is a fair point, and I apologise for the late notice. Be that as it may, the board needs a decision today."],
+        ["partner", "Then I would ask that my reservations be recorded in the minutes."],
+        ["you", "Of course. Let it be noted that the finance director has concerns about the timing."],
+        ["partner", "Thank you. In that case, I'm happy to proceed."],
+        ["you", "If I might draw this to a close: we approve the budget in principle and review it again next month. Are we agreed?"]
+      ] },
+    { id: "dlg-C2-u2", level: "C2", title: "Defending your research", function: "Responding to critical questions with precision and hedging",
+      expressions: ["The data would appear to suggest...", "I take your point, but...", "That lies beyond the scope of this study."],
+      lines: [
+        ["partner", "Your sample is rather small. How confident can you be in these conclusions?"],
+        ["you", "I take your point. The data would appear to suggest a strong effect, but I'd stop short of claiming it is universal."],
+        ["partner", "Couldn't the results be explained by other factors entirely?"],
+        ["you", "That possibility cannot be ruled out. However, we controlled for age, income and education, and the pattern held."],
+        ["partner", "And what about long-term effects?"],
+        ["you", "That lies beyond the scope of this study, although it is precisely what I intend to examine next."],
+        ["partner", "A sensible answer. I'd recommend you make those limitations explicit in the final chapter."]
+      ] },
+    { id: "dlg-C2-u3", level: "C2", title: "Negotiating a contract", function: "Making conditional offers and protecting your position",
+      expressions: ["We could consider... on condition that...", "That would be a deal-breaker for us.", "Let's see if we can find some middle ground."],
+      lines: [
+        ["partner", "Our final offer is a 5% discount on a three-year contract."],
+        ["you", "We appreciate that. We could consider three years, on condition that the price is reviewed annually."],
+        ["partner", "An annual review would expose us to considerable risk."],
+        ["you", "Then let's see if we can find some middle ground. What if increases were capped at the rate of inflation?"],
+        ["partner", "That might work, provided you commit to minimum order volumes."],
+        ["you", "Fixed minimums would be a deal-breaker for us, given how seasonal our demand is. A quarterly average, however, is something we can accept."],
+        ["partner", "Very well. Let's put that in writing and have our lawyers review the draft."]
+      ] },
+    { id: "dlg-C2-u4", level: "C2", title: "Giving difficult feedback", function: "Delivering criticism tactfully and constructively",
+      expressions: ["I do appreciate...", "What concerns me slightly is...", "It might be worth considering..."],
+      lines: [
+        ["you", "Thanks for sending the draft. I do appreciate how much work has gone into it."],
+        ["partner", "But you have some reservations, I take it?"],
+        ["you", "A few. What concerns me slightly is that the key recommendation only appears on page twelve."],
+        ["partner", "I wanted to build up the evidence first."],
+        ["you", "That makes sense for an academic paper. For a board, though, it might be worth considering leading with the conclusion."],
+        ["partner", "So, a summary up front and the detail in an appendix?"],
+        ["you", "Exactly. The analysis itself is excellent; it's simply a question of making it easier to act on."]
+      ] },
+    { id: "dlg-C2-u5", level: "C2", title: "Moderating a public debate", function: "Managing a discussion, summarising and challenging speakers",
+      expressions: ["If I could just come in here,...", "So, to summarise your position,...", "With respect, that doesn't quite answer the question."],
+      lines: [
+        ["you", "Our motion tonight is that artificial intelligence will do more harm than good. Dr Kim, you have two minutes."],
+        ["partner", "The real danger is not that machines will think, but that people will stop thinking."],
+        ["you", "If I could just come in here — isn't that what was said about calculators and the printing press?"],
+        ["partner", "Those tools extended human ability; this one threatens to replace human judgement."],
+        ["you", "So, to summarise your position, the issue is not capability but dependence?"],
+        ["partner", "Precisely. And dependence, once established, is very hard to reverse."],
+        ["you", "With respect, that doesn't quite answer how regulation might help. Perhaps we can return to that after the audience questions."]
       ] }
   ];
 })(window);

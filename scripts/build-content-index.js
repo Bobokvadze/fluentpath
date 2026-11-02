@@ -22,11 +22,11 @@ function build() {
   window.window = window;
   const ctx = vm.createContext(Object.assign({}, window, { window }));
   const files = [
-    'grammar-a', 'grammar-b', 'grammar-c', 'content/grammar-en-a', 'content/grammar-en-b', 'content/grammar-en-c', 'grammar',
-    'reading-a', 'reading-b', 'reading-c', 'reading',
+    'grammar-a', 'grammar-b', 'grammar-c', 'content/grammar-en-a', 'content/grammar-en-b', 'content/grammar-en-c', 'content/grammar-en-d', 'grammar',
+    'reading-a', 'reading-b', 'reading-c', 'content/reading-extra', 'reading',
     'listening-a', 'listening-b', 'listening-c1a', 'listening-c1b', 'listening-c1c', 'listening-c', 'listening',
     'writing-a', 'writing-b', 'writing-c', 'writing',
-    'content/vocab-a1', 'content/vocab-a2', 'content/vocab-b1', 'content/vocab-b2', 'content/vocab-c1'
+    'content/vocab-a1', 'content/vocab-a2', 'content/vocab-b1', 'content/vocab-b2', 'content/vocab-c1', 'content/vocab-c2'
   ];
   files.forEach((f) => vm.runInContext(fs.readFileSync(path.join(ROOT, 'js', f + '.js'), 'utf8'), ctx, { filename: f }));
 

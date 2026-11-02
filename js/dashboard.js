@@ -76,7 +76,15 @@
         }
       }
     }
-    return recs.slice(0, 4);
+    // თემატური კურსი (დაწყებული ან დონის შესაფერისი)
+    const course = App.CourseEngine ? App.CourseEngine.recommended() : null;
+    if (course) {
+      recs.splice(Math.min(recs.length, 3), 0, {
+        kind: "course", icon: course.course.icon, courseId: course.course.id, title: "Course: " + course.course.title,
+        reason: course.started ? "გააგრძელეთ კურსი — " + course.done + " / " + course.total + " გაკვეთილი შესრულებულია." : "თემატური კურსი თქვენი დონისთვის (" + course.course.levels + ")."
+      });
+    }
+    return recs.slice(0, 5);
   }
 
   function renderDashboard() {
@@ -104,11 +112,16 @@
     const vocabLabel = vocabTotal.toLocaleString("en-US");
     const checkpoints = App.Storage.get("progress.curriculum.checkpoints", {}) || {};
     const unitsPassed = Object.keys(checkpoints).filter(function (k) { return Number(checkpoints[k]) >= 70; }).length;
+    const unitsTotal = App.Curriculum ? App.Curriculum.get().reduce(function (n, l) { return n + l.units.length; }, 0) : 30;
+    const idxCount = function (k, d) { const t = (App.ContentIndex || {})[k]; return t ? Object.keys(t).length : d; };
+    const readingTotal = idxCount("reading", 90);
+    const coursesTotal = App.CourseEngine ? App.CourseEngine.all().length : 0;
+    const coursesDone = App.CourseEngine ? App.CourseEngine.completedCount() : 0;
     const modules = [
-      { route: "learn", icon: "🌳", tone: "green", title: "სასწავლო გეგმა", count: unitsPassed + " / 25 ერთეული", pct: pct(unitsPassed, 25), desc: "A1–C1: 25 ერთეული ლექსიკით, გრამატიკით, უნარებითა და შემაჯამებელი ტესტებით." },
-      { route: "vocabulary", icon: "🗂️", tone: "amber", title: "ლექსიკონი", count: st.wordsCount + " / " + vocabLabel, pct: pct(st.wordsCount, vocabTotal || 1), desc: vocabLabel + " შერჩეული სიტყვა და ფრაზა A1–C1 დონეებზე, განმარტებებითა და გამოთქმით." },
+      { route: "learn", icon: "🌳", tone: "green", title: "სასწავლო გეგმა", count: unitsPassed + " / " + unitsTotal + " ერთეული", pct: pct(unitsPassed, unitsTotal), desc: "A1–C2: " + unitsTotal + " ერთეული და " + coursesTotal + " თემატური კურსი (დასრულებული: " + coursesDone + ")." },
+      { route: "vocabulary", icon: "🗂️", tone: "amber", title: "ლექსიკონი", count: st.wordsCount + " / " + vocabLabel, pct: pct(st.wordsCount, vocabTotal || 1), desc: vocabLabel + " შერჩეული სიტყვა და ფრაზა A1–C2 დონეებზე, განმარტებებითა და გამოთქმით." },
       { route: "grammar", icon: "🌐", tone: "blue", title: "გრამატიკა", count: st.grammarDone + " / 90", pct: pct(st.grammarDone, 90), desc: "90 გაკვეთილი მკაფიო წესებითა და სავარჯიშოებით." },
-      { route: "reading", icon: "📖", tone: "violet", title: "კითხვა", count: st.readingDone + " / 90", pct: pct(st.readingDone, 90), desc: "ადაპტირებული ისტორიები და სტატიები კითხვებით." },
+      { route: "reading", icon: "📖", tone: "violet", title: "კითხვა", count: st.readingDone + " / " + readingTotal, pct: pct(st.readingDone, readingTotal), desc: "ადაპტირებული ისტორიები და სტატიები კითხვებით." },
       { route: "listening", icon: "🎧", tone: "teal", title: "მოსმენა", count: st.listeningDone + " / 90", pct: pct(st.listeningDone, 90), desc: "დიალოგები და პოდკასტები ტრანსკრიპტით." },
       { route: "speaking", icon: "🎙️", tone: "rose", title: "საუბარი", count: speakingDone + " / " + speakingTotal, pct: pct(speakingDone, speakingTotal), desc: "გამოთქმის ვარჯიში სიტყვა-სიტყვით შეფასებით." },
       { route: "writing", icon: "✍️", tone: "orange", title: "წერა", count: st.writingDone + " / 90", pct: pct(st.writingDone, 90), desc: "წერითი ნიმუშები, შაბლონები და დავალებები." },
@@ -222,6 +235,7 @@
         if (r.kind === "lesson") App.Curriculum.openLesson(r.lessonId);
         else if (r.kind === "review") App.Flashcards.startDueReview();
         else if (r.kind === "content") App.openContent(r.module, r.ref);
+        else if (r.kind === "course") App.openContent("learn", "course:" + r.courseId);
       });
     });
 

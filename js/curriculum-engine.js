@@ -1,5 +1,5 @@
 /**
- * CURRICULUM-ENGINE.JS — progress logic for the A1–C1 learning path (see js/content/curriculum.js).
+ * CURRICULUM-ENGINE.JS — progress logic for the A1–C2 learning path (see js/content/curriculum.js).
  * Lesson completion is read from the progress data each module already writes, so every section stays consistent:
  *   grammar → progress.completedGrammarIds, reading → progress.completedReadingIds,
  *   listening → progress.completedListeningIds, writing → progress.completedWritingIds,
@@ -10,7 +10,7 @@
   "use strict";
 
   const App = window.App = window.App || {};
-  const LEVELS = ["A1", "A2", "B1", "B2", "C1"];
+  const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
   let cache = null;
 
   const TYPE_LABELS = {
@@ -36,7 +36,7 @@
   function workingLevelIndex() {
     const lvl = App.Storage.get("progress.level", "A1");
     const idx = LEVELS.indexOf(lvl);
-    return idx === -1 ? (lvl === "C2" ? 4 : 0) : idx;
+    return idx === -1 ? 0 : idx;
   }
 
   function snapshot() {

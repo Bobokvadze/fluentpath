@@ -20,10 +20,10 @@
 
   // დიდი შინაარსის პაკეტები იტვირთება მოთხოვნისამებრ (sw.js მაინც წინასწარ ქეშავს ყველას ოფლაინისთვის)
   const DATA_PACKS = {
-    vocabulary: ['js/content/vocab-a1.js', 'js/content/vocab-a2.js', 'js/content/vocab-b1.js', 'js/content/vocab-b2.js', 'js/content/vocab-c1.js', 'js/content/vocab-legacy-ids.js', 'js/vocabulary.js'],
+    vocabulary: ['js/content/vocab-a1.js', 'js/content/vocab-a2.js', 'js/content/vocab-b1.js', 'js/content/vocab-b2.js', 'js/content/vocab-c1.js', 'js/content/vocab-c2.js', 'js/content/vocab-legacy-ids.js', 'js/vocabulary.js'],
     learn: ['js/learn.js'],
-    grammar: ['js/grammar-a.js', 'js/grammar-b.js', 'js/grammar-c.js', 'js/content/grammar-en-a.js', 'js/content/grammar-en-b.js', 'js/content/grammar-en-c.js'],
-    reading: ['js/reading-a.js', 'js/reading-b.js', 'js/reading-c.js'],
+    grammar: ['js/grammar-a.js', 'js/grammar-b.js', 'js/grammar-c.js', 'js/content/grammar-en-a.js', 'js/content/grammar-en-b.js', 'js/content/grammar-en-c.js', 'js/content/grammar-en-d.js'],
+    reading: ['js/reading-a.js', 'js/reading-b.js', 'js/reading-c.js', 'js/content/reading-extra.js'],
     listening: ['js/listening-a.js', 'js/listening-b.js', 'js/listening-c1a.js', 'js/listening-c1b.js', 'js/listening-c1c.js', 'js/listening-c.js'],
     writing: ['js/content/writing-en.js', 'js/writing-a.js', 'js/writing-b.js', 'js/writing-c.js'],
     ipa: ['js/ipa-dict.js']

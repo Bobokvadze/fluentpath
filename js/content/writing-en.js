@@ -1,5 +1,5 @@
 /**
- * WRITING-EN.JS — English writing tasks, level targets and assessment criteria for writing topics 1–75 (A1–C1).
+ * WRITING-EN.JS — English writing tasks, level targets and assessment criteria for writing topics 1–90 (A1–C2).
  * English source only; translations live in App.I18n.ka.writing[topicId].task (see scripts/export-translations.js).
  *
  * levels[code]: { words: [min, max], criteria: [{ name, descriptor }], checklist: [string] }
@@ -93,6 +93,24 @@
           "The register and conventions match the genre (memo, proposal, review, essay).",
           "I edited for concision: no unnecessary repetition or filler."
         ]
+      },
+      C2: {
+        words: [300, 450],
+        criteria: [
+          { name: "Task", descriptor: "The task is fulfilled with authority: complex ideas are evaluated, synthesised and argued with full command of the subject and the reader's needs." },
+          { name: "Organisation", descriptor: "Sophisticated, seamless structure; the line of argument is easy to follow and paragraphs build cumulatively." },
+          { name: "Language", descriptor: "Precise, idiomatic and natural language with fine distinctions of meaning; complex grammar is used effortlessly for emphasis and nuance." },
+          { name: "Register & accuracy", descriptor: "Register, tone and genre conventions are fully controlled; errors are virtually absent." }
+        ],
+        checklist: [
+          "My position is clear from the opening and sustained throughout.",
+          "I evaluated, not just described: strengths, weaknesses and implications are weighed.",
+          "I synthesised several perspectives or sources rather than listing them.",
+          "I used emphasis and focus devices deliberately (fronting, cleft sentences, inversion, nominalisation).",
+          "Every claim is calibrated: hedged where evidence is limited, firm where it is strong.",
+          "The text follows the genre's conventions (headings, formulae, citations, tone) precisely.",
+          "I cut anything that does not serve the argument."
+        ]
       }
     },
 
@@ -171,7 +189,22 @@
       "writing-topic-72": { task: "Write a cultural heritage grant proposal for a 'living' folk archive.", points: ["the heritage at risk", "the project activities", "the budget and timeline", "the expected impact and sustainability"] },
       "writing-topic-73": { task: "Write a comparative policy essay on Universal Basic Income and Universal Basic Services.", points: ["how each model works", "the advantages of each", "the costs and risks of each", "a reasoned conclusion"] },
       "writing-topic-74": { task: "Write a white paper on zero-trust security architecture in banking.", points: ["the limits of perimeter security", "the principles of zero trust", "implementation steps", "the benefits and challenges"] },
-      "writing-topic-75": { task: "Write a philosophical essay on Barry Schwartz's 'paradox of choice'.", points: ["the central claim", "the psychological evidence", "criticisms and counter-examples", "your own reasoned position"] }
+      "writing-topic-75": { task: "Write a philosophical essay on Barry Schwartz's 'paradox of choice'.", points: ["the central claim", "the psychological evidence", "criticisms and counter-examples", "your own reasoned position"] },
+      "writing-topic-76": { task: "Write an amicus brief arguing a position on biometric surveillance in public spaces and the right to privacy.", points: ["the legal question", "the relevant rights and precedents", "the proportionality of the measure", "the relief or ruling you request"] },
+      "writing-topic-77": { task: "Write a central bank monetary policy committee statement announcing an interest-rate decision.", points: ["the decision and the vote", "the assessment of inflation and growth", "the risks to the outlook", "forward guidance"] },
+      "writing-topic-78": { task: "Write a peer-review report on a manuscript submitted to an academic journal.", points: ["a summary of the paper's claims", "its main strengths", "methodological concerns and requested revisions", "your recommendation to the editor"] },
+      "writing-topic-79": { task: "Write the executive summary of a due-diligence report for a company acquisition.", points: ["the scope of the review", "key financial and legal findings", "material risks and deal-breakers", "the recommendation and conditions"] },
+      "writing-topic-80": { task: "Write a multilateral policy proposal on reducing space debris in Earth's orbit.", points: ["the scale of the problem", "the shortcomings of current rules", "proposed obligations and incentives", "verification and next steps"] },
+      "writing-topic-81": { task: "Write a philosophical essay on Karl Popper's criterion of falsifiability.", points: ["the problem of demarcation", "Popper's argument", "major objections (e.g. Kuhn, the Duhem–Quine thesis)", "your evaluation"] },
+      "writing-topic-82": { task: "Write a sovereign credit rating commentary explaining an upgraded outlook for a country.", points: ["the rating action", "the key drivers", "remaining weaknesses", "what could trigger a further change"] },
+      "writing-topic-83": { task: "Draft an international bioethical charter for brain–computer interfaces.", points: ["a preamble stating the purpose", "core principles (consent, mental privacy, identity)", "obligations of developers and states", "oversight and enforcement"] },
+      "writing-topic-84": { task: "Write a literary criticism essay applying Bakhtin's idea of polyphony to a novel or poem you know.", points: ["Bakhtin's concept explained", "analysis of voices in the text", "the effect on meaning and the reader", "a reasoned conclusion"] },
+      "writing-topic-85": { task: "Write a claimant's memorial for an international arbitration over a construction contract dispute.", points: ["the facts and the contract terms", "the breaches alleged", "the legal arguments", "the relief sought"] },
+      "writing-topic-86": { task: "Write a macroeconomic policy paper on how a developing economy can escape the middle-income trap.", points: ["a diagnosis of the trap", "evidence from other countries", "a policy package", "risks and sequencing"] },
+      "writing-topic-87": { task: "Write an essay on architecture and the senses, drawing on Juhani Pallasmaa's ideas.", points: ["Pallasmaa's critique of visual dominance", "examples of multisensory spaces", "implications for design practice", "your evaluation"] },
+      "writing-topic-88": { task: "Write a historiographical essay on archival silences and how historians can work with missing sources.", points: ["what archival silences are and why they exist", "examples", "methods for reading against the grain", "the limits of such methods"] },
+      "writing-topic-89": { task: "Write a macroprudential policy paper applying Minsky's financial instability hypothesis to current markets.", points: ["Minsky's hypothesis explained", "signs of instability today", "policy tools", "a recommendation"] },
+      "writing-topic-90": { task: "Write a capstone essay on synthesis and intellectual integrity in research and professional work.", points: ["what synthesis means beyond summary", "the role of honesty about evidence and sources", "examples of good and poor practice", "your personal principles"] }
     }
   };
 })(window);

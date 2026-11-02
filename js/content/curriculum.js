@@ -1,10 +1,10 @@
 /**
- * CURRICULUM.JS — the A1–C1 learning path (English source; translations: App.I18n.ka.curriculum).
+ * CURRICULUM.JS — the A1–C2 learning path (English source; translations: App.I18n.ka.curriculum).
  *
  * Each level has 5 units. A unit combines, in this order:
  *   vocabulary topics → 3 grammar topics (the unit's structural focus) → reading → listening →
  *   speaking (dialogue) → writing → unit checkpoint.
- * Reading/listening/writing items are numbered 1–90 in their modules; A1 uses 1–15, A2 16–30, ... C1 61–75.
+ * Reading/listening/writing items are numbered 1–90 in their modules; A1 uses 1–15, A2 16–30, ... C2 76–90.
  * Unit n of a level uses items base + 3n .. base + 3n + 2: the first is required, the other two are extra practice.
  *
  * Progress rules (implemented in js/learn.js):
@@ -115,11 +115,30 @@
           { title: "Nuance and attitude", goal: "I can convey attitude, concession and habitual behaviour with subtlety.", vocab: ["nuanced verbs", "stance"], grammar: [70, 71, 72] },
           { title: "Academic and professional English", goal: "I can write and speak about abstract topics with precise, cohesive language.", vocab: ["abstract", "society", "phrasal verbs"], grammar: [73, 74, 75] }
         ]
+      },
+      {
+        code: "C2",
+        name: "Proficiency",
+        objectives: [
+          "Understand virtually everything heard or read, including specialised academic, legal and financial texts.",
+          "Express yourself spontaneously and precisely, conveying fine shades of meaning and attitude.",
+          "Chair meetings, negotiate, defend research and moderate debates with full professional control.",
+          "Write complex, authoritative texts (briefs, reports, reviews, essays) that evaluate and synthesise ideas."
+        ],
+        prerequisites: "C1 level, or placement at C2.",
+        completion: "Pass all five unit checkpoints (70% or more) — professional proficiency.",
+        units: [
+          { title: "Formal register and emphasis", goal: "I can use the subjunctive, inversion and fronting to write and speak with authority.", vocab: ["argument", "discourse"], grammar: [76, 77, 78] },
+          { title: "Precision in academic writing", goal: "I can write dense, precise academic prose and express unreal and putative meanings.", vocab: ["research", "precision"], grammar: [79, 80, 81] },
+          { title: "Persuasion and negotiation", goal: "I can argue, negotiate and justify decisions in legal and financial contexts.", vocab: ["law", "economics"], grammar: [82, 83, 84] },
+          { title: "Nuance and stance", goal: "I can calibrate certainty, attitude and emphasis to suit any audience.", vocab: ["character", "feelings", "arts"], grammar: [85, 86, 87] },
+          { title: "Mastery: synthesis and style", goal: "I can synthesise complex ideas in elegant, balanced and cohesive English.", vocab: ["change", "idioms"], grammar: [88, 89, 90] }
+        ]
       }
     ]
   };
 
-  const LEVEL_ORDER = ["A1", "A2", "B1", "B2", "C1"];
+  const LEVEL_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
 
   // სპეციფიკაციიდან სრული გეგმის აგება (გაკვეთილების id-ებითა და ბმულებით)
   App.buildCurriculum = function () {
