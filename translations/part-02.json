@@ -1,0 +1,906 @@
+{
+  "lang": "ka",
+  "instructions": "Translate each \"en\" text into the target language and put it in the \"ka\" field. Use \"context\" to choose the right meaning. Keep it natural and short; for vocab terms give the dictionary form. Leave the field empty if you are not sure. Do not change \"key\" or \"en\".",
+  "items": [
+    {
+      "key": "vocab|v-recipe-n|term",
+      "en": "recipe",
+      "context": "A2 n — Instructions for cooking a dish. Example: Can you give me the recipe for this cake?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-meal-n|term",
+      "en": "meal",
+      "context": "A2 n — An occasion when you eat, such as breakfast or dinner. Example: We have three meals a day.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-dish-n|term",
+      "en": "dish",
+      "context": "A2 n — Food prepared in a particular way; a plate. Example: Khachapuri is a famous Georgian dish.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-sweet-adj|term",
+      "en": "sweet",
+      "context": "A2 adj — Having the taste of sugar. Example: This cake is too sweet.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-spicy-adj|term",
+      "en": "spicy",
+      "context": "A2 adj — Having a strong, hot taste. Example: Do you like spicy food?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-menu-n|term",
+      "en": "menu",
+      "context": "A2 n — A list of the food you can order in a restaurant. Example: Could we see the menu, please?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-order-v|term",
+      "en": "order",
+      "context": "A2 v — To ask for food or drink in a restaurant. Example: Are you ready to order?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-internet-n|term",
+      "en": "internet",
+      "context": "A2 n — The worldwide network connecting computers. Example: I use the internet for my studies.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-online-adv|term",
+      "en": "online",
+      "context": "A2 adv — Connected to or using the internet. Example: I buy most of my books online.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-charge-v|term",
+      "en": "charge",
+      "context": "A2 v — To put electricity into a battery. Example: I need to charge my phone.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-chat-v|term",
+      "en": "chat",
+      "context": "A2 v — To talk in a friendly and informal way. Example: We chatted for hours.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-photo-n|term",
+      "en": "photo",
+      "context": "A2 n — A picture made with a camera. Example: Can you take a photo of us?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-last-det|term",
+      "en": "last",
+      "context": "A2 det — The one before the present one. Example: I saw her last week.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-once-adv|term",
+      "en": "once",
+      "context": "A2 adv — One time; at some time in the past. Example: I've been to Paris once.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-next-det|term",
+      "en": "next",
+      "context": "A2 det — Coming immediately after this one. Example: I'm going to Spain next month.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-be-going-to-phr|term",
+      "en": "be going to",
+      "context": "A2 phr — Used to talk about future plans or predictions based on evidence. Example: I'm going to start a new course in September.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-look-forward-to-pv|term",
+      "en": "look forward to",
+      "context": "A2 pv — To feel happy about something that is going to happen. Example: I'm looking forward to the holidays.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-arrange-v|term",
+      "en": "arrange",
+      "context": "A2 v — To plan or organise something. Example: We arranged to meet at the café.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-weather-forecast-n|term",
+      "en": "weather forecast",
+      "context": "A2 n — A report on what the weather will be like. Example: The weather forecast says it will be sunny.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-temperature-n|term",
+      "en": "temperature",
+      "context": "A2 n — How hot or cold something is. Example: The temperature dropped below zero last night.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-environment-n|term",
+      "en": "environment",
+      "context": "A2 n — The natural world around us. Example: We must protect the environment.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-recycle-v|term",
+      "en": "recycle",
+      "context": "A2 v — To use something again, often after processing it. Example: We recycle paper and glass.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-team-n|term",
+      "en": "team",
+      "context": "A2 n — A group of people who play a sport or work together. Example: Which team do you support?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-match-n|term",
+      "en": "match",
+      "context": "A2 n — A sports competition between two people or teams. Example: Did you watch the football match?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-score-v|term",
+      "en": "score",
+      "context": "A2 v — To get a point or goal in a game. Example: He scored two goals.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-practise-v|term",
+      "en": "practise",
+      "context": "A2 v — To do something regularly to improve. Example: I practise the piano every day.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-exhibition-n|term",
+      "en": "exhibition",
+      "context": "A2 n — A public show of art or objects. Example: There's a photo exhibition at the gallery.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-take-part-in-phr|term",
+      "en": "take part in",
+      "context": "A2 phr — To be involved in an activity. Example: Over fifty schools took part in the competition.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-pass-v|term",
+      "en": "pass",
+      "context": "A2 v — To succeed in an exam. Example: She passed her driving test.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fail-v|term",
+      "en": "fail",
+      "context": "A2 v — To not succeed in an exam. Example: He failed his history exam.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-subject-n|term",
+      "en": "subject",
+      "context": "A2 n — An area of knowledge studied at school. Example: My favourite subject is biology.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-important-adj|term",
+      "en": "important",
+      "context": "A2 adj — Having great value or effect. Example: It's important to sleep well.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-different-adj|term",
+      "en": "different",
+      "context": "A2 adj — Not the same. Example: My sister and I are very different.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-same-adj|term",
+      "en": "same",
+      "context": "A2 adj — Not different. Example: We were born on the same day.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-possible-adj|term",
+      "en": "possible",
+      "context": "A2 adj — Able to happen or be done. Example: Is it possible to change my ticket?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-dangerous-adj|term",
+      "en": "dangerous",
+      "context": "A2 adj — Likely to cause harm. Example: It's dangerous to swim here.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-safe-adj|term",
+      "en": "safe",
+      "context": "A2 adj — Not in danger; not dangerous. Example: Is this area safe at night?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-noisy-adj|term",
+      "en": "noisy",
+      "context": "A2 adj — Making a lot of noise. Example: Our neighbours are very noisy.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-comfortable-adj|term",
+      "en": "comfortable",
+      "context": "A2 adj — Making you feel relaxed. Example: This sofa is very comfortable.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-crowded-adj|term",
+      "en": "crowded",
+      "context": "A2 adj — Full of people. Example: The bus was crowded this morning.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-popular-adj|term",
+      "en": "popular",
+      "context": "A2 adj — Liked by many people. Example: This café is very popular with students.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-enough-det|term",
+      "en": "enough",
+      "context": "A2 det — As much or as many as you need. Example: Do we have enough chairs?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-too-adv|term",
+      "en": "too",
+      "context": "A2 adv — More than is good or needed; also. Example: This coffee is too hot. I like it too.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-already-adv|term",
+      "en": "already",
+      "context": "A2 adv — Before now or before a particular time. Example: I've already eaten.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-still-adv|term",
+      "en": "still",
+      "context": "A2 adv — Continuing until now. Example: Are you still at work?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-really-adv|term",
+      "en": "really",
+      "context": "A2 adv — Very; used to emphasise. Example: The film was really good.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-quite-adv|term",
+      "en": "quite",
+      "context": "A2 adv — Fairly, but not very. Example: The exam was quite easy.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-well-adv|term",
+      "en": "well",
+      "context": "A2 adv — In a good way. Example: You speak English very well.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-ask-v|term",
+      "en": "ask",
+      "context": "A2 v — To say something to get information or help. Example: Can I ask you something?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-spell-v|term",
+      "en": "spell",
+      "context": "A2 v — To say or write the letters of a word in order. Example: How do you spell your surname?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-mean-v|term",
+      "en": "mean",
+      "context": "A2 v — To have a particular meaning. Example: What does 'tidy' mean?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-bring-v|term",
+      "en": "bring",
+      "context": "A2 v — To take something or someone with you to a place. Example: Can you bring your laptop tomorrow?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-show-v|term",
+      "en": "show",
+      "context": "A2 v — To let someone see something. Example: Show me your photos.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-try-v|term",
+      "en": "try",
+      "context": "A2 v — To make an effort to do something; to test something. Example: I'll try to come early.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-wait-v|term",
+      "en": "wait",
+      "context": "A2 v — To stay somewhere until something happens. Example: Wait for me!",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-look-for-pv|term",
+      "en": "look for",
+      "context": "A2 pv — To try to find something. Example: I'm looking for my glasses.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-find-out-pv|term",
+      "en": "find out",
+      "context": "A2 pv — To discover information. Example: I need to find out what time the museum opens.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-give-up-pv|term",
+      "en": "give up",
+      "context": "A2 pv — To stop doing something. Example: He gave up smoking last year.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-pick-up-pv|term",
+      "en": "pick up",
+      "context": "A2 pv — To lift something; to collect someone or something. Example: Can you pick me up from the station?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-put-on-pv|term",
+      "en": "put on",
+      "context": "A2 pv — To start wearing clothes. Example: Put on your coat, it's cold.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-grow-up-pv|term",
+      "en": "grow up",
+      "context": "A2 pv — To become an adult. Example: I grew up in a small village.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-come-back-pv|term",
+      "en": "come back",
+      "context": "A2 pv — To return. Example: When are you coming back?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fill-in-pv|term",
+      "en": "fill in",
+      "context": "A2 pv — To write the information needed on a form. Example: Please fill in this form.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-so-conj|term",
+      "en": "so",
+      "context": "A2 conj — Used to show a result. Example: It was raining, so we stayed at home.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-then-adv|term",
+      "en": "then",
+      "context": "A2 adv — After that; next. Example: First, wash the rice. Then, add water.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-after-prep|term",
+      "en": "after",
+      "context": "A2 prep — Following in time. Example: Let's meet after work.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-before-prep|term",
+      "en": "before",
+      "context": "A2 prep — Earlier than. Example: Wash your hands before dinner.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-during-prep|term",
+      "en": "during",
+      "context": "A2 prep — Through the whole of a period, or at some point in it. Example: I fell asleep during the film.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-while-conj|term",
+      "en": "while",
+      "context": "A2 conj — At the same time as. Example: I listen to podcasts while I cook.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-if-conj|term",
+      "en": "if",
+      "context": "A2 conj — Used to talk about a possible situation. Example: If it rains, we'll stay home.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-until-prep|term",
+      "en": "until",
+      "context": "A2 prep — Up to a particular time. Example: The shop is open until nine.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-however-adv|term",
+      "en": "however",
+      "context": "A2 adv — Used to introduce a contrast. Example: The hotel was nice. However, it was expensive.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-also-adv|term",
+      "en": "also",
+      "context": "A2 adv — In addition; too. Example: She speaks French and also some Italian.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-maybe-adv|term",
+      "en": "maybe",
+      "context": "A2 adv — Possibly; perhaps. Example: Maybe we can meet tomorrow.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-everybody-pron|term",
+      "en": "everybody",
+      "context": "A2 pron — Every person. Example: Everybody was at the party.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-nothing-pron|term",
+      "en": "nothing",
+      "context": "A2 pron — Not anything. Example: There's nothing in the fridge.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-something-pron|term",
+      "en": "something",
+      "context": "A2 pron — A thing that is not named. Example: I want to tell you something.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-anywhere-adv|term",
+      "en": "anywhere",
+      "context": "A2 adv — In, at or to any place. Example: I can't find my keys anywhere.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-apply-v|term",
+      "en": "apply",
+      "context": "B1 v — To make a formal request, usually in writing, for a job or place. Example: I've applied for three jobs this week.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-candidate-n|term",
+      "en": "candidate",
+      "context": "B1 n — A person who is competing for a job or position. Example: We interviewed six candidates for the post.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-staff-n|term",
+      "en": "staff",
+      "context": "B1 n — The people who work for an organisation. Example: The hotel staff were very helpful.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-full-time-adj|term",
+      "en": "full-time",
+      "context": "B1 adj — Working all the normal hours of a working week. Example: She has a full-time job at the hospital.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-unemployed-adj|term",
+      "en": "unemployed",
+      "context": "B1 adj — Without a paid job. Example: He's been unemployed since the factory closed.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-opportunity-n|term",
+      "en": "opportunity",
+      "context": "B1 n — A chance to do something. Example: This job is a great opportunity to travel.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-earn-a-living-phr|term",
+      "en": "earn a living",
+      "context": "B1 phr — To make enough money to live. Example: He earns a living as a musician.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-knowledge-n|term",
+      "en": "knowledge",
+      "context": "B1 n — Information and understanding you have. Example: He has a good knowledge of history.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-research-n|term",
+      "en": "research",
+      "context": "B1 n — Detailed study to discover new facts. Example: She's doing research on climate change.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-revise-v|term",
+      "en": "revise",
+      "context": "B1 v — To study again something you have learned, before an exam. Example: I need to revise for my history exam.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-memorise-v|term",
+      "en": "memorise",
+      "context": "B1 v — To learn something so that you remember it exactly. Example: Actors have to memorise their lines.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fluent-adj|term",
+      "en": "fluent",
+      "context": "B1 adj — Able to speak a language easily and well. Example: She's fluent in three languages.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-concentrate-v|term",
+      "en": "concentrate",
+      "context": "B1 v — To give all your attention to something. Example: I can't concentrate with this noise.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-certificate-n|term",
+      "en": "certificate",
+      "context": "B1 n — An official document proving that you have completed a course. Example: You'll receive a certificate at the end of the course.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-news-n|term",
+      "en": "news",
+      "context": "B1 n — Reports of recent events. Example: Did you see the news last night?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-article-n|term",
+      "en": "article",
+      "context": "B1 n — A piece of writing in a newspaper or magazine. Example: I read an interesting article about sleep.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-journalist-n|term",
+      "en": "journalist",
+      "context": "B1 n — A person who writes news stories for newspapers, TV or websites. Example: She works as a journalist for a local newspaper.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-advertisement-n|term",
+      "en": "advertisement",
+      "context": "B1 n — A notice or video that tries to persuade people to buy something. Example: There are too many advertisements on TV.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-programme-n|term",
+      "en": "programme",
+      "context": "B1 n — A show on television or radio. Example: What's your favourite TV programme?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-audience-n|term",
+      "en": "audience",
+      "context": "B1 n — The people who watch or listen to a performance. Example: The audience clapped for five minutes.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-social-media-n|term",
+      "en": "social media",
+      "context": "B1 n — Websites and apps that let people share content and communicate. Example: She spends hours on social media every day.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-post-v|term",
+      "en": "post",
+      "context": "B1 v — To put a message or picture on a website. Example: He posted a photo of his new car.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-information-n|term",
+      "en": "information",
+      "context": "B1 n — Facts about something. Example: For more information, visit our website.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-communicate-v|term",
+      "en": "communicate",
+      "context": "B1 v — To share information or feelings with others. Example: We communicate mainly by email.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-mention-v|term",
+      "en": "mention",
+      "context": "B1 v — To speak or write about something briefly. Example: She didn't mention the problem.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-pollution-n|term",
+      "en": "pollution",
+      "context": "B1 n — Damage to the air, water or land caused by harmful substances. Example: Air pollution is a serious problem in big cities.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-climate-n|term",
+      "en": "climate",
+      "context": "B1 n — The usual weather conditions in a place. Example: The climate here is mild.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-global-warming-n|term",
+      "en": "global warming",
+      "context": "B1 n — The increase in the Earth's temperature caused by gases in the atmosphere. Example: Global warming is melting the ice at the poles.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-waste-n|term",
+      "en": "waste",
+      "context": "B1 n — Material that is no longer wanted. Example: We produce too much plastic waste.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-protect-v|term",
+      "en": "protect",
+      "context": "B1 v — To keep someone or something safe from harm. Example: We must protect endangered animals.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-destroy-v|term",
+      "en": "destroy",
+      "context": "B1 v — To damage something so badly that it cannot be used. Example: The fire destroyed the forest.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-species-n|term",
+      "en": "species",
+      "context": "B1 n — A group of animals or plants of the same kind. Example: Many species are in danger of extinction.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-natural-adj|term",
+      "en": "natural",
+      "context": "B1 adj — Existing in nature; not made by people. Example: The country is rich in natural resources.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-reduce-v|term",
+      "en": "reduce",
+      "context": "B1 v — To make something smaller in size or amount. Example: We should reduce our use of plastic.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-diet-n|term",
+      "en": "diet",
+      "context": "B1 n — The food that a person usually eats. Example: A healthy diet includes plenty of vegetables.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fit-adj|term",
+      "en": "fit",
+      "context": "B1 adj — Healthy and strong, especially from exercise. Example: She keeps fit by cycling.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-stress-n|term",
+      "en": "stress",
+      "context": "B1 n — Worry caused by difficult situations. Example: My job causes a lot of stress.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-injury-n|term",
+      "en": "injury",
+      "context": "B1 n — Physical harm to the body. Example: He missed the match because of an injury.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-treatment-n|term",
+      "en": "treatment",
+      "context": "B1 n — Medical care given to someone who is ill or injured. Example: She's receiving treatment for back pain.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-recover-v|term",
+      "en": "recover",
+      "context": "B1 v — To become healthy again after an illness or injury. Example: It took him months to recover from the operation.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-avoid-v|term",
+      "en": "avoid",
+      "context": "B1 v — To stay away from something; to prevent something. Example: Try to avoid sugary drinks.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-relax-v|term",
+      "en": "relax",
+      "context": "B1 v — To rest and become calm. Example: I relax by reading.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-relationship-n|term",
+      "en": "relationship",
+      "context": "B1 n — The way two people or groups feel and behave towards each other. Example: I have a good relationship with my parents.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-get-on-with-pv|term",
+      "en": "get on with",
+      "context": "B1 pv — To have a friendly relationship with someone. Example: Do you get on with your neighbours?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fall-out-pv|term",
+      "en": "fall out",
+      "context": "B1 pv — To have an argument and stop being friendly. Example: They fell out over money.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-trust-v|term",
+      "en": "trust",
+      "context": "B1 v — To believe that someone is honest and will not harm you. Example: I trust her completely.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-argue-v|term",
+      "en": "argue",
+      "context": "B1 v — To speak angrily to someone because you disagree. Example: My brothers argue all the time.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-support-v|term",
+      "en": "support",
+      "context": "B1 v — To help someone emotionally or practically. Example: My family supported me when I lost my job.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-generous-adj|term",
+      "en": "generous",
+      "context": "B1 adj — Happy to give money, time or help. Example: It was generous of you to pay for dinner.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-confident-adj|term",
+      "en": "confident",
+      "context": "B1 adj — Feeling sure about your abilities. Example: She's a confident speaker.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-shy-adj|term",
+      "en": "shy",
+      "context": "B1 adj — Nervous about meeting or talking to people. Example: He's too shy to speak in class.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-sensitive-adj|term",
+      "en": "sensitive",
+      "context": "B1 adj — Easily upset; aware of other people's feelings. Example: He's very sensitive about his weight.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-sensible-adj|term",
+      "en": "sensible",
+      "context": "B1 adj — Showing good judgement. Example: It would be sensible to take an umbrella.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-personality-n|term",
+      "en": "personality",
+      "context": "B1 n — The type of person someone is, shown by their character. Example: She has a strong personality.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-accommodation-n|term",
+      "en": "accommodation",
+      "context": "B1 n — A place to live or stay. Example: The price includes flights and accommodation.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-destination-n|term",
+      "en": "destination",
+      "context": "B1 n — The place someone is going to. Example: Georgia is becoming a popular tourist destination.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-sightseeing-n|term",
+      "en": "sightseeing",
+      "context": "B1 n — Visiting interesting places as a tourist. Example: We spent the day sightseeing in Rome.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-landscape-n|term",
+      "en": "landscape",
+      "context": "B1 n — Everything you can see when you look across an area of land. Example: The mountain landscape was breathtaking.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-local-adj|term",
+      "en": "local",
+      "context": "B1 adj — Relating to a particular area. Example: We tried the local food.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-guidebook-n|term",
+      "en": "guidebook",
+      "context": "B1 n — A book with information for tourists. Example: The guidebook recommends this restaurant.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-crowd-n|term",
+      "en": "crowd",
+      "context": "B1 n — A large group of people together. Example: There was a huge crowd outside the stadium.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-get-lost-phr|term",
+      "en": "get lost",
+      "context": "B1 phr — To be unable to find your way. Example: We got lost in the old town.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-app-n|term",
+      "en": "app",
+      "context": "B1 n — A program you download to a phone or tablet. Example: This app helps you learn vocabulary.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-search-v|term",
+      "en": "search",
+      "context": "B1 v — To look carefully for something, especially online. Example: I searched online for a cheap flight.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-share-v|term",
+      "en": "share",
+      "context": "B1 v — To let others use or see something you have. Example: You can share the photos with your friends.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-invent-v|term",
+      "en": "invent",
+      "context": "B1 v — To create something completely new. Example: Who invented the telephone?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-artificial-intelligence-n|term",
+      "en": "artificial intelligence",
+      "context": "B1 n — Computer systems that can do tasks that usually need human thinking. Example: Artificial intelligence is changing many jobs.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-storage-n|term",
+      "en": "storage",
+      "context": "B1 n — Space for keeping things, including data. Example: My phone is running out of storage.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-save-v|term",
+      "en": "save",
+      "context": "B1 v — To keep money so you can use it later. Example: I'm saving for a new laptop.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-waste-v|term",
+      "en": "waste",
+      "context": "B1 v — To use more of something than necessary. Example: Don't waste money on things you don't need.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-bargain-n|term",
+      "en": "bargain",
+      "context": "B1 n — Something bought for less than its usual price. Example: This coat was a real bargain.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-value-n|term",
+      "en": "value",
+      "context": "B1 n — How much something is worth. Example: The value of the house has increased.",
+      "ka": ""
+    }
+  ]
+}

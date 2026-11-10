@@ -161,7 +161,7 @@
       modules: [
         { title: "Know your strengths", lessons: ["v:A2/work", "v:B1/work", "w:14", "g:31"] },
         { title: "Applications", lessons: ["r:93", "w:16", "w:31", "w:35"] },
-        { title: "The interview", lessons: ["l:16", "s:dlg-B1-u2", "g:32", "g:33"] },
+        { title: "The interview", lessons: ["l:92", "l:16", "l:94", "s:dlg-B1-u2", "g:32", "g:33"] },
         { title: "References and next steps", lessons: ["w:38", "g:39", "v:B2/professional"] }
       ]
     },
@@ -172,7 +172,7 @@
       outcomes: ["Take part in meetings", "Write clear work emails and minutes", "Handle problems and delays", "Work in remote and hybrid teams"],
       modules: [
         { title: "The modern workplace", lessons: ["r:95", "l:31", "l:64", "w:32"] },
-        { title: "Meetings", lessons: ["l:37", "w:34", "s:dlg-B2-u4"] },
+        { title: "Meetings", lessons: ["l:37", "l:93", "w:34", "s:dlg-B2-u4"] },
         { title: "Emails that work", lessons: ["w:20", "w:50", "g:57"] },
         { title: "Ideas and proposals", lessons: ["w:39", "r:96", "s:dlg-C1-u1", "v:B2/business"] }
       ]
@@ -196,8 +196,8 @@
       description: "The language of money, markets and banking — from personal budgets to central bank statements.",
       outcomes: ["Talk about money and personal finance", "Understand economic news", "Write financial reports and memos", "Discuss monetary policy"],
       modules: [
-        { title: "Money basics", lessons: ["v:B1/money", "r:94", "w:58", "r:51"] },
-        { title: "The economy", lessons: ["v:C1/economy", "l:47", "w:54", "r:100"] },
+        { title: "Money basics", lessons: ["v:B1/money", "l:91", "r:94", "w:58", "r:51"] },
+        { title: "The economy", lessons: ["v:C1/economy", "l:47", "w:54", "r:100", "l:97"] },
         { title: "Banking and credit", lessons: ["w:46", "w:62", "w:71", "w:74"] },
         { title: "Investment and strategy", lessons: ["w:48", "w:52", "w:63", "w:66"] },
         { title: "Markets and policy", lessons: ["v:C2/economics", "l:79", "w:77", "w:82", "w:86", "w:89"] }
@@ -209,10 +209,10 @@
       description: "Lead meetings, negotiate deals, give feedback and make decisions under pressure.",
       outcomes: ["Chair a formal meeting", "Negotiate and make conditional offers", "Give tactful feedback", "Communicate decisions as a leader"],
       modules: [
-        { title: "Negotiating", lessons: ["r:97", "s:dlg-B2-u4", "s:dlg-C2-u3", "g:64", "w:59"] },
+        { title: "Negotiating", lessons: ["r:97", "l:96", "s:dlg-B2-u4", "s:dlg-C2-u3", "g:64", "w:59"] },
         { title: "Meetings", lessons: ["s:dlg-C2-u1", "w:34", "g:76"] },
         { title: "Feedback and diplomacy", lessons: ["s:dlg-C1-u4", "s:dlg-C2-u4", "g:66", "g:87"] },
-        { title: "Leading through change", lessons: ["r:102", "w:66", "w:70", "v:C2/argument"] }
+        { title: "Leading through change", lessons: ["r:102", "l:100", "w:66", "w:70", "v:C2/argument"] }
       ]
     },
 
@@ -253,7 +253,7 @@
         { title: "Lectures", lessons: ["l:56", "l:61", "l:63", "l:70", "l:74"] },
         { title: "Debates and panels", lessons: ["l:64", "l:65", "l:75", "s:dlg-C1-u5"] },
         { title: "Advanced lectures", lessons: ["l:77", "l:78", "l:80", "l:82", "l:83"] },
-        { title: "Big questions", lessons: ["l:76", "l:81", "l:86", "l:87", "s:dlg-C2-u5"] }
+        { title: "Big questions", lessons: ["l:76", "l:81", "l:86", "l:87", "l:99", "s:dlg-C2-u5"] }
       ]
     },
     {
@@ -292,7 +292,7 @@
         { title: "Society", lessons: ["v:B2/society", "v:C1/society", "r:64", "l:58", "w:73"] },
         { title: "Policy", lessons: ["w:57", "w:64", "w:67", "l:74"] },
         { title: "Law", lessons: ["v:C2/law", "r:101", "w:68", "w:85"] },
-        { title: "Rights and technology", lessons: ["r:86", "r:99", "w:76", "l:85"] },
+        { title: "Rights and technology", lessons: ["r:86", "r:99", "w:76", "l:85", "l:99"] },
         { title: "International cooperation", lessons: ["l:71", "w:80", "w:83"] }
       ]
     },
@@ -316,7 +316,7 @@
       outcomes: ["Describe environmental problems", "Discuss solutions", "Understand environmental reports", "Write proposals and briefs"],
       modules: [
         { title: "Nature", lessons: ["v:A2/nature", "r:29", "r:55", "l:35"] },
-        { title: "Everyday sustainability", lessons: ["v:B1/environment", "l:39", "w:37", "r:41"] },
+        { title: "Everyday sustainability", lessons: ["v:B1/environment", "l:39", "l:95", "w:37", "r:41"] },
         { title: "Cities and climate", lessons: ["r:54", "r:57", "l:63", "w:67"] },
         { title: "Ecosystems", lessons: ["r:71", "l:53", "l:57", "l:62"] },
         { title: "The big picture", lessons: ["v:C1/environment", "l:68", "r:82", "w:48"] }
@@ -329,7 +329,7 @@
       outcomes: ["Discuss feelings and behaviour", "Explain psychological effects", "Understand research on the mind", "Evaluate theories critically"],
       modules: [
         { title: "Everyday psychology", lessons: ["v:B2/psychology", "r:48", "l:50", "l:58"] },
-        { title: "Decisions and biases", lessons: ["r:62", "r:73", "l:61", "w:65", "w:75"] },
+        { title: "Decisions and biases", lessons: ["r:62", "r:73", "l:61", "l:98", "w:65", "w:75"] },
         { title: "Memory and attention", lessons: ["r:61", "r:66", "r:70", "l:70"] },
         { title: "The mind's mysteries", lessons: ["r:83", "r:87", "l:77", "l:82", "l:87"] },
         { title: "Character and emotion", lessons: ["v:C2/character", "v:C2/feelings", "r:67", "r:88"] }
@@ -344,7 +344,7 @@
         { title: "News and media", lessons: ["v:B1/media", "s:dlg-B2-u2", "r:98", "l:66"] },
         { title: "Staying safe online", lessons: ["l:43", "w:60", "r:70"] },
         { title: "Social media debate", lessons: ["s:dlg-B2-u5", "w:51", "l:75"] },
-        { title: "Data and privacy", lessons: ["r:99", "r:86", "l:85"] }
+        { title: "Data and privacy", lessons: ["r:99", "r:86", "l:85", "l:100"] }
       ]
     },
 
@@ -371,7 +371,7 @@
       modules: [
         { title: "Announcements", lessons: ["l:3", "l:13", "l:23", "l:28"] },
         { title: "Messages and calls", lessons: ["l:8", "l:4", "l:6", "l:19"] },
-        { title: "Services", lessons: ["l:10", "l:12", "l:14", "l:21", "l:27"] },
+        { title: "Services", lessons: ["l:10", "l:12", "l:14", "l:21", "l:27", "l:91"] },
         { title: "Information and tours", lessons: ["l:5", "l:11", "l:18", "l:25", "l:29"] }
       ]
     },

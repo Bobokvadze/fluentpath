@@ -1,0 +1,906 @@
+{
+  "lang": "ka",
+  "instructions": "Translate each \"en\" text into the target language and put it in the \"ka\" field. Use \"context\" to choose the right meaning. Keep it natural and short; for vocab terms give the dictionary form. Leave the field empty if you are not sure. Do not change \"key\" or \"en\".",
+  "items": [
+    {
+      "key": "vocab|v-fallacy-n|term",
+      "en": "fallacy",
+      "context": "C2 n — A false belief, or an error in reasoning. Example: It is a fallacy that money guarantees happiness.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-caveat-n|term",
+      "en": "caveat",
+      "context": "C2 n — A warning that something should be considered before acting or agreeing. Example: The forecast comes with an important caveat.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-concede-v|term",
+      "en": "concede",
+      "context": "C2 v — To admit, often unwillingly, that something is true. Example: He conceded that he had made a mistake.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-rebuttal-n|term",
+      "en": "rebuttal",
+      "context": "C2 n — A statement that says or proves that an argument or accusation is false. Example: The minister issued a firm rebuttal of the claims.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-counterargument-n|term",
+      "en": "counterargument",
+      "context": "C2 n — An argument that opposes another argument. Example: A strong essay anticipates the main counterargument.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-postulate-v|term",
+      "en": "postulate",
+      "context": "C2 v — To suggest that something is true as a basis for reasoning. Example: Einstein postulated that the speed of light is constant.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-conjecture-n|term",
+      "en": "conjecture",
+      "context": "C2 n — An opinion or idea formed without complete information. Example: Much of what has been written about her is pure conjecture.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-speculative-adj|term",
+      "en": "speculative",
+      "context": "C2 adj — Based on guessing rather than on facts; also, risky for profit. Example: The report's conclusions are largely speculative.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-extrapolate-v|term",
+      "en": "extrapolate",
+      "context": "C2 v — To use known facts to estimate what will happen or what is true in another situation. Example: You can't extrapolate national trends from one small town.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-anomaly-n|term",
+      "en": "anomaly",
+      "context": "C2 n — Something that is different from what is normal or expected. Example: The results contained a statistical anomaly.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-axiom-n|term",
+      "en": "axiom",
+      "context": "C2 n — A statement accepted as true without proof. Example: It is an axiom of economics that people respond to incentives.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-dichotomy-n|term",
+      "en": "dichotomy",
+      "context": "C2 n — A sharp division between two opposing things. Example: The dichotomy between theory and practice is often exaggerated.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-paradox-n|term",
+      "en": "paradox",
+      "context": "C2 n — A situation or statement with two parts that seem to contradict each other. Example: It's a paradox that the richest countries can feel the poorest.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-inference-n|term",
+      "en": "inference",
+      "context": "C2 n — A conclusion reached on the basis of evidence and reasoning. Example: The obvious inference is that the system failed.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-deduction-n|term",
+      "en": "deduction",
+      "context": "C2 n — The process of reaching a conclusion by reasoning from general facts. Example: By a simple deduction, she identified the error.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-discern-v|term",
+      "en": "discern",
+      "context": "C2 v — To notice or understand something that is not obvious. Example: It was difficult to discern any pattern in the data.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-nuanced-adj|term",
+      "en": "nuanced",
+      "context": "C2 adj — Showing awareness of small but important differences. Example: The book offers a nuanced view of the conflict.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-intricate-adj|term",
+      "en": "intricate",
+      "context": "C2 adj — Having many small parts arranged in a complicated way. Example: The plot is intricate but rewarding.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-conceptual-adj|term",
+      "en": "conceptual",
+      "context": "C2 adj — Related to ideas and principles rather than practical details. Example: The project is still at the conceptual stage.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-replicate-v|term",
+      "en": "replicate",
+      "context": "C2 v — To repeat an experiment or study and get the same results. Example: Other labs have been unable to replicate the findings.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-scrutiny-n|term",
+      "en": "scrutiny",
+      "context": "C2 n — Careful and detailed examination. Example: The proposal will come under close scrutiny.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-appraisal-n|term",
+      "en": "appraisal",
+      "context": "C2 n — A judgement of the value, quality or performance of someone or something. Example: Staff receive an annual performance appraisal.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-ubiquitous-adj|term",
+      "en": "ubiquitous",
+      "context": "C2 adj — Seeming to be everywhere at the same time. Example: Smartphones have become ubiquitous.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-statute-n|term",
+      "en": "statute",
+      "context": "C2 n — A written law passed by a parliament. Example: The right is protected by statute.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-plaintiff-n|term",
+      "en": "plaintiff",
+      "context": "C2 n — A person who brings a case against someone in a court of law. Example: The court ruled in favour of the plaintiff.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-verdict-n|term",
+      "en": "verdict",
+      "context": "C2 n — An official decision in a court case; also, an opinion after judging something. Example: The jury returned a verdict of not guilty.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-tribunal-n|term",
+      "en": "tribunal",
+      "context": "C2 n — A special court or group of people with authority to judge a particular type of dispute. Example: She took her case to an employment tribunal.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-arbitration-n|term",
+      "en": "arbitration",
+      "context": "C2 n — The settling of a dispute by an independent person or group. Example: The dispute went to arbitration.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-clause-n|term",
+      "en": "clause",
+      "context": "C2 n — A separate section of a legal document; also, a group of words with a subject and verb. Example: The contract contains a confidentiality clause.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-provision-n|term",
+      "en": "provision",
+      "context": "C2 n — A condition in a legal agreement or law; also, the act of supplying something. Example: The law includes provisions for appeals.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-compliance-n|term",
+      "en": "compliance",
+      "context": "C2 n — The act of obeying a rule, law or request. Example: All products must be in compliance with safety standards.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-enforcement-n|term",
+      "en": "enforcement",
+      "context": "C2 n — The process of making sure that laws or rules are obeyed. Example: Stricter enforcement of speed limits is needed.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-negligence-n|term",
+      "en": "negligence",
+      "context": "C2 n — Failure to take proper care, especially when this is a legal duty. Example: The hospital was sued for negligence.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-breach-n|term",
+      "en": "breach",
+      "context": "C2 n — An act of breaking a law, promise or agreement. Example: Failing to deliver on time is a breach of contract.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-indemnity-n|term",
+      "en": "indemnity",
+      "context": "C2 n — Protection against financial loss, or payment for loss or damage. Example: The policy provides indemnity against legal costs.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-sovereignty-n|term",
+      "en": "sovereignty",
+      "context": "C2 n — The power of a country to govern itself. Example: The treaty respects national sovereignty.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-mandate-n|term",
+      "en": "mandate",
+      "context": "C2 n — The authority given to a government or organisation to act. Example: The government has a clear mandate for reform.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-ratify-v|term",
+      "en": "ratify",
+      "context": "C2 v — To make an agreement official by signing or voting for it. Example: The treaty was ratified by all member states.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-veto-n|term",
+      "en": "veto",
+      "context": "C2 n — The official right to refuse to allow something. Example: The president used his veto to block the bill.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-bureaucracy-n|term",
+      "en": "bureaucracy",
+      "context": "C2 n — A system of government or management with many complicated rules. Example: Small firms complain about excessive bureaucracy.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-prerogative-n|term",
+      "en": "prerogative",
+      "context": "C2 n — A right or privilege that belongs to a particular person or group. Example: Choosing the team is the manager's prerogative.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-legitimate-adj|term",
+      "en": "legitimate",
+      "context": "C2 adj — Allowed by law; also, reasonable and justifiable. Example: They raised legitimate concerns about safety.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-hierarchy-n|term",
+      "en": "hierarchy",
+      "context": "C2 n — A system in which people or things are ranked according to importance. Example: She rose quickly through the company hierarchy.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-austerity-n|term",
+      "en": "austerity",
+      "context": "C2 n — A policy of strict cuts in government spending. Example: Years of austerity have left public services stretched.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-liquidity-n|term",
+      "en": "liquidity",
+      "context": "C2 n — The availability of cash, or how easily an asset can be turned into cash. Example: The bank faced a liquidity crisis.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-solvency-n|term",
+      "en": "solvency",
+      "context": "C2 n — The state of having enough money to pay all debts. Example: Investors began to doubt the company's solvency.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-collateral-n|term",
+      "en": "collateral",
+      "context": "C2 n — Property promised to a lender as a guarantee that a loan will be repaid. Example: He used his house as collateral for the loan.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-leverage-n|term",
+      "en": "leverage",
+      "context": "C2 n — The use of borrowed money to increase possible returns; also, power to influence. Example: The deal gave the union more leverage in negotiations.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-equity-n|term",
+      "en": "equity",
+      "context": "C2 n — The value of shares in a company; also, fairness. Example: The founders hold 60% of the equity.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-portfolio-n|term",
+      "en": "portfolio",
+      "context": "C2 n — A collection of investments; also, a set of examples of someone's work. Example: She has a diversified investment portfolio.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-volatility-n|term",
+      "en": "volatility",
+      "context": "C2 n — The tendency to change suddenly and unpredictably. Example: Market volatility has increased this year.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-stagnation-n|term",
+      "en": "stagnation",
+      "context": "C2 n — A situation in which there is no growth or development. Example: The economy suffered a decade of stagnation.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-depreciation-n|term",
+      "en": "depreciation",
+      "context": "C2 n — A fall in the value of something over time. Example: The depreciation of the currency made imports more expensive.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-commodity-n|term",
+      "en": "commodity",
+      "context": "C2 n — A raw material or product that can be bought and sold, such as oil or wheat. Example: Commodity prices fell sharply.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-dividend-n|term",
+      "en": "dividend",
+      "context": "C2 n — A share of a company's profits paid to shareholders. Example: The company announced a higher dividend.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-deficit-n|term",
+      "en": "deficit",
+      "context": "C2 n — The amount by which spending is greater than income. Example: The budget deficit has doubled.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-monetary-adj|term",
+      "en": "monetary",
+      "context": "C2 adj — Relating to money, especially the money supply in a country. Example: The central bank tightened monetary policy.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fluctuate-v|term",
+      "en": "fluctuate",
+      "context": "C2 v — To change frequently in level or amount. Example: Prices fluctuate according to demand.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-disburse-v|term",
+      "en": "disburse",
+      "context": "C2 v — To pay out money from a fund. Example: The grant will be disbursed in three instalments.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-consolidate-v|term",
+      "en": "consolidate",
+      "context": "C2 v — To combine into a single, stronger unit; also, to make a position stronger. Example: The firm consolidated its debts into one loan.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-diversify-v|term",
+      "en": "diversify",
+      "context": "C2 v — To develop a wider range of products, investments or activities. Example: Farmers are diversifying into tourism.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-aesthetic-adj|term",
+      "en": "aesthetic",
+      "context": "C2 adj — Relating to beauty and artistic taste. Example: The design has great aesthetic appeal.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-narrative-n|term",
+      "en": "narrative",
+      "context": "C2 n — A story or a description of events; also, a way of explaining events. Example: The film follows a non-linear narrative.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-genre-n|term",
+      "en": "genre",
+      "context": "C2 n — A type of art, music, film or writing with a particular style. Example: Crime fiction is her favourite genre.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-metaphor-n|term",
+      "en": "metaphor",
+      "context": "C2 n — A word or phrase used to describe something by comparing it to something else. Example: 'A sea of troubles' is a metaphor.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-connotation-n|term",
+      "en": "connotation",
+      "context": "C2 n — A feeling or idea suggested by a word in addition to its basic meaning. Example: 'Cheap' has negative connotations; 'inexpensive' does not.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-critique-n|term",
+      "en": "critique",
+      "context": "C2 n — A detailed analysis and judgement of something. Example: The essay offers a sharp critique of consumer culture.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-renowned-adj|term",
+      "en": "renowned",
+      "context": "C2 adj — Famous and respected. Example: The museum is renowned for its collection of icons.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-prestigious-adj|term",
+      "en": "prestigious",
+      "context": "C2 adj — Respected and admired as very important or of high quality. Example: She won a prestigious literary prize.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-notorious-adj|term",
+      "en": "notorious",
+      "context": "C2 adj — Famous for something bad. Example: The road is notorious for accidents.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-archaic-adj|term",
+      "en": "archaic",
+      "context": "C2 adj — Very old and no longer used; old-fashioned. Example: The poem uses archaic language.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-perennial-adj|term",
+      "en": "perennial",
+      "context": "C2 adj — Lasting for a long time or happening again and again. Example: Traffic is a perennial problem in the city.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-evocative-adj|term",
+      "en": "evocative",
+      "context": "C2 adj — Bringing strong images, memories or feelings to mind. Example: The novel opens with an evocative description of the sea.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-astute-adj|term",
+      "en": "astute",
+      "context": "C2 adj — Clever and quick to see how to gain an advantage. Example: She is an astute businesswoman.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-meticulous-adj|term",
+      "en": "meticulous",
+      "context": "C2 adj — Very careful and paying great attention to detail. Example: He keeps meticulous records.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-scrupulous-adj|term",
+      "en": "scrupulous",
+      "context": "C2 adj — Very careful to be honest and do what is right; also, very thorough. Example: She was scrupulous about declaring every expense.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-conscientious-adj|term",
+      "en": "conscientious",
+      "context": "C2 adj — Careful to do your work well and thoroughly. Example: He is a conscientious and reliable employee.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-prudent-adj|term",
+      "en": "prudent",
+      "context": "C2 adj — Sensible and careful when making decisions, avoiding unnecessary risks. Example: It would be prudent to save some money.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-complacent-adj|term",
+      "en": "complacent",
+      "context": "C2 adj — Too satisfied with yourself, so that you do not try harder or see dangers. Example: We cannot afford to be complacent about safety.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-naive-adj|term",
+      "en": "naive",
+      "context": "C2 adj — Lacking experience and too ready to believe others. Example: It would be naive to expect quick results.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-defiant-adj|term",
+      "en": "defiant",
+      "context": "C2 adj — Openly refusing to obey or show respect. Example: He remained defiant despite the criticism.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-resilient-adj|term",
+      "en": "resilient",
+      "context": "C2 adj — Able to recover quickly from difficulties. Example: Children are often remarkably resilient.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-tenacity-n|term",
+      "en": "tenacity",
+      "context": "C2 n — The quality of continuing to try hard and not giving up. Example: Her tenacity eventually paid off.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-acumen-n|term",
+      "en": "acumen",
+      "context": "C2 n — The ability to make good judgements and quick decisions, especially in business. Example: He is known for his business acumen.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-humility-n|term",
+      "en": "humility",
+      "context": "C2 n — The quality of not thinking you are better than other people. Example: Despite her success, she spoke with great humility.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-magnanimous-adj|term",
+      "en": "magnanimous",
+      "context": "C2 adj — Generous and kind, especially towards a rival or someone who has treated you badly. Example: She was magnanimous in victory.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-empathy-n|term",
+      "en": "empathy",
+      "context": "C2 n — The ability to understand and share another person's feelings. Example: Good doctors show empathy towards their patients.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-resentment-n|term",
+      "en": "resentment",
+      "context": "C2 n — A feeling of anger because you have been treated unfairly. Example: There is growing resentment over the new tax.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-indignation-n|term",
+      "en": "indignation",
+      "context": "C2 n — Anger caused by something that seems unfair. Example: The decision provoked widespread indignation.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-nostalgia-n|term",
+      "en": "nostalgia",
+      "context": "C2 n — A feeling of pleasure mixed with sadness when thinking about the past. Example: The song filled her with nostalgia.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-euphoria-n|term",
+      "en": "euphoria",
+      "context": "C2 n — A feeling of great happiness and excitement. Example: The euphoria of victory did not last long.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-trepidation-n|term",
+      "en": "trepidation",
+      "context": "C2 n — A feeling of fear or anxiety about something that may happen. Example: She opened the letter with some trepidation.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-complacency-n|term",
+      "en": "complacency",
+      "context": "C2 n — A feeling of being satisfied with your situation so that you do not try to improve it. Example: Complacency is the enemy of progress.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-proliferate-v|term",
+      "en": "proliferate",
+      "context": "C2 v — To increase rapidly in number or amount. Example: Online courses have proliferated in recent years.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-transcend-v|term",
+      "en": "transcend",
+      "context": "C2 v — To go beyond the usual limits of something. Example: Great music transcends cultural boundaries.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-assimilate-v|term",
+      "en": "assimilate",
+      "context": "C2 v — To learn and understand information completely; also, to become part of a group. Example: It takes time to assimilate so much new information.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-disseminate-v|term",
+      "en": "disseminate",
+      "context": "C2 v — To spread information or knowledge so that it reaches many people. Example: The results were disseminated through academic journals.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-augment-v|term",
+      "en": "augment",
+      "context": "C2 v — To increase the size, amount or value of something by adding to it. Example: She augments her salary by teaching in the evenings.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-amplify-v|term",
+      "en": "amplify",
+      "context": "C2 v — To make something stronger or louder; also, to add details. Example: Social media can amplify misinformation.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-precipitate-v|term",
+      "en": "precipitate",
+      "context": "C2 v — To make something bad happen suddenly or sooner. Example: The scandal precipitated the minister's resignation.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-underpin-v|term",
+      "en": "underpin",
+      "context": "C2 v — To support or form the basis of an argument, system or theory. Example: Strong values underpin the company's success.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-bolster-v|term",
+      "en": "bolster",
+      "context": "C2 v — To support or strengthen something. Example: The good news bolstered investors' confidence.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-impede-v|term",
+      "en": "impede",
+      "context": "C2 v — To slow down or stop the progress of something. Example: Bad weather impeded the rescue efforts.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-preclude-v|term",
+      "en": "preclude",
+      "context": "C2 v — To prevent something from happening or someone from doing something. Example: His injury precludes him from playing.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-supersede-v|term",
+      "en": "supersede",
+      "context": "C2 v — To replace something older or less effective. Example: The old model has been superseded by a faster one.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-circumvent-v|term",
+      "en": "circumvent",
+      "context": "C2 v — To find a way of avoiding a rule or difficulty. Example: They circumvented the regulations by registering abroad.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-entail-v|term",
+      "en": "entail",
+      "context": "C2 v — To involve something as a necessary part or result. Example: The job entails a lot of travel.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-ameliorate-v|term",
+      "en": "ameliorate",
+      "context": "C2 v — To make a bad situation better. Example: Measures were taken to ameliorate working conditions.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-juxtapose-v|term",
+      "en": "juxtapose",
+      "context": "C2 v — To place things side by side, especially to compare or contrast them. Example: The exhibition juxtaposes ancient and modern art.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-upheaval-n|term",
+      "en": "upheaval",
+      "context": "C2 n — A big change that causes a lot of disruption. Example: The country went through a period of political upheaval.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-turmoil-n|term",
+      "en": "turmoil",
+      "context": "C2 n — A state of great confusion or uncertainty. Example: The markets were in turmoil after the announcement.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-trajectory-n|term",
+      "en": "trajectory",
+      "context": "C2 n — The path or course of development of something. Example: Her career has followed an upward trajectory.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-threshold-n|term",
+      "en": "threshold",
+      "context": "C2 n — The level at which something starts to happen or have an effect. Example: Earnings above this threshold are taxed at 40%.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-impasse-n|term",
+      "en": "impasse",
+      "context": "C2 n — A situation in which no progress is possible. Example: Negotiations have reached an impasse.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-ramification-n|term",
+      "en": "ramification",
+      "context": "C2 n — A possible result of an action, often complicated or unexpected. Example: Have you considered the legal ramifications?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-catalyst-n|term",
+      "en": "catalyst",
+      "context": "C2 n — Someone or something that causes an important change. Example: The crisis acted as a catalyst for reform.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-contingency-n|term",
+      "en": "contingency",
+      "context": "C2 n — A possible future event that must be prepared for. Example: We have a contingency plan in case of delays.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-negligible-adj|term",
+      "en": "negligible",
+      "context": "C2 adj — So small or unimportant that it is not worth considering. Example: The difference in cost is negligible.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-marked-adj|term",
+      "en": "marked",
+      "context": "C2 adj — Very noticeable. Example: There has been a marked improvement in her work.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-precarious-adj|term",
+      "en": "precarious",
+      "context": "C2 adj — Not safe or certain; likely to change for the worse. Example: Many freelancers live in a precarious financial situation.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-volatile-adj|term",
+      "en": "volatile",
+      "context": "C2 adj — Likely to change suddenly and unexpectedly, often for the worse. Example: The situation in the region remains volatile.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-obsolete-adj|term",
+      "en": "obsolete",
+      "context": "C2 adj — No longer used because something newer exists. Example: Fax machines are almost obsolete.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-enduring-adj|term",
+      "en": "enduring",
+      "context": "C2 adj — Lasting for a long time. Example: The book has enduring appeal.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-prevailing-adj|term",
+      "en": "prevailing",
+      "context": "C2 adj — Existing or most common at a particular time. Example: The prevailing view is that rates will rise.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-theoretical-adj|term",
+      "en": "theoretical",
+      "context": "C2 adj — Based on ideas rather than practical experience. Example: The risk is purely theoretical.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-hypothetical-adj|term",
+      "en": "hypothetical",
+      "context": "C2 adj — Imagined or suggested but not necessarily real or true. Example: Let's consider a hypothetical example.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-inclusive-adj|term",
+      "en": "inclusive",
+      "context": "C2 adj — Including everyone or everything; not leaving anyone out. Example: The school aims to be inclusive of all abilities.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-ostensibly-adv|term",
+      "en": "ostensibly",
+      "context": "C2 adv — Apparently or according to what is claimed, but perhaps not really. Example: He was there, ostensibly, to help.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-inevitably-adv|term",
+      "en": "inevitably",
+      "context": "C2 adv — In a way that cannot be avoided. Example: Inevitably, the changes caused some confusion.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-categorically-adv|term",
+      "en": "categorically",
+      "context": "C2 adv — In a clear and absolute way. Example: The company categorically denies the allegations.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-unequivocally-adv|term",
+      "en": "unequivocally",
+      "context": "C2 adv — In a way that leaves no doubt. Example: The evidence points unequivocally to fraud.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-hitherto-adv|term",
+      "en": "hitherto",
+      "context": "C2 adv — Until now or until a particular time. Example: The method solves a hitherto unsolved problem.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-henceforth-adv|term",
+      "en": "henceforth",
+      "context": "C2 adv — From this time on. Example: Henceforth, all applications must be submitted online.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-thereof-adv|term",
+      "en": "thereof",
+      "context": "C2 adv — Of the thing just mentioned. Example: The contract, or any part thereof, may not be copied.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-notwithstanding-the-above-phr|term",
+      "en": "notwithstanding the above",
+      "context": "C2 phr — Despite what has just been stated. Example: Notwithstanding the above, exceptions may be made in urgent cases.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-by-the-same-token-phr|term",
+      "en": "by the same token",
+      "context": "C2 phr — For the same reason; in a similar way. Example: Prices may rise; by the same token, they may also fall.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-with-the-benefit-of-hindsight-phr|term",
+      "en": "with the benefit of hindsight",
+      "context": "C2 phr — Understanding a situation only after it has happened. Example: With the benefit of hindsight, we should have acted sooner.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-to-all-intents-and-purposes-phr|term",
+      "en": "to all intents and purposes",
+      "context": "C2 phr — In every important way; virtually. Example: To all intents and purposes, the war was over.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-a-moot-point-phr|term",
+      "en": "a moot point",
+      "context": "C2 phr — A matter that is uncertain or no longer relevant to discuss. Example: Whether he would have agreed is now a moot point.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-the-crux-of-the-matter-phr|term",
+      "en": "the crux of the matter",
+      "context": "C2 phr — The most important or central part of a problem. Example: The crux of the matter is who will pay.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-to-call-into-question-phr|term",
+      "en": "to call into question",
+      "context": "C2 phr — To cause doubt about something. Example: The new evidence calls his account into question.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-to-pay-lip-service-to-phr|term",
+      "en": "to pay lip service to",
+      "context": "C2 phr — To say you support something without doing anything to help it. Example: Many companies only pay lip service to diversity.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-to-set-a-precedent-phr|term",
+      "en": "to set a precedent",
+      "context": "C2 phr — To do something that will be used as an example for future decisions. Example: The ruling could set a precedent for similar cases.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-to-err-on-the-side-of-caution-phr|term",
+      "en": "to err on the side of caution",
+      "context": "C2 phr — To be extra careful rather than take a risk. Example: We erred on the side of caution and cancelled the trip.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-to-split-hairs-phr|term",
+      "en": "to split hairs",
+      "context": "C2 phr — To argue about very small, unimportant differences. Example: Let's not split hairs over the exact wording.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-to-have-a-vested-interest-in-phr|term",
+      "en": "to have a vested interest in",
+      "context": "C2 phr — To have a personal reason, often financial, for wanting something to happen. Example: The authors have a vested interest in the drug's success.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-a-foregone-conclusion-phr|term",
+      "en": "a foregone conclusion",
+      "context": "C2 phr — A result that is certain before it happens. Example: The outcome of the vote was a foregone conclusion.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-to-stand-on-ceremony-phr|term",
+      "en": "to stand on ceremony",
+      "context": "C2 phr — To behave very formally. Example: Please don't stand on ceremony; call me Anna.",
+      "ka": ""
+    },
+    {
+      "key": "dialogues|dlg-A1-u1|line0",
+      "en": "Hi! I'm Leo. Are you new here?",
+      "context": "A1 dialogue \"Meeting a new classmate\", partner speaking",
+      "ka": ""
+    },
+    {
+      "key": "dialogues|dlg-A1-u1|line1",
+      "en": "Yes, I am. My name is Nino. Nice to meet you.",
+      "context": "A1 dialogue \"Meeting a new classmate\", you speaking",
+      "ka": ""
+    }
+  ]
+}

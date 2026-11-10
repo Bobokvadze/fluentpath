@@ -88,11 +88,12 @@ test('translation export covers every translatable string and the translation fi
   const source = collectSource();
   const counts = {};
   Object.keys(source).forEach((k) => { const s = k.split('|')[0]; counts[s] = (counts[s] || 0) + 1; });
-  assert.strictEqual(counts.vocab, 1140);
+  assert.strictEqual(counts.vocab, 1289);
   assert.strictEqual(counts.writing, 90);
   assert.strictEqual(counts.curriculum, 60);
   assert.ok(counts.courses >= 50);
   assert.strictEqual(counts.reading, 72);
+  assert.strictEqual(counts.listening, 58);
   assert.ok(counts.dialogues >= 150);
   const ka = loadTranslations('ka');
   Object.keys(ka).forEach((section) => Object.keys(ka[section]).forEach((id) => Object.keys(ka[section][id]).forEach((field) => {
@@ -102,10 +103,10 @@ test('translation export covers every translatable string and the translation fi
   })));
 });
 
-test('extra reading passages are complete English texts with valid questions', () => {
-  const env = loadScripts(['js/content/reading-extra.js']);
-  const R = env.App.ReadingExtra;
-  assert.ok(R.length >= 12);
+for (const [file, key] of [['reading-extra', 'ReadingExtra'], ['listening-extra', 'ListeningExtra']]) test(file + ' items are complete English texts with valid questions', () => {
+  const env = loadScripts(['js/content/' + file + '.js']);
+  const R = env.App[key];
+  assert.ok(R.length >= 10);
   const nums = new Set();
   R.forEach((r) => {
     assert.ok(r.num > 90 && !nums.has(r.num), 'unique number ' + r.num);
@@ -120,6 +121,6 @@ test('extra reading passages are complete English texts with valid questions', (
     });
     r.glossary.forEach((g) => assert.strictEqual(g.split('|').length, 2, r.num + ' glossary ' + g));
   });
-  const src = fs.readFileSync(path.join(ROOT, 'js', 'content', 'reading-extra.js'), 'utf8');
-  assert.ok(!/[Ⴀ-ჿ]/.test(src.slice(src.indexOf('App.ReadingExtra'))), 'Georgian text in reading-extra.js');
+  const src = fs.readFileSync(path.join(ROOT, 'js', 'content', file + '.js'), 'utf8');
+  assert.ok(!/[Ⴀ-ჿ]/.test(src.slice(src.indexOf('App.' + key))), 'Georgian text in ' + file);
 });

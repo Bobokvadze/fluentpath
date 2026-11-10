@@ -1,0 +1,906 @@
+{
+  "lang": "ka",
+  "instructions": "Translate each \"en\" text into the target language and put it in the \"ka\" field. Use \"context\" to choose the right meaning. Keep it natural and short; for vocab terms give the dictionary form. Leave the field empty if you are not sure. Do not change \"key\" or \"en\".",
+  "items": [
+    {
+      "key": "vocab|v-yes-adv|term",
+      "en": "yes",
+      "context": "A1 adv — A word that shows you agree or say something is true. Example: Yes, I'm a student.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-no-adv|term",
+      "en": "no",
+      "context": "A1 adv — A word that shows you disagree or refuse. Example: No, thank you.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-okay-adj|term",
+      "en": "okay",
+      "context": "A1 adj — Acceptable or fine; also used to agree. Example: Is it okay if I sit here?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-man-n|term",
+      "en": "man",
+      "context": "A1 n — An adult male person. Example: That man is my teacher.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-woman-n|term",
+      "en": "woman",
+      "context": "A1 n — An adult female person. Example: The woman at the desk is very kind.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-boy-n|term",
+      "en": "boy",
+      "context": "A1 n — A male child. Example: The boy is playing football.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-girl-n|term",
+      "en": "girl",
+      "context": "A1 n — A female child. Example: The girl has long hair.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-baby-n|term",
+      "en": "baby",
+      "context": "A1 n — A very young child. Example: The baby is sleeping.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-friend-n|term",
+      "en": "friend",
+      "context": "A1 n — A person you know well and like. Example: Maria is my best friend.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-people-n|term",
+      "en": "people",
+      "context": "A1 n — Men, women and children in general. Example: Many people live in this city.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-person-n|term",
+      "en": "person",
+      "context": "A1 n — A human being. Example: She is a very nice person.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-number-n|term",
+      "en": "number",
+      "context": "A1 n — A word or symbol such as 1, 2 or 3. Example: What's your phone number?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-time-n|term",
+      "en": "time",
+      "context": "A1 n — What we measure in hours and minutes; also a particular moment. Example: What time is it?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-day-n|term",
+      "en": "day",
+      "context": "A1 n — A period of 24 hours. Example: I study English every day.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-afternoon-n|term",
+      "en": "afternoon",
+      "context": "A1 n — The part of the day between noon and evening. Example: We have English in the afternoon.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-night-n|term",
+      "en": "night",
+      "context": "A1 n — The time when it is dark and people usually sleep. Example: I sleep eight hours a night.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-now-adv|term",
+      "en": "now",
+      "context": "A1 adv — At this moment. Example: I'm busy now. Can I call you later?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-always-adv|term",
+      "en": "always",
+      "context": "A1 adv — Every time; at all times. Example: She always walks to work.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-usually-adv|term",
+      "en": "usually",
+      "context": "A1 adv — In most situations; normally. Example: I usually get up at seven.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-sometimes-adv|term",
+      "en": "sometimes",
+      "context": "A1 adv — On some occasions, but not always. Example: Sometimes I cook dinner.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-never-adv|term",
+      "en": "never",
+      "context": "A1 adv — At no time. Example: He never drinks coffee.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-arm-n|term",
+      "en": "arm",
+      "context": "A1 n — The long part of the body between the shoulder and the hand. Example: He broke his arm.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-ill-adj|term",
+      "en": "ill",
+      "context": "A1 adj — Not feeling well; sick. Example: I can't come to class. I'm ill.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-home-n|term",
+      "en": "home",
+      "context": "A1 n — The place where you live. Example: I'm at home now.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-flat-n|term",
+      "en": "flat",
+      "context": "A1 n — A set of rooms on one floor of a building. Example: My flat is on the fifth floor.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-room-n|term",
+      "en": "room",
+      "context": "A1 n — A part of a building with its own walls, floor and door. Example: My room is small but bright.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-kitchen-n|term",
+      "en": "kitchen",
+      "context": "A1 n — The room where you cook. Example: We eat breakfast in the kitchen.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-food-n|term",
+      "en": "food",
+      "context": "A1 n — Things that people and animals eat. Example: I love Georgian food.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-breakfast-n|term",
+      "en": "breakfast",
+      "context": "A1 n — The first meal of the day. Example: I have breakfast at eight.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-lunch-n|term",
+      "en": "lunch",
+      "context": "A1 n — A meal eaten in the middle of the day. Example: Let's have lunch together.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-dinner-n|term",
+      "en": "dinner",
+      "context": "A1 n — The main meal of the day, usually in the evening. Example: We have dinner at seven.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fruit-n|term",
+      "en": "fruit",
+      "context": "A1 n — The part of a plant that contains seeds, often sweet, like an apple. Example: Eat more fruit and vegetables.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-vegetable-n|term",
+      "en": "vegetable",
+      "context": "A1 n — A plant or part of a plant eaten as food, like a carrot. Example: Potatoes are my favourite vegetable.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-hungry-adj|term",
+      "en": "hungry",
+      "context": "A1 adj — Wanting or needing food. Example: I'm hungry. Let's eat.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-thirsty-adj|term",
+      "en": "thirsty",
+      "context": "A1 adj — Wanting or needing a drink. Example: I'm thirsty after the run.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-delicious-adj|term",
+      "en": "delicious",
+      "context": "A1 adj — Having a very good taste. Example: This soup is delicious!",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-clothes-n|term",
+      "en": "clothes",
+      "context": "A1 n — The things you wear, like shirts and trousers. Example: I need some new clothes.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-wear-v|term",
+      "en": "wear",
+      "context": "A1 v — To have clothes or jewellery on your body. Example: I usually wear jeans.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-colour-n|term",
+      "en": "colour",
+      "context": "A1 n — Red, blue, green and yellow are colours. Example: What's your favourite colour?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-town-n|term",
+      "en": "town",
+      "context": "A1 n — A place with many houses and shops, smaller than a city. Example: I live in a small town.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-shop-n|term",
+      "en": "shop",
+      "context": "A1 n — A place where you can buy things. Example: There's a shop on the corner.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-supermarket-n|term",
+      "en": "supermarket",
+      "context": "A1 n — A large shop that sells food and other things. Example: I buy food at the supermarket.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-restaurant-n|term",
+      "en": "restaurant",
+      "context": "A1 n — A place where you can buy and eat a meal. Example: Let's go to a restaurant tonight.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-near-prep|term",
+      "en": "near",
+      "context": "A1 prep — Not far from. Example: I live near the university.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-next-to-prep|term",
+      "en": "next to",
+      "context": "A1 prep — Beside; very close to. Example: The pharmacy is next to the bank.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-left-n|term",
+      "en": "left",
+      "context": "A1 n — The side opposite to the right. Example: Turn left at the traffic lights.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-right-n|term",
+      "en": "right",
+      "context": "A1 n — The side opposite to the left. Example: The museum is on your right.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-plane-n|term",
+      "en": "plane",
+      "context": "A1 n — A vehicle with wings that flies. Example: The plane lands at six.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-bike-n|term",
+      "en": "bike",
+      "context": "A1 n — A bicycle. Example: I ride my bike to work.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-go-v|term",
+      "en": "go",
+      "context": "A1 v — To move or travel to a place. Example: I go to the gym on Mondays.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-come-v|term",
+      "en": "come",
+      "context": "A1 v — To move towards the speaker or a place. Example: Can you come to my party?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-walk-v|term",
+      "en": "walk",
+      "context": "A1 v — To move on foot. Example: I walk to work every day.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-holiday-n|term",
+      "en": "holiday",
+      "context": "A1 n — A time when you do not work or go to school, often spent travelling. Example: We're going on holiday in August.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-sea-n|term",
+      "en": "sea",
+      "context": "A1 n — A large area of salt water. Example: We swim in the sea every summer.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-animal-n|term",
+      "en": "animal",
+      "context": "A1 n — A living thing that can move, like a dog or a bird. Example: What's your favourite animal?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-class-n|term",
+      "en": "class",
+      "context": "A1 n — A group of students who learn together; a lesson. Example: I have an English class at ten.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-lesson-n|term",
+      "en": "lesson",
+      "context": "A1 n — A period of time when you learn something. Example: The lesson starts at nine.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-job-n|term",
+      "en": "job",
+      "context": "A1 n — The work that you do to earn money. Example: She has a good job in a bank.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-office-n|term",
+      "en": "office",
+      "context": "A1 n — A room or building where people work at desks. Example: Our office is in the city centre.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-computer-n|term",
+      "en": "computer",
+      "context": "A1 n — An electronic machine for storing information and doing tasks. Example: I use a computer at work.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-phone-n|term",
+      "en": "phone",
+      "context": "A1 n — A device you use to speak to people far away. Example: Can I use your phone?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-learn-v|term",
+      "en": "learn",
+      "context": "A1 v — To get knowledge or a new skill. Example: I'm learning English.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-write-v|term",
+      "en": "write",
+      "context": "A1 v — To make words on paper or a screen. Example: Please write your name here.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-go-to-bed-phr|term",
+      "en": "go to bed",
+      "context": "A1 phr — To lie down in bed to sleep. Example: I go to bed at eleven.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-have-a-shower-phr|term",
+      "en": "have a shower",
+      "context": "A1 phr — To wash your body under running water. Example: I have a shower every morning.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-buy-v|term",
+      "en": "buy",
+      "context": "A1 v — To get something by paying money for it. Example: I need to buy some milk.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-listen-v|term",
+      "en": "listen",
+      "context": "A1 v — To pay attention to sounds. Example: I listen to music on the bus.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-film-n|term",
+      "en": "film",
+      "context": "A1 n — A story shown as moving pictures. Example: Let's watch a film tonight.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-football-n|term",
+      "en": "football",
+      "context": "A1 n — A game in which two teams kick a ball. Example: My brother plays football.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-play-v|term",
+      "en": "play",
+      "context": "A1 v — To take part in a game or sport; to make music on an instrument. Example: I play the guitar.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-visit-v|term",
+      "en": "visit",
+      "context": "A1 v — To go to see a person or place. Example: We visit my grandparents on Sundays.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-hobby-n|term",
+      "en": "hobby",
+      "context": "A1 n — An activity you do for pleasure in your free time. Example: My hobby is photography.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-young-adj|term",
+      "en": "young",
+      "context": "A1 adj — Having lived for a short time. Example: My sister is very young.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-beautiful-adj|term",
+      "en": "beautiful",
+      "context": "A1 adj — Very pleasant to look at. Example: What a beautiful view!",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-nice-adj|term",
+      "en": "nice",
+      "context": "A1 adj — Pleasant or kind. Example: Have a nice day!",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-sad-adj|term",
+      "en": "sad",
+      "context": "A1 adj — Unhappy. Example: Why are you sad?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-tired-adj|term",
+      "en": "tired",
+      "context": "A1 adj — Feeling that you need rest or sleep. Example: I'm tired after work.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-busy-adj|term",
+      "en": "busy",
+      "context": "A1 adj — Having a lot to do. Example: I'm very busy this week.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-difficult-adj|term",
+      "en": "difficult",
+      "context": "A1 adj — Not easy; hard to do or understand. Example: English grammar can be difficult.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-favourite-adj|term",
+      "en": "favourite",
+      "context": "A1 adj — Liked more than others. Example: Blue is my favourite colour.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-very-adv|term",
+      "en": "very",
+      "context": "A1 adv — Used to make an adjective or adverb stronger. Example: It's very cold today.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-be-v|term",
+      "en": "be",
+      "context": "A1 v — Used to describe people and things, or to say where they are. Example: I am a teacher. They are at home.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-have-v|term",
+      "en": "have",
+      "context": "A1 v — To own or hold something; to eat or drink something. Example: I have two sisters. Let's have lunch.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-do-v|term",
+      "en": "do",
+      "context": "A1 v — To perform an action. Example: What do you do in the evening?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-make-v|term",
+      "en": "make",
+      "context": "A1 v — To create or produce something. Example: I make coffee every morning.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-get-v|term",
+      "en": "get",
+      "context": "A1 v — To receive or obtain something; to become. Example: I get a lot of emails. It's getting cold.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-see-v|term",
+      "en": "see",
+      "context": "A1 v — To notice things with your eyes. Example: Can you see the sea from your window?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-need-v|term",
+      "en": "need",
+      "context": "A1 v — To have to have something. Example: I need some help.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-say-v|term",
+      "en": "say",
+      "context": "A1 v — To speak words. Example: What did you say?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-tell-v|term",
+      "en": "tell",
+      "context": "A1 v — To give information to someone. Example: Tell me about your family.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-speak-v|term",
+      "en": "speak",
+      "context": "A1 v — To talk; to be able to use a language. Example: Do you speak English?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-live-v|term",
+      "en": "live",
+      "context": "A1 v — To have your home in a place. Example: I live in Tbilisi.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-can-v|term",
+      "en": "can",
+      "context": "A1 v — Used to say someone is able to do something. Example: I can swim.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-like-to-phr|term",
+      "en": "like to",
+      "context": "A1 phr — To enjoy doing something regularly. Example: I like to read before bed.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-what-pron|term",
+      "en": "what",
+      "context": "A1 pron — Used to ask about things. Example: What is your name?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-where-adv|term",
+      "en": "where",
+      "context": "A1 adv — Used to ask about a place. Example: Where do you live?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-when-adv|term",
+      "en": "when",
+      "context": "A1 adv — Used to ask about time. Example: When is your birthday?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-who-pron|term",
+      "en": "who",
+      "context": "A1 pron — Used to ask about a person. Example: Who is that man?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-why-adv|term",
+      "en": "why",
+      "context": "A1 adv — Used to ask for a reason. Example: Why are you sad?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-how-adv|term",
+      "en": "how",
+      "context": "A1 adv — Used to ask about the way something happens or how someone is. Example: How are you?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-and-conj|term",
+      "en": "and",
+      "context": "A1 conj — Used to join words or sentences. Example: I like tea and coffee.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-but-conj|term",
+      "en": "but",
+      "context": "A1 conj — Used to show a contrast. Example: It's small but comfortable.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-because-conj|term",
+      "en": "because",
+      "context": "A1 conj — Used to give a reason. Example: I'm tired because I worked late.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-or-conj|term",
+      "en": "or",
+      "context": "A1 conj — Used to show a choice. Example: Tea or coffee?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-with-prep|term",
+      "en": "with",
+      "context": "A1 prep — Together with someone or something. Example: I live with my parents.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-about-prep|term",
+      "en": "about",
+      "context": "A1 prep — On the subject of. Example: This book is about Georgian history.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-here-adv|term",
+      "en": "here",
+      "context": "A1 adv — In or to this place. Example: Come here, please.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-there-adv|term",
+      "en": "there",
+      "context": "A1 adv — In or to that place. Example: Put the box over there.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-journey-n|term",
+      "en": "journey",
+      "context": "A2 n — The act of travelling from one place to another. Example: The journey takes three hours.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-trip-n|term",
+      "en": "trip",
+      "context": "A2 n — A short journey to a place and back again. Example: We went on a day trip to Mtskheta.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-arrive-v|term",
+      "en": "arrive",
+      "context": "A2 v — To reach a place. Example: We arrived in Rome at midnight.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-miss-v|term",
+      "en": "miss",
+      "context": "A2 v — To be too late for a bus, train or plane; to feel sad without someone. Example: Hurry or we'll miss the train. I miss my family.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-check-in-pv|term",
+      "en": "check in",
+      "context": "A2 pv — To show your ticket at an airport or to register at a hotel. Example: You can check in online.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-set-off-pv|term",
+      "en": "set off",
+      "context": "A2 pv — To start a journey. Example: We set off early to avoid the traffic.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-money-n|term",
+      "en": "money",
+      "context": "A2 n — Coins and notes that you use to buy things. Example: I don't have much money.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-cost-v|term",
+      "en": "cost",
+      "context": "A2 v — To have a particular price. Example: How much does this jacket cost?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-size-n|term",
+      "en": "size",
+      "context": "A2 n — How big or small something is. Example: Do you have this in a larger size?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-try-on-pv|term",
+      "en": "try on",
+      "context": "A2 pv — To put on clothes to see if they fit. Example: Can I try on these shoes?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-sale-n|term",
+      "en": "sale",
+      "context": "A2 n — A time when a shop sells things at lower prices. Example: I bought this coat in the sale.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-customer-n|term",
+      "en": "customer",
+      "context": "A2 n — A person who buys things from a shop or business. Example: The shop has a lot of regular customers.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-lend-v|term",
+      "en": "lend",
+      "context": "A2 v — To give something to someone for a short time. Example: Could you lend me ten lari?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-health-n|term",
+      "en": "health",
+      "context": "A2 n — The condition of your body and mind. Example: Smoking is bad for your health.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-hurt-v|term",
+      "en": "hurt",
+      "context": "A2 v — To feel pain; to cause pain. Example: My back hurts.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-headache-n|term",
+      "en": "headache",
+      "context": "A2 n — A pain in your head. Example: I've got a terrible headache.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-exercise-n|term",
+      "en": "exercise",
+      "context": "A2 n — Physical activity that keeps you fit. Example: Walking is good exercise.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-feel-v|term",
+      "en": "feel",
+      "context": "A2 v — To experience an emotion or a physical feeling. Example: I feel much better today.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-get-better-phr|term",
+      "en": "get better",
+      "context": "A2 phr — To become healthy again after an illness. Example: I hope you get better soon.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-worried-adj|term",
+      "en": "worried",
+      "context": "A2 adj — Unhappy because you think something bad might happen. Example: I'm worried about my exam.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-excited-adj|term",
+      "en": "excited",
+      "context": "A2 adj — Very happy and enthusiastic about something. Example: The children are excited about the holiday.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-bored-adj|term",
+      "en": "bored",
+      "context": "A2 adj — Tired and unhappy because nothing interesting is happening. Example: I'm bored. Let's go out.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-boring-adj|term",
+      "en": "boring",
+      "context": "A2 adj — Not interesting. Example: The film was so boring that I fell asleep.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-interesting-adj|term",
+      "en": "interesting",
+      "context": "A2 adj — Making you want to know more. Example: That's an interesting idea.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-surprised-adj|term",
+      "en": "surprised",
+      "context": "A2 adj — Feeling something unexpected has happened. Example: I was surprised to see him at the party.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-afraid-adj|term",
+      "en": "afraid",
+      "context": "A2 adj — Feeling fear. Example: My little sister is afraid of dogs.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fun-n|term",
+      "en": "fun",
+      "context": "A2 n — Enjoyment or pleasure. Example: We had a lot of fun at the beach.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-company-n|term",
+      "en": "company",
+      "context": "A2 n — A business that makes or sells things. Example: She works for a large company.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-earn-v|term",
+      "en": "earn",
+      "context": "A2 v — To get money for the work you do. Example: She earns more than her husband.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-employ-v|term",
+      "en": "employ",
+      "context": "A2 v — To pay someone to work for you. Example: The factory employs two hundred people.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-meeting-n|term",
+      "en": "meeting",
+      "context": "A2 n — An event where people come together to discuss something. Example: The meeting starts at ten.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-email-n|term",
+      "en": "email",
+      "context": "A2 n — A message sent from one computer or phone to another. Example: I'll send you an email.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-furniture-n|term",
+      "en": "furniture",
+      "context": "A2 n — Things such as chairs, tables and beds. Example: We need some new furniture.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-neighbour-n|term",
+      "en": "neighbour",
+      "context": "A2 n — A person who lives near you. Example: Our neighbours are very quiet.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-rent-n|term",
+      "en": "rent",
+      "context": "A2 n — Money you pay to live in a place that belongs to someone else. Example: The rent is due on the first of the month.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-tidy-adj|term",
+      "en": "tidy",
+      "context": "A2 adj — Neat and in order. Example: Keep your room tidy!",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-housework-n|term",
+      "en": "housework",
+      "context": "A2 n — Work such as cleaning and washing that you do at home. Example: We share the housework.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-do-the-washing-up-phr|term",
+      "en": "do the washing-up",
+      "context": "A2 phr — To wash the plates and cups after a meal. Example: I'll cook if you do the washing-up.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-tidy-up-pv|term",
+      "en": "tidy up",
+      "context": "A2 pv — To make a place neat. Example: Please tidy up before the guests arrive.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-turn-on-pv|term",
+      "en": "turn on",
+      "context": "A2 pv — To make a machine or light start working. Example: Can you turn on the light?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-turn-off-pv|term",
+      "en": "turn off",
+      "context": "A2 pv — To stop a machine or light working. Example: Turn off your phone in the cinema.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-move-v|term",
+      "en": "move",
+      "context": "A2 v — To go to live in a different place; to change position. Example: We moved to a bigger flat last year.",
+      "ka": ""
+    }
+  ]
+}

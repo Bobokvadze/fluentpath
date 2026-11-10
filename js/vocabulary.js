@@ -159,9 +159,47 @@
     return Array.isArray(v) ? v : [];
   }
 
+  // მომხმარებლის საკუთარი სიტყვები (vocabulary.customWords) — ძველი ფორმატიც მხარდაჭერილია
+  function customWords() {
+    const raw = App.Storage.get('vocabulary.customWords', []);
+    return (Array.isArray(raw) ? raw : []).filter((w) => w && w.word).map((w) => ({
+      id: w.id, word: w.word, en: w.word, ka: w.ka || '', def: w.def || '', meaning: w.def || w.ka || '',
+      ex: w.exEn || w.ex || '', exampleEn: w.exEn || w.ex || '', level: LEVELS.indexOf(w.level) !== -1 ? w.level : 'B1',
+      custom: true, topic: 'my words', topicLabel: 'My words', pos: '', posLabel: '',
+      collocations: [], synonyms: [], antonyms: [], family: [], forms: '', note: '', phonetic: getIpa(w.word)
+    }));
+  }
+
   const Vocabulary = {
     LEVELS: LEVELS,
     POS_LABELS: POS_LABELS,
+
+    getCustomWords: customWords,
+
+    addCustomWord: function (data) {
+      const word = String(data.word || '').trim();
+      if (!word) return null;
+      const raw = App.Storage.get('vocabulary.customWords', []);
+      const list = Array.isArray(raw) ? raw.slice() : [];
+      if (list.some((w) => w && String(w.word).toLowerCase() === word.toLowerCase())) return false;
+      const item = {
+        id: 'custom-' + Date.now(), word: word, ka: String(data.ka || '').trim(), def: String(data.def || '').trim(),
+        exEn: String(data.ex || '').trim(), level: LEVELS.indexOf(data.level) !== -1 ? data.level : 'B1'
+      };
+      list.unshift(item);
+      App.Storage.set('vocabulary.customWords', list);
+      return item;
+    },
+
+    removeCustomWord: function (id) {
+      const raw = App.Storage.get('vocabulary.customWords', []);
+      App.Storage.set('vocabulary.customWords', (Array.isArray(raw) ? raw : []).filter((w) => w && w.id !== id));
+      const boxes = Object.assign({}, App.Storage.get('vocabulary.boxByWordId', {}) || {});
+      if (boxes[id]) {
+        delete boxes[id];
+        App.Storage.set('vocabulary.boxByWordId', boxes);
+      }
+    },
 
     getAllWords: function () {
       buildDatabase();
@@ -345,10 +383,19 @@
       const boxes = App.Storage.get('vocabulary.boxByWordId', {}) || {};
       const levelLearned = (lvl) => entries.filter((e) => e.level === lvl && learned.indexOf(e.id) !== -1).length;
 
-      const levelTabs = ['all'].concat(LEVELS).map((l) => {
-        const label = l === 'all' ? 'ყველა (' + counts.total + ')' : l + ' (' + levelLearned(l) + '/' + counts[l] + ')';
+      const mine = customWords();
+      const levelTabs = ['all'].concat(LEVELS).concat(['mine']).map((l) => {
+        const label = l === 'all' ? 'ყველა (' + counts.total + ')' : l === 'mine' ? '✍️ ჩემი სიტყვები (' + mine.length + ')' : l + ' (' + levelLearned(l) + '/' + counts[l] + ')';
         return '<button type="button" class="pill-tab' + (levelFilter === l ? ' active' : '') + '" data-vx-level="' + l + '" aria-pressed="' + (levelFilter === l) + '">' + label + '</button>';
       }).join('');
+      if (levelFilter === 'mine') {
+        container.innerHTML = '<div class="dashboard-grid">' +
+          '<section class="card"><div class="filter-bar" style="margin-bottom:0;"><div class="pill-tabs" role="group" aria-label="დონე">' + levelTabs + '</div></div></section>' +
+          this.renderMyWords(mine, boxes) + '</div>';
+        this.bindEvents(container, []);
+        this.bindMyWords(container);
+        return;
+      }
       const topics = this.getTopics(levelFilter === 'all' ? null : levelFilter);
       const topicOptions = '<option value="all">All topics</option>' + topics.map((t) =>
         '<option value="' + esc(t) + '"' + (topicFilter === t ? ' selected' : '') + '>' + esc(titleCase(t)) + '</option>').join('');
@@ -366,7 +413,7 @@
           '<section class="card">' +
             '<div class="section-header">' +
               '<div>' +
-                '<h2 class="section-title">ლექსიკონი — ' + counts.total + ' სიტყვა და გამოთქმა (A1–C1)</h2>' +
+                '<h2 class="section-title">ლექსიკონი — ' + counts.total + ' სიტყვა და გამოთქმა (A1–C2)</h2>' +
                 '<p class="section-subtitle">ყველა სიტყვას აქვს ინგლისური განმარტება, ბუნებრივი მაგალითი და, სადაც სასარგებლოა, შესიტყვებები, სინონიმები, ფორმები და შენიშვნები.</p>' +
               '</div>' +
               '<span class="stat-pill stat-pill--level">ნასწავლი: ' + learned.filter((id) => byId[id]).length + '</span>' +
@@ -436,6 +483,57 @@
         self.addToReview([b.getAttribute('data-add-review')]);
         App.UI.toast('🔁 დაემატა დღის გამეორებას.', 'success', 1800);
         self.render();
+      }));
+    },
+
+    renderMyWords: function (mine, boxes) {
+      const esc = App.UI.escapeHTML;
+      const levelOptions = LEVELS.map((l) => '<option value="' + l + '"' + (l === 'B1' ? ' selected' : '') + '>' + l + '</option>').join('');
+      const cards = mine.map((w) =>
+        '<article class="card vocab-card">' +
+          '<div class="vocab-header"><div><span class="lesson-level-tag">' + esc(w.level) + ' • My words</span></div>' +
+          '<button type="button" class="audio-btn" data-vocab-speak="' + esc(w.word) + '" aria-label="Listen: ' + esc(w.word) + '">&#128266;</button></div>' +
+          '<div style="margin-top:8px;"><div class="vocab-word" lang="en">' + esc(w.word) + '</div>' +
+          (w.phonetic ? '<div class="vocab-phonetic" lang="en">' + esc(w.phonetic) + '</div>' : '') +
+          (w.ka ? '<div class="vocab-translation" lang="ka">' + esc(w.ka) + '</div>' : '') +
+          (w.def ? '<p class="vx-def" lang="en">' + esc(w.def) + '</p>' : '') + '</div>' +
+          (w.ex ? '<div class="vocab-example-box"><p lang="en">' + esc(w.ex) + '</p></div>' : '') +
+          '<div class="vocab-actions">' +
+            (boxes[w.id] ? '<span class="vx-review-tag">🔁 გამეორებაშია</span>' : '<button type="button" class="btn btn-sm btn-outline" data-add-review="' + esc(w.id) + '">🔁 გამეორებაში</button>') +
+            '<button type="button" class="btn btn-sm btn-outline" data-vx-remove="' + esc(w.id) + '">🗑 წაშლა</button>' +
+          '</div>' +
+        '</article>').join('');
+      return '<section class="card"><h2 class="section-title">✍️ ჩემი სიტყვები</h2>' +
+          '<p class="section-subtitle">დაამატეთ სიტყვები, რომლებიც სხვაგან შეგხვდათ. ისინი ბარათებით გამეორებაშიც გამოჩნდება.</p>' +
+          '<form id="vx-add-form" class="vx-add-form">' +
+            '<label>ინგლისური სიტყვა ან ფრაზა<input type="text" class="text-input" id="vx-new-word" required maxlength="80" lang="en" autocomplete="off"></label>' +
+            '<label>ქართული თარგმანი<input type="text" class="text-input" id="vx-new-ka" maxlength="120" lang="ka" autocomplete="off"></label>' +
+            '<label>განმარტება ინგლისურად (სურვილისამებრ)<input type="text" class="text-input" id="vx-new-def" maxlength="200" lang="en" autocomplete="off"></label>' +
+            '<label>მაგალითი (სურვილისამებრ)<input type="text" class="text-input" id="vx-new-ex" maxlength="200" lang="en" autocomplete="off"></label>' +
+            '<label>დონე<select class="select-input" id="vx-new-level">' + levelOptions + '</select></label>' +
+            '<button type="submit" class="btn btn-primary">+ დამატება</button>' +
+          '</form></section>' +
+        '<section class="vx-grid" aria-label="ჩემი სიტყვები">' + (cards || '<p class="section-subtitle">ჯერ სიტყვა არ დაგიმატებიათ.</p>') + '</section>';
+    },
+
+    bindMyWords: function (container) {
+      const form = container.querySelector('#vx-add-form');
+      if (form) form.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        const val = (id) => (container.querySelector(id) || {}).value || '';
+        if (!val('#vx-new-ka').trim() && !val('#vx-new-def').trim()) {
+          App.UI.toast('დაამატეთ თარგმანი ან განმარტება.', 'warning');
+          return;
+        }
+        const added = this.addCustomWord({ word: val('#vx-new-word'), ka: val('#vx-new-ka'), def: val('#vx-new-def'), ex: val('#vx-new-ex'), level: val('#vx-new-level') });
+        if (added === false) { App.UI.toast('ეს სიტყვა უკვე დამატებულია.', 'warning'); return; }
+        if (!added) { App.UI.toast('შეიყვანეთ სიტყვა.', 'warning'); return; }
+        App.UI.toast('სიტყვა «' + added.word + '» დაემატა!', 'success');
+        this.render();
+      });
+      container.querySelectorAll('[data-vx-remove]').forEach((b) => b.addEventListener('click', () => {
+        this.removeCustomWord(b.getAttribute('data-vx-remove'));
+        this.render();
       }));
     },
 

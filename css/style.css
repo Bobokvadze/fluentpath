@@ -2243,3 +2243,20 @@ p {
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
+
+/* ჩემი სიტყვები */
+.vx-add-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  align-items: end;
+  margin-top: 12px;
+}
+
+.vx-add-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}

@@ -24,7 +24,7 @@ function build() {
   const files = [
     'grammar-a', 'grammar-b', 'grammar-c', 'content/grammar-en-a', 'content/grammar-en-b', 'content/grammar-en-c', 'content/grammar-en-d', 'grammar',
     'reading-a', 'reading-b', 'reading-c', 'content/reading-extra', 'reading',
-    'listening-a', 'listening-b', 'listening-c1a', 'listening-c1b', 'listening-c1c', 'listening-c', 'listening',
+    'listening-a', 'listening-b', 'listening-c1a', 'listening-c1b', 'listening-c1c', 'listening-c', 'content/listening-extra', 'listening',
     'writing-a', 'writing-b', 'writing-c', 'writing',
     'content/vocab-a1', 'content/vocab-a2', 'content/vocab-b1', 'content/vocab-b2', 'content/vocab-c1', 'content/vocab-c2'
   ];

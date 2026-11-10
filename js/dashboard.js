@@ -115,6 +115,7 @@
     const unitsTotal = App.Curriculum ? App.Curriculum.get().reduce(function (n, l) { return n + l.units.length; }, 0) : 30;
     const idxCount = function (k, d) { const t = (App.ContentIndex || {})[k]; return t ? Object.keys(t).length : d; };
     const readingTotal = idxCount("reading", 90);
+    const listeningTotal = idxCount("listening", 90);
     const coursesTotal = App.CourseEngine ? App.CourseEngine.all().length : 0;
     const coursesDone = App.CourseEngine ? App.CourseEngine.completedCount() : 0;
     const modules = [
@@ -122,7 +123,7 @@
       { route: "vocabulary", icon: "🗂️", tone: "amber", title: "ლექსიკონი", count: st.wordsCount + " / " + vocabLabel, pct: pct(st.wordsCount, vocabTotal || 1), desc: vocabLabel + " შერჩეული სიტყვა და ფრაზა A1–C2 დონეებზე, განმარტებებითა და გამოთქმით." },
       { route: "grammar", icon: "🌐", tone: "blue", title: "გრამატიკა", count: st.grammarDone + " / 90", pct: pct(st.grammarDone, 90), desc: "90 გაკვეთილი მკაფიო წესებითა და სავარჯიშოებით." },
       { route: "reading", icon: "📖", tone: "violet", title: "კითხვა", count: st.readingDone + " / " + readingTotal, pct: pct(st.readingDone, readingTotal), desc: "ადაპტირებული ისტორიები და სტატიები კითხვებით." },
-      { route: "listening", icon: "🎧", tone: "teal", title: "მოსმენა", count: st.listeningDone + " / 90", pct: pct(st.listeningDone, 90), desc: "დიალოგები და პოდკასტები ტრანსკრიპტით." },
+      { route: "listening", icon: "🎧", tone: "teal", title: "მოსმენა", count: st.listeningDone + " / " + listeningTotal, pct: pct(st.listeningDone, listeningTotal), desc: "დიალოგები და პოდკასტები ტრანსკრიპტით." },
       { route: "speaking", icon: "🎙️", tone: "rose", title: "საუბარი", count: speakingDone + " / " + speakingTotal, pct: pct(speakingDone, speakingTotal), desc: "გამოთქმის ვარჯიში სიტყვა-სიტყვით შეფასებით." },
       { route: "writing", icon: "✍️", tone: "orange", title: "წერა", count: st.writingDone + " / 90", pct: pct(st.writingDone, 90), desc: "წერითი ნიმუშები, შაბლონები და დავალებები." },
       { route: "flashcards", icon: "🎴", tone: "indigo", title: "ბარათები", count: dueCount ? dueCount + " გასამეორებელი" : "5 ყუთი", pct: pct(st.wordsCount, 500), desc: "სიტყვების გამეორება ინტერვალური სისტემით." },

@@ -125,7 +125,7 @@ test('app loads and every route renders without errors', { skip: !canRun && 'Chr
     routes.forEach((r) => assert.ok(result[r].trim().length > 0, 'route ' + r + ' rendered no heading'));
 
     const listeningCount = await evaluate(cdp, 'App.Listening.getAllTopics().length');
-    assert.strictEqual(listeningCount, 90, 'all 90 listening topics available');
+    assert.strictEqual(listeningCount, 100, 'all 100 listening topics available');
     assert.deepStrictEqual(exceptions, [], 'uncaught exceptions: ' + exceptions.join(' | '));
   } finally {
     cdp.close();

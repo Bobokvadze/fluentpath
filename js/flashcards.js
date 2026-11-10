@@ -254,6 +254,7 @@
       let rawList = [];
       if (App.Vocabulary && typeof App.Vocabulary.getAllWords === "function") {
         rawList = App.Vocabulary.getAllWords() || [];
+        if (typeof App.Vocabulary.getCustomWords === "function") rawList = rawList.concat(App.Vocabulary.getCustomWords());
       }
       const normalized = [];
       for (let i = 0; i < rawList.length; i++) {

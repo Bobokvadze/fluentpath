@@ -74,7 +74,7 @@
       const listC = Array.isArray(App.ListeningDataC) ? App.ListeningDataC : [];
       const combined = listA.concat(listB).concat(listC);
 
-      return combined.map((item, idx) => {
+      const base = combined.map((item, idx) => {
         const num = item.num || (idx + 1);
         const paras = item.paragraphs.map((p) => (Array.isArray(p) ? { en: p[0], ka: p[1] } : p));
         const visual = LISTENING_VISUAL_META[(num - 1) % LISTENING_VISUAL_META.length];
@@ -95,6 +95,33 @@
           questions: item.questions.map(parseQuestionItem)
         };
       });
+
+      // დამატებითი ინგლისური ჩანაწერები (js/content/listening-extra.js): თარგმანი მხოლოდ i18n ფენიდან
+      const extra = (Array.isArray(App.ListeningExtra) ? App.ListeningExtra : []).map((item) => {
+        const id = "listening-topic-" + item.num;
+        const tr = (field) => (App.tr ? App.tr("listening", id, field) : "");
+        return {
+          id: id,
+          topicNumber: item.num,
+          level: item.level,
+          titleKa: tr("title"),
+          titleEn: item.title,
+          audioTime: item.time || "5 min",
+          xp: 45,
+          icon: item.icon || "🎧",
+          genre: item.genre || "",
+          themeIdx: (item.num + 1) % 6,
+          paragraphs: item.paragraphs.map((en, i) => ({ en: en, ka: tr("p" + i) })),
+          glossary: item.glossary.map((g) => { const f = g.split("|"); return { en: f[0], ka: "", def: f[1] || "" }; }),
+          questions: item.questions.map(parseQuestionItem)
+        };
+      });
+
+      // დონეების მიხედვით დალაგება (დამატებითი ჩანაწერები თავისი დონის ბოლოს)
+      const order = ["A1", "A2", "B1", "B2", "C1", "C2"];
+      return base.concat(extra).map((x, i) => ({ x: x, i: i }))
+        .sort((a, b) => (order.indexOf(a.x.level) - order.indexOf(b.x.level)) || (a.i - b.i))
+        .map((o) => o.x);
     },
 
     getCompletedIds: function () {
@@ -102,12 +129,14 @@
       return Array.isArray(list) ? list : [];
     },
 
+    // თითოეული დონის პირველი ჩანაწერი ღიაა; შემდეგი იხსნება იმავე დონის წინას დასრულებისას
     isTopicUnlocked: function (topicIdx, allTopics) {
       if (topicIdx <= 0) return true;
       const completed = this.getCompletedIds();
+      const cur = allTopics[topicIdx];
       const prev = allTopics[topicIdx - 1];
-      if (!prev) return true;
-      return completed.indexOf(prev.id) !== -1;
+      if (!prev || !cur || prev.level !== cur.level) return true;
+      return completed.indexOf(prev.id) !== -1 || completed.indexOf(cur.id) !== -1;
     },
 
     getCurrentFrontierTopicId: function (allTopics) {
@@ -377,7 +406,7 @@
                 : '<p class="reading-p-en" style="color:var(--text-muted); font-style:italic;">🎧 აუდიო მონაკვეთი (ტრანსკრიპტი დამალულია — დააჭირეთ დინამიკს მოსასმენად)</p>') +
               '<button type="button" class="audio-btn" data-speak-para="' + App.UI.escapeHTML(para.en) + '" title="მონაკვეთის მოსმენა">&#128266;</button>' +
             "</div>" +
-            (showTranslations
+            (showTranslations && para.ka
               ? '<p class="reading-p-ka">' + App.UI.escapeHTML(para.ka) + "</p>"
               : "") +
           "</div>"
@@ -389,7 +418,8 @@
           '<div class="glossary-item">' +
             "<div>" +
               '<div class="glossary-en">' + App.UI.escapeHTML(g.en) + "</div>" +
-              '<div class="glossary-ka">' + App.UI.escapeHTML(g.ka) + "</div>" +
+              (g.def ? '<div class="glossary-def" lang="en">' + App.UI.escapeHTML(g.def) + "</div>" : "") +
+              (g.ka ? '<div class="glossary-ka">' + App.UI.escapeHTML(g.ka) + "</div>" : "") +
             "</div>" +
             '<button type="button" class="audio-btn" data-speak-para="' + App.UI.escapeHTML(g.en) + '" title="მოსმენა">&#128266;</button>' +
           "</div>"
@@ -440,15 +470,17 @@
             '<div class="reading-Toolbar">' +
               "<div>" +
                 '<h2 class="section-title" style="font-size:1.4rem;">' + App.UI.escapeHTML(t.titleEn) + "</h2>" +
-                '<div style="font-size:0.92rem; font-weight:700; color:var(--brand-secondary); margin-top:2px;">' + App.UI.escapeHTML(t.titleKa) + "</div>" +
+                (t.titleKa ? '<div style="font-size:0.92rem; font-weight:700; color:var(--brand-secondary); margin-top:2px;">' + App.UI.escapeHTML(t.titleKa) + "</div>" : "") +
               "</div>" +
               '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
                 '<button type="button" class="btn ' + (!showTranscript ? "btn-secondary" : "btn-outline") + ' btn-sm" id="toggle-en-transcript-btn">' +
                   (showTranscript ? "📝 ტრანსკრიპტის დამალვა" : "📝 ტრანსკრიპტის ჩვენება") +
                 "</button>" +
-                '<button type="button" class="btn ' + (showTranslations ? "btn-secondary" : "btn-outline") + ' btn-sm" id="toggle-ka-translation-btn">' +
-                  (showTranslations ? "🇬🇪 თარგმანის დამალვა" : "🇬🇪 თარგმანის ჩვენება") +
-                "</button>" +
+                (t.paragraphs.some((x) => x.ka)
+                  ? '<button type="button" class="btn ' + (showTranslations ? "btn-secondary" : "btn-outline") + ' btn-sm" id="toggle-ka-translation-btn">' +
+                      (showTranslations ? "🇬🇪 თარგმანის დამალვა" : "🇬🇪 თარგმანის ჩვენება") +
+                    "</button>"
+                  : "") +
                 '<button type="button" class="btn btn-primary btn-sm" id="listen-full-topic-btn">&#128266; სრულად მოსმენა</button>' +
                 '<button type="button" class="btn btn-outline btn-sm" id="listen-slow-topic-btn">🐢 ნელა</button>' +
                 '<button type="button" class="btn btn-outline btn-sm" id="stop-topic-audio-btn">&#9209; გაჩერება</button>' +
