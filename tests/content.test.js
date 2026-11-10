@@ -124,3 +124,10 @@ for (const [file, key] of [['reading-extra', 'ReadingExtra'], ['listening-extra'
   const src = fs.readFileSync(path.join(ROOT, 'js', 'content', file + '.js'), 'utf8');
   assert.ok(!/[Ⴀ-ჿ]/.test(src.slice(src.indexOf('App.' + key))), 'Georgian text in ' + file);
 });
+
+test('every exercise in every module has four distinct options and a valid answer', () => {
+  const { audit } = require('../scripts/audit-content');
+  const { problems, counts } = audit();
+  assert.deepStrictEqual(problems, []);
+  assert.ok(counts.Reading.questions > 900 && counts.Listening.questions > 900 && counts.Writing.questions > 800);
+});
