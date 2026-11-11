@@ -34,6 +34,12 @@
     "v-abroad-adv": {
       "term": "საზღვარგარეთ"
     },
+    "v-abundant-adj": {
+      "term": "უხვი, ჭარბი"
+    },
+    "v-accelerate-v": {
+      "term": "დაჩქარება, აჩქარება"
+    },
     "v-accident-n": {
       "term": "შემთხვევა"
     },
@@ -45,6 +51,9 @@
     },
     "v-accountability-n": {
       "term": "ანგარიშვალდებულება"
+    },
+    "v-accumulate-v": {
+      "term": "დაგროვება"
     },
     "v-accurate-adj": {
       "term": "ზუსტი"
@@ -109,6 +118,9 @@
     "v-afternoon-n": {
       "term": "ნაშუადღევი"
     },
+    "v-aggravate-v": {
+      "term": "გაუარესება, დამძიმება"
+    },
     "v-ago-adv": {
       "term": "წინ"
     },
@@ -148,14 +160,23 @@
     "v-ambiguity-n": {
       "term": "ორაზროვნება"
     },
+    "v-ambiguous-adj": {
+      "term": "ორაზროვანი, ბუნდოვანი"
+    },
     "v-ambitious-adj": {
       "term": "ამბიციური"
     },
     "v-ameliorate-v": {
       "term": "გაუმჯობესება"
     },
+    "v-amend-v": {
+      "term": "შესწორება, ცვლილების შეტანა"
+    },
     "v-amplify-v": {
       "term": "გაძლიერება"
+    },
+    "v-analogy-n": {
+      "term": "ანალოგია"
     },
     "v-analyse-v": {
       "term": "ანალიზი, გაანალიზება"
@@ -262,6 +283,12 @@
     "v-ask-v": {
       "term": "შეკითხვა, თხოვნა"
     },
+    "v-assess-v": {
+      "term": "შეფასება"
+    },
+    "v-asset-n": {
+      "term": "აქტივი, ღირსება"
+    },
     "v-assignment-n": {
       "term": "დავალება"
     },
@@ -280,6 +307,9 @@
     "v-attitude-n": {
       "term": "დამოკიდებულება"
     },
+    "v-attribute-v": {
+      "term": "მიწერა, მიკუთვნება"
+    },
     "v-audience-n": {
       "term": "აუდიტორია, მაყურებელი"
     },
@@ -291,6 +321,9 @@
     },
     "v-austerity-n": {
       "term": "მკაცრი ეკონომია"
+    },
+    "v-authentic-adj": {
+      "term": "ავთენტური, ნამდვილი"
     },
     "v-authorities-n": {
       "term": "ხელისუფლება, მთავრობა"
@@ -391,6 +424,9 @@
     "v-biodiversity-n": {
       "term": "ბიომრავალფეროვნება"
     },
+    "v-bizarre-adj": {
+      "term": "უცნაური, უჩვეულო"
+    },
     "v-black-adj": {
       "term": "შავი"
     },
@@ -478,6 +514,9 @@
     "v-budget-n": {
       "term": "ბიუჯეტი"
     },
+    "v-bulk-n": {
+      "term": "ძირითადი ნაწილი, უმეტესობა"
+    },
     "v-bureaucracy-n": {
       "term": "ბიუროკრატია"
     },
@@ -516,6 +555,9 @@
     },
     "v-candidate-n": {
       "term": "კანდიდატი"
+    },
+    "v-capacity-n": {
+      "term": "ტევადობა, გამტარუნარიანობა"
     },
     "v-car-n": {
       "term": "მანქანა"
@@ -607,6 +649,9 @@
     "v-choose-v": {
       "term": "არჩევა"
     },
+    "v-chronic-adj": {
+      "term": "ქრონიკული"
+    },
     "v-circumvent-v": {
       "term": "გვერდის ავლა"
     },
@@ -621,6 +666,9 @@
     },
     "v-claim-v": {
       "term": "მტკიცება, განცხადება"
+    },
+    "v-clarify-v": {
+      "term": "დაზუსტება, განმარტება"
     },
     "v-class-n": {
       "term": "კლასი, გაკვეთილი"
@@ -649,6 +697,9 @@
     "v-cognitive-adj": {
       "term": "შემეცნებითი, კოგნიტიური"
     },
+    "v-coherent-adj": {
+      "term": "თანმიმდევრული, შეკრული"
+    },
     "v-cohesion-n": {
       "term": "ერთიანობა, შეკრულობა"
     },
@@ -657,6 +708,9 @@
     },
     "v-collaborate-v": {
       "term": "თანამშრომლობა"
+    },
+    "v-collapse-v": {
+      "term": "ჩამონგრევა, კოლაფსი"
     },
     "v-collateral-n": {
       "term": "უზრუნველყოფა, გირაო"
@@ -706,6 +760,9 @@
     "v-competition-n": {
       "term": "კონკურენცია"
     },
+    "v-compile-v": {
+      "term": "შედგენა, შეგროვება"
+    },
     "v-complacency-n": {
       "term": "თვითკმაყოფილება"
     },
@@ -714,6 +771,9 @@
     },
     "v-complain-v": {
       "term": "ჩივილი"
+    },
+    "v-complement-v": {
+      "term": "შევსება, შეზავება"
     },
     "v-complex-adj": {
       "term": "კომპლექსური, რთული"
@@ -742,11 +802,17 @@
     "v-concert-n": {
       "term": "კონცერტი"
     },
+    "v-concise-adj": {
+      "term": "ლაკონიური, მოკლე"
+    },
     "v-conducive-adj": {
       "term": "ხელშემწყობი"
     },
     "v-confident-adj": {
       "term": "თავდაჯერებული"
+    },
+    "v-conform-v": {
+      "term": "მორგება, შესაბამისობაში ყოფნა"
     },
     "v-conjecture-n": {
       "term": "ვარაუდი"
@@ -760,8 +826,14 @@
     "v-conscientious-adj": {
       "term": "კეთილსინდისიერი"
     },
+    "v-consecutive-adj": {
+      "term": "ზედიზედ, თანმიმდევრული"
+    },
     "v-consensus-n": {
       "term": "კონსენსუსი"
+    },
+    "v-consent-n": {
+      "term": "თანხმობა"
     },
     "v-consequently-adv": {
       "term": "შესაბამისად"
@@ -780,6 +852,9 @@
     },
     "v-consumer-n": {
       "term": "მომხმარებელი"
+    },
+    "v-contemplate-v": {
+      "term": "განხილვა, ფიქრი"
     },
     "v-contemporary-adj": {
       "term": "თანამედროვე"
@@ -802,8 +877,14 @@
     "v-controversial-adj": {
       "term": "სადავო, წინააღმდეგობრივი"
     },
+    "v-controversy-n": {
+      "term": "დავა, აზრთა სხვადასხვაობა"
+    },
     "v-convenient-adj": {
       "term": "მოსახერხებელი"
+    },
+    "v-conventional-adj": {
+      "term": "ტრადიციული, ჩვეულებრივი"
     },
     "v-conversely-adv": {
       "term": "საპირისპიროდ"
@@ -850,6 +931,9 @@
     "v-credibility-n": {
       "term": "სანდოობა"
     },
+    "v-credible-adj": {
+      "term": "სანდო, სარწმუნო"
+    },
     "v-crime-n": {
       "term": "დანაშაული"
     },
@@ -867,6 +951,12 @@
     },
     "v-crucial-adj": {
       "term": "გადამწყვეტი, უმნიშვნელოვანესი"
+    },
+    "v-cumulative-adj": {
+      "term": "კუმულაციური, ჯამური"
+    },
+    "v-curb-v": {
+      "term": "შეჩერება, შეზღუდვა"
     },
     "v-curious-adj": {
       "term": "ცნობისმოყვარე"
@@ -919,6 +1009,9 @@
     "v-decline-v": {
       "term": "შემცირება, დაცემა"
     },
+    "v-dedicate-v": {
+      "term": "მიძღვნა"
+    },
     "v-deduce-v": {
       "term": "დასკვნა, გამოყვანა"
     },
@@ -940,6 +1033,9 @@
     "v-delegate-v": {
       "term": "დელეგირება"
     },
+    "v-deliberate-adj": {
+      "term": "განზრახ, განზრახული"
+    },
     "v-delicious-adj": {
       "term": "გემრიელი"
     },
@@ -951,6 +1047,9 @@
     },
     "v-depletion-n": {
       "term": "გამოფიტვა, შემცირება"
+    },
+    "v-deploy-v": {
+      "term": "დანერგვა, განთავსება"
     },
     "v-deposit-n": {
       "term": "დეპოზიტი, ბე"
@@ -978,6 +1077,9 @@
     },
     "v-detrimental-adj": {
       "term": "საზიანო"
+    },
+    "v-deviate-v": {
+      "term": "გადახვევა"
     },
     "v-device-n": {
       "term": "მოწყობილობა"
@@ -1033,11 +1135,17 @@
     "v-discrepancy-n": {
       "term": "შეუსაბამობა, განსხვავება"
     },
+    "v-discriminate-v": {
+      "term": "დისკრიმინაცია, გარჩევა"
+    },
     "v-discuss-v": {
       "term": "განხილვა"
     },
     "v-dish-n": {
       "term": "კერძი"
+    },
+    "v-dismantle-v": {
+      "term": "დაშლა, დემონტაჟი"
     },
     "v-dismiss-v": {
       "term": "უარყოფა, დათხოვნა"
@@ -1045,8 +1153,14 @@
     "v-disparity-n": {
       "term": "დისპროპორცია, უთანასწორობა"
     },
+    "v-disrupt-v": {
+      "term": "შეფერხება, ჩაშლა"
+    },
     "v-disseminate-v": {
       "term": "გავრცელება"
+    },
+    "v-distort-v": {
+      "term": "დამახინჯება"
     },
     "v-diverse-adj": {
       "term": "მრავალფეროვანი"
@@ -1074,6 +1188,9 @@
     },
     "v-dog-n": {
       "term": "ძაღლი"
+    },
+    "v-dominant-adj": {
+      "term": "დომინანტი, გაბატონებული"
     },
     "v-door-n": {
       "term": "კარი"
@@ -1104,6 +1221,9 @@
     },
     "v-dubious-adj": {
       "term": "საეჭვო"
+    },
+    "v-durable-adj": {
+      "term": "გამძლე"
     },
     "v-during-prep": {
       "term": "განმავლობაში, დროს"
@@ -1207,6 +1327,9 @@
     "v-entail-v": {
       "term": "გულისხმობა, მოყოლა"
     },
+    "v-entity-n": {
+      "term": "ერთეული, სუბიექტი"
+    },
     "v-entrepreneur-n": {
       "term": "მეწარმე"
     },
@@ -1216,8 +1339,17 @@
     "v-envisage-v": {
       "term": "წარმოდგენა, განჭვრეტა"
     },
+    "v-equitable-adj": {
+      "term": "სამართლიანი, თანასწორი"
+    },
     "v-equity-n": {
       "term": "საკუთარი კაპიტალი, წილი"
+    },
+    "v-erode-v": {
+      "term": "ეროზირება, შესუსტება"
+    },
+    "v-escalate-v": {
+      "term": "ესკალაცია, გამწვავება"
     },
     "v-essential-adj": {
       "term": "აუცილებელი, არსებითი"
@@ -1230,6 +1362,9 @@
     },
     "v-euphoria-n": {
       "term": "ეიფორია"
+    },
+    "v-evade-v": {
+      "term": "თავის არიდება"
     },
     "v-evening-n": {
       "term": "საღამო"
@@ -1245,6 +1380,9 @@
     },
     "v-evocative-adj": {
       "term": "ემოციური, შთამაგონებელი"
+    },
+    "v-evoke-v": {
+      "term": "გამოწვევა, აღძვრა"
     },
     "v-evolve-v": {
       "term": "განვითარება, ევოლუცია"
@@ -1264,8 +1402,14 @@
     "v-excuse-me-phr": {
       "term": "უკაცრავად"
     },
+    "v-exemplary-adj": {
+      "term": "სამაგალითო"
+    },
     "v-exercise-n": {
       "term": "ვარჯიში"
+    },
+    "v-exert-v": {
+      "term": "მოხდენა, გამოყენება"
     },
     "v-exhibition-n": {
       "term": "გამოფენა"
@@ -1299,6 +1443,9 @@
     },
     "v-extent-n": {
       "term": "ხარისხი, მასშტაბი"
+    },
+    "v-extract-v": {
+      "term": "მოპოვება, ამოღება"
     },
     "v-extrapolate-v": {
       "term": "ექსტრაპოლირება, განზოგადება"
@@ -1438,6 +1585,12 @@
     "v-foster-v": {
       "term": "ხელშეწყობა"
     },
+    "v-fragile-adj": {
+      "term": "მყიფე, მსხვრევადი"
+    },
+    "v-fragment-n": {
+      "term": "ფრაგმენტი, ნამსხვრევი"
+    },
     "v-framework-n": {
       "term": "ჩარჩო"
     },
@@ -1471,6 +1624,9 @@
     "v-fun-n": {
       "term": "გართობა, მხიარულება"
     },
+    "v-fundamental-adj": {
+      "term": "ფუნდამენტური, ძირითადი"
+    },
     "v-funny-adj": {
       "term": "სასაცილო"
     },
@@ -1485,6 +1641,9 @@
     },
     "v-garden-n": {
       "term": "ბაღი"
+    },
+    "v-generate-v": {
+      "term": "გენერირება, წარმოქმნა"
     },
     "v-generous-adj": {
       "term": "გულუხვი, ხელგაშლილი"
@@ -1570,6 +1729,9 @@
     "v-grandmother-n": {
       "term": "ბებია"
     },
+    "v-grasp-v": {
+      "term": "გაგება, ჩაწვდომა"
+    },
     "v-grateful-adj": {
       "term": "მადლიერი"
     },
@@ -1600,6 +1762,9 @@
     "v-hair-n": {
       "term": "თმა"
     },
+    "v-hamper-v": {
+      "term": "შეფერხება, ხელის შეშლა"
+    },
     "v-hand-n": {
       "term": "ხელი"
     },
@@ -1611,6 +1776,12 @@
     },
     "v-hard-adv": {
       "term": "რთული"
+    },
+    "v-harness-v": {
+      "term": "ათვისება, გამოყენება"
+    },
+    "v-harrowing-adj": {
+      "term": "შემაძრწუნებელი, დამთრგუნველი"
     },
     "v-have-a-go-phr": {
       "term": "ცდა, მოსინჯვა"
@@ -1693,6 +1864,9 @@
     "v-hospital-n": {
       "term": "საავადმყოფო"
     },
+    "v-hostile-adj": {
+      "term": "მტრული, არამეგობრული"
+    },
     "v-hot-adj": {
       "term": "ცხელი"
     },
@@ -1746,6 +1920,15 @@
     },
     "v-ill-adj": {
       "term": "ავადმყოფი"
+    },
+    "v-illuminate-v": {
+      "term": "განათება, ნათელყოფა"
+    },
+    "v-impair-v": {
+      "term": "დაზიანება, გაუარესება"
+    },
+    "v-impartial-adj": {
+      "term": "მიუკერძოებელი"
     },
     "v-impasse-n": {
       "term": "ჩიხი"
@@ -1855,6 +2038,12 @@
     "v-innovation-n": {
       "term": "ინოვაცია"
     },
+    "v-insatiable-adj": {
+      "term": "დაუოკებელი, გაუმაძღარი"
+    },
+    "v-insight-n": {
+      "term": "ხედვა, გააზრება"
+    },
     "v-insofar-as-conj": {
       "term": "რამდენადაც"
     },
@@ -1899,6 +2088,9 @@
     },
     "v-invite-v": {
       "term": "მოწვევა"
+    },
+    "v-invoke-v": {
+      "term": "მოშველიება, ამოქმედება"
     },
     "v-iron-out-pv": {
       "term": "მოგვარება, გამოსწორება"
@@ -2035,6 +2227,9 @@
     "v-liability-n": {
       "term": "ვალდებულება"
     },
+    "v-liable-adj": {
+      "term": "პასუხისმგებელი"
+    },
     "v-liberty-n": {
       "term": "თავისუფლება"
     },
@@ -2086,6 +2281,9 @@
     "v-loyal-adj": {
       "term": "ერთგული"
     },
+    "v-lucrative-adj": {
+      "term": "სარფიანი, მომგებიანი"
+    },
     "v-luggage-n": {
       "term": "ბარგი"
     },
@@ -2121,6 +2319,9 @@
     },
     "v-mandate-n": {
       "term": "მანდატი"
+    },
+    "v-mandatory-adj": {
+      "term": "სავალდებულო"
     },
     "v-map-n": {
       "term": "რუკა"
@@ -2160,6 +2361,9 @@
     },
     "v-mechanism-n": {
       "term": "მექანიზმი"
+    },
+    "v-mediate-v": {
+      "term": "მედიაცია, შუამავლობა"
     },
     "v-medicine-n": {
       "term": "წამალი"
@@ -2223,6 +2427,9 @@
     },
     "v-modern-adj": {
       "term": "თანამედროვე"
+    },
+    "v-modify-v": {
+      "term": "შეცვლა, მოდიფიცირება"
     },
     "v-momentum-n": {
       "term": "იმპულსი, ინერცია"
@@ -2302,6 +2509,9 @@
     "v-networking-n": {
       "term": "კავშირების დამყარება, ნეთვორქინგი"
     },
+    "v-neutral-adj": {
+      "term": "ნეიტრალური"
+    },
     "v-never-adv": {
       "term": "არასდროს"
     },
@@ -2331,6 +2541,9 @@
     },
     "v-noisy-adj": {
       "term": "ხმაურიანი"
+    },
+    "v-nominal-adj": {
+      "term": "ნომინალური, სიმბოლური"
     },
     "v-nose-n": {
       "term": "ცხვირი"
@@ -2371,6 +2584,9 @@
     "v-number-n": {
       "term": "ნომერი, რიცხვი"
     },
+    "v-nurture-v": {
+      "term": "აღზრდა, ხელშეწყობა"
+    },
     "v-obesity-n": {
       "term": "სიმსუქნე"
     },
@@ -2379,6 +2595,12 @@
     },
     "v-obligation-n": {
       "term": "ვალდებულება"
+    },
+    "v-obscure-adj": {
+      "term": "გაურკვეველი, უცნობი"
+    },
+    "v-obsessive-adj": {
+      "term": "აკვიატებული, შეპყრობილი"
     },
     "v-obsolete-adj": {
       "term": "მოძველებული"
@@ -2410,6 +2632,9 @@
     "v-once-adv": {
       "term": "ერთხელ"
     },
+    "v-ongoing-adj": {
+      "term": "მიმდინარე"
+    },
     "v-online-adv": {
       "term": "ონლაინ"
     },
@@ -2421,6 +2646,9 @@
     },
     "v-opportunity-n": {
       "term": "შესაძლებლობა"
+    },
+    "v-optimal-adj": {
+      "term": "ოპტიმალური"
     },
     "v-or-conj": {
       "term": "ან"
@@ -2440,8 +2668,14 @@
     "v-output-n": {
       "term": "გამომუშავება, პროდუქცია"
     },
+    "v-outweigh-v": {
+      "term": "გადაწონა"
+    },
     "v-overcome-v": {
       "term": "დაძლევა"
+    },
+    "v-overlap-v": {
+      "term": "დამთხვევა, გადაფარვა"
     },
     "v-overtime-n": {
       "term": "ზეგანაკვეთური სამუშაო"
@@ -2458,11 +2692,17 @@
     "v-paradox-n": {
       "term": "პარადოქსი"
     },
+    "v-paramount-adj": {
+      "term": "უმთავრესი, უპირველესი"
+    },
     "v-parents-n": {
       "term": "მშობლები"
     },
     "v-park-n": {
       "term": "პარკი"
+    },
+    "v-partial-adj": {
+      "term": "ნაწილობრივი"
     },
     "v-party-n": {
       "term": "მხარე"
@@ -2491,6 +2731,9 @@
     "v-people-n": {
       "term": "ხალხი"
     },
+    "v-perceive-v": {
+      "term": "აღქმა"
+    },
     "v-perception-n": {
       "term": "აღქმა"
     },
@@ -2505,6 +2748,9 @@
     },
     "v-perpetuate-v": {
       "term": "გაგრძელება, დამკვიდრება"
+    },
+    "v-persist-v": {
+      "term": "გაგრძელება, შენარჩუნება"
     },
     "v-person-n": {
       "term": "ადამიანი"
@@ -2599,6 +2845,9 @@
     "v-portfolio-n": {
       "term": "პორტფელი"
     },
+    "v-portray-v": {
+      "term": "დახატვა, წარმოჩენა"
+    },
     "v-possible-adj": {
       "term": "შესაძლებელი"
     },
@@ -2628,6 +2877,9 @@
     },
     "v-precipitate-v": {
       "term": "დაჩქარება, პროვოცირება"
+    },
+    "v-precise-adj": {
+      "term": "ზუსტი"
     },
     "v-preclude-v": {
       "term": "თავიდან აცილება, გამორიცხვა"
@@ -2701,6 +2953,9 @@
     "v-profession-n": {
       "term": "პროფესია"
     },
+    "v-proficient-adj": {
+      "term": "გაწაფული, დახელოვნებული"
+    },
     "v-profit-n": {
       "term": "მოგება"
     },
@@ -2713,8 +2968,14 @@
     "v-proliferate-v": {
       "term": "სწრაფად გამრავლება, გავრცელება"
     },
+    "v-prominent-adj": {
+      "term": "გამოჩენილი, თვალსაჩინო"
+    },
     "v-promotion-n": {
       "term": "დაწინაურება"
+    },
+    "v-prone-adj": {
+      "term": "მიდრეკილი"
     },
     "v-proportion-n": {
       "term": "პროპორცია, წილი"
@@ -2767,6 +3028,9 @@
     "v-quote-v": {
       "term": "ციტირება, დამოწმება"
     },
+    "v-radical-adj": {
+      "term": "რადიკალური, ძირეული"
+    },
     "v-rain-n": {
       "term": "წვიმა"
     },
@@ -2778,6 +3042,9 @@
     },
     "v-rational-adj": {
       "term": "რაციონალური, გონივრული"
+    },
+    "v-rationale-n": {
+      "term": "დასაბუთება, ლოგიკური საფუძველი"
     },
     "v-read-v": {
       "term": "კითხვა"
@@ -2827,6 +3094,9 @@
     "v-redundant-adj": {
       "term": "ზედმეტი"
     },
+    "v-refine-v": {
+      "term": "დახვეწა, გაუმჯობესება"
+    },
     "v-reform-n": {
       "term": "რეფორმა"
     },
@@ -2869,6 +3139,9 @@
     "v-remote-adj": {
       "term": "შორეული, განცალკევებული"
     },
+    "v-render-v": {
+      "term": "ქცევა, გახდომა"
+    },
     "v-renewable-adj": {
       "term": "განახლებადი"
     },
@@ -2886,6 +3159,9 @@
     },
     "v-replicate-v": {
       "term": "გამეორება, რეპლიკაცია"
+    },
+    "v-repress-v": {
+      "term": "ჩახშობა, შეკავება"
     },
     "v-reputation-n": {
       "term": "რეპუტაცია"
@@ -2929,6 +3205,9 @@
     "v-retire-v": {
       "term": "პენსიაზე გასვლა"
     },
+    "v-retrieve-v": {
+      "term": "ამოღება, დაბრუნება"
+    },
     "v-revenue-n": {
       "term": "შემოსავალი"
     },
@@ -2940,6 +3219,9 @@
     },
     "v-revise-v": {
       "term": "გამეორება"
+    },
+    "v-revoke-v": {
+      "term": "გაუქმება, ჩამორთმევა"
     },
     "v-revolution-n": {
       "term": "რევოლუცია"
@@ -2959,11 +3241,17 @@
     "v-rights-n": {
       "term": "უფლებები"
     },
+    "v-rigid-adj": {
+      "term": "მკაცრი, ხისტი"
+    },
     "v-rigorous-adj": {
       "term": "ზედმიწევნითი"
     },
     "v-river-n": {
       "term": "მდინარე"
+    },
+    "v-robust-adj": {
+      "term": "მყარი, მტკიცე"
     },
     "v-room-n": {
       "term": "ოთახი"
@@ -3007,6 +3295,9 @@
     "v-say-v": {
       "term": "თქმა"
     },
+    "v-scarce-adj": {
+      "term": "მწირი, დეფიციტური"
+    },
     "v-scheme-n": {
       "term": "სქემა, გეგმა"
     },
@@ -3045,6 +3336,9 @@
     },
     "v-see-v": {
       "term": "დანახვა, ნახვა"
+    },
+    "v-segment-n": {
+      "term": "სეგმენტი"
     },
     "v-self-esteem-n": {
       "term": "თვითშეფასება"
@@ -3100,6 +3394,9 @@
     "v-significant-adj": {
       "term": "მნიშვნელოვანი"
     },
+    "v-simulate-v": {
+      "term": "სიმულირება, მოდელირება"
+    },
     "v-single-out-pv": {
       "term": "გამოყოფა, გამორჩევა"
     },
@@ -3108,6 +3405,9 @@
     },
     "v-size-n": {
       "term": "ზომა"
+    },
+    "v-skeptical-adj": {
+      "term": "სკეპტიკური"
     },
     "v-skill-n": {
       "term": "უნარი"
@@ -3184,6 +3484,9 @@
     "v-spicy-adj": {
       "term": "ცხარე"
     },
+    "v-spontaneous-adj": {
+      "term": "სპონტანური"
+    },
     "v-sport-n": {
       "term": "სპორტი"
     },
@@ -3208,6 +3511,9 @@
     "v-start-v": {
       "term": "დაწყება"
     },
+    "v-static-adj": {
+      "term": "სტატიკური, უცვლელი"
+    },
     "v-station-n": {
       "term": "სადგური"
     },
@@ -3228,6 +3534,9 @@
     },
     "v-still-adv": {
       "term": "ჯერ კიდევ, კვლავ"
+    },
+    "v-stimulus-n": {
+      "term": "სტიმული"
     },
     "v-storage-n": {
       "term": "მეხსიერება, საცავი"
@@ -3262,6 +3571,9 @@
     "v-submit-v": {
       "term": "წარდგენა, ჩაბარება"
     },
+    "v-subordinate-adj": {
+      "term": "დაქვემდებარებული"
+    },
     "v-subsequent-adj": {
       "term": "შემდგომი"
     },
@@ -3277,11 +3589,17 @@
     "v-substantiate-v": {
       "term": "დასაბუთება"
     },
+    "v-subtle-adj": {
+      "term": "ფაქიზი, ძნელად შესამჩნევი"
+    },
     "v-suburb-n": {
       "term": "გარეუბანი"
     },
     "v-suddenly-adv": {
       "term": "უეცრად"
+    },
+    "v-suffice-v": {
+      "term": "კმარა, საკმარისად ყოფნა"
     },
     "v-suggest-v": {
       "term": "შეთავაზება"
@@ -3298,11 +3616,17 @@
     "v-sun-n": {
       "term": "მზე"
     },
+    "v-superficial-adj": {
+      "term": "ზედაპირული"
+    },
     "v-supermarket-n": {
       "term": "სუპერმარკეტი"
     },
     "v-supersede-v": {
       "term": "ჩანაცვლება"
+    },
+    "v-supplement-v": {
+      "term": "შევსება, დამატება"
     },
     "v-support-v": {
       "term": "მხარდაჭერა"
@@ -3391,8 +3715,14 @@
     "v-tend-v": {
       "term": "მიდრეკილების ქონა"
     },
+    "v-tentative-adj": {
+      "term": "წინასწარი, საცდელი"
+    },
     "v-tenuous-adj": {
       "term": "სუსტი, უმნიშვნელო"
+    },
+    "v-terminate-v": {
+      "term": "შეწყვეტა"
     },
     "v-thank-you-phr": {
       "term": "გმადლობთ"
@@ -3441,6 +3771,9 @@
     },
     "v-threshold-n": {
       "term": "ზღვარი"
+    },
+    "v-thrive-v": {
+      "term": "აყვავება, წარმატების მიღწევა"
     },
     "v-ticket-n": {
       "term": "ბილეთი"
@@ -3574,6 +3907,9 @@
     "v-trip-n": {
       "term": "მოგზაურობა, გასვლა"
     },
+    "v-trivial-adj": {
+      "term": "უმნიშვნელო, ტრივიალური"
+    },
     "v-trousers-n": {
       "term": "შარვალი"
     },
@@ -3616,6 +3952,9 @@
     "v-under-pressure-phr": {
       "term": "წნეხის ქვეშ"
     },
+    "v-undergo-v": {
+      "term": "გავლა, განცდა"
+    },
     "v-underlying-adj": {
       "term": "ფარული, ძირეული"
     },
@@ -3627,6 +3966,9 @@
     },
     "v-understand-v": {
       "term": "გაგება"
+    },
+    "v-undertake-v": {
+      "term": "საკუთარ თავზე აღება, დაწყება"
     },
     "v-undoubtedly-adv": {
       "term": "უდავოდ, ეჭვგარეშე"
@@ -3655,11 +3997,17 @@
     "v-unusual-adj": {
       "term": "უჩვეულო"
     },
+    "v-unwavering-adj": {
+      "term": "ურყევი"
+    },
     "v-update-v": {
       "term": "განახლება"
     },
     "v-upheaval-n": {
       "term": "ძვრა, არეულობა"
+    },
+    "v-uphold-v": {
+      "term": "ძალაში დატოვება, მხარდაჭერა"
     },
     "v-urbanisation-n": {
       "term": "ურბანიზაცია"
@@ -3672,6 +4020,9 @@
     },
     "v-valid-adj": {
       "term": "მოქმედი"
+    },
+    "v-validate-v": {
+      "term": "დადასტურება, ვალიდაცია"
     },
     "v-valuable-adj": {
       "term": "ღირებული, ფასეული"
@@ -3688,6 +4039,9 @@
     "v-verdict-n": {
       "term": "ვერდიქტი, განაჩენი"
     },
+    "v-verify-v": {
+      "term": "გადამოწმება, შემოწმება"
+    },
     "v-very-adv": {
       "term": "ძალიან"
     },
@@ -3699,6 +4053,9 @@
     },
     "v-victim-n": {
       "term": "მსხვერპლი, დაზარალებული"
+    },
+    "v-vigorous-adj": {
+      "term": "ენერგიული, მძაფრი"
     },
     "v-virtual-adj": {
       "term": "ვირტუალური"
@@ -3738,6 +4095,9 @@
     },
     "v-warm-adj": {
       "term": "თბილი"
+    },
+    "v-warrant-v": {
+      "term": "გამართლება, საჭიროება"
     },
     "v-wash-v": {
       "term": "დაბანა"
