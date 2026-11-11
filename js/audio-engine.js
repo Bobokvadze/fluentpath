@@ -7,7 +7,7 @@
   const App = window.App = window.App || {};
 
   const ACCENT_STORAGE_KEY = "fluentpath_preferred_accent_v1";
-  let preferredAccent = "US"; // "US" | "UK"
+  let preferredAccent = "US"; // საიტზე ყველგან ერთი (ამერიკული) გამოთქმა გამოიყენება
   let activeAudioPool = []; // ინახავს ყველა შექმნილ აუდიო ობიექტს მყისიერი გასუფთავებისთვის
   let playbackSessionId = 0;
   const apiAudioCache = {};
@@ -70,12 +70,8 @@
     }
   }
 
-  try {
-    const savedAcc = window.localStorage.getItem(ACCENT_STORAGE_KEY);
-    if (savedAcc === "UK" || savedAcc === "US") {
-      preferredAccent = savedAcc;
-    }
-  } catch (e) {}
+  // ძველი არჩევანი (UK) აღარ გამოიყენება
+  try { window.localStorage.removeItem(ACCENT_STORAGE_KEY); } catch (e) {}
 
   function cleanTextForAudio(rawText) {
     let text = String(rawText || "").trim();
@@ -233,11 +229,8 @@
       return preferredAccent;
     },
 
-    setAccent: function (accent) {
-      preferredAccent = (accent === "UK") ? "UK" : "US";
-      try {
-        window.localStorage.setItem(ACCENT_STORAGE_KEY, preferredAccent);
-      } catch (e) {}
+    setAccent: function () {
+      preferredAccent = "US";
       return preferredAccent;
     },
 
@@ -273,13 +266,7 @@
       this.stop();
       const currentSession = ++playbackSessionId;
 
-      const acc = (accentOverride === "UK" || accentOverride === "US")
-        ? accentOverride
-        : preferredAccent;
-
-      if (accentOverride === "UK" || accentOverride === "US") {
-        this.setAccent(acc);
-      }
+      const acc = preferredAccent;
 
       const rate = (typeof rateOverride === "number")
         ? rateOverride

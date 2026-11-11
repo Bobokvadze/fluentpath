@@ -1,5 +1,5 @@
 /**
- * FLASHCARDS.JS — ინტერაქტიული 3D ბარათები, ზუსტი IPA ტრანსკრიპციებითა და სტუდიური US/UK აქცენტებით
+ * FLASHCARDS.JS — ინტერაქტიული 3D ბარათები, ზუსტი IPA ტრანსკრიპციებითა და გამოთქმით
  */
 (function (window) {
   "use strict";
@@ -482,17 +482,12 @@
         const isBookmarked = bookmarkedIds.indexOf(currentWord.id) !== -1;
         const isFrontEnglish = (cardDirection === "EN_TO_KA");
 
-        const currentAcc = (App.AudioEngine && typeof App.AudioEngine.getAccent === "function") ? App.AudioEngine.getAccent() : "US";
-        const usActiveStyle = currentAcc === "US" ? "background-color:var(--brand-solid); color:#fff;" : "";
-        const ukActiveStyle = currentAcc === "UK" ? "background-color:var(--brand-solid); color:#fff;" : "";
-
         const englishSideCenterHtml =
-          '<span class="fc-lang-label">🇬🇧 ინგლისური</span>' +
+          '<span class="fc-lang-label">ინგლისური</span>' +
           '<div class="flashcard-main-word">' + App.UI.escapeHTML(currentWord.en) + "</div>" +
           '<div class="fc-transcription-pill" id="fc-active-ipa-pill">' + App.UI.escapeHTML(displayIpa) + "</div>" +
           '<div style="display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px;">' +
-            '<button type="button" class="fc-speak-pill-btn" data-fc-accent-play="US" style="' + usActiveStyle + '">&#128266; 🇺🇸 US აქცენტი</button>' +
-            '<button type="button" class="fc-speak-pill-btn" data-fc-accent-play="UK" style="' + ukActiveStyle + '">&#128266; 🇬🇧 UK აქცენტი</button>' +
+            '<button type="button" class="fc-speak-pill-btn" data-fc-accent-play="US">&#128266; გამოთქმა</button>' +
           "</div>" +
           (currentWord.exampleEn
             ? '<div class="fc-example-box"><div class="flashcard-example-en">"' + App.UI.escapeHTML(currentWord.exampleEn) + '"</div></div>'
@@ -517,7 +512,7 @@
               "</div>" +
               '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
                 '<button type="button" class="btn btn-outline btn-sm" id="fc-toggle-dir-btn">' +
-                  (cardDirection === "EN_TO_KA" ? "🇬🇧 ინგლისური &rarr; 🇬🇪 ქართული" : "🇬🇪 ქართული &rarr; 🇬🇧 ინგლისური") +
+                  (cardDirection === "EN_TO_KA" ? "ინგლისური &rarr; ქართული" : "ქართული &rarr; ინგლისური") +
                 "</button>" +
                 '<button type="button" class="btn btn-outline btn-sm" id="fc-shuffle-btn">🔀 არევა</button>' +
                 '<button type="button" class="btn ' + (activeBoxFilter === DUE_FILTER ? "btn-secondary" : "btn-outline") + ' btn-sm" id="fc-filter-due-btn">🔁 დღის გამეორება (' + computeDueWordIds().length + ")</button>" +
@@ -579,7 +574,7 @@
             '<div class="section-header">' +
               "<div>" +
                 '<h2 class="section-title">🎴 ინტერაქტიული ბარათები (Spaced Repetition)</h2>' +
-                '<p class="section-subtitle">მონიშნეთ სასურველი CEFR დონეები, მოუსმინეთ სტუდიურ US/UK გამოთქმას და გადაანაწილეთ სიტყვები 5 ყუთში.</p>' +
+                '<p class="section-subtitle">მონიშნეთ სასურველი CEFR დონეები, მოუსმინეთ გამოთქმას და გადაანაწილეთ სიტყვები 5 ყუთში.</p>' +
               "</div>" +
               '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
                 '<span class="stat-pill stat-pill--streak">დღეს გავლილია: ' + reviewedToday + "</span>" +
@@ -744,19 +739,9 @@
       container.querySelectorAll("[data-fc-accent-play]").forEach(function (btn) {
         btn.addEventListener("click", function (e) {
           e.stopPropagation();
-          const chosenAcc = btn.getAttribute("data-fc-accent-play");
           if (currentWord) {
-            self.speakEnglish(currentWord.en, chosenAcc);
+            self.speakEnglish(currentWord.en, "US");
           }
-          container.querySelectorAll("[data-fc-accent-play]").forEach(function (b) {
-            if (b.getAttribute("data-fc-accent-play") === chosenAcc) {
-              b.style.backgroundColor = "var(--brand-primary)";
-              b.style.color = "#ffffff";
-            } else {
-              b.style.backgroundColor = "";
-              b.style.color = "";
-            }
-          });
         });
       });
 
