@@ -1,0 +1,726 @@
+{
+  "lang": "ka",
+  "instructions": "Translate each \"en\" text into the target language and put it in the \"ka\" field. Use \"context\" to choose the right meaning. Keep it natural and short; for vocab terms give the dictionary form. Leave the field empty if you are not sure. Do not change \"key\" or \"en\".",
+  "items": [
+    {
+      "key": "vocab|v-abundant-adj|term",
+      "en": "abundant",
+      "context": "B2 adj — Existing in large quantities; more than enough. Example: Fresh water is abundant in this region.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-accelerate-v|term",
+      "en": "accelerate",
+      "context": "B2 v — To happen or make something happen faster. Example: The company plans to accelerate its growth.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-accumulate-v|term",
+      "en": "accumulate",
+      "context": "B2 v — To gradually collect or increase over time. Example: Dust had accumulated on the shelves.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-ambiguous-adj|term",
+      "en": "ambiguous",
+      "context": "B2 adj — Having more than one possible meaning. Example: The wording of the contract is ambiguous.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-assess-v|term",
+      "en": "assess",
+      "context": "B2 v — To judge the quality, value or importance of something. Example: Teachers assess students' progress every term.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-asset-n|term",
+      "en": "asset",
+      "context": "B2 n — Something valuable that a person or company owns; also, a useful quality. Example: Her language skills are a real asset to the team.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-authentic-adj|term",
+      "en": "authentic",
+      "context": "B2 adj — Real and not a copy; true to its origin. Example: The restaurant serves authentic Georgian food.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-bizarre-adj|term",
+      "en": "bizarre",
+      "context": "B2 adj — Very strange and unusual. Example: It was a bizarre coincidence.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-bulk-n|term",
+      "en": "bulk",
+      "context": "B2 n — The main part of something; also, a large quantity. Example: The bulk of our customers are online.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-capacity-n|term",
+      "en": "capacity",
+      "context": "B2 n — The amount something can hold or produce; also, the ability to do something. Example: The stadium has a capacity of 50,000.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-chronic-adj|term",
+      "en": "chronic",
+      "context": "B2 adj — Lasting for a long time or happening again and again. Example: She suffers from chronic back pain.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-clarify-v|term",
+      "en": "clarify",
+      "context": "B2 v — To make something clearer or easier to understand. Example: Could you clarify what you mean?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-coherent-adj|term",
+      "en": "coherent",
+      "context": "B2 adj — Logical and well organised, so that it is easy to understand. Example: He presented a coherent plan.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-collapse-v|term",
+      "en": "collapse",
+      "context": "B2 v — To fall down suddenly; also, to fail completely. Example: The bridge collapsed during the storm.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-concise-adj|term",
+      "en": "concise",
+      "context": "B2 adj — Short and clear, without unnecessary words. Example: Keep your answers concise.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-consecutive-adj|term",
+      "en": "consecutive",
+      "context": "B2 adj — Following one after another without a break. Example: It rained for five consecutive days.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-consent-n|term",
+      "en": "consent",
+      "context": "B2 n — Permission or agreement. Example: Patients must give their consent before treatment.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-controversy-n|term",
+      "en": "controversy",
+      "context": "B2 n — A lot of public disagreement about something. Example: The decision caused a great deal of controversy.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-conventional-adj|term",
+      "en": "conventional",
+      "context": "B2 adj — Traditional and ordinary; following accepted standards. Example: She chose a less conventional career.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-credible-adj|term",
+      "en": "credible",
+      "context": "B2 adj — Able to be believed or trusted. Example: The witness gave a credible account.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-dedicate-v|term",
+      "en": "dedicate",
+      "context": "B2 v — To give all your time or effort to something. Example: She dedicated her life to helping others.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-deliberate-adj|term",
+      "en": "deliberate",
+      "context": "B2 adj — Done on purpose; also, slow and careful. Example: It was a deliberate attempt to mislead us.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-dominant-adj|term",
+      "en": "dominant",
+      "context": "B2 adj — More powerful or important than others. Example: The company has a dominant position in the market.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-durable-adj|term",
+      "en": "durable",
+      "context": "B2 adj — Able to last a long time without being damaged. Example: These boots are very durable.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fragile-adj|term",
+      "en": "fragile",
+      "context": "B2 adj — Easily broken or damaged. Example: Be careful — the vase is fragile.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fundamental-adj|term",
+      "en": "fundamental",
+      "context": "B2 adj — Basic and very important. Example: There is a fundamental difference between the two systems.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-generate-v|term",
+      "en": "generate",
+      "context": "B2 v — To produce or create something. Example: Tourism generates millions of dollars a year.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-grasp-v|term",
+      "en": "grasp",
+      "context": "B2 v — To understand something; also, to hold something firmly. Example: It took me a while to grasp the idea.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-hostile-adj|term",
+      "en": "hostile",
+      "context": "B2 adj — Unfriendly and aggressive. Example: The audience was openly hostile.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-insight-n|term",
+      "en": "insight",
+      "context": "B2 n — A clear, deep understanding of something. Example: The book offers fascinating insights into history.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-liable-adj|term",
+      "en": "liable",
+      "context": "B2 adj — Legally responsible; also, likely to do something. Example: The company is liable for any damage.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-mandatory-adj|term",
+      "en": "mandatory",
+      "context": "B2 adj — Required by a law or rule. Example: Wearing a seat belt is mandatory.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-modify-v|term",
+      "en": "modify",
+      "context": "B2 v — To change something slightly. Example: We modified the design after testing.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-neutral-adj|term",
+      "en": "neutral",
+      "context": "B2 adj — Not supporting either side in an argument. Example: Switzerland remained neutral during the war.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-ongoing-adj|term",
+      "en": "ongoing",
+      "context": "B2 adj — Continuing to exist or develop. Example: The investigation is ongoing.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-overlap-v|term",
+      "en": "overlap",
+      "context": "B2 v — To cover part of the same area or time as something else. Example: Our responsibilities overlap in some areas.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-perceive-v|term",
+      "en": "perceive",
+      "context": "B2 v — To notice or understand something in a particular way. Example: He was perceived as a strong leader.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-precise-adj|term",
+      "en": "precise",
+      "context": "B2 adj — Exact and accurate. Example: We need precise measurements.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-prominent-adj|term",
+      "en": "prominent",
+      "context": "B2 adj — Important and well known; also, easy to see. Example: She is a prominent writer.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-persist-v|term",
+      "en": "persist",
+      "context": "B2 v — To continue to exist or to keep trying. Example: If the symptoms persist, see a doctor.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-aggravate-v|term",
+      "en": "aggravate",
+      "context": "C1 v — To make a bad situation worse. Example: Stress can aggravate the condition.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-amend-v|term",
+      "en": "amend",
+      "context": "C1 v — To make small changes to a law or document. Example: The contract was amended last month.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-analogy-n|term",
+      "en": "analogy",
+      "context": "C1 n — A comparison that shows how two things are similar. Example: The teacher used the analogy of a river to explain blood flow.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-attribute-v|term",
+      "en": "attribute",
+      "context": "C1 v — To say that something is caused by or belongs to someone or something. Example: She attributes her success to hard work.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-compile-v|term",
+      "en": "compile",
+      "context": "C1 v — To collect information and arrange it in a book, list or report. Example: The data was compiled from several surveys.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-complement-v|term",
+      "en": "complement",
+      "context": "C1 v — To go well with something and make it better. Example: The wine complements the meal perfectly.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-conform-v|term",
+      "en": "conform",
+      "context": "C1 v — To behave according to accepted rules or standards. Example: Products must conform to safety regulations.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-contemplate-v|term",
+      "en": "contemplate",
+      "context": "C1 v — To think carefully about something, or about doing it. Example: She is contemplating a career change.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-cumulative-adj|term",
+      "en": "cumulative",
+      "context": "C1 adj — Increasing gradually as more is added. Example: The cumulative effect of small changes can be huge.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-curb-v|term",
+      "en": "curb",
+      "context": "C1 v — To control or limit something. Example: The government wants to curb inflation.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-deploy-v|term",
+      "en": "deploy",
+      "context": "C1 v — To put people or resources into use for a purpose. Example: The company deployed new software across all offices.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-deviate-v|term",
+      "en": "deviate",
+      "context": "C1 v — To do something different from what is usual or expected. Example: We must not deviate from the plan.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-discriminate-v|term",
+      "en": "discriminate",
+      "context": "C1 v — To treat someone unfairly because of their race, sex, age, etc.; also, to recognise a difference. Example: It is illegal to discriminate against job applicants.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-dismantle-v|term",
+      "en": "dismantle",
+      "context": "C1 v — To take something apart; also, to end a system gradually. Example: The old factory was dismantled.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-disrupt-v|term",
+      "en": "disrupt",
+      "context": "C1 v — To stop something from continuing normally. Example: The strike disrupted transport across the city.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-distort-v|term",
+      "en": "distort",
+      "context": "C1 v — To change the shape or meaning of something so that it is no longer accurate. Example: The report distorted the facts.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-entity-n|term",
+      "en": "entity",
+      "context": "C1 n — Something that exists as a separate unit. Example: The two companies remain separate legal entities.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-equitable-adj|term",
+      "en": "equitable",
+      "context": "C1 adj — Fair and reasonable for everyone. Example: We need a more equitable distribution of wealth.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-erode-v|term",
+      "en": "erode",
+      "context": "C1 v — To wear away gradually; also, to weaken something gradually. Example: The cliffs are being eroded by the sea.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-escalate-v|term",
+      "en": "escalate",
+      "context": "C1 v — To become greater or more serious. Example: The conflict escalated quickly.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-evade-v|term",
+      "en": "evade",
+      "context": "C1 v — To avoid something, especially in a dishonest way. Example: He was accused of evading taxes.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-evoke-v|term",
+      "en": "evoke",
+      "context": "C1 v — To bring a feeling or memory into the mind. Example: The music evokes memories of childhood.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-exemplary-adj|term",
+      "en": "exemplary",
+      "context": "C1 adj — Excellent and suitable as an example for others. Example: Her behaviour was exemplary.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-exert-v|term",
+      "en": "exert",
+      "context": "C1 v — To use power, influence or effort. Example: Parents exert a strong influence on their children.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-extract-v|term",
+      "en": "extract",
+      "context": "C1 v — To remove or take out something, especially with effort. Example: Oil is extracted from beneath the sea.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-fragment-n|term",
+      "en": "fragment",
+      "context": "C1 n — A small part that has broken off or is incomplete. Example: Only fragments of the letter survived.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-hamper-v|term",
+      "en": "hamper",
+      "context": "C1 v — To make it difficult for something to happen or progress. Example: Bad weather hampered the rescue.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-harness-v|term",
+      "en": "harness",
+      "context": "C1 v — To control and use the power of something. Example: We must harness the power of the sun.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-illuminate-v|term",
+      "en": "illuminate",
+      "context": "C1 v — To light something up; also, to explain something clearly. Example: The study illuminates the causes of poverty.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-impair-v|term",
+      "en": "impair",
+      "context": "C1 v — To damage or weaken something. Example: Lack of sleep impairs concentration.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-impartial-adj|term",
+      "en": "impartial",
+      "context": "C1 adj — Not supporting one side more than another. Example: The judge must be impartial.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-invoke-v|term",
+      "en": "invoke",
+      "context": "C1 v — To mention a law, rule or principle to support an action or argument. Example: The government invoked emergency powers.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-lucrative-adj|term",
+      "en": "lucrative",
+      "context": "C1 adj — Producing a lot of money. Example: He has a lucrative job in finance.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-mediate-v|term",
+      "en": "mediate",
+      "context": "C1 v — To try to help two sides reach an agreement. Example: A neutral country agreed to mediate the talks.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-nominal-adj|term",
+      "en": "nominal",
+      "context": "C1 adj — Very small; also, existing in name only. Example: Members pay a nominal fee.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-nurture-v|term",
+      "en": "nurture",
+      "context": "C1 v — To care for and encourage the growth of someone or something. Example: Good schools nurture talent.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-obscure-adj|term",
+      "en": "obscure",
+      "context": "C1 adj — Not well known; also, difficult to understand. Example: The poem is full of obscure references.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-optimal-adj|term",
+      "en": "optimal",
+      "context": "C1 adj — Best or most effective. Example: The optimal temperature for the reaction is 37°C.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-outweigh-v|term",
+      "en": "outweigh",
+      "context": "C1 v — To be greater or more important than something else. Example: The benefits outweigh the risks.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-scarce-adj|term",
+      "en": "scarce",
+      "context": "C1 adj — Not available in large amounts. Example: Water is scarce in the desert.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-paramount-adj|term",
+      "en": "paramount",
+      "context": "C2 adj — More important than anything else. Example: Safety is of paramount importance.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-repress-v|term",
+      "en": "repress",
+      "context": "C2 v — To stop yourself from showing a feeling; also, to control people by force. Example: She repressed a sudden urge to laugh.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-revoke-v|term",
+      "en": "revoke",
+      "context": "C2 v — To officially cancel a law, decision or licence. Example: His driving licence was revoked.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-render-v|term",
+      "en": "render",
+      "context": "C2 v — To cause someone or something to be in a particular state. Example: The injury rendered him unable to work.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-subordinate-adj|term",
+      "en": "subordinate",
+      "context": "C2 adj — Lower in rank or importance. Example: Regional courts are subordinate to the Supreme Court.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-suffice-v|term",
+      "en": "suffice",
+      "context": "C2 v — To be enough. Example: A short answer will suffice.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-tentative-adj|term",
+      "en": "tentative",
+      "context": "C2 adj — Not certain or final; done without confidence. Example: We made a tentative agreement to meet in May.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-uphold-v|term",
+      "en": "uphold",
+      "context": "C2 v — To support or confirm a decision, law or principle. Example: The court upheld the original ruling.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-warrant-v|term",
+      "en": "warrant",
+      "context": "C2 v — To make an action necessary or appropriate. Example: The situation does not warrant such drastic measures.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-vigorous-adj|term",
+      "en": "vigorous",
+      "context": "C2 adj — Strong, active and full of energy. Example: The proposal met vigorous opposition.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-superficial-adj|term",
+      "en": "superficial",
+      "context": "C2 adj — Only on the surface; not deep or thorough. Example: The report offers only a superficial analysis.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-spontaneous-adj|term",
+      "en": "spontaneous",
+      "context": "C2 adj — Happening naturally, without planning. Example: The audience broke into spontaneous applause.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-subtle-adj|term",
+      "en": "subtle",
+      "context": "C2 adj — Not obvious; delicate and hard to notice. Example: There is a subtle difference in meaning.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-skeptical-adj|term",
+      "en": "skeptical",
+      "context": "C2 adj — Doubting that something is true or useful. Example: Scientists are skeptical about the claims.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-rigid-adj|term",
+      "en": "rigid",
+      "context": "C2 adj — Not able to change or be changed easily. Example: The rules are too rigid.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-robust-adj|term",
+      "en": "robust",
+      "context": "C2 adj — Strong and unlikely to fail; also, healthy. Example: The results are robust across different samples.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-validate-v|term",
+      "en": "validate",
+      "context": "C2 v — To prove that something is true or correct. Example: The experiment validated the theory.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-verify-v|term",
+      "en": "verify",
+      "context": "C2 v — To check that something is true or accurate. Example: Please verify your email address.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-simulate-v|term",
+      "en": "simulate",
+      "context": "C2 v — To create conditions or models that are similar to real ones. Example: The software simulates climate change.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-stimulus-n|term",
+      "en": "stimulus",
+      "context": "C2 n — Something that causes activity or growth. Example: The government introduced an economic stimulus package.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-supplement-v|term",
+      "en": "supplement",
+      "context": "C2 v — To add something to improve or complete it. Example: She supplements her income by teaching.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-undertake-v|term",
+      "en": "undertake",
+      "context": "C2 v — To start or agree to do a task or project. Example: The council will undertake a full review.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-undergo-v|term",
+      "en": "undergo",
+      "context": "C2 v — To experience a process of change or treatment. Example: The city has undergone major changes.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-terminate-v|term",
+      "en": "terminate",
+      "context": "C2 v — To end something officially. Example: The contract was terminated early.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-thrive-v|term",
+      "en": "thrive",
+      "context": "C2 v — To grow, develop or succeed well. Example: Small businesses thrive in this area.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-trivial-adj|term",
+      "en": "trivial",
+      "context": "C2 adj — Unimportant and of little value. Example: Don't worry about trivial details.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-retrieve-v|term",
+      "en": "retrieve",
+      "context": "C2 v — To get something back, especially data or an object. Example: The files were retrieved from the server.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-refine-v|term",
+      "en": "refine",
+      "context": "C2 v — To improve something by making small changes. Example: We refined the method after the pilot study.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-rationale-n|term",
+      "en": "rationale",
+      "context": "C2 n — The reasons for a decision or belief. Example: What is the rationale behind the new policy?",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-radical-adj|term",
+      "en": "radical",
+      "context": "C2 adj — Very new and different; affecting the basic nature of something. Example: The company needs radical reform.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-prone-adj|term",
+      "en": "prone",
+      "context": "C2 adj — Likely to suffer from or do something, usually something bad. Example: He is prone to exaggeration.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-proficient-adj|term",
+      "en": "proficient",
+      "context": "C2 adj — Skilled and experienced at something. Example: She is proficient in three languages.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-portray-v|term",
+      "en": "portray",
+      "context": "C2 v — To represent or describe someone or something in a particular way. Example: The film portrays him as a hero.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-partial-adj|term",
+      "en": "partial",
+      "context": "C2 adj — Not complete; also, unfairly supporting one side. Example: The plan was only a partial success.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-obsessive-adj|term",
+      "en": "obsessive",
+      "context": "C2 adj — Thinking about something too much, in a way that is not normal. Example: He is obsessive about cleanliness.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-insatiable-adj|term",
+      "en": "insatiable",
+      "context": "C2 adj — Always wanting more; impossible to satisfy. Example: She has an insatiable curiosity.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-static-adj|term",
+      "en": "static",
+      "context": "C2 adj — Not moving or changing. Example: Prices have remained static for months.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-segment-n|term",
+      "en": "segment",
+      "context": "C2 n — A part of a group, market or thing. Example: Young professionals are our fastest-growing market segment.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-harrowing-adj|term",
+      "en": "harrowing",
+      "context": "C2 adj — Extremely upsetting and distressing. Example: She gave a harrowing account of the war.",
+      "ka": ""
+    },
+    {
+      "key": "vocab|v-unwavering-adj|term",
+      "en": "unwavering",
+      "context": "C2 adj — Firm and not changing. Example: She showed unwavering support for her colleagues.",
+      "ka": ""
+    }
+  ]
+}

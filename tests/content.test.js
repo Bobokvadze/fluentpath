@@ -88,7 +88,7 @@ test('translation export covers every translatable string and the translation fi
   const source = collectSource();
   const counts = {};
   Object.keys(source).forEach((k) => { const s = k.split('|')[0]; counts[s] = (counts[s] || 0) + 1; });
-  assert.strictEqual(counts.vocab, 1289);
+  assert.strictEqual(counts.vocab, 1409);
   assert.strictEqual(counts.writing, 90);
   assert.strictEqual(counts.curriculum, 60);
   assert.ok(counts.courses >= 50);

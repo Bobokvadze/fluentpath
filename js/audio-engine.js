@@ -21,15 +21,37 @@
       }
     : null;
 
-  function pickNativeVoice(acc) {
+  // ყველაზე ბუნებრივი ხელმისაწვდომი ინგლისური ხმა: Natural/Neural/Online (Edge), Google US English (Chrome),
+  // Samantha/Ava (Apple) — ოფლაინ მხოლოდ მოწყობილობაზე დაყენებული ხმები მუშაობს
+  const QUALITY_HINTS = [/natural/i, /neural/i, /online/i, /google us english/i, /\b(aria|jenny|guy|ava|samantha|allison|evan|nathan)\b/i, /enhanced|premium/i];
+  let cachedVoice = null;
+  let cachedVoiceKey = "";
+
+  function voiceScore(v, offline) {
+    const lang = String(v.lang || "").toLowerCase().replace("_", "-");
+    if (lang.indexOf("en") !== 0) return -1;
+    if (offline && !v.localService) return -1;
+    let score = lang === "en-us" ? 100 : 40;
+    QUALITY_HINTS.forEach(function (re, i) { if (re.test(v.name)) score += 60 - i * 5; });
+    if (v.localService) score += 5;
+    return score;
+  }
+
+  function pickNativeVoice() {
     if (!nativeSynth) return null;
     const voices = window.speechSynthesis.getVoices() || [];
-    const wanted = (acc === "UK") ? "en-gb" : "en-us";
-    const norm = function (v) { return String(v.lang || "").toLowerCase().replace("_", "-"); };
-    return voices.find(function (v) { return norm(v) === wanted && v.localService; }) ||
-      voices.find(function (v) { return norm(v) === wanted; }) ||
-      voices.find(function (v) { return norm(v).indexOf("en") === 0; }) ||
-      null;
+    const offline = navigator.onLine === false;
+    const key = voices.length + "|" + offline;
+    if (cachedVoiceKey === key) return cachedVoice;
+    let best = null;
+    let bestScore = -1;
+    voices.forEach(function (v) {
+      const sc = voiceScore(v, offline);
+      if (sc > bestScore) { best = v; bestScore = sc; }
+    });
+    cachedVoice = best;
+    cachedVoiceKey = key;
+    return best;
   }
 
   // ბრაუზერში ინგლისური ხმა თუ არ არის (მაგ. ზოგიერთი Linux/Firefox), ჩაშენებული სინთეზი ჩუმად "მთავრდება"
@@ -50,7 +72,7 @@
       const utterance = new window.SpeechSynthesisUtterance(text);
       const voice = pickNativeVoice(acc);
       if (voice) utterance.voice = voice;
-      utterance.lang = (acc === "UK") ? "en-GB" : "en-US";
+      utterance.lang = (voice && voice.lang) || "en-US";
       utterance.rate = (playbackRate && playbackRate < 0.88) ? 0.8 : 1.0;
       let finished = false;
       utterance.onend = function () {
