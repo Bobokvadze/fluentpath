@@ -87,13 +87,25 @@
     const st = getStatsSummary();
     const activities = App.Storage.get("progress.recentActivities", []) || [];
 
+    // რეალური რაოდენობები შინაარსის ინდექსიდან (js/content/content-index.js)
+    const idx = App.ContentIndex || {};
+    const size = function (k, d) { return idx[k] ? Object.keys(idx[k]).length : d; };
+    const vocabTotal = Object.keys(idx.vocabTopics || {}).reduce(function (sum, lvl) {
+      return sum + Object.keys(idx.vocabTopics[lvl]).reduce(function (n, t) { return n + idx.vocabTopics[lvl][t]; }, 0);
+    }, 0) || 1;
+    const checkpoints = App.Storage.get("progress.curriculum.checkpoints", {}) || {};
+    const unitsTotal = App.Curriculum ? App.Curriculum.get().reduce(function (n, l) { return n + l.units.length; }, 0) : 30;
+    const unitsPassed = Object.keys(checkpoints).filter(function (k) { return Number(checkpoints[k]) >= 70; }).length;
+    const coursesTotal = App.CourseEngine ? App.CourseEngine.all().length : 0;
     const rows = [
-      { label: "🗂️ ლექსიკონი (3,000 სიტყვა)", done: st.wordsCount, total: 3000 },
-      { label: "🌐 გრამატიკა (90 თემა)", done: st.grammarDone, total: 90 },
-      { label: "📖 კითხვა (90 ისტორია)", done: st.readingDone, total: 90 },
-      { label: "🎧 მოსმენა (90 აუდიო თემა)", done: st.listeningDone, total: 90 },
-      { label: "✍️ წერა (90 წერითი თემა)", done: st.writingDone, total: 90 }
-    ];
+      { label: "🌳 სასწავლო გეგმა (" + unitsTotal + " ერთეული)", done: unitsPassed, total: unitsTotal },
+      { label: "📚 თემატური კურსები (" + coursesTotal + ")", done: App.CourseEngine ? App.CourseEngine.completedCount() : 0, total: coursesTotal },
+      { label: "🗂️ ლექსიკონი (" + vocabTotal.toLocaleString("en-US") + " სიტყვა)", done: st.wordsCount, total: vocabTotal },
+      { label: "🌐 გრამატიკა (" + size("grammar", 90) + " თემა)", done: st.grammarDone, total: size("grammar", 90) },
+      { label: "📖 კითხვა (" + size("reading", 90) + " ტექსტი)", done: st.readingDone, total: size("reading", 90) },
+      { label: "🎧 მოსმენა (" + size("listening", 90) + " აუდიო თემა)", done: st.listeningDone, total: size("listening", 90) },
+      { label: "✍️ წერა (" + size("writing", 90) + " წერითი თემა)", done: st.writingDone, total: size("writing", 90) }
+    ].filter(function (r) { return r.total > 0; });
 
     const barsHtml = rows.map(function (r) {
       const pct = r.total ? Math.min(100, Math.round((r.done / r.total) * 100)) : 0;

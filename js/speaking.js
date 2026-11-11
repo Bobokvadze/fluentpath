@@ -563,7 +563,8 @@
           return '<button type="button" class="btn btn-sm ' + (idx === activeIndex ? "btn-primary" : "btn-outline") + '" data-speak-index="' + idx + '" aria-label="ფრაზა ' + (idx + 1) + (done ? " (დასრულებული)" : "") + '">' + (done ? "✓ " : "") + (idx + 1) + "</button>";
         }).join("");
         const actionHtml = supported
-          ? '<button type="button" class="btn btn-primary" id="speak-record-btn"' + (isListening ? " disabled" : "") + ">" + (isListening ? "🎙️ გისმენთ..." : "🎙️ ჩაწერა და შემოწმება") + "</button>"
+          ? '<button type="button" class="btn btn-primary" id="speak-record-btn"' + (isListening ? " disabled" : "") + ">" + (isListening ? "🎙️ გისმენთ..." : "🎙️ ჩაწერა და შემოწმება") + "</button>" +
+            (isDone ? "" : '<button type="button" class="btn btn-outline" id="speak-selfcheck-btn" title="მიკროფონის გარეშე: თავად შეაფასეთ გამოთქმა">✓ სწორად წარმოვთქვი</button>')
           : '<button type="button" class="btn btn-primary" id="speak-selfcheck-btn">' + (isDone ? "✓ ჩათვლილია" : "✓ სწორად წარმოვთქვი") + "</button>";
 
         body =
@@ -608,7 +609,9 @@
         if (dlg && !finished) {
           const current = dlg.lines[dialogueStep];
           controls = supported
-            ? '<button type="button" class="btn btn-primary" id="speak-dlg-record-btn"' + (isListening ? " disabled" : "") + ">" + (isListening ? "🎙️ გისმენთ..." : "🎙️ ჩემი რეპლიკის თქმა") + "</button>"
+            ? '<button type="button" class="btn btn-primary" id="speak-dlg-record-btn"' + (isListening ? " disabled" : "") + ">" + (isListening ? "🎙️ გისმენთ..." : "🎙️ ჩემი რეპლიკის თქმა") + "</button>" +
+              // მიკროფონის გარეშეც (დაბლოკილი, არ არის, ან ოფლაინ) დიალოგის გაგრძელება უნდა შეიძლებოდეს
+              '<button type="button" class="btn btn-outline" id="speak-dlg-self-btn" title="მიკროფონის გარეშე: თქვით ხმამაღლა და გადადით შემდეგზე">✓ ვთქვი, შემდეგი</button>'
             : '<button type="button" class="btn btn-primary" id="speak-dlg-self-btn">✓ ვთქვი, შემდეგი</button>';
           controls = '<button type="button" class="btn btn-outline" data-speak-say="' + esc(current.en) + '">🔊 ნიმუშის მოსმენა</button>' + controls;
         } else if (finished) {

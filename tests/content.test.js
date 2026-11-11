@@ -23,7 +23,7 @@ test('vocabulary source files contain no Georgian text (translations live in i18
 });
 
 test('translation entries only reference existing vocabulary ids', () => {
-  const env = loadScripts(['js/content/i18n.js', 'js/content/i18n-ka.js', 'js/content/vocab-a1.js', 'js/content/vocab-a2.js', 'js/content/vocab-b1.js', 'js/content/vocab-b2.js', 'js/content/vocab-c1.js', 'js/vocabulary.js']);
+  const env = loadScripts(['js/content/i18n.js', 'js/content/i18n-ka.js', 'js/content/vocab-a1.js', 'js/content/vocab-a2.js', 'js/content/vocab-b1.js', 'js/content/vocab-b2.js', 'js/content/vocab-c1.js', 'js/content/vocab-c2.js', 'js/vocabulary.js']);
   const ids = new Set(env.App.Vocabulary.getAllWords().map((w) => w.id));
   Object.keys(env.App.I18n.ka.vocab).forEach((id) => assert.ok(ids.has(id), 'translation for unknown id ' + id));
   assert.strictEqual(env.App.tr('vocab', 'v-hello-int', 'term'), 'გამარჯობა');
@@ -130,4 +130,20 @@ test('every exercise in every module has four distinct options and a valid answe
   const { problems, counts } = audit();
   assert.deepStrictEqual(problems, []);
   assert.ok(counts.Reading.questions > 900 && counts.Listening.questions > 900 && counts.Writing.questions > 800);
+});
+
+test('quiz pools include grammar questions, and placement covers every skill', () => {
+  const env = loadScripts(['js/auth.js', 'js/progress.js', 'js/content/i18n.js',
+    'js/grammar-a.js', 'js/grammar-b.js', 'js/grammar-c.js', 'js/content/grammar-en-a.js', 'js/content/grammar-en-b.js', 'js/content/grammar-en-c.js', 'js/content/grammar-en-d.js', 'js/grammar.js',
+    'js/reading-a.js', 'js/reading-b.js', 'js/reading-c.js', 'js/content/reading-extra.js', 'js/reading.js',
+    'js/content/vocab-a1.js', 'js/content/vocab-a2.js', 'js/content/vocab-b1.js', 'js/content/vocab-b2.js', 'js/content/vocab-c1.js', 'js/content/vocab-c2.js', 'js/vocabulary.js',
+    'js/quizzes.js']);
+  const Q = env.App.Quizzes;
+  const grammar = Q.buildQuestionPool('GRAMMAR', 'ALL', 15);
+  assert.ok(grammar.length >= 10, 'grammar quiz has questions');
+  grammar.forEach((q) => assert.ok(q.options.length === 4 && q.correct >= 0, 'grammar question ' + q.q));
+  const placement = Q.buildQuestionPool('PLACEMENT', 'ALL', 24);
+  const skills = new Set(placement.map((q) => String(q.source).split(' • ')[0]));
+  assert.ok(skills.has('გრამატიკა'), 'placement includes grammar');
+  assert.ok(skills.has('ლექსიკონი'), 'placement includes vocabulary');
 });

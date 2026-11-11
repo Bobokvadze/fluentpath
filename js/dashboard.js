@@ -181,7 +181,9 @@
             '<span class="fp-hero__eyebrow">🎯 დონე ' + esc(st.level) + " • 🔥 " + st.streak + " დღიანი სტრიკი</span>" +
             '<h2 class="fp-hero__title">' + greeting + (firstName ? ", " + esc(firstName) : "") + "! 👋</h2>" +
             '<p class="fp-hero__subtitle">' +
-              (todayDone >= dailyTarget
+              (isNewLearner
+                ? "კეთილი იყოს თქვენი მობრძანება! დაიწყეთ დონის განსაზღვრით (24 კითხვა) ან პირდაპირ პირველი გაკვეთილით."
+                : todayDone >= dailyTarget
                 ? "დღევანდელი მიზანი შესრულებულია — შესანიშნავი შედეგია! სწავლა შეგიძლიათ განაგრძოთ ულიმიტოდ."
                 : "დღეს დაგრჩათ " + (dailyTarget - todayDone) + " აქტივობა დღიური მიზნის შესასრულებლად. გააგრძელეთ იქიდან, სადაც გაჩერდით.") +
             "</p>" +
@@ -234,7 +236,10 @@
         const r = recs[Number(btn.getAttribute("data-rec"))];
         if (!r) return;
         if (r.kind === "lesson") App.Curriculum.openLesson(r.lessonId);
-        else if (r.kind === "review") App.Flashcards.startDueReview();
+        else if (r.kind === "review") {
+          App.Flashcards.startDueReview();
+          window.location.hash = "flashcards";
+        }
         else if (r.kind === "content") App.openContent(r.module, r.ref);
         else if (r.kind === "course") App.openContent("learn", "course:" + r.courseId);
       });

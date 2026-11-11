@@ -1,6 +1,6 @@
 /**
  * QUIZZES.JS — გამოცდებისა და ტესტების ცენტრი (A1–C2)
- * აგენერირებს ულიმიტო ტესტებს ლექსიკის (3,000 სიტყვა), გრამატიკის (90 თემა),
+ * აგენერირებს ულიმიტო ტესტებს ლექსიკის, გრამატიკის (90 თემა),
  * კითხვის (90 ტექსტი), მოსმენისა (90 თემა) და წერის (90 თემა) ერთიანი ბაზიდან.
  */
 (function (window) {
@@ -105,8 +105,9 @@
           : [];
         const filteredG = gTopics.filter((t) => !targetLevel || targetLevel === "ALL" || t.level === targetLevel);
         shuffleArray(filteredG).slice(0, 20).forEach((t) => {
-          if (Array.isArray(t.questions)) {
-            t.questions.slice(0, 2).forEach((qItem) => {
+          const drills = Array.isArray(t.drills) ? t.drills : (Array.isArray(t.questions) ? t.questions : []);
+          if (drills.length) {
+            shuffleArray(drills).slice(0, 2).forEach((qItem) => {
               const correctAns = qItem.options[qItem.correct];
               const mixed = shuffleArray(qItem.options);
               pool.push({
@@ -115,7 +116,7 @@
                 q: qItem.q.replace(/^\d+\.\s*/, ""),
                 options: mixed,
                 correct: mixed.indexOf(correctAns),
-                explanation: "თემა: " + t.titleKa + " (" + t.titleEn + ")"
+                explanation: "თემა: " + t.titleEn
               });
             });
           }
@@ -144,7 +145,7 @@
                   q: qItem.q.replace(/^\d+\.\s*/, ""),
                   options: mixed,
                   correct: mixed.indexOf(correctAns),
-                  explanation: src.label + ": «" + item.titleKa + "»"
+                  explanation: src.label + ": «" + (item.titleKa || item.titleEn) + "»"
                 });
               }
             });
@@ -162,9 +163,17 @@
       if (config.mode === "PLACEMENT") {
         // თითოეული დონიდან (A1..C2) თანაბრად ავიღოთ კითხვები დიაგნოსტიკისთვის
         const levels = ["A1", "A2", "B1", "B2", "C1", "C2"];
+        // თითოეულ დონეზე: ლექსიკა, გრამატიკა, კითხვა ან მოსმენა და კიდევ ერთი ნებისმიერი უნარიდან
         levels.forEach((lvl) => {
-          const lvlPool = this.buildQuestionPool("PLACEMENT", lvl).slice(0, 4);
-          questions = questions.concat(lvlPool);
+          const lvlPool = this.buildQuestionPool("PLACEMENT", lvl);
+          const skillOf = (q) => String(q.source || "").split(" • ")[0];
+          const picked = [];
+          [["ლექსიკონი"], ["გრამატიკა"], ["კითხვა", "მოსმენა"]].forEach((skills) => {
+            const q = lvlPool.find((x) => picked.indexOf(x) === -1 && skills.indexOf(skillOf(x)) !== -1);
+            if (q) picked.push(q);
+          });
+          lvlPool.forEach((x) => { if (picked.length < 4 && picked.indexOf(x) === -1) picked.push(x); });
+          questions = questions.concat(shuffleArray(picked));
         });
       } else {
         questions = this.buildQuestionPool(config.mode, config.level).slice(0, count);
@@ -300,6 +309,7 @@
         { lvl: "C2", name: "სრულყოფილი (Mastery)", icon: "👑", desc: "ფილოსოფიური, სამეცნიერო და უმაღლესი რიტორიკული სინთეზი." }
       ];
 
+      const vocabTotal = (App.Vocabulary && typeof App.Vocabulary.getCounts === "function") ? App.Vocabulary.getCounts().total.toLocaleString("en-US") : "1,000+";
       const levelExamsHtml = levels.map((item) => {
         return (
           '<article class="quiz-mode-card">' +
@@ -357,8 +367,8 @@
             '<article class="quiz-mode-card">' +
               "<div>" +
                 '<span class="stat-pill stat-pill--level" style="margin-bottom:10px;">🗂️ ლექსიკის სპრინტი</span>' +
-                '<h3 class="section-title" style="font-size:1.15rem; margin-bottom:6px;">3,000 სიტყვის შემაჯამებელი ტესტი</h3>' +
-                '<p style="font-size:0.86rem; color:var(--text-secondary); line-height:1.5;">შემთხვევითი კითხვები 3,000-სიტყვიანი ლექსიკონიდან (ინგლისურ-ქართული და ქართულ-ინგლისური).</p>' +
+                '<h3 class="section-title" style="font-size:1.15rem; margin-bottom:6px;">ლექსიკის შემაჯამებელი ტესტი</h3>' +
+                '<p style="font-size:0.86rem; color:var(--text-secondary); line-height:1.5;">შემთხვევითი კითხვები ' + vocabTotal + '-სიტყვიანი ლექსიკონიდან: განმარტება → სიტყვა და გამოტოვებული სიტყვის ჩასმა.</p>' +
               "</div>" +
               '<button type="button" class="btn btn-outline" id="start-vocab-sprint-btn">ლექსიკის ტესტი &rarr;</button>' +
             "</article>" +

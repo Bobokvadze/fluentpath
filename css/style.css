@@ -2260,3 +2260,16 @@ p {
   font-size: 0.85rem;
   font-weight: 600;
 }
+
+.cx-course__ka {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--brand-secondary);
+  margin-top: -4px;
+}
+
+.cx-word__ka {
+  font-weight: 600;
+  color: var(--brand-secondary);
+  margin-bottom: 2px;
+}

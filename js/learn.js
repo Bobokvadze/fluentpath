@@ -19,6 +19,7 @@
   const COURSE_TEST_SIZE = 12;
 
   function esc(s) { return App.UI.escapeHTML(s); }
+  function trCourse(course, field) { return App.tr ? App.tr('courses', course.id, field) : ''; }
 
   function shuffle(arr) {
     const a = arr.slice();
@@ -51,6 +52,7 @@
     // საჭირო მონაცემების ჩატვირთვა და პლეერის მომზადება
     startLesson: function (lessonId) {
       if (lessonId.indexOf('course:') === 0) {
+        player = null;
         view = 'courses';
         openCourseId = lessonId.slice(7);
         return;
@@ -304,7 +306,8 @@
           '<div class="cx-course__head"><span class="cx-course__icon" aria-hidden="true">' + c.icon + '</span>' +
           '<span class="stat-pill stat-pill--level">' + esc(c.levels) + '</span>' + badge + '</div>' +
           '<h3 class="cx-course__title" lang="en">' + esc(c.title) + '</h3>' +
-          '<p class="cx-course__desc" lang="en">' + esc(c.description) + '</p>' +
+          (trCourse(c, 'title') ? '<div class="cx-course__ka" lang="ka">' + esc(trCourse(c, 'title')) + '</div>' : '') +
+          (trCourse(c, 'description') ? '<p class="cx-course__desc" lang="ka">' + esc(trCourse(c, 'description')) + '</p>' : '<p class="cx-course__desc" lang="en">' + esc(c.description) + '</p>') +
           '<div class="cx-course__meta">' + c.modules.length + ' მოდული · ' + s.total + ' გაკვეთილი' + (s.hasTest ? ' · საბოლოო ტესტი' : '') + '</div>' +
           '<div class="progress-track" role="progressbar" aria-label="პროგრესი" aria-valuenow="' + s.percent + '" aria-valuemin="0" aria-valuemax="100"><div class="progress-fill" style="width:' + s.percent + '%"></div></div>' +
           '</button>';
@@ -355,7 +358,9 @@
           '<span class="stat-pill stat-pill--level">' + esc(c.levels) + '</span></div>' +
         '<section class="card">' +
           '<div class="cx-level-head"><div><h2 class="section-title" lang="en">' + c.icon + ' ' + esc(c.title) + '</h2>' +
-          '<p class="section-subtitle" lang="en">' + esc(c.description) + '</p></div>' +
+          (trCourse(c, 'title') ? '<div class="cx-course__ka" lang="ka">' + esc(trCourse(c, 'title')) + '</div>' : '') +
+          '<p class="section-subtitle" lang="en">' + esc(c.description) + '</p>' +
+          (trCourse(c, 'description') ? '<p class="section-subtitle" lang="ka">' + esc(trCourse(c, 'description')) + '</p>' : '') + '</div>' +
           '<div class="progress-track cx-level-bar" role="progressbar" aria-label="კურსის პროგრესი" aria-valuenow="' + s.percent + '" aria-valuemin="0" aria-valuemax="100"><div class="progress-fill" style="width:' + s.percent + '%"></div></div></div>' +
           (s.complete ? '<p class="cx-mode cx-mode--review">🎓 კურსი დასრულებულია! შეგიძლიათ ნებისმიერი გაკვეთილი გაიმეოროთ.</p>' : '') +
           (!E.suitsLevel(c) ? '<p class="cx-mode cx-mode--locked">ეს კურსი რეკომენდებულია ' + esc(c.minLevel) + ' დონიდან. შეგიძლიათ დაიწყოთ, მაგრამ შეიძლება რთული აღმოჩნდეს.</p>' : '') +
@@ -413,6 +418,7 @@
           '<button type="button" class="cx-unit__head" data-cx-unit="' + u.id + '" aria-expanded="' + expanded + '">' +
             '<span class="cx-unit__num">' + u.number + '</span>' +
             '<span class="cx-unit__text"><span class="cx-unit__title" lang="en">' + esc(u.title) + '</span>' +
+            (App.tr && App.tr('curriculum', u.id, 'title') ? '<span class="cx-unit__goal" lang="ka">' + esc(App.tr('curriculum', u.id, 'title')) + '</span>' : '') +
             '<span class="cx-unit__goal" lang="en">' + esc(u.goal) + '</span>' +
             (App.tr && App.tr('curriculum', u.id, 'goal') ? '<span class="cx-unit__goal" lang="ka">' + esc(App.tr('curriculum', u.id, 'goal')) + '</span>' : '') +
             '</span>' +
@@ -448,6 +454,7 @@
         const cards = p.words.map((w) =>
           '<li class="cx-word"><div class="cx-word__head"><strong lang="en">' + esc(w.word) + '</strong> <span class="cx-word__pos">' + esc(w.posLabel) + '</span>' +
           '<button type="button" class="audio-btn" data-cx-speak="' + esc(w.word) + '" aria-label="Listen: ' + esc(w.word) + '">🔊</button></div>' +
+          (App.tr && App.tr('vocab', w.id, 'term') ? '<div class="cx-word__ka" lang="ka">' + esc(App.tr('vocab', w.id, 'term')) + '</div>' : '') +
           '<div lang="en">' + esc(w.def) + '</div><div class="cx-word__ex" lang="en">' + esc(w.ex) + '</div>' +
           (w.collocations.length ? '<div class="cx-word__extra" lang="en">Collocations: ' + esc(w.collocations.join(', ')) + '</div>' : '') +
           (w.note ? '<div class="cx-word__extra" lang="en">💡 ' + esc(w.note) + '</div>' : '') +
@@ -577,6 +584,12 @@
       }
     }
   };
+
+  // დასრულებული გაკვეთილის შედეგის ეკრანი არ უნდა დარჩეს, როცა მომხმარებელი სხვა გვერდზე გადავა
+  window.addEventListener('hashchange', () => {
+    const route = (window.location.hash || '').replace(/^#\/?/, '');
+    if (route !== 'learn' && player && player.stage === 'result') player = null;
+  });
 
   App.Learn = Learn;
 })(window);

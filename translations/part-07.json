@@ -6,901 +6,901 @@
       "key": "dialogues|dlg-A1-u1|line2",
       "en": "Nice to meet you too. Where are you from, Nino?",
       "context": "A1 dialogue \"Meeting a new classmate\", partner speaking",
-      "ka": ""
+      "ka": "მეც სასიამოვნოა შენი გაცნობა. საიდან ხარ, ნინო?"
     },
     {
       "key": "dialogues|dlg-A1-u1|line3",
       "en": "I'm from Georgia. I live in Tbilisi.",
       "context": "A1 dialogue \"Meeting a new classmate\", you speaking",
-      "ka": ""
+      "ka": "საქართველოდან ვარ. თბილისში ვცხოვრობ."
     },
     {
       "key": "dialogues|dlg-A1-u1|line4",
       "en": "Cool! And what do you do?",
       "context": "A1 dialogue \"Meeting a new classmate\", partner speaking",
-      "ka": ""
+      "ka": "მაგარია! რას საქმიანობ?"
     },
     {
       "key": "dialogues|dlg-A1-u1|line5",
       "en": "I'm a student. I study economics.",
       "context": "A1 dialogue \"Meeting a new classmate\", you speaking",
-      "ka": ""
+      "ka": "სტუდენტი ვარ. ეკონომიკას ვსწავლობ."
     },
     {
       "key": "dialogues|dlg-A1-u2|line0",
       "en": "Excuse me, is there a pharmacy near here?",
       "context": "A1 dialogue \"Asking for directions\", you speaking",
-      "ka": ""
+      "ka": "უკაცრავად, აქ ახლოს აფთიაქი არის?"
     },
     {
       "key": "dialogues|dlg-A1-u2|line1",
       "en": "Yes, there is. It's on Rustaveli Avenue, next to the bank.",
       "context": "A1 dialogue \"Asking for directions\", partner speaking",
-      "ka": ""
+      "ka": "დიახ, არის. რუსთაველის გამზირზეა, ბანკის გვერდით."
     },
     {
       "key": "dialogues|dlg-A1-u2|line2",
       "en": "Is it far from here?",
       "context": "A1 dialogue \"Asking for directions\", you speaking",
-      "ka": ""
+      "ka": "აქედან შორს არის?"
     },
     {
       "key": "dialogues|dlg-A1-u2|line3",
       "en": "No, it's about five minutes. Go straight on and turn left at the lights.",
       "context": "A1 dialogue \"Asking for directions\", partner speaking",
-      "ka": ""
+      "ka": "არა, დაახლოებით ხუთი წუთის სავალზეა. პირდაპირ იარეთ და შუქნიშანთან მარცხნივ შეუხვიეთ."
     },
     {
       "key": "dialogues|dlg-A1-u2|line4",
       "en": "Thank you very much!",
       "context": "A1 dialogue \"Asking for directions\", you speaking",
-      "ka": ""
+      "ka": "დიდი მადლობა!"
     },
     {
       "key": "dialogues|dlg-A1-u2|line5",
       "en": "You're welcome.",
       "context": "A1 dialogue \"Asking for directions\", partner speaking",
-      "ka": ""
+      "ka": "არაფრის."
     },
     {
       "key": "dialogues|dlg-A1-u3|line0",
       "en": "What time do you usually get up?",
       "context": "A1 dialogue \"Talking about your day\", partner speaking",
-      "ka": ""
+      "ka": "ჩვეულებრივ რომელ საათზე დგები?"
     },
     {
       "key": "dialogues|dlg-A1-u3|line1",
       "en": "I usually get up at seven o'clock.",
       "context": "A1 dialogue \"Talking about your day\", you speaking",
-      "ka": ""
+      "ka": "ჩვეულებრივ შვიდ საათზე ვდგები."
     },
     {
       "key": "dialogues|dlg-A1-u3|line2",
       "en": "And what do you do in the morning?",
       "context": "A1 dialogue \"Talking about your day\", partner speaking",
-      "ka": ""
+      "ka": "და დილით რას აკეთებ?"
     },
     {
       "key": "dialogues|dlg-A1-u3|line3",
       "en": "I have a shower, eat breakfast and take the bus to work.",
       "context": "A1 dialogue \"Talking about your day\", you speaking",
-      "ka": ""
+      "ka": "შხაპს ვიღებ, ვსაუზმობ და სამსახურში ავტობუსით მივდივარ."
     },
     {
       "key": "dialogues|dlg-A1-u3|line4",
       "en": "What do you do in the evening?",
       "context": "A1 dialogue \"Talking about your day\", partner speaking",
-      "ka": ""
+      "ka": "საღამოს რას აკეთებ?"
     },
     {
       "key": "dialogues|dlg-A1-u3|line5",
       "en": "I cook dinner and watch TV. I go to bed at eleven.",
       "context": "A1 dialogue \"Talking about your day\", you speaking",
-      "ka": ""
+      "ka": "ვახშამს ვამზადებ და ტელევიზორს ვუყურებ. თერთმეტ საათზე ვიძინებ."
     },
     {
       "key": "dialogues|dlg-A1-u4|line0",
       "en": "What do you like doing at the weekend?",
       "context": "A1 dialogue \"Making plans for the weekend\", partner speaking",
-      "ka": ""
+      "ka": "რისი კეთება გიყვარს შაბათ-კვირას?"
     },
     {
       "key": "dialogues|dlg-A1-u4|line1",
       "en": "I often go swimming. Can you swim?",
       "context": "A1 dialogue \"Making plans for the weekend\", you speaking",
-      "ka": ""
+      "ka": "ხშირად დავდივარ ცურვაზე. ცურვა იცი?"
     },
     {
       "key": "dialogues|dlg-A1-u4|line2",
       "en": "Yes, but not very well. I can play tennis, though.",
       "context": "A1 dialogue \"Making plans for the weekend\", partner speaking",
-      "ka": ""
+      "ka": "კი, მაგრამ არც ისე კარგად. სამაგიეროდ ჩოგბურთის თამაში შემიძლია."
     },
     {
       "key": "dialogues|dlg-A1-u4|line3",
       "en": "Great! Let's play tennis on Saturday.",
       "context": "A1 dialogue \"Making plans for the weekend\", you speaking",
-      "ka": ""
+      "ka": "ძალიან კარგი! მოდი, შაბათს ჩოგბურთი ვითამაშოთ."
     },
     {
       "key": "dialogues|dlg-A1-u4|line4",
       "en": "Good idea. What time?",
       "context": "A1 dialogue \"Making plans for the weekend\", partner speaking",
-      "ka": ""
+      "ka": "კარგი აზრია. რომელ საათზე?"
     },
     {
       "key": "dialogues|dlg-A1-u4|line5",
       "en": "How about ten o'clock in the park?",
       "context": "A1 dialogue \"Making plans for the weekend\", you speaking",
-      "ka": ""
+      "ka": "ათ საათზე პარკში როგორ გაწყობს?"
     },
     {
       "key": "dialogues|dlg-A1-u5|line0",
       "en": "Good morning. What can I get you?",
       "context": "A1 dialogue \"Ordering in a café\", partner speaking",
-      "ka": ""
+      "ka": "დილა მშვიდობისა. რას ინებებთ?"
     },
     {
       "key": "dialogues|dlg-A1-u5|line1",
       "en": "Can I have a cheese sandwich and a coffee, please?",
       "context": "A1 dialogue \"Ordering in a café\", you speaking",
-      "ka": ""
+      "ka": "შეიძლება ყველის სენდვიჩი და ყავა, თუ შეიძლება?"
     },
     {
       "key": "dialogues|dlg-A1-u5|line2",
       "en": "Of course. Would you like milk in your coffee?",
       "context": "A1 dialogue \"Ordering in a café\", partner speaking",
-      "ka": ""
+      "ka": "რა თქმა უნდა. ყავაში რძეს ხომ არ ინებებთ?"
     },
     {
       "key": "dialogues|dlg-A1-u5|line3",
       "en": "Yes, a little milk, please. How much is that?",
       "context": "A1 dialogue \"Ordering in a café\", you speaking",
-      "ka": ""
+      "ka": "დიახ, ცოტა რძე, თუ შეიძლება. რამდენია სულ?"
     },
     {
       "key": "dialogues|dlg-A1-u5|line4",
       "en": "That's twelve lari, please.",
       "context": "A1 dialogue \"Ordering in a café\", partner speaking",
-      "ka": ""
+      "ka": "თორმეტი ლარი, გეთაყვა."
     },
     {
       "key": "dialogues|dlg-A1-u5|line5",
       "en": "Here you are. Thank you!",
       "context": "A1 dialogue \"Ordering in a café\", you speaking",
-      "ka": ""
+      "ka": "ინებეთ. მადლობა!"
     },
     {
       "key": "dialogues|dlg-A2-u1|line0",
       "en": "Hi! What are you doing right now?",
       "context": "A2 dialogue \"A phone call home\", partner speaking",
-      "ka": ""
+      "ka": "სალამი! რას აკეთებ ახლა?"
     },
     {
       "key": "dialogues|dlg-A2-u1|line1",
       "en": "I'm sitting in a café near my hotel. It's raining, so I'm staying inside.",
       "context": "A2 dialogue \"A phone call home\", you speaking",
-      "ka": ""
+      "ka": "ჩემს სასტუმროსთან ახლოს კაფეში ვზივარ. წვიმს, ამიტომ შიგნით ვრჩები."
     },
     {
       "key": "dialogues|dlg-A2-u1|line2",
       "en": "Oh no! How are you feeling?",
       "context": "A2 dialogue \"A phone call home\", partner speaking",
-      "ka": ""
+      "ka": "ოჰ, არა! როგორ გრძნობ თავს?"
     },
     {
       "key": "dialogues|dlg-A2-u1|line3",
       "en": "I'm a bit tired, but I'm really happy here.",
       "context": "A2 dialogue \"A phone call home\", you speaking",
-      "ka": ""
+      "ka": "ცოტა დაღლილი ვარ, მაგრამ აქ ყოფნა ძალიან მიხარია."
     },
     {
       "key": "dialogues|dlg-A2-u1|line4",
       "en": "Were you at the museum yesterday?",
       "context": "A2 dialogue \"A phone call home\", partner speaking",
-      "ka": ""
+      "ka": "გუშინ მუზეუმში იყავი?"
     },
     {
       "key": "dialogues|dlg-A2-u1|line5",
       "en": "Yes, I was. It was amazing, but it was very crowded.",
       "context": "A2 dialogue \"A phone call home\", you speaking",
-      "ka": ""
+      "ka": "დიახ, ვიყავი. საოცარი იყო, თუმცა ძალიან ბევრი ხალხი იყო."
     },
     {
       "key": "dialogues|dlg-A2-u2|line0",
       "en": "You look stressed. What happened?",
       "context": "A2 dialogue \"What happened?\", partner speaking",
-      "ka": ""
+      "ka": "დასტრესილი ჩანხარ. რა მოხდა?"
     },
     {
       "key": "dialogues|dlg-A2-u2|line1",
       "en": "I lost my phone this morning. I left it on the bus.",
       "context": "A2 dialogue \"What happened?\", you speaking",
-      "ka": ""
+      "ka": "დღეს დილით ტელეფონი დავკარგე. ავტობუსში დამრჩა."
     },
     {
       "key": "dialogues|dlg-A2-u2|line2",
       "en": "Oh no! What did you do?",
       "context": "A2 dialogue \"What happened?\", partner speaking",
-      "ka": ""
+      "ka": "ოჰ, არა! მერე რა ქენი?"
     },
     {
       "key": "dialogues|dlg-A2-u2|line3",
       "en": "I called the bus company, but nobody answered at first.",
       "context": "A2 dialogue \"What happened?\", you speaking",
-      "ka": ""
+      "ka": "სატრანსპორტო კომპანიაში დავრეკე, მაგრამ თავიდან არავინ მპასუხობდა."
     },
     {
       "key": "dialogues|dlg-A2-u2|line4",
       "en": "Did you find it in the end?",
       "context": "A2 dialogue \"What happened?\", partner speaking",
-      "ka": ""
+      "ka": "ბოლოს იპოვე?"
     },
     {
       "key": "dialogues|dlg-A2-u2|line5",
       "en": "Yes! The driver found it and kept it for me. I was so lucky.",
       "context": "A2 dialogue \"What happened?\", you speaking",
-      "ka": ""
+      "ka": "კი! მძღოლს უპოვია და ჩემთვის შეუნახავს. ძალიან გამიმართლა."
     },
     {
       "key": "dialogues|dlg-A2-u3|line0",
       "en": "Has your town changed a lot since you were a child?",
       "context": "A2 dialogue \"Then and now\", partner speaking",
-      "ka": ""
+      "ka": "შენი ქალაქი ძალიან შეიცვალა მას შემდეგ, რაც ბავშვი იყავი?"
     },
     {
       "key": "dialogues|dlg-A2-u3|line1",
       "en": "Yes, a lot. There used to be a big park in the centre.",
       "context": "A2 dialogue \"Then and now\", you speaking",
-      "ka": ""
+      "ka": "კი, ძალიან. ცენტრში ადრე დიდი პარკი იყო."
     },
     {
       "key": "dialogues|dlg-A2-u3|line2",
       "en": "What's there now?",
       "context": "A2 dialogue \"Then and now\", partner speaking",
-      "ka": ""
+      "ka": "ახლა რა არის იქ?"
     },
     {
       "key": "dialogues|dlg-A2-u3|line3",
       "en": "A shopping centre. The town is busier and noisier than before.",
       "context": "A2 dialogue \"Then and now\", you speaking",
-      "ka": ""
+      "ka": "სავაჭრო ცენტრი. ქალაქი უფრო გადატვირთული და ხმაურიანია, ვიდრე ადრე იყო."
     },
     {
       "key": "dialogues|dlg-A2-u3|line4",
       "en": "Do you prefer it now or in the past?",
       "context": "A2 dialogue \"Then and now\", partner speaking",
-      "ka": ""
+      "ka": "როგორი უფრო მოგწონს, ახლანდელი თუ წარსულის?"
     },
     {
       "key": "dialogues|dlg-A2-u3|line5",
       "en": "In the past. Life wasn't as fast as it is now.",
       "context": "A2 dialogue \"Then and now\", you speaking",
-      "ka": ""
+      "ka": "წარსულის. ცხოვრება ისეთი სწრაფი არ იყო, როგორიც ახლაა."
     },
     {
       "key": "dialogues|dlg-A2-u4|line0",
       "en": "I want to get fit. What should I do?",
       "context": "A2 dialogue \"Asking for advice\", you speaking",
-      "ka": ""
+      "ka": "ფორმის გაუმჯობესება მინდა. რა გავაკეთო?"
     },
     {
       "key": "dialogues|dlg-A2-u4|line1",
       "en": "You should start slowly. Maybe walk for thirty minutes every day.",
       "context": "A2 dialogue \"Asking for advice\", partner speaking",
-      "ka": ""
+      "ka": "ნელ-ნელა უნდა დაიწყო. მაგალითად, ყოველდღე ოცდაათი წუთი ფეხით იარე."
     },
     {
       "key": "dialogues|dlg-A2-u4|line2",
       "en": "Do I have to join a gym?",
       "context": "A2 dialogue \"Asking for advice\", you speaking",
-      "ka": ""
+      "ka": "სავარჯიშო დარბაზში ჩაწერა აუცილებელია?"
     },
     {
       "key": "dialogues|dlg-A2-u4|line3",
       "en": "No, you don't have to. You can exercise at home or in the park.",
       "context": "A2 dialogue \"Asking for advice\", partner speaking",
-      "ka": ""
+      "ka": "არა, აუცილებელი არ არის. შეგიძლია სახლში ან პარკში ივარჯიშო."
     },
     {
       "key": "dialogues|dlg-A2-u4|line4",
       "en": "OK. I'm going to start tomorrow morning.",
       "context": "A2 dialogue \"Asking for advice\", you speaking",
-      "ka": ""
+      "ka": "კარგი. ხვალ დილიდან დავიწყებ."
     },
     {
       "key": "dialogues|dlg-A2-u4|line5",
       "en": "Great plan! And you should drink more water, too.",
       "context": "A2 dialogue \"Asking for advice\", partner speaking",
-      "ka": ""
+      "ka": "შესანიშნავი გეგმაა! თან მეტი წყალიც უნდა დალიო ხოლმე."
     },
     {
       "key": "dialogues|dlg-A2-u5|line0",
       "en": "Hello. I'd like a return ticket to Batumi, please.",
       "context": "A2 dialogue \"At the train station\", you speaking",
-      "ka": ""
+      "ka": "გამარჯობა. ბათუმის ორმხრივი ბილეთი მინდა, თუ შეიძლება."
     },
     {
       "key": "dialogues|dlg-A2-u5|line1",
       "en": "For today? The next train leaves at 14:20.",
       "context": "A2 dialogue \"At the train station\", partner speaking",
-      "ka": ""
+      "ka": "დღევანდელი? შემდეგი მატარებელი 14:20-ზე გადის."
     },
     {
       "key": "dialogues|dlg-A2-u5|line2",
       "en": "That's perfect. How long does the journey take?",
       "context": "A2 dialogue \"At the train station\", you speaking",
-      "ka": ""
+      "ka": "ძალიან კარგი. რამდენი ხანი სჭირდება მგზავრობას?"
     },
     {
       "key": "dialogues|dlg-A2-u5|line3",
       "en": "About five hours. It arrives at twenty past seven.",
       "context": "A2 dialogue \"At the train station\", partner speaking",
-      "ka": ""
+      "ka": "დაახლოებით ხუთ საათს. რვის ოც წუთზე ჩადის."
     },
     {
       "key": "dialogues|dlg-A2-u5|line4",
       "en": "Which platform does it leave from?",
       "context": "A2 dialogue \"At the train station\", you speaking",
-      "ka": ""
+      "ka": "რომელი ბაქნიდან გადის?"
     },
     {
       "key": "dialogues|dlg-A2-u5|line5",
       "en": "Platform three. Here's your ticket. Have a good trip!",
       "context": "A2 dialogue \"At the train station\", partner speaking",
-      "ka": ""
+      "ka": "მესამე ბაქნიდან. ინებეთ თქვენი ბილეთი. ბედნიერ მგზავრობას გისურვებთ!"
     },
     {
       "key": "dialogues|dlg-B1-u1|line0",
       "en": "Have you ever been to another country on your own?",
       "context": "B1 dialogue \"Sharing travel experiences\", partner speaking",
-      "ka": ""
+      "ka": "სხვა ქვეყანაში მარტო თუ ყოფილხარ ოდესმე?"
     },
     {
       "key": "dialogues|dlg-B1-u1|line1",
       "en": "Yes, I've travelled alone twice. I went to Italy last year.",
       "context": "B1 dialogue \"Sharing travel experiences\", you speaking",
-      "ka": ""
+      "ka": "კი, მარტო ორჯერ ვიმოგზაურე. შარშან იტალიაში ვიყავი."
     },
     {
       "key": "dialogues|dlg-B1-u1|line2",
       "en": "Really? How did you find it?",
       "context": "B1 dialogue \"Sharing travel experiences\", partner speaking",
-      "ka": ""
+      "ka": "მართლა? როგორი იყო, მოგეწონა?"
     },
     {
       "key": "dialogues|dlg-B1-u1|line3",
       "en": "At first I was nervous, but I met lots of interesting people.",
       "context": "B1 dialogue \"Sharing travel experiences\", you speaking",
-      "ka": ""
+      "ka": "თავიდან ვნერვიულობდი, მაგრამ უამრავი საინტერესო ადამიანი გავიცანი."
     },
     {
       "key": "dialogues|dlg-B1-u1|line4",
       "en": "I've never travelled alone. I'm a bit scared to try.",
       "context": "B1 dialogue \"Sharing travel experiences\", partner speaking",
-      "ka": ""
+      "ka": "მარტო არასდროს მიმოგზაურია. ცოტა მეშინია ცდის."
     },
     {
       "key": "dialogues|dlg-B1-u1|line5",
       "en": "You should do it. It's the best way to become more confident.",
       "context": "B1 dialogue \"Sharing travel experiences\", you speaking",
-      "ka": ""
+      "ka": "აუცილებლად უნდა სცადო. ეს საუკეთესო გზაა თავდაჯერებულობის მოსამატებლად."
     },
     {
       "key": "dialogues|dlg-B1-u2|line0",
       "en": "Could you tell me about your previous job?",
       "context": "B1 dialogue \"A job interview\", partner speaking",
-      "ka": ""
+      "ka": "თქვენი წინა სამუშაოს შესახებ ხომ ვერ მოგვიყვებოდით?"
     },
     {
       "key": "dialogues|dlg-B1-u2|line1",
       "en": "Of course. I'd been working as a sales assistant for three years before I moved to marketing.",
       "context": "B1 dialogue \"A job interview\", you speaking",
-      "ka": ""
+      "ka": "რა თქმა უნდა. სანამ მარკეტინგში გადავიდოდი, სამი წელი გაყიდვების ასისტენტად ვმუშაობდი."
     },
     {
       "key": "dialogues|dlg-B1-u2|line2",
       "en": "Why are you interested in this position?",
       "context": "B1 dialogue \"A job interview\", partner speaking",
-      "ka": ""
+      "ka": "რატომ დაინტერესდით ამ პოზიციით?"
     },
     {
       "key": "dialogues|dlg-B1-u2|line3",
       "en": "I'm looking for new challenges, and I'd like to work for an international company.",
       "context": "B1 dialogue \"A job interview\", you speaking",
-      "ka": ""
+      "ka": "ახალ გამოწვევებს ვეძებ და მსურს საერთაშორისო კომპანიაში მუშაობა."
     },
     {
       "key": "dialogues|dlg-B1-u2|line4",
       "en": "Where do you see yourself in five years?",
       "context": "B1 dialogue \"A job interview\", partner speaking",
-      "ka": ""
+      "ka": "სად ხედავთ თქვენს თავს ხუთ წელიწადში?"
     },
     {
       "key": "dialogues|dlg-B1-u2|line5",
       "en": "By then, I hope I'll have become a team leader.",
       "context": "B1 dialogue \"A job interview\", you speaking",
-      "ka": ""
+      "ka": "იმედი მაქვს, ამ დროისთვის უკვე გუნდის ლიდერი ვიქნები."
     },
     {
       "key": "dialogues|dlg-B1-u3|line0",
       "en": "What would you do if you won a lot of money?",
       "context": "B1 dialogue \"Imagine if...\", partner speaking",
-      "ka": ""
+      "ka": "რას გააკეთებდი, ბევრი ფული რომ მოგეგო?"
     },
     {
       "key": "dialogues|dlg-B1-u3|line1",
       "en": "That's a tough question. I think I'd buy a small house by the sea.",
       "context": "B1 dialogue \"Imagine if...\", you speaking",
-      "ka": ""
+      "ka": "რთული კითხვაა. მგონი, ზღვასთან პატარა სახლს ვიყიდდი."
     },
     {
       "key": "dialogues|dlg-B1-u3|line2",
       "en": "Would you stop working?",
       "context": "B1 dialogue \"Imagine if...\", partner speaking",
-      "ka": ""
+      "ka": "მუშაობას თავს დაანებებდი?"
     },
     {
       "key": "dialogues|dlg-B1-u3|line3",
       "en": "No, I wouldn't. I'd get bored very quickly.",
       "context": "B1 dialogue \"Imagine if...\", you speaking",
-      "ka": ""
+      "ka": "არა, თავს არ დავანებებდი. ძალიან მალე მომწყინდებოდა."
     },
     {
       "key": "dialogues|dlg-B1-u3|line4",
       "en": "Would you give some of it away?",
       "context": "B1 dialogue \"Imagine if...\", partner speaking",
-      "ka": ""
+      "ka": "ნაწილს გააჩუქებდი?"
     },
     {
       "key": "dialogues|dlg-B1-u3|line5",
       "en": "Definitely. I'd give part of it to a charity that helps children.",
       "context": "B1 dialogue \"Imagine if...\", you speaking",
-      "ka": ""
+      "ka": "აუცილებლად. ნაწილს საქველმოქმედო ფონდს გადავურიცხავდი, რომელიც ბავშვებს ეხმარება."
     },
     {
       "key": "dialogues|dlg-B1-u4|line0",
       "en": "So, what did you think of the film?",
       "context": "B1 dialogue \"Discussing a film\", partner speaking",
-      "ka": ""
+      "ka": "აბა, როგორ მოგეწონა ფილმი?"
     },
     {
       "key": "dialogues|dlg-B1-u4|line1",
       "en": "In my opinion, it was a bit too long, but the acting was excellent.",
       "context": "B1 dialogue \"Discussing a film\", you speaking",
-      "ka": ""
+      "ka": "ჩემი აზრით, ცოტა ზედმეტად გაწელილი იყო, მაგრამ მსახიობთა თამაში — შესანიშნავი."
     },
     {
       "key": "dialogues|dlg-B1-u4|line2",
       "en": "Really? I thought the story was boring.",
       "context": "B1 dialogue \"Discussing a film\", partner speaking",
-      "ka": ""
+      "ka": "მართლა? მე სიუჟეტი მომეჩვენა მოსაწყენი."
     },
     {
       "key": "dialogues|dlg-B1-u4|line3",
       "en": "I see your point, but the ending surprised me.",
       "context": "B1 dialogue \"Discussing a film\", you speaking",
-      "ka": ""
+      "ka": "მესმის შენი, მაგრამ დასასრულმა გამაკვირვა."
     },
     {
       "key": "dialogues|dlg-B1-u4|line4",
       "en": "That's true. The music was great as well.",
       "context": "B1 dialogue \"Discussing a film\", partner speaking",
-      "ka": ""
+      "ka": "ეგ მართალია. მუსიკაც არაჩვეულებრივი იყო."
     },
     {
       "key": "dialogues|dlg-B1-u4|line5",
       "en": "I couldn't agree more. I've been listening to the soundtrack all day.",
       "context": "B1 dialogue \"Discussing a film\", you speaking",
-      "ka": ""
+      "ka": "სავსებით გეთანხმები. მთელი დღეა მის საუნდტრეკს ვუსმენ."
     },
     {
       "key": "dialogues|dlg-B1-u5|line0",
       "en": "Hi, I'm sorry to bother you, but I was wondering if we could talk about the noise.",
       "context": "B1 dialogue \"Solving a problem with a neighbour\", you speaking",
-      "ka": ""
+      "ka": "გამარჯობა, ბოდიში შეწუხებისთვის, მაგრამ ხმაურზე ხომ ვერ ვისაუბრებდით?"
     },
     {
       "key": "dialogues|dlg-B1-u5|line1",
       "en": "Oh, is the music too loud? I'm really sorry about that.",
       "context": "B1 dialogue \"Solving a problem with a neighbour\", partner speaking",
-      "ka": ""
+      "ka": "ოჰ, მუსიკა ძალიან ხმამაღალია? ძალიან ვწუხვარ."
     },
     {
       "key": "dialogues|dlg-B1-u5|line2",
       "en": "It's fine during the day, but I have to get up early for work.",
       "context": "B1 dialogue \"Solving a problem with a neighbour\", you speaking",
-      "ka": ""
+      "ka": "დღისით არა უშავს, მაგრამ სამსახურისთვის დილით ადრე მიწევს გაღვიძება."
     },
     {
       "key": "dialogues|dlg-B1-u5|line3",
       "en": "I completely understand. I'll turn it down after ten o'clock.",
       "context": "B1 dialogue \"Solving a problem with a neighbour\", partner speaking",
-      "ka": ""
+      "ka": "სრულად მესმის თქვენი. ათი საათის შემდეგ დავუწევ ხოლმე."
     },
     {
       "key": "dialogues|dlg-B1-u5|line4",
       "en": "Thank you, I really appreciate it.",
       "context": "B1 dialogue \"Solving a problem with a neighbour\", you speaking",
-      "ka": ""
+      "ka": "დიდი მადლობა, ნამდვილად ვაფასებ."
     },
     {
       "key": "dialogues|dlg-B1-u5|line5",
       "en": "No problem. Just knock on the door if it happens again.",
       "context": "B1 dialogue \"Solving a problem with a neighbour\", partner speaking",
-      "ka": ""
+      "ka": "არაფრის. თუ კიდევ განმეორდა, უბრალოდ კარზე დამიკაკუნეთ."
     },
     {
       "key": "dialogues|dlg-B2-u1|line0",
       "en": "Is there anything you'd do differently if you could go back?",
       "context": "B2 dialogue \"Talking about regrets\", partner speaking",
-      "ka": ""
+      "ka": "დროის უკან დაბრუნება რომ შეგეძლოს, რაიმეს სხვაგვარად გააკეთებდი?"
     },
     {
       "key": "dialogues|dlg-B2-u1|line1",
       "en": "Looking back, I wish I had studied abroad when I had the chance.",
       "context": "B2 dialogue \"Talking about regrets\", you speaking",
-      "ka": ""
+      "ka": "წარსულს რომ ვუყურებ, ნეტავ საზღვარგარეთ მესწავლა, როცა ამის შანსი მქონდა."
     },
     {
       "key": "dialogues|dlg-B2-u1|line2",
       "en": "Why didn't you go?",
       "context": "B2 dialogue \"Talking about regrets\", partner speaking",
-      "ka": ""
+      "ka": "რატომ არ წახვედი?"
     },
     {
       "key": "dialogues|dlg-B2-u1|line3",
       "en": "I was worried about money. If I'd known about the scholarships, I would have applied.",
       "context": "B2 dialogue \"Talking about regrets\", you speaking",
-      "ka": ""
+      "ka": "ფულზე ვნერვიულობდი. სტიპენდიების შესახებ რომ მცოდნოდა, აუცილებლად შევიტანდი განაცხადს."
     },
     {
       "key": "dialogues|dlg-B2-u1|line4",
       "en": "It's not too late, though. There are programmes for adults too.",
       "context": "B2 dialogue \"Talking about regrets\", partner speaking",
-      "ka": ""
+      "ka": "თუმცა ჯერ გვიანი არ არის. უფროსებისთვისაც არსებობს პროგრამები."
     },
     {
       "key": "dialogues|dlg-B2-u1|line5",
       "en": "That's true. Maybe I'll look into it this year.",
       "context": "B2 dialogue \"Talking about regrets\", you speaking",
-      "ka": ""
+      "ka": "ეგ მართალია. შეიძლება წელს დავინტერესდე და მოვიძიო ინფორმაცია."
     },
     {
       "key": "dialogues|dlg-B2-u2|line0",
       "en": "Did you hear about the fire at the old factory?",
       "context": "B2 dialogue \"Reporting the news\", partner speaking",
-      "ka": ""
+      "ka": "ძველ ქარხანაში გაჩენილი ხანძრის შესახებ გაიგე?"
     },
     {
       "key": "dialogues|dlg-B2-u2|line1",
       "en": "Yes. It's been reported that nobody was injured, fortunately.",
       "context": "B2 dialogue \"Reporting the news\", you speaking",
-      "ka": ""
+      "ka": "კი. როგორც იუწყებიან, საბედნიეროდ არავინ დაშავებულა."
     },
     {
       "key": "dialogues|dlg-B2-u2|line2",
       "en": "Do they know what caused it?",
       "context": "B2 dialogue \"Reporting the news\", partner speaking",
-      "ka": ""
+      "ka": "იციან, რამ გამოიწვია?"
     },
     {
       "key": "dialogues|dlg-B2-u2|line3",
       "en": "Not yet. The cause is still being investigated by the fire service.",
       "context": "B2 dialogue \"Reporting the news\", you speaking",
-      "ka": ""
+      "ka": "ჯერ არა. მიზეზს სახანძრო სამსახური ჯერ კიდევ იკვლევს."
     },
     {
       "key": "dialogues|dlg-B2-u2|line4",
       "en": "I heard the building is going to be demolished.",
       "context": "B2 dialogue \"Reporting the news\", partner speaking",
-      "ka": ""
+      "ka": "გავიგე, შენობის დანგრევას აპირებენო."
     },
     {
       "key": "dialogues|dlg-B2-u2|line5",
       "en": "Apparently, it's going to be replaced by a new park.",
       "context": "B2 dialogue \"Reporting the news\", you speaking",
-      "ka": ""
+      "ka": "როგორც ჩანს, მის ადგილას ახალი პარკი გაშენდება."
     },
     {
       "key": "dialogues|dlg-B2-u3|line0",
       "en": "Someone ate all the cake I left in the office fridge!",
       "context": "B2 dialogue \"Who could have done it?\", partner speaking",
-      "ka": ""
+      "ka": "ვიღაცამ მთელი ნამცხვარი შეჭამა, ოფისის მაცივარში რომ დავტოვე!"
     },
     {
       "key": "dialogues|dlg-B2-u3|line1",
       "en": "It must have been someone from the night shift.",
       "context": "B2 dialogue \"Who could have done it?\", you speaking",
-      "ka": ""
+      "ka": "ალბათ ღამის ცვლიდან იქნებოდა ვიღაც."
     },
     {
       "key": "dialogues|dlg-B2-u3|line2",
       "en": "Could it have been Giorgi? He loves chocolate.",
       "context": "B2 dialogue \"Who could have done it?\", partner speaking",
-      "ka": ""
+      "ka": "გიორგი ხომ არ იქნებოდა? მას ხომ შოკოლადი ძალიან უყვარს."
     },
     {
       "key": "dialogues|dlg-B2-u3|line3",
       "en": "He can't have taken it. He was on holiday all week.",
       "context": "B2 dialogue \"Who could have done it?\", you speaking",
-      "ka": ""
+      "ka": "ის ვერ აიღებდა. მთელი კვირა შვებულებაში იყო."
     },
     {
       "key": "dialogues|dlg-B2-u3|line4",
       "en": "Then who was it?",
       "context": "B2 dialogue \"Who could have done it?\", partner speaking",
-      "ka": ""
+      "ka": "აბა ვინ იყო?"
     },
     {
       "key": "dialogues|dlg-B2-u3|line5",
       "en": "Maybe the cleaners thought it was old and threw it away.",
       "context": "B2 dialogue \"Who could have done it?\", you speaking",
-      "ka": ""
+      "ka": "შეიძლება დამლაგებლებს ეგონათ, რომ ძველი იყო და გადააგდეს."
     },
     {
       "key": "dialogues|dlg-B2-u4|line0",
       "en": "We need the report by Thursday. Is that possible?",
       "context": "B2 dialogue \"Negotiating at work\", partner speaking",
-      "ka": ""
+      "ka": "ანგარიში ხუთშაბათისთვის გვჭირდება. შესაძლებელია?"
     },
     {
       "key": "dialogues|dlg-B2-u4|line1",
       "en": "It's going to be difficult. Would you be willing to give me until Friday?",
       "context": "B2 dialogue \"Negotiating at work\", you speaking",
-      "ka": ""
+      "ka": "გართულდება. პარასკევამდე რომ მომცეთ დრო, შესაძლებელია?"
     },
     {
       "key": "dialogues|dlg-B2-u4|line2",
       "en": "Friday is quite late for us. What's the main problem?",
       "context": "B2 dialogue \"Negotiating at work\", partner speaking",
-      "ka": ""
+      "ka": "პარასკევი საკმაოდ გვიანია ჩვენთვის. რა არის მთავარი პრობლემა?"
     },
     {
       "key": "dialogues|dlg-B2-u4|line3",
       "en": "I'm still waiting for the sales figures from the other team.",
       "context": "B2 dialogue \"Negotiating at work\", you speaking",
-      "ka": ""
+      "ka": "მეორე გუნდისგან გაყიდვების მონაცემებს ჯერ კიდევ ველოდები."
     },
     {
       "key": "dialogues|dlg-B2-u4|line4",
       "en": "OK, let's meet halfway. Send me a draft on Thursday and the final version on Friday.",
       "context": "B2 dialogue \"Negotiating at work\", partner speaking",
-      "ka": ""
+      "ka": "კარგი, მოდი კომპრომისზე წავიდეთ: ხუთშაბათს შავი ვარიანტი გამომიგზავნე, პარასკევს კი — საბოლოო ვერსია."
     },
     {
       "key": "dialogues|dlg-B2-u4|line5",
       "en": "That works for me, as long as I get the figures by Wednesday.",
       "context": "B2 dialogue \"Negotiating at work\", you speaking",
-      "ka": ""
+      "ka": "მაწყობს, იმ პირობით, თუ მონაცემებს ოთხშაბათამდე მივიღებ."
     },
     {
       "key": "dialogues|dlg-B2-u5|line0",
       "en": "I think social media does more harm than good.",
       "context": "B2 dialogue \"A debate on social media\", partner speaking",
-      "ka": ""
+      "ka": "ვფიქრობ, სოციალურ ქსელებს უფრო მეტი ზიანი მოაქვს, ვიდრე სარგებელი."
     },
     {
       "key": "dialogues|dlg-B2-u5|line1",
       "en": "That may be true for some people, but it also helps people stay connected.",
       "context": "B2 dialogue \"A debate on social media\", you speaking",
-      "ka": ""
+      "ka": "შეიძლება ზოგიერთისთვის ასეც არის, მაგრამ ის ადამიანებს ურთიერთკავშირის შენარჩუნებაშიც ეხმარება."
     },
     {
       "key": "dialogues|dlg-B2-u5|line2",
       "en": "But studies show it increases anxiety, especially among teenagers.",
       "context": "B2 dialogue \"A debate on social media\", partner speaking",
-      "ka": ""
+      "ka": "მაგრამ კვლევები აჩვენებს, რომ ის შფოთვას ზრდის, განსაკუთრებით მოზარდებში."
     },
     {
       "key": "dialogues|dlg-B2-u5|line3",
       "en": "The main point is that the problem isn't the technology itself, but how we use it.",
       "context": "B2 dialogue \"A debate on social media\", you speaking",
-      "ka": ""
+      "ka": "მთავარი ისაა, რომ პრობლემა თვითონ ტექნოლოგიაში კი არა, იმაშია, თუ როგორ ვიყენებთ მას."
     },
     {
       "key": "dialogues|dlg-B2-u5|line4",
       "en": "So what's the solution?",
       "context": "B2 dialogue \"A debate on social media\", partner speaking",
-      "ka": ""
+      "ka": "მაშინ რა არის გამოსავალი?"
     },
     {
       "key": "dialogues|dlg-B2-u5|line5",
       "en": "On balance, I'd say better education and stricter rules for platforms.",
       "context": "B2 dialogue \"A debate on social media\", you speaking",
-      "ka": ""
+      "ka": "საბოლოო ჯამში, ვიტყოდი, რომ უკეთესი განათლება და პლატფორმებისთვის უფრო მკაცრი წესები."
     },
     {
       "key": "dialogues|dlg-C1-u1|line0",
       "en": "Could you summarise the results of the project for the board?",
       "context": "C1 dialogue \"Presenting a project\", partner speaking",
-      "ka": ""
+      "ka": "ხომ ვერ შეაჯამებდით პროექტის შედეგებს დირექტორთა საბჭოსთვის?"
     },
     {
       "key": "dialogues|dlg-C1-u1|line1",
       "en": "Certainly. Not only did we finish on time, but we also came in under budget.",
       "context": "C1 dialogue \"Presenting a project\", you speaking",
-      "ka": ""
+      "ka": "დიდი სიამოვნებით. სამუშაო არა მხოლოდ დროულად დავასრულეთ, არამედ ბიუჯეტზე ნაკლები ხარჯიც გავწიეთ."
     },
     {
       "key": "dialogues|dlg-C1-u1|line2",
       "en": "Impressive. What made the biggest difference?",
       "context": "C1 dialogue \"Presenting a project\", partner speaking",
-      "ka": ""
+      "ka": "შთამბეჭდავია. რამ განაპირობა ყველაზე დიდი გარდატეხა?"
     },
     {
       "key": "dialogues|dlg-C1-u1|line3",
       "en": "It was the decision to involve customers early that made the difference.",
       "context": "C1 dialogue \"Presenting a project\", you speaking",
-      "ka": ""
+      "ka": "გადამწყვეტი სწორედ მომხმარებლების საწყის ეტაპზევე ჩართვის გადაწყვეტილება აღმოჩნდა."
     },
     {
       "key": "dialogues|dlg-C1-u1|line4",
       "en": "And what should we focus on next year?",
       "context": "C1 dialogue \"Presenting a project\", partner speaking",
-      "ka": ""
+      "ka": "და მომავალ წელს რაზე უნდა გავამახვილოთ ყურადღება?"
     },
     {
       "key": "dialogues|dlg-C1-u1|line5",
       "en": "What really matters now is scaling the model without losing quality.",
       "context": "C1 dialogue \"Presenting a project\", you speaking",
-      "ka": ""
+      "ka": "ახლა ნამდვილად მნიშვნელოვანი ამ მოდელის მასშტაბირებაა ხარისხის დაკარგვის გარეშე."
     },
     {
       "key": "dialogues|dlg-C1-u2|line0",
       "en": "Good afternoon. I'm calling about the conference room booking for next month.",
       "context": "C1 dialogue \"A formal enquiry\", you speaking",
-      "ka": ""
+      "ka": "მოგესალმებით. მომავალ თვეში საკონფერენციო დარბაზის დაჯავშნასთან დაკავშირებით გიკავშირდებით."
     },
     {
       "key": "dialogues|dlg-C1-u2|line1",
       "en": "Of course. Should you require any equipment, we can arrange it in advance.",
       "context": "C1 dialogue \"A formal enquiry\", partner speaking",
-      "ka": ""
+      "ka": "რა თქმა უნდა. რაიმე აღჭურვილობა თუ დაგჭირდებათ, შეგვიძლია წინასწარ მოგიმზადოთ."
     },
     {
       "key": "dialogues|dlg-C1-u2|line2",
       "en": "That would be helpful. Could we have the room until six, provided that it's available?",
       "context": "C1 dialogue \"A formal enquiry\", you speaking",
-      "ka": ""
+      "ka": "ძალიან კარგი იქნება. დარბაზით სარგებლობა ექვს საათამდე თუ შეგვეძლება, იმ შემთხვევაში, თუ თავისუფალია?"
     },
     {
       "key": "dialogues|dlg-C1-u2|line3",
       "en": "That shouldn't be a problem. Would you like catering as well?",
       "context": "C1 dialogue \"A formal enquiry\", partner speaking",
-      "ka": ""
+      "ka": "პრობლემა არ უნდა იყოს. ქეითერინგის მომსახურებაც ხომ არ გენდომებათ?"
     },
     {
       "key": "dialogues|dlg-C1-u2|line4",
       "en": "I'd rather we kept it simple — just coffee and water, please.",
       "context": "C1 dialogue \"A formal enquiry\", you speaking",
-      "ka": ""
+      "ka": "მირჩევნია მარტივად გადავწყვიტოთ — მხოლოდ ყავა და წყალი, თუ შეიძლება."
     },
     {
       "key": "dialogues|dlg-C1-u2|line5",
       "en": "Certainly. I'll send you a written confirmation today.",
       "context": "C1 dialogue \"A formal enquiry\", partner speaking",
-      "ka": ""
+      "ka": "რა თქმა უნდა. წერილობით დასტურს დღესვე გამოგიგზავნით."
     },
     {
       "key": "dialogues|dlg-C1-u3|line0",
       "en": "What did your study find about remote work and productivity?",
       "context": "C1 dialogue \"Discussing research findings\", partner speaking",
-      "ka": ""
+      "ka": "რა აჩვენა თქვენმა კვლევამ დისტანციურ მუშაობასა და პროდუქტიულობაზე?"
     },
     {
       "key": "dialogues|dlg-C1-u3|line1",
       "en": "Having analysed data from over two thousand employees, we found a modest increase in productivity.",
       "context": "C1 dialogue \"Discussing research findings\", you speaking",
-      "ka": ""
+      "ka": "ორ ათასზე მეტი თანამშრომლის მონაცემების გაანალიზების შედეგად, პროდუქტიულობის ზომიერი ზრდა დავაფიქსირეთ."
     },
     {
       "key": "dialogues|dlg-C1-u3|line2",
       "en": "Is that true for everyone?",
       "context": "C1 dialogue \"Discussing research findings\", partner speaking",
-      "ka": ""
+      "ka": "ეს ყველას ეხება?"
     },
     {
       "key": "dialogues|dlg-C1-u3|line3",
       "en": "Not quite. The findings appear to suggest that junior staff benefit less.",
       "context": "C1 dialogue \"Discussing research findings\", you speaking",
-      "ka": ""
+      "ka": "არც ისე. მიღებული შედეგები მიუთითებს, რომ უმცროსი თანამშრომლები შედარებით ნაკლებ სარგებელს იღებენ."
     },
     {
       "key": "dialogues|dlg-C1-u3|line4",
       "en": "Why might that be?",
       "context": "C1 dialogue \"Discussing research findings\", partner speaking",
-      "ka": ""
+      "ka": "რით შეიძლება იყოს ეს განპირობებული?"
     },
     {
       "key": "dialogues|dlg-C1-u3|line5",
       "en": "It's widely believed that they rely more on informal learning in the office.",
       "context": "C1 dialogue \"Discussing research findings\", you speaking",
-      "ka": ""
+      "ka": "ფართოდ მიღებული შეხედულებით, ისინი უფრო მეტად არიან დამოკიდებული ოფისში არაფორმალურ სწავლებაზე."
     },
     {
       "key": "dialogues|dlg-C1-u4|line0",
       "en": "I really think we should cancel the festival this year because of the budget.",
       "context": "C1 dialogue \"Disagreeing tactfully\", partner speaking",
-      "ka": ""
+      "ka": "ნამდვილად ვფიქრობ, რომ ბიუჯეტის გამო წელს ფესტივალი უნდა გავაუქმოთ."
     },
     {
       "key": "dialogues|dlg-C1-u4|line1",
       "en": "Admittedly, money is tight, but cancelling it would disappoint a lot of people.",
       "context": "C1 dialogue \"Disagreeing tactfully\", you speaking",
-      "ka": ""
+      "ka": "მართალია, ფინანსურად გვიჭირს, მაგრამ მისი გაუქმება უამრავ ადამიანს გაუცრუებს იმედს."
     },
     {
       "key": "dialogues|dlg-C1-u4|line2",
       "en": "No matter how popular it is, we can't spend money we don't have.",
       "context": "C1 dialogue \"Disagreeing tactfully\", partner speaking",
-      "ka": ""
+      "ka": "რაც არ უნდა პოპულარული იყოს, ვერ დავხარჯავთ ფულს, რომელიც არ გაგვაჩნია."
     },
     {
       "key": "dialogues|dlg-C1-u4|line3",
       "en": "Much as I agree that we need to save, there might be a middle way.",
       "context": "C1 dialogue \"Disagreeing tactfully\", you speaking",
-      "ka": ""
+      "ka": "რამდენადაც არ უნდა ვეთანხმებოდე იმას, რომ დაზოგვა გვჭირდება, შესაძლოა ოქროს შუალედიც მოიძებნოს."
     },
     {
       "key": "dialogues|dlg-C1-u4|line4",
       "en": "Such as?",
       "context": "C1 dialogue \"Disagreeing tactfully\", partner speaking",
-      "ka": ""
+      "ka": "მაგალითად?"
     },
     {
       "key": "dialogues|dlg-C1-u4|line5",
       "en": "We could run a smaller version and look for local sponsors to cover the rest.",
       "context": "C1 dialogue \"Disagreeing tactfully\", you speaking",
-      "ka": ""
+      "ka": "შეგვიძლია უფრო მცირე მასშტაბით ჩავატაროთ და დარჩენილი ნაწილის დასაფარად ადგილობრივი სპონსორები მოვიძიოთ."
     },
     {
       "key": "dialogues|dlg-C1-u5|line0",
       "en": "Does technology make education more equal or less equal?",
       "context": "C1 dialogue \"A panel discussion\", partner speaking",
-      "ka": ""
+      "ka": "ხდის თუ არა ტექნოლოგია განათლებას უფრო თანასწორს?"
     },
     {
       "key": "dialogues|dlg-C1-u5|line1",
       "en": "Arguably, it does both. It opens access, whereas it can also widen existing gaps.",
       "context": "C1 dialogue \"A panel discussion\", you speaking",
-      "ka": ""
+      "ka": "შეიძლება ითქვას, რომ ორივეს. ის ზრდის ხელმისაწვდომობას, თუმცა ამავდროულად შეუძლია გააღრმავოს არსებული უთანასწორობა."
     },
     {
       "key": "dialogues|dlg-C1-u5|line2",
       "en": "Could you give an example?",
       "context": "C1 dialogue \"A panel discussion\", partner speaking",
-      "ka": ""
+      "ka": "მაგალითის მოყვანა თუ შეგიძლიათ?"
     },
     {
       "key": "dialogues|dlg-C1-u5|line3",
       "en": "Online courses are free, but they assume a reliable connection and a quiet place to study.",
       "context": "C1 dialogue \"A panel discussion\", you speaking",
-      "ka": ""
+      "ka": "ონლაინ კურსები უფასოა, თუმცა ისინი საიმედო ინტერნეტკავშირსა და მეცადინეობისთვის წყნარ გარემოს მოითხოვს."
     },
     {
       "key": "dialogues|dlg-C1-u5|line4",
       "en": "So what determines the outcome?",
       "context": "C1 dialogue \"A panel discussion\", partner speaking",
-      "ka": ""
+      "ka": "მაშ, რა განსაზღვრავს საბოლოო შედეგს?"
     },
     {
       "key": "dialogues|dlg-C1-u5|line5",
       "en": "To a large extent, it depends on whether governments invest in infrastructure and support.",
       "context": "C1 dialogue \"A panel discussion\", you speaking",
-      "ka": ""
+      "ka": "დიდწილად ეს იმაზეა დამოკიდებული, ჩადებენ თუ არა მთავრობები ინვესტიციას ინფრასტრუქტურასა და მხარდაჭერაში."
     },
     {
       "key": "dialogues|dlg-C2-u1|line0",
       "en": "Good morning, everyone. I propose that we begin with the budget, as it affects every other item.",
       "context": "C2 dialogue \"Chairing a formal meeting\", you speaking",
-      "ka": ""
+      "ka": "დილა მშვიდობისა ყველას. წინადადებით გამოვდივარ, ბიუჯეტით დავიწყოთ, რადგან ის თითოეულ დანარჩენ საკითხზე ახდენს გავლენას."
     },
     {
       "key": "dialogues|dlg-C2-u1|line1",
       "en": "Before we do, I must object: the figures were circulated only last night.",
       "context": "C2 dialogue \"Chairing a formal meeting\", partner speaking",
-      "ka": ""
+      "ka": "სანამ დავიწყებდეთ, პროტესტი უნდა გამოვთქვა: მონაცემები მხოლოდ გუშინ ღამით დაგვირიგდა."
     }
   ]
 }
