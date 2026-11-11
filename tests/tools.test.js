@@ -52,3 +52,14 @@ test('word lookup finds the dictionary form of inflected words', () => {
   assert.ok(c('children').includes('child'));
   assert.ok(c("Anna's").includes('anna'));
 });
+
+test('dictation accepts digits for number words, missing apostrophes and British/American spelling', () => {
+  const { App } = loadScripts(['js/dictation.js']);
+  const pct = (a, b) => App.Dictation.compare(a, b).pct;
+  assert.strictEqual(pct("No, it's about five minutes.", 'No, its about 5 minutes.'), 100);
+  assert.strictEqual(pct('It costs two hundred and fifty euros.', 'It costs 250 euros'), 100);
+  assert.strictEqual(pct("I don't know.", 'i dont know'), 100);
+  assert.strictEqual(pct('My favourite colour is grey.', 'my favorite color is gray'), 100);
+  assert.strictEqual(pct('We need to organise the trip.', 'we need to organize the trip'), 100);
+  assert.ok(pct('There were four people.', 'there were for people') < 90, 'a different word is still an error');
+});

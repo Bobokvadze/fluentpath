@@ -1506,6 +1506,35 @@
       }
     },
 
+    // შესული მომხმარებლის მონაცემები (რეგისტრაციისას შეყვანილი სახელი, ელ-ფოსტა, დონე) პარამეტრების გვერდისთვის
+    getCurrentUser: function () {
+      if (!currentCloudUser) return null;
+      return {
+        email: currentCloudUser.email,
+        fullName: currentCloudUser.fullName,
+        level: getByPath(inMemoryState, "progress.level", currentCloudUser.level || "A1")
+      };
+    },
+
+    updateProfileName: function (newName) {
+      const clean = String(newName || "").trim();
+      if (!currentCloudUser || clean.length < 2) return Promise.resolve(false);
+      currentCloudUser.fullName = clean;
+      setByPath(inMemoryState, "user.name", clean);
+      setByPath(inMemoryState, "settings.userName", clean);
+      persistLocally();
+      return pushStateToSupabaseNow().then(function () {
+        Auth.syncHeaderAuthUI();
+        return true;
+      }, function () { return true; });
+    },
+
+    sendPasswordResetEmail: function () {
+      if (!supabaseClient || !currentCloudUser) return Promise.reject(new Error("not signed in"));
+      return supabaseClient.auth.resetPasswordForEmail(currentCloudUser.email, { redirectTo: getAuthRedirectUrl() })
+        .then(function (res) { if (res.error) throw res.error; return true; });
+    },
+
     syncHeaderAuthUI: function () {
       // ვიპოვოთ ზუსტად ის მარჯვენა კონტეინერი, სადაც ზის დონე, სტრიკი, თემა და პარამეტრები
       const anchorEl =

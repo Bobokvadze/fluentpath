@@ -37,12 +37,73 @@
     return (h >>> 0).toString(36);
   }
 
+  // აპოსტროფის გარეშე დაწერილი შემოკლებები (its = it's, dont = don't); ჩვეულებრივ სიტყვებს (were, well, ill, shed) არ ვეხებით
+  const NO_APOSTROPHE = {
+    im: "i am", ive: "i have", youre: "you are", youve: "you have", youll: "you will", youd: "you would",
+    theyre: "they are", theyve: "they have", theyll: "they will", theyd: "they would", weve: "we have",
+    hes: "he is", shes: "she is", its: "it is", itll: "it will", thats: "that is", theres: "there is", whats: "what is",
+    lets: "let us", dont: "do not", doesnt: "does not", didnt: "did not", isnt: "is not", arent: "are not",
+    wasnt: "was not", werent: "were not", havent: "have not", hasnt: "has not", hadnt: "had not",
+    wouldnt: "would not", couldnt: "could not", shouldnt: "should not", mustnt: "must not", cant: "cannot", wont: "will not"
+  };
+
+  // ბრიტანული და ამერიკული მართლწერა ერთნაირად ითვლება (colour = color, centre = center ...)
+  const SPELLING = {
+    colour: "color", colours: "colors", favourite: "favorite", favourites: "favorites", honour: "honor", neighbour: "neighbor",
+    neighbours: "neighbors", behaviour: "behavior", labour: "labor", flavour: "flavor", humour: "humor", harbour: "harbor",
+    centre: "center", centres: "centers", theatre: "theater", metre: "meter", metres: "meters", litre: "liter", litres: "liters",
+    travelling: "traveling", travelled: "traveled", traveller: "traveler", cancelled: "canceled", programme: "program",
+    grey: "gray", jewellery: "jewelry", cheque: "check", tyre: "tire", tyres: "tires", defence: "defense", licence: "license",
+    catalogue: "catalog", dialogue: "dialog", practise: "practice", analyse: "analyze", mum: "mom"
+  };
+  function spelling(w) {
+    if (SPELLING[w]) return SPELLING[w];
+    if (w.length >= 7) return w.replace(/is(e|ed|es|ing|ation|ations)$/, "iz$1").replace(/yse(d|s)?$/, "yze$1");
+    return w;
+  }
+
+  // რიცხვები: სიტყვებით და ციფრებით დაწერილი ერთნაირად ითვლება (5 = five, 250 = two hundred and fifty)
+  const UNITS = { zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+    eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19 };
+  const TENS = { twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90 };
+  function numbersToDigits(tokens) {
+    const out = [];
+    let i = 0;
+    while (i < tokens.length) {
+      const t = tokens[i];
+      if (UNITS[t] === undefined && TENS[t] === undefined) { out.push(t); i++; continue; }
+      let total = 0;
+      let part = 0;
+      let j = i;
+      let used = false;
+      while (j < tokens.length) {
+        const w = tokens[j];
+        if (UNITS[w] !== undefined) { part += UNITS[w]; used = true; }
+        else if (TENS[w] !== undefined) { part += TENS[w]; used = true; }
+        else if (w === "hundred" && used) { part *= 100; }
+        else if (w === "thousand" && used) { total += part * 1000; part = 0; }
+        else if (w === "and" && used && j + 1 < tokens.length && (UNITS[tokens[j + 1]] !== undefined || TENS[tokens[j + 1]] !== undefined) && /hundred|thousand/.test(tokens[j - 1] || "")) { /* two hundred and fifty */ }
+        else break;
+        j++;
+      }
+      out.push(String(total + part));
+      i = j;
+    }
+    return out;
+  }
+
   function words(text) {
-    return String(text).toLowerCase().replace(/[’‘`]/g, "'").replace(/[“”"]/g, " ")
+    const tokens = String(text).toLowerCase().replace(/[’‘`]/g, "'").replace(/[“”"]/g, " ")
+      .replace(/(\d),(\d{3})/g, "$1$2")
       .replace(/[^a-z0-9'\s-]/g, " ").replace(/-/g, " ")
       .split(/\s+/).filter(Boolean)
       .map(function (w) { return w.replace(/^'+|'+$/g, ""); }).filter(Boolean)
-      .reduce(function (out, w) { return out.concat((CONTRACTIONS[w] || w).split(" ")); }, []);
+      .reduce(function (out, w) {
+        const full = CONTRACTIONS[w] || NO_APOSTROPHE[w] || NO_APOSTROPHE[w.replace(/'/g, "")] || w;
+        return out.concat(full.split(" "));
+      }, [])
+      .map(spelling);
+    return numbersToDigits(tokens);
   }
 
   // შედარება LCS-ით: ok / missing (გამოტოვებული) / extra (ზედმეტი) / wrong (ჩანაცვლება)
@@ -181,7 +242,7 @@
             "</div>" +
             hintHtml +
             '<label class="sr-only" for="dc-input">ჩაწერეთ მოსმენილი წინადადება</label>' +
-            '<textarea id="dc-input" class="auth-input dc-input" rows="3" lang="en" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ჩაწერეთ, რაც მოისმინეთ..."' + (res ? " readonly" : "") + ">" + esc(res ? res.typed : draft) + "</textarea>" +
+            '<textarea id="dc-input" class="fp-textarea dc-input" rows="3" lang="en" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ჩაწერეთ, რაც მოისმინეთ..."' + (res ? " readonly" : "") + ">" + esc(res ? res.typed : draft) + "</textarea>" +
             (res
               ? '<div class="dc-result ' + (res.pct >= PASS ? "dc-result--ok" : "dc-result--bad") + '" role="status">' +
                   '<div class="dc-result__score">' + res.pct + "%" + (res.pct >= PASS ? " ✓" : "") + "</div>" +

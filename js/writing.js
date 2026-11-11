@@ -529,7 +529,7 @@
               "</div>" +
             "</div>" +
             '<label class="sr-only" for="writing-sandbox-textarea">Your text</label>' +
-            '<textarea id="writing-sandbox-textarea" class="auth-input" rows="8" lang="en" placeholder="Write your text in English here… (your draft is saved automatically)" style="width:100%; font-family:inherit; line-height:1.6; resize:vertical;">' + esc(currentDraft) + "</textarea>" +
+            '<textarea id="writing-sandbox-textarea" class="fp-textarea" rows="8" lang="en" placeholder="Write your text in English here… (your draft is saved automatically)">' + esc(currentDraft) + "</textarea>" +
             '<p class="wx-count ' + target.cls + '" id="writing-word-counter" aria-live="polite">' + (target.label || ("Words: " + wordCount)) + "</p>" +
             '<div class="wx-lt-bar"><button type="button" class="btn btn-outline btn-sm" id="wx-check-btn">🔍 გრამატიკისა და მართლწერის შემოწმება</button>' +
               '<span class="wx-lt-note">ტექსტი შესამოწმებლად იგზავნება LanguageTool-ის უფასო სერვისში.</span></div>' +

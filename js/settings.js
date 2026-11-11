@@ -39,28 +39,63 @@
       }).join('');
 
       const storageKB = App.Storage.getStorageSizeKB();
+      const esc = App.UI.escapeHTML;
+      const account = (App.Auth && typeof App.Auth.getCurrentUser === 'function') ? App.Auth.getCurrentUser() : null;
+      // რეგისტრაციისას შეყვანილი სახელი; სტუმრისთვის — ადრე შენახული სახელი
+      const displayName = account ? account.fullName : (String(App.Storage.get('user.name', '') || settings.userName || '').trim());
+      const initials = (displayName || '?').split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w.charAt(0).toUpperCase()).join('') || '?';
+      const level = App.Storage.get('progress.level', settings.cefrLevel || 'A1');
+
+      const accountHtml = account
+        ? '<section class="card st-account" aria-labelledby="account-heading">' +
+            '<div class="st-account__head">' +
+              '<div class="st-avatar" aria-hidden="true">' + esc(initials) + '</div>' +
+              '<div><h2 id="account-heading" class="section-title">' + esc(account.fullName) + '</h2>' +
+              '<p class="st-account__email">☁️ ' + esc(account.email) + ' · <span class="st-badge">სინქრონიზებულია</span></p></div>' +
+            '</div>' +
+            '<div class="st-fields">' +
+              '<label class="st-field"><span class="st-field__label">სახელი და გვარი</span>' +
+                '<input type="text" id="setting-username" class="text-input st-input" maxlength="60" autocomplete="name" value="' + esc(account.fullName) + '" /></label>' +
+              '<label class="st-field"><span class="st-field__label">ელ-ფოსტა</span>' +
+                '<input type="email" class="text-input st-input" value="' + esc(account.email) + '" readonly aria-readonly="true" /></label>' +
+              '<label class="st-field"><span class="st-field__label">დონე</span>' +
+                '<input type="text" class="text-input st-input" value="' + esc(level) + '" readonly aria-readonly="true" /></label>' +
+            '</div>' +
+            '<div class="st-actions">' +
+              '<button type="button" class="btn btn-primary btn-sm" id="save-username-btn">სახელის შენახვა</button>' +
+              '<button type="button" class="btn btn-outline btn-sm" id="st-reset-password-btn">🔑 პაროლის შეცვლა</button>' +
+              '<button type="button" class="btn btn-outline btn-sm st-logout" id="st-logout-btn">🚪 გამოსვლა</button>' +
+            '</div>' +
+          '</section>'
+        : '<section class="card st-account" aria-labelledby="account-heading">' +
+            '<div class="st-account__head">' +
+              '<div class="st-avatar st-avatar--guest" aria-hidden="true">' + esc(displayName ? initials : '👤') + '</div>' +
+              '<div><h2 id="account-heading" class="section-title">' + (displayName ? esc(displayName) : 'სტუმარი') + '</h2>' +
+              '<p class="st-account__email">პროგრესი ინახება მხოლოდ ამ მოწყობილობაზე.</p></div>' +
+            '</div>' +
+            '<div class="st-fields">' +
+              '<label class="st-field"><span class="st-field__label">თქვენი სახელი</span>' +
+                '<input type="text" id="setting-username" class="text-input st-input" maxlength="60" autocomplete="name" placeholder="მაგ. ნინო" value="' + esc(displayName) + '" /></label>' +
+            '</div>' +
+            '<div class="st-actions">' +
+              '<button type="button" class="btn btn-outline btn-sm" id="save-username-btn">სახელის შენახვა</button>' +
+              '<button type="button" class="btn btn-primary btn-sm" id="st-open-auth-btn">☁️ შესვლა / რეგისტრაცია</button>' +
+            '</div>' +
+            '<p class="setting-desc" style="margin-top:10px;">რეგისტრაციის შემდეგ პროგრესი ინახება თქვენს ანგარიშში და ხელმისაწვდომია ნებისმიერ მოწყობილობაზე. აქამდე მიღწეული პროგრესი არ დაიკარგება.</p>' +
+          '</section>';
 
       container.innerHTML =
         '<div class="dashboard-grid">' +
+          accountHtml +
           '<section class="card" aria-labelledby="prefs-heading">' +
             '<div class="section-header">' +
               '<div>' +
-                '<h2 id="prefs-heading" class="section-title">სწავლისა და გარეგნობის პარამეტრები</h2>' +
-                '<p class="section-subtitle">ყველა ცვლილება ავტომატურად ინახება თქვენი ბრაუზერის მეხსიერებაში (LocalStorage).</p>' +
+                '<h3 id="prefs-heading" class="section-title">სწავლა და გარეგნობა</h3>' +
+                '<p class="section-subtitle">' + (account ? 'ცვლილებები ავტომატურად ინახება თქვენს ანგარიშში.' : 'ცვლილებები ავტომატურად ინახება ამ მოწყობილობაზე.') + '</p>' +
               '</div>' +
             '</div>' +
 
             '<div class="settings-list">' +
-              '<div class="setting-row">' +
-                '<div class="setting-info">' +
-                  '<label for="setting-username" class="setting-label">მომხმარებლის სახელი</label>' +
-                  '<p class="setting-desc">გამოჩნდება მთავარი გვერდის მისალმების ბანერზე.</p>' +
-                '</div>' +
-                '<div class="setting-control">' +
-                  '<input type="text" id="setting-username" class="text-input" maxlength="32" value="' + App.UI.escapeHTML(settings.userName || 'მოსწავლე') + '" />' +
-                  '<button type="button" class="btn btn-outline btn-sm" id="save-username-btn">სახელის შენახვა</button>' +
-                '</div>' +
-              '</div>' +
 
               '<div class="setting-row">' +
                 '<div class="setting-info">' +
@@ -118,7 +153,7 @@
             '<div class="section-header">' +
               '<div>' +
                 '<h3 id="data-heading" class="section-title">მონაცემთა მართვა და სარეზერვო ასლები</h3>' +
-                '<p class="section-subtitle">თქვენი პროგრესი გეკუთვნით მხოლოდ თქვენ. შეინახეთ JSON ფაილად ან აღადგინეთ ნებისმიერ დროს.</p>' +
+                '<p class="section-subtitle">თქვენი პროგრესი მხოლოდ თქვენ გეკუთვნით. შეინახეთ ფაილად ან აღადგინეთ ნებისმიერ დროს.</p>' +
               '</div>' +
             '</div>' +
 
@@ -160,19 +195,19 @@
             '<div class="section-header">' +
               '<div>' +
                 '<h3 id="about-heading" class="section-title">პლატფორმის შესახებ — FluentPath</h3>' +
-                '<p class="section-subtitle">ვერსია: ' + App.UI.escapeHTML((App.Config && App.Config.version) || '1.0.0-phase1-ka') + '</p>' +
+                '<p class="section-subtitle">A1–C2 · ' + esc(App.Vocabulary ? String(App.Vocabulary.getCounts().total) : '1,400+') + ' სიტყვა · ' + (App.CourseEngine ? App.CourseEngine.all().length : 29) + ' კურსი</p>' +
               '</div>' +
               '<span class="stat-pill">დაკავებული მეხსიერება: ' + App.UI.escapeHTML(storageKB) + ' KB</span>' +
             '</div>' +
             '<p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 12px;">' +
-              'FluentPath არის 100% უფასო, დამოუკიდებელი ინგლისური ენის სასწავლო ვებ-პლატფორმა. ' +
-              'მუშაობს სრულად თქვენს ბრაუზერში HTML5, CSS3, Vanilla JavaScript და LocalStorage ტექნოლოგიებით.' +
+              'FluentPath არის სრულიად უფასო ინგლისური ენის სასწავლო პლატფორმა ქართულად მოსაუბრეებისთვის: სასწავლო გეგმა A1-დან C2-მდე, ' +
+              'თემატური კურსები, ლექსიკონი, გრამატიკა, კითხვა, მოსმენა, კარნახი, საუბარი და წერა. მუშაობს ოფლაინ რეჟიმშიც.' +
             '</p>' +
             '<ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; font-size: 0.85rem; color: var(--text-secondary);">' +
-              '<li>&check; ფასიანი გამოწერებისა და ბლოკირების გარეშე</li>' +
-              '<li>&check; გულების, სიცოცხლეებისა და ენერგიის ლიმიტის გარეშე</li>' +
-              '<li>&check; გარე API გასაღებებისა და სერვერის გარეშე</li>' +
-              '<li>&check; რეგისტრაციის, ანგარიშისა და თვალთვალის გარეშე</li>' +
+              '<li>&check; ფასიანი გამოწერებისა და დაბლოკილი მასალის გარეშე</li>' +
+              '<li>&check; გულების, სიცოცხლეებისა და ლიმიტების გარეშე</li>' +
+              '<li>&check; რეკლამისა და თვალთვალის გარეშე</li>' +
+              '<li>&check; რეგისტრაცია არასავალდებულოა — მხოლოდ მოწყობილობებს შორის სინქრონიზაციისთვის</li>' +
             '</ul>' +
           '</section>' +
         '</div>';
@@ -184,13 +219,46 @@
       const usernameInput = container.querySelector('#setting-username');
       const saveUsernameBtn = container.querySelector('#save-username-btn');
       if (saveUsernameBtn && usernameInput) {
-        saveUsernameBtn.addEventListener('click', () => {
-          const val = usernameInput.value.trim() || 'მოსწავლე';
+        const save = () => {
+          const val = usernameInput.value.trim();
+          const account = App.Auth && App.Auth.getCurrentUser ? App.Auth.getCurrentUser() : null;
+          if (account) {
+            if (val.length < 2) { App.UI.toast('სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს.', 'warning'); return; }
+            saveUsernameBtn.disabled = true;
+            App.Auth.updateProfileName(val).then(() => {
+              App.UI.playSound('success');
+              App.UI.toast('☁️ სახელი განახლდა თქვენს ანგარიშში.', 'success');
+              this.render();
+            });
+            return;
+          }
           App.Storage.set('settings.userName', val);
+          App.Storage.set('user.name', val);
           App.UI.playSound('success');
-          App.UI.toast('მომხმარებლის სახელი განახლდა: «' + val + '».', 'success');
-        });
+          App.UI.toast(val ? 'სახელი შენახულია: «' + val + '».' : 'სახელი წაიშალა.', 'success');
+          this.render();
+        };
+        saveUsernameBtn.addEventListener('click', save);
+        usernameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') save(); });
       }
+
+      const openAuth = container.querySelector('#st-open-auth-btn');
+      if (openAuth) openAuth.addEventListener('click', () => App.Auth && App.Auth.openModal('register'));
+
+      const logoutBtn = container.querySelector('#st-logout-btn');
+      if (logoutBtn) logoutBtn.addEventListener('click', () => App.Auth && App.Auth.handleLogout());
+
+      const resetPwBtn = container.querySelector('#st-reset-password-btn');
+      if (resetPwBtn) resetPwBtn.addEventListener('click', () => {
+        resetPwBtn.disabled = true;
+        App.Auth.sendPasswordResetEmail().then(() => {
+          App.UI.toast('📧 პაროლის შესაცვლელი ბმული გაიგზავნა თქვენს ელ-ფოსტაზე.', 'success', 5000);
+          resetPwBtn.textContent = '✓ ბმული გაიგზავნა';
+        }, (err) => {
+          resetPwBtn.disabled = false;
+          App.UI.toast((err && /rate|seconds/i.test(err.message || '')) ? 'გთხოვთ, დაელოდოთ ერთ წუთს და სცადოთ თავიდან.' : 'ბმულის გაგზავნა ვერ მოხერხდა.', 'warning');
+        });
+      });
 
       const themeBtns = container.querySelectorAll('[data-theme-select]');
       themeBtns.forEach((btn) => {
@@ -209,6 +277,7 @@
         cefrSelect.addEventListener('change', () => {
           const val = cefrSelect.value;
           App.Storage.set('settings.cefrLevel', val);
+          App.Storage.set('progress.level', val);
           App.UI.updateTopbarStats();
           App.UI.playSound('click');
           App.UI.toast('CEFR დონე შეიცვალა: ' + val + '.', 'success');
