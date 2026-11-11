@@ -64,7 +64,40 @@
   let preparedQuestions = [];
   let showTranslations = false; // ქართული თარგმანი თავიდან დამალულია!
   let quizAnswers = {};
-  let draftByTopicId = {};
+  let pendingDrafts = null;      // შეუნახავი მონახაზები (ინახება writing.drafts-ში 0.8 წმ-ში)
+  let checksByTopicId = {};      // თვითშემოწმების სია (მხოლოდ სესიაში)
+  let draftSaveTimer = null;
+  const MAX_DRAFT_CHARS = 6000;
+
+  function drafts() {
+    return pendingDrafts || Object.assign({}, App.Storage.get("writing.drafts", {}) || {});
+  }
+
+  function saveDraft(topicId, text) {
+    pendingDrafts = drafts();
+    const value = String(text || "").slice(0, MAX_DRAFT_CHARS);
+    if (value.trim()) pendingDrafts[topicId] = value;
+    else delete pendingDrafts[topicId];
+    window.clearTimeout(draftSaveTimer);
+    draftSaveTimer = window.setTimeout(function () {
+      App.Storage.set("writing.drafts", pendingDrafts);
+      pendingDrafts = null;
+    }, 800);
+  }
+
+  function countWords(text) {
+    const trimmed = String(text || "").trim();
+    return trimmed ? trimmed.split(/\s+/).length : 0;
+  }
+
+  // სიტყვების რაოდენობის შეფასება დონის მიზნობრივ დიაპაზონთან მიმართებით
+  function wordTargetState(count, range) {
+    if (!range) return { cls: "", label: "" };
+    if (count === 0) return { cls: "", label: "Target: " + range[0] + "–" + range[1] + " words" };
+    if (count < range[0]) return { cls: "wx-count--low", label: count + " words · " + (range[0] - count) + " more to reach the target (" + range[0] + "–" + range[1] + ")" };
+    if (count > range[1]) return { cls: "wx-count--high", label: count + " words · above the target (" + range[0] + "–" + range[1] + "); consider cutting" };
+    return { cls: "wx-count--ok", label: count + " words · within the target ✓" };
+  }
 
   const Writing = {
     getAllTopics: function () {
@@ -78,8 +111,12 @@
         const paras = item.paragraphs.map((p) => (Array.isArray(p) ? { en: p[0], ka: p[1] } : p));
         const visual = WRITING_VISUAL_META[(num - 1) % WRITING_VISUAL_META.length];
 
+        const id = "writing-topic-" + num;
+        const en = (App.WritingEN && App.WritingEN.tasks && App.WritingEN.tasks[id]) || null;
         return {
-          id: "writing-topic-" + num,
+          id: id,
+          en: en,
+          levelSpec: (App.WritingEN && App.WritingEN.levels && App.WritingEN.levels[item.level]) || null,
           topicNumber: num,
           level: item.level,
           titleKa: item.title,
@@ -159,6 +196,14 @@
       if (!container) return;
 
       const allTopics = this.getAllTopics();
+
+      const pendingId = App.takePendingOpen ? App.takePendingOpen("writing") : null;
+      if (pendingId) {
+        activeTopic = allTopics.find((t) => t.id === pendingId) || null;
+        if (activeTopic) this.prepareRandomizedQuestions(activeTopic);
+        quizAnswers = {};
+        showTranslations = false;
+      }
 
       if (activeTopic) {
         this.renderTopicPlayer(container, allTopics);
@@ -318,8 +363,13 @@
 
     renderTopicPlayer: function (container, allTopics) {
       const t = activeTopic;
-      const currentDraft = draftByTopicId[t.id] || "";
-      const wordCount = currentDraft.trim() ? currentDraft.trim().split(/\s+/).length : 0;
+      const esc = App.UI.escapeHTML;
+      const currentDraft = drafts()[t.id] || "";
+      const wordCount = countWords(currentDraft);
+      const spec = t.levelSpec;
+      const target = wordTargetState(wordCount, spec && spec.words);
+      const checks = checksByTopicId[t.id] || {};
+      const trField = function (field) { return App.tr ? App.tr("writing", t.id, field) : ""; };
 
       const paragraphsHtml = t.paragraphs.map((para) => {
         return (
@@ -412,18 +462,36 @@
             '<div class="glossary-grid">' + glossaryHtml + "</div>" +
           "</section>" +
 
-          '<section class="card">' +
+          '<section class="card wx-task" aria-labelledby="wx-task-title">' +
             '<div class="section-header" style="margin-bottom:10px;">' +
               "<div>" +
-                '<h3 class="section-title">✍️ პრაქტიკული წერის ველი (სურვილისამებრ)</h3>' +
-                '<p class="section-subtitle">' + App.UI.escapeHTML(t.prompt) + "</p>" +
+                '<h3 class="section-title" id="wx-task-title">✍️ Your writing task</h3>' +
+                (t.en
+                  ? '<p class="wx-task__text" lang="en">' + esc(t.en.task) + "</p>" +
+                    (trField("task") ? '<p class="wx-task__ka" lang="ka">' + esc(trField("task")) + "</p>" : "") +
+                    '<p class="wx-task__label" lang="en">Include:</p><ul class="wx-points" lang="en">' +
+                      t.en.points.map(function (pt) { return "<li>" + esc(pt) + "</li>"; }).join("") + "</ul>"
+                  : '<p class="section-subtitle">' + esc(t.prompt) + "</p>") +
+                (t.en && t.prompt ? '<details class="wx-ka-prompt"><summary>ქართული მითითება</summary><p lang="ka">' + esc(t.prompt) + "</p></details>" : "") +
               "</div>" +
               '<div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">' +
-                '<span class="stat-pill stat-pill--level" id="writing-word-counter">სიტყვა: ' + wordCount + "</span>" +
                 (t.template ? '<button type="button" class="btn btn-outline btn-sm" id="insert-writing-template-btn">📋 შაბლონის ჩასმა</button>' : "") +
               "</div>" +
             "</div>" +
-            '<textarea id="writing-sandbox-textarea" class="auth-input" rows="5" placeholder="დაწერეთ თქვენი ტექსტი ინგლისურად აქ..." style="width:100%; font-family:inherit; line-height:1.6; resize:vertical;">' + App.UI.escapeHTML(currentDraft) + "</textarea>" +
+            '<label class="sr-only" for="writing-sandbox-textarea">Your text</label>' +
+            '<textarea id="writing-sandbox-textarea" class="auth-input" rows="8" lang="en" placeholder="Write your text in English here… (your draft is saved automatically)" style="width:100%; font-family:inherit; line-height:1.6; resize:vertical;">' + esc(currentDraft) + "</textarea>" +
+            '<p class="wx-count ' + target.cls + '" id="writing-word-counter" aria-live="polite">' + (target.label || ("Words: " + wordCount)) + "</p>" +
+            (spec
+              ? '<div class="wx-check">' +
+                  '<h4 class="wx-check__title" lang="en">Self-check before you finish</h4>' +
+                  '<ul class="wx-check__list" lang="en">' + spec.checklist.map(function (item, i) {
+                    return '<li><label><input type="checkbox" data-wx-check="' + i + '"' + (checks[i] ? " checked" : "") + "> " + esc(item) + "</label></li>";
+                  }).join("") + "</ul>" +
+                  '<details class="wx-criteria"><summary lang="en">How ' + esc(t.level) + " writing is assessed</summary>" +
+                    '<dl lang="en">' + spec.criteria.map(function (c) { return "<dt>" + esc(c.name) + "</dt><dd>" + esc(c.descriptor) + "</dd>"; }).join("") + "</dl>" +
+                  "</details>" +
+                "</div>"
+              : "") +
           "</section>" +
 
           '<section class="card">' +
@@ -443,7 +511,7 @@
             "</div>" +
             questionsHtml +
             '<div style="display:flex; justify-content:flex-end; margin-top:12px;">' +
-              '<button type="button" class="btn btn-primary" id="complete-writing-btn">დასრულება და მომდევნოს გახსნა (+' + t.xp + " XP) &rarr;</button>" +
+              '<button type="button" class="btn btn-primary" id="complete-writing-btn">დასრულება და მომდევნოს გახსნა &rarr;</button>' +
             "</div>" +
           "</section>" +
         "</div>";
@@ -459,21 +527,33 @@
 
       const textarea = container.querySelector("#writing-sandbox-textarea");
       const counterEl = container.querySelector("#writing-word-counter");
+      const updateCounter = () => {
+        if (!counterEl) return;
+        const wc = countWords(textarea.value);
+        const st = wordTargetState(wc, spec && spec.words);
+        counterEl.className = "wx-count " + st.cls;
+        counterEl.textContent = st.label || ("Words: " + wc);
+      };
       if (textarea) {
         textarea.addEventListener("input", () => {
-          draftByTopicId[t.id] = textarea.value;
-          const wc = textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0;
-          if (counterEl) counterEl.textContent = "სიტყვა: " + wc;
+          saveDraft(t.id, textarea.value);
+          updateCounter();
         });
       }
+
+      container.querySelectorAll("[data-wx-check]").forEach((box) => {
+        box.addEventListener("change", () => {
+          const map = checksByTopicId[t.id] = checksByTopicId[t.id] || {};
+          map[box.getAttribute("data-wx-check")] = box.checked;
+        });
+      });
 
       const templateBtn = container.querySelector("#insert-writing-template-btn");
       if (templateBtn && textarea) {
         templateBtn.addEventListener("click", () => {
           textarea.value = t.template;
-          draftByTopicId[t.id] = t.template;
-          const wc = textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0;
-          if (counterEl) counterEl.textContent = "სიტყვა: " + wc;
+          saveDraft(t.id, t.template);
+          updateCounter();
           textarea.focus();
           App.UI.toast("შაბლონი ჩაისვა! შეცვალეთ კვადრატულ ფრჩხილებში მოცემული სიტყვები.", "info", 2800);
         });
@@ -587,54 +667,5 @@
 
   App.Writing = Writing;
 
-  // ============================================================================
-  // ROUTER INTERCEPTOR — ანაცვლებს ""-ის Placeholder-ს წერის სტუდიით
-  // ============================================================================
-  function activateWritingRouteIfNeeded() {
-    const navLink = document.querySelector('[data-route="writing"], a[href="#writing"]');
-    if (navLink) {
-      const badge = navLink.querySelector(".nav-badge");
-      if (badge) {
-        badge.remove();
-        badge.classList.add("");
-      }
-    }
-
-    const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
-    if (hash === "writing") {
-      const titleEl = document.getElementById("header-page-title");
-      if (titleEl) titleEl.textContent = "წერა";
-      App.Writing.render();
-    }
-  }
-
-  function hookWritingIntoRouter() {
-    if (App.Router) {
-      Object.keys(App.Router).forEach((key) => {
-        if (typeof App.Router[key] === "function" && !App.Router[key]._writingHooked) {
-          const origFn = App.Router[key];
-          const wrapped = function () {
-            const result = origFn.apply(this, arguments);
-            activateWritingRouteIfNeeded();
-            return result;
-          };
-          wrapped._writingHooked = true;
-          App.Router[key] = wrapped;
-        }
-      });
-    }
-    activateWritingRouteIfNeeded();
-  }
-
-  window.addEventListener("hashchange", () => {
-    window.setTimeout(activateWritingRouteIfNeeded, 0);
-  });
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      window.setTimeout(hookWritingIntoRouter, 25);
-    });
-  } else {
-    window.setTimeout(hookWritingIntoRouter, 25);
-  }
+  // Routing is handled centrally by App.Router.renderView (js/router.js).
 })(window);

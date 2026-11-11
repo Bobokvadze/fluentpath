@@ -71,7 +71,7 @@
       const listC = Array.isArray(App.ReadingDataC) ? App.ReadingDataC : [];
       const combined = listA.concat(listB).concat(listC);
 
-      return combined.map((item, idx) => {
+      const base = combined.map((item, idx) => {
         const num = item.num || (idx + 1);
         const paras = item.paragraphs.map((p) => (Array.isArray(p) ? { en: p[0], ka: p[1] } : p));
         const visual = STORY_VISUAL_META[(num - 1) % STORY_VISUAL_META.length];
@@ -92,6 +92,33 @@
           questions: item.questions.map(parseQuestionItem)
         };
       });
+
+      // დამატებითი ინგლისური ტექსტები (js/content/reading-extra.js): თარგმანი მხოლოდ i18n ფენიდან
+      const extra = (Array.isArray(App.ReadingExtra) ? App.ReadingExtra : []).map((item) => {
+        const id = "reading-passage-" + item.num;
+        const tr = (field) => (App.tr ? App.tr("reading", id, field) : "");
+        return {
+          id: id,
+          passageNumber: item.num,
+          level: item.level,
+          titleKa: tr("title"),
+          titleEn: item.title,
+          readingTime: item.time || "6 min",
+          xp: 45,
+          icon: item.icon || "📖",
+          genre: item.genre || "",
+          themeIdx: (item.num - 1) % 6,
+          paragraphs: item.paragraphs.map((en, i) => ({ en: en, ka: tr("p" + i) })),
+          glossary: item.glossary.map((g) => { const f = g.split("|"); return { en: f[0], ka: "", def: f[1] || "" }; }),
+          questions: item.questions.map(parseQuestionItem)
+        };
+      });
+
+      // დონეების მიხედვით დალაგება (დამატებითი ტექსტები თავისი დონის ბოლოს)
+      const order = ["A1", "A2", "B1", "B2", "C1", "C2"];
+      return base.concat(extra).map((x, i) => ({ x: x, i: i }))
+        .sort((a, b) => (order.indexOf(a.x.level) - order.indexOf(b.x.level)) || (a.i - b.i))
+        .map((o) => o.x);
     },
 
     getCompletedIds: function () {
@@ -99,12 +126,14 @@
       return Array.isArray(list) ? list : [];
     },
 
+    // თითოეული დონის პირველი ტექსტი ღიაა; შემდეგი იხსნება იმავე დონის წინა ტექსტის დასრულებისას
     isPassageUnlocked: function (passageIdx, allPassages) {
       if (passageIdx <= 0) return true;
       const completed = this.getCompletedIds();
+      const cur = allPassages[passageIdx];
       const prev = allPassages[passageIdx - 1];
-      if (!prev) return true;
-      return completed.indexOf(prev.id) !== -1;
+      if (!prev || !cur || prev.level !== cur.level) return true;
+      return completed.indexOf(prev.id) !== -1 || completed.indexOf(cur.id) !== -1;
     },
 
     getCurrentFrontierPassageId: function (allPassages) {
@@ -155,6 +184,14 @@
       if (!container) return;
 
       const allPassages = this.getAllPassages();
+
+      const pendingId = App.takePendingOpen ? App.takePendingOpen("reading") : null;
+      if (pendingId) {
+        activePassage = allPassages.find((p) => p.id === pendingId) || null;
+        if (activePassage) this.prepareRandomizedQuestions(activePassage);
+        quizAnswers = {};
+        showTranslations = false;
+      }
 
       if (activePassage) {
         this.renderPassageReader(container, allPassages);
@@ -323,7 +360,7 @@
               '<p class="reading-p-en">' + App.UI.escapeHTML(para.en) + "</p>" +
               '<button type="button" class="audio-btn" data-speak-para="' + App.UI.escapeHTML(para.en) + '" title="აბზაცის მოსმენა">&#128266;</button>' +
             "</div>" +
-            (showTranslations
+            (showTranslations && para.ka
               ? '<p class="reading-p-ka">' + App.UI.escapeHTML(para.ka) + "</p>"
               : "") +
           "</div>"
@@ -335,7 +372,8 @@
           '<div class="glossary-item">' +
             "<div>" +
               '<div class="glossary-en">' + App.UI.escapeHTML(g.en) + "</div>" +
-              '<div class="glossary-ka">' + App.UI.escapeHTML(g.ka) + "</div>" +
+              (g.def ? '<div class="glossary-def" lang="en">' + App.UI.escapeHTML(g.def) + "</div>" : "") +
+              (g.ka ? '<div class="glossary-ka">' + App.UI.escapeHTML(g.ka) + "</div>" : "") +
             "</div>" +
             '<button type="button" class="audio-btn" data-speak-para="' + App.UI.escapeHTML(g.en) + '" title="მოსმენა">&#128266;</button>' +
           "</div>"
@@ -386,12 +424,14 @@
             '<div class="reading-Toolbar">' +
               "<div>" +
                 '<h2 class="section-title" style="font-size:1.4rem;">' + App.UI.escapeHTML(p.titleEn) + "</h2>" +
-                '<div style="font-size:0.92rem; font-weight:700; color:var(--brand-secondary); margin-top:2px;">' + App.UI.escapeHTML(p.titleKa) + "</div>" +
+                (p.titleKa ? '<div style="font-size:0.92rem; font-weight:700; color:var(--brand-secondary); margin-top:2px;">' + App.UI.escapeHTML(p.titleKa) + "</div>" : "") +
               "</div>" +
               '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
-                '<button type="button" class="btn ' + (showTranslations ? "btn-secondary" : "btn-outline") + ' btn-sm" id="toggle-ka-translation-btn">' +
-                  (showTranslations ? "🇬🇪 თარგმანის დამალვა" : "🇬🇪 თარგმანის ჩვენება") +
-                "</button>" +
+                (p.paragraphs.some((x) => x.ka)
+                  ? '<button type="button" class="btn ' + (showTranslations ? "btn-secondary" : "btn-outline") + ' btn-sm" id="toggle-ka-translation-btn">' +
+                      (showTranslations ? "🇬🇪 თარგმანის დამალვა" : "🇬🇪 თარგმანის ჩვენება") +
+                    "</button>"
+                  : "") +
                 '<button type="button" class="btn btn-primary btn-sm" id="listen-full-passage-btn">&#128266; მოსმენა</button>' +
                 '<button type="button" class="btn btn-outline btn-sm" id="listen-slow-passage-btn">🐢 ნელა</button>' +
                 '<button type="button" class="btn btn-outline btn-sm" id="stop-passage-audio-btn">&#9209; გაჩერება</button>' +
@@ -425,7 +465,7 @@
             "</div>" +
             questionsHtml +
             '<div style="display:flex; justify-content:flex-end; margin-top:12px;">' +
-              '<button type="button" class="btn btn-primary" id="complete-reading-btn">დასრულება და მომდევნოს გახსნა (+' + p.xp + " XP) &rarr;</button>" +
+              '<button type="button" class="btn btn-primary" id="complete-reading-btn">დასრულება და მომდევნოს გახსნა &rarr;</button>' +
             "</div>" +
           "</section>" +
         "</div>";

@@ -1,0 +1,13 @@
+{
+  "name": "fluentpath",
+  "private": true,
+  "description": "FluentPath — free English learning platform with a Georgian interface (static PWA, no build step).",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.js\"",
+    "start": "python -m http.server 8765",
+    "icons": "node scripts/generate-icons.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

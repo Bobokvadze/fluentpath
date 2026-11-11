@@ -25,6 +25,8 @@
 
   let activeModalConfirmCallback = null;
 
+  let releaseModalFocus = null;
+
   const UI = {
     escapeHTML: function (str) {
       if (str === null || str === undefined) return '';
@@ -154,6 +156,8 @@
 
       activeModalConfirmCallback = typeof options.onConfirm === 'function' ? options.onConfirm : null;
 
+      if (releaseModalFocus) releaseModalFocus();
+      releaseModalFocus = this.trapFocus(backdrop);
       backdrop.classList.add('open');
       backdrop.setAttribute('aria-hidden', 'false');
       confirmBtn.focus();
@@ -165,6 +169,45 @@
       backdrop.classList.remove('open');
       backdrop.setAttribute('aria-hidden', 'true');
       activeModalConfirmCallback = null;
+      if (releaseModalFocus) {
+        releaseModalFocus();
+        releaseModalFocus = null;
+      }
+    },
+
+    /**
+     * ფოკუსის "ხაფანგი" დიალოგისთვის: Tab/Shift+Tab ციკლურად მოძრაობს მხოლოდ კონტეინერის შიგნით.
+     * აბრუნებს ფუნქციას, რომელიც ხაფანგს ხსნის და ფოკუსს უბრუნებს იმ ელემენტს, საიდანაც დიალოგი გაიხსნა.
+     */
+    trapFocus: function (container) {
+      const previouslyFocused = document.activeElement;
+      const selector = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+      const handler = function (e) {
+        if (e.key !== 'Tab') return;
+        const focusables = Array.prototype.filter.call(container.querySelectorAll(selector), function (el) {
+          return el.offsetParent !== null || el === document.activeElement;
+        });
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (!container.contains(document.activeElement)) {
+          e.preventDefault();
+          first.focus();
+        } else if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      };
+      document.addEventListener('keydown', handler, true);
+      return function release() {
+        document.removeEventListener('keydown', handler, true);
+        if (previouslyFocused && typeof previouslyFocused.focus === 'function' && document.contains(previouslyFocused)) {
+          previouslyFocused.focus();
+        }
+      };
     },
 
     initModalEvents: function () {
@@ -262,11 +305,11 @@
       const state = App.Storage.getState();
       const levelEl = document.getElementById('topbar-level-value');
       const streakEl = document.getElementById('topbar-streak-value');
-      const xpEl = document.getElementById('topbar-xp-value');
 
-      if (levelEl) levelEl.textContent = state.settings.cefrLevel || 'A1';
-      if (streakEl) streakEl.textContent = state.streak.current || 0;
-      if (xpEl) xpEl.textContent = state.progress.xp || 0;
+      const progress = state.progress || {};
+
+      if (levelEl) levelEl.textContent = progress.level || 'A1';
+      if (streakEl) streakEl.textContent = Number(progress.streak) || 0;
     }
   };
 

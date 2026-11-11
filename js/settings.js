@@ -11,12 +11,14 @@
       const state = App.Storage.getState();
       const settings = state.settings;
       const levels = (App.Config && App.Config.cefrLevels) || [];
-      const goals = (App.Config && App.Config.dailyGoals) || [
-        { xp: 10, label: 'მსუბუქი' },
-        { xp: 20, label: 'სტანდარტული' },
-        { xp: 30, label: 'სერიოზული' },
-        { xp: 50, label: 'ინტენსიური' }
+      const configGoals = ((App.Config && App.Config.dailyGoals) || []).filter((g) => Number(g.activities) > 0);
+      const goals = configGoals.length ? configGoals : [
+        { activities: 3, label: 'მსუბუქი' },
+        { activities: 5, label: 'სტანდარტული' },
+        { activities: 8, label: 'სერიოზული' },
+        { activities: 12, label: 'ინტენსიური' }
       ];
+      const currentGoal = Number(settings.dailyGoalActivities) || 5;
 
       const levelOptionsHtml = levels.map((lvl) => {
         const selected = lvl.code === settings.cefrLevel ? 'selected' : '';
@@ -28,10 +30,10 @@
       }).join('');
 
       const goalOptionsHtml = goals.map((g) => {
-        const selected = Number(g.xp) === Number(settings.dailyGoalXP) ? 'selected' : '';
+        const selected = Number(g.activities) === currentGoal ? 'selected' : '';
         return (
-          '<option value="' + g.xp + '" ' + selected + '>' +
-            App.UI.escapeHTML(g.label + ' (' + g.xp + ' XP / დღეში)') +
+          '<option value="' + Number(g.activities) + '" ' + selected + '>' +
+            App.UI.escapeHTML(g.label + ' (' + g.activities + ' აქტივობა დღეში)') +
           '</option>'
         );
       }).join('');
@@ -88,7 +90,7 @@
               '<div class="setting-row">' +
                 '<div class="setting-info">' +
                   '<label for="setting-goal" class="setting-label">დღიური სასწავლო მიზანი</label>' +
-                  '<p class="setting-desc">დაისახეთ დღიური XP სამიზნე. სწავლა მიზნის შესრულების შემდეგაც ულიმიტოა.</p>' +
+                  '<p class="setting-desc">რამდენი აქტივობა (გაკვეთილი, ტექსტი, სიტყვა, ფრაზა) გსურთ შეასრულოთ დღეში. ეს რიცხვი ჩანს მთავარი გვერდის დღიური მიზნის რგოლში.</p>' +
                 '</div>' +
                 '<div class="setting-control">' +
                   '<select id="setting-goal" class="select-input">' +
@@ -145,7 +147,7 @@
               '<div class="setting-row">' +
                 '<div class="setting-info">' +
                   '<div class="setting-label" style="color: var(--color-danger);">პროგრესის სრული განულება</div>' +
-                  '<p class="setting-desc">წაშალეთ ყველა დაგროვებული XP, სერია და სტატისტიკა და დააბრუნეთ აპლიკაცია საწყის მდგომარეობაში.</p>' +
+                  '<p class="setting-desc">წაშალეთ მთელი პროგრესი, სტრიკი და სტატისტიკა და დააბრუნეთ აპლიკაცია საწყის მდგომარეობაში.</p>' +
                 '</div>' +
                 '<div class="setting-control">' +
                   '<button type="button" class="btn btn-danger btn-sm" id="reset-data-btn">პროგრესის განულება</button>' +
@@ -216,10 +218,10 @@
       const goalSelect = container.querySelector('#setting-goal');
       if (goalSelect) {
         goalSelect.addEventListener('change', () => {
-          const val = Number(goalSelect.value) || 20;
-          App.Storage.set('settings.dailyGoalXP', val);
+          const val = Number(goalSelect.value) || 5;
+          App.Storage.set('settings.dailyGoalActivities', val);
           App.UI.playSound('click');
-          App.UI.toast('დღიური სასწავლო მიზანი: ' + val + ' XP.', 'success');
+          App.UI.toast('დღიური სასწავლო მიზანი: ' + val + ' აქტივობა.', 'success');
         });
       }
 
@@ -284,7 +286,7 @@
         resetBtn.addEventListener('click', () => {
           App.UI.openModal({
             title: 'გსურთ პროგრესის სრული განულება?',
-            message: 'დარწმუნებული ხართ, რომ გსურთ ყველა დაგროვებული XP ქულის, უწყვეტი სერიისა და სტატისტიკის წაშლა? თუ სარეზერვო JSON ფაილი არ გაქვთ შენახული, ამ მოქმედების გაუქმება შეუძლებელია.',
+            message: 'დარწმუნებული ხართ, რომ გსურთ მთელი პროგრესის, სტრიკისა და სტატისტიკის წაშლა? თუ სარეზერვო JSON ფაილი არ გაქვთ შენახული, ამ მოქმედების გაუქმება შეუძლებელია.',
             confirmText: 'დიახ, განულდეს ყველაფერი',
             cancelText: 'გაუქმება',
             variant: 'danger',

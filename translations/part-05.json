@@ -1,0 +1,906 @@
+{
+  "lang": "ka",
+  "instructions": "Translate each \"en\" text into the target language and put it in the \"ka\" field. Use \"context\" to choose the right meaning. Keep it natural and short; for vocab terms give the dictionary form. Leave the field empty if you are not sure. Do not change \"key\" or \"en\".",
+  "items": [
+    {
+      "key": "vocab|v-infer-v|term",
+      "en": "infer",
+      "context": "C1 v — To form an opinion from evidence rather than direct statements. Example: What can we infer from these figures?",
+      "ka": "დასკვნა, დასკვნის გამოტანა"
+    },
+    {
+      "key": "vocab|v-constitute-v|term",
+      "en": "constitute",
+      "context": "C1 v — To form or make up something. Example: Women constitute half of the workforce.",
+      "ka": "შედგენა, წარმოადგენს"
+    },
+    {
+      "key": "vocab|v-derive-v|term",
+      "en": "derive",
+      "context": "C1 v — To get something from a source. Example: Many English words derive from Latin.",
+      "ka": "მომდინარეობა, წარმოშობა"
+    },
+    {
+      "key": "vocab|v-enhance-v|term",
+      "en": "enhance",
+      "context": "C1 v — To improve the quality or value of something. Example: Good lighting can enhance a room.",
+      "ka": "გაუმჯობესება, გაძლიერება"
+    },
+    {
+      "key": "vocab|v-hinder-v|term",
+      "en": "hinder",
+      "context": "C1 v — To make it difficult for something to happen. Example: Bad weather hindered the rescue efforts.",
+      "ka": "ხელის შეშლა, დაბრკოლება"
+    },
+    {
+      "key": "vocab|v-advocate-v|term",
+      "en": "advocate",
+      "context": "C1 v — To publicly support an idea or policy. Example: She advocates free public transport.",
+      "ka": "მხარდაჭერა, ადვოკატირება"
+    },
+    {
+      "key": "vocab|v-scrutinise-v|term",
+      "en": "scrutinise",
+      "context": "C1 v — To examine something very carefully. Example: The contract was scrutinised by lawyers.",
+      "ka": "გულდასმით შესწავლა, შემოწმება"
+    },
+    {
+      "key": "vocab|v-acquire-v|term",
+      "en": "acquire",
+      "context": "C1 v — To get or gain something. Example: Children acquire language naturally.",
+      "ka": "შეძენა, ათვისება"
+    },
+    {
+      "key": "vocab|v-allocate-v|term",
+      "en": "allocate",
+      "context": "C1 v — To give an amount of money, time or resources for a purpose. Example: More funds were allocated to research.",
+      "ka": "გამოყოფა, განაწილება"
+    },
+    {
+      "key": "vocab|v-anticipate-v|term",
+      "en": "anticipate",
+      "context": "C1 v — To expect something and prepare for it. Example: We didn't anticipate so many visitors.",
+      "ka": "მოლოდინი, წინასწარ განჭვრეტა"
+    },
+    {
+      "key": "vocab|v-compensate-v|term",
+      "en": "compensate",
+      "context": "C1 v — To make up for something bad or missing; to pay for loss. Example: Nothing can compensate for the loss of a loved one.",
+      "ka": "ანაზღაურება, კომპენსირება"
+    },
+    {
+      "key": "vocab|v-convey-v|term",
+      "en": "convey",
+      "context": "C1 v — To communicate an idea or feeling. Example: Her face conveyed her disappointment.",
+      "ka": "გადმოცემა, გამოხატვა"
+    },
+    {
+      "key": "vocab|v-deteriorate-v|term",
+      "en": "deteriorate",
+      "context": "C1 v — To become worse. Example: His health deteriorated rapidly.",
+      "ka": "გაუარესება"
+    },
+    {
+      "key": "vocab|v-dismiss-v|term",
+      "en": "dismiss",
+      "context": "C1 v — To decide something is not worth considering; to remove from a job. Example: She dismissed the idea as unrealistic.",
+      "ka": "უარყოფა, დათხოვნა"
+    },
+    {
+      "key": "vocab|v-endorse-v|term",
+      "en": "endorse",
+      "context": "C1 v — To publicly approve or support something. Example: The plan was endorsed by the committee.",
+      "ka": "მხარდაჭერა, მოწონება"
+    },
+    {
+      "key": "vocab|v-envisage-v|term",
+      "en": "envisage",
+      "context": "C1 v — To imagine something as a future possibility. Example: I can't envisage living anywhere else.",
+      "ka": "წარმოდგენა, განჭვრეტა"
+    },
+    {
+      "key": "vocab|v-exploit-v|term",
+      "en": "exploit",
+      "context": "C1 v — To use something to get an advantage; to treat people unfairly. Example: We must exploit this opportunity. Workers were exploited.",
+      "ka": "გამოყენება, ექსპლუატაცია"
+    },
+    {
+      "key": "vocab|v-speculate-v|term",
+      "en": "speculate",
+      "context": "C1 v — To guess possible causes or results without knowing the facts. Example: Experts speculate that prices will rise.",
+      "ka": "ვარაუდი, სპეკულირება"
+    },
+    {
+      "key": "vocab|v-sustain-v|term",
+      "en": "sustain",
+      "context": "C1 v — To keep something going over time. Example: The economy cannot sustain this level of growth.",
+      "ka": "შენარჩუნება, მხარდაჭერა"
+    },
+    {
+      "key": "vocab|v-discrepancy-n|term",
+      "en": "discrepancy",
+      "context": "C1 n — A difference between things that should be the same. Example: There's a discrepancy between the two reports.",
+      "ka": "შეუსაბამობა, განსხვავება"
+    },
+    {
+      "key": "vocab|v-legitimacy-n|term",
+      "en": "legitimacy",
+      "context": "C1 n — The quality of being fair, reasonable or legal. Example: The legitimacy of the election was questioned.",
+      "ka": "ლეგიტიმურობა, კანონიერება"
+    },
+    {
+      "key": "vocab|v-momentum-n|term",
+      "en": "momentum",
+      "context": "C1 n — The force that keeps something developing. Example: The campaign is gaining momentum.",
+      "ka": "იმპულსი, ინერცია"
+    },
+    {
+      "key": "vocab|v-precedent-n|term",
+      "en": "precedent",
+      "context": "C1 n — An earlier action used as an example for later decisions. Example: The ruling sets an important precedent.",
+      "ka": "პრეცედენტი"
+    },
+    {
+      "key": "vocab|v-stance-n|term",
+      "en": "stance",
+      "context": "C1 n — A publicly stated opinion. Example: What's the government's stance on immigration?",
+      "ka": "პოზიცია, თვალსაზრისი"
+    },
+    {
+      "key": "vocab|v-trade-off-n|term",
+      "en": "trade-off",
+      "context": "C1 n — A balance between two things you cannot have at the same time. Example: There's a trade-off between speed and quality.",
+      "ka": "კომპრომისი"
+    },
+    {
+      "key": "vocab|v-dubious-adj|term",
+      "en": "dubious",
+      "context": "C1 adj — Probably not honest, true or good. Example: The claims are dubious at best.",
+      "ka": "საეჭვო"
+    },
+    {
+      "key": "vocab|v-profound-adj|term",
+      "en": "profound",
+      "context": "C1 adj — Very great or intense; showing deep understanding. Example: The internet has had a profound effect on society.",
+      "ka": "ღრმა, ფუნდამენტური"
+    },
+    {
+      "key": "vocab|v-substantial-adj|term",
+      "en": "substantial",
+      "context": "C1 adj — Large in amount or importance. Example: A substantial number of people disagreed.",
+      "ka": "მნიშვნელოვანი, არსებითი"
+    },
+    {
+      "key": "vocab|v-marginal-adj|term",
+      "en": "marginal",
+      "context": "C1 adj — Small and not very important. Example: There was only a marginal improvement.",
+      "ka": "უმნიშვნელო, მარგინალური"
+    },
+    {
+      "key": "vocab|v-pervasive-adj|term",
+      "en": "pervasive",
+      "context": "C1 adj — Existing everywhere. Example: The influence of social media is pervasive.",
+      "ka": "ყოველისმომცველი, ფართოდ გავრცელებული"
+    },
+    {
+      "key": "vocab|v-contentious-adj|term",
+      "en": "contentious",
+      "context": "C1 adj — Likely to cause disagreement. Example: Immigration is a contentious issue.",
+      "ka": "სადავო, წინააღმდეგობრივი"
+    },
+    {
+      "key": "vocab|v-arbitrary-adj|term",
+      "en": "arbitrary",
+      "context": "C1 adj — Based on chance rather than reason. Example: The decision seemed completely arbitrary.",
+      "ka": "თვითნებური"
+    },
+    {
+      "key": "vocab|v-susceptible-adj|term",
+      "en": "susceptible",
+      "context": "C1 adj — Easily influenced or harmed by something. Example: Older people are more susceptible to infection.",
+      "ka": "მოწყვლადი, მგრძნობიარე"
+    },
+    {
+      "key": "vocab|v-tangible-adj|term",
+      "en": "tangible",
+      "context": "C1 adj — Real and able to be shown or measured. Example: The reforms have produced tangible results.",
+      "ka": "ხელშესახები, რეალური"
+    },
+    {
+      "key": "vocab|v-incentive-n|term",
+      "en": "incentive",
+      "context": "C1 n — Something that encourages a person to do something. Example: Tax incentives encourage companies to invest.",
+      "ka": "სტიმული"
+    },
+    {
+      "key": "vocab|v-subsidy-n|term",
+      "en": "subsidy",
+      "context": "C1 n — Money given by a government to reduce costs. Example: Farmers receive subsidies for growing wheat.",
+      "ka": "სუბსიდია"
+    },
+    {
+      "key": "vocab|v-entrepreneur-n|term",
+      "en": "entrepreneur",
+      "context": "C1 n — A person who starts and runs a business. Example: Young entrepreneurs are changing the tech industry.",
+      "ka": "მეწარმე"
+    },
+    {
+      "key": "vocab|v-biodiversity-n|term",
+      "en": "biodiversity",
+      "context": "C1 n — The variety of plants and animals in an area. Example: Rainforests have extraordinary biodiversity.",
+      "ka": "ბიომრავალფეროვნება"
+    },
+    {
+      "key": "vocab|v-carbon-footprint-n|term",
+      "en": "carbon footprint",
+      "context": "C1 n — The amount of carbon dioxide produced by a person or activity. Example: Flying less is the easiest way to reduce your carbon footprint.",
+      "ka": "ნახშირბადის კვალი"
+    },
+    {
+      "key": "vocab|v-depletion-n|term",
+      "en": "depletion",
+      "context": "C1 n — The reduction of something until little is left. Example: Ozone depletion has slowed since the 1990s.",
+      "ka": "გამოფიტვა, შემცირება"
+    },
+    {
+      "key": "vocab|v-mitigation-n|term",
+      "en": "mitigation",
+      "context": "C1 n — Action to reduce how harmful something is. Example: Climate mitigation requires cutting emissions.",
+      "ka": "შემსუბუქება, შემცირება"
+    },
+    {
+      "key": "vocab|v-urbanisation-n|term",
+      "en": "urbanisation",
+      "context": "C1 n — The process of more people moving to and living in cities. Example: Rapid urbanisation has put pressure on housing.",
+      "ka": "ურბანიზაცია"
+    },
+    {
+      "key": "vocab|v-demographic-n|term",
+      "en": "demographic",
+      "context": "C1 n — A group of people in a population, such as an age group. Example: The app is popular with a younger demographic.",
+      "ka": "დემოგრაფიული ჯგუფი"
+    },
+    {
+      "key": "vocab|v-marginalised-adj|term",
+      "en": "marginalised",
+      "context": "C1 adj — Treated as unimportant and excluded from society. Example: The project supports marginalised communities.",
+      "ka": "მარგინალიზებული"
+    },
+    {
+      "key": "vocab|v-affluent-adj|term",
+      "en": "affluent",
+      "context": "C1 adj — Rich. Example: They live in an affluent suburb.",
+      "ka": "შეძლებული, მდიდარი"
+    },
+    {
+      "key": "vocab|v-disparity-n|term",
+      "en": "disparity",
+      "context": "C1 n — A large difference, often unfair. Example: There is a wide disparity between rural and urban incomes.",
+      "ka": "დისპროპორცია, უთანასწორობა"
+    },
+    {
+      "key": "vocab|v-polarisation-n|term",
+      "en": "polarisation",
+      "context": "C1 n — The division of a group into opposing views. Example: Political polarisation has increased.",
+      "ka": "პოლარიზაცია"
+    },
+    {
+      "key": "vocab|v-ethical-adj|term",
+      "en": "ethical",
+      "context": "C1 adj — Relating to what is morally right. Example: The research raises ethical questions.",
+      "ka": "ეთიკური"
+    },
+    {
+      "key": "vocab|v-censorship-n|term",
+      "en": "censorship",
+      "context": "C1 n — The control of information, books or films that are considered unacceptable. Example: The government was accused of censorship.",
+      "ka": "ცენზურა"
+    },
+    {
+      "key": "vocab|v-commence-v|term",
+      "en": "commence",
+      "context": "C1 v — To begin (formal). Example: The ceremony will commence at noon.",
+      "ka": "დაწყება"
+    },
+    {
+      "key": "vocab|v-endeavour-n|term",
+      "en": "endeavour",
+      "context": "C1 n — A serious attempt to achieve something (formal). Example: Despite our best endeavours, the project failed.",
+      "ka": "მცდელობა, სწრაფვა"
+    },
+    {
+      "key": "vocab|v-subsequently-adv|term",
+      "en": "subsequently",
+      "context": "C1 adv — After something else happened (formal). Example: He was arrested and subsequently released.",
+      "ka": "შემდგომ, მოგვიანებით"
+    },
+    {
+      "key": "vocab|v-prior-to-prep|term",
+      "en": "prior to",
+      "context": "C1 prep — Before (formal). Example: Please arrive 30 minutes prior to departure.",
+      "ka": "მანამდე, -მდე"
+    },
+    {
+      "key": "vocab|v-in-accordance-with-phr|term",
+      "en": "in accordance with",
+      "context": "C1 phr — Following a rule or wish (formal). Example: The work was done in accordance with the regulations.",
+      "ka": "შესაბამისად"
+    },
+    {
+      "key": "vocab|v-with-regard-to-phr|term",
+      "en": "with regard to",
+      "context": "C1 phr — About; concerning (formal). Example: With regard to your complaint, we have issued a refund.",
+      "ka": "შესახებ, დაკავშირებით"
+    },
+    {
+      "key": "vocab|v-thereby-adv|term",
+      "en": "thereby",
+      "context": "C1 adv — As a result of this action (formal). Example: They cut costs, thereby increasing profits.",
+      "ka": "ამით, რითაც"
+    },
+    {
+      "key": "vocab|v-brush-up-on-pv|term",
+      "en": "brush up on",
+      "context": "C1 pv — To improve your knowledge of something you learned before. Example: I need to brush up on my French before the trip.",
+      "ka": "გახსენება, განახლება"
+    },
+    {
+      "key": "vocab|v-come-across-pv|term",
+      "en": "come across",
+      "context": "C1 pv — To find by chance; to seem to have particular qualities. Example: I came across an old photo. She comes across as very confident.",
+      "ka": "გადაყრა, შთაბეჭდილების დატოვება"
+    },
+    {
+      "key": "vocab|v-fall-through-pv|term",
+      "en": "fall through",
+      "context": "C1 pv — To fail to happen. Example: Our plans to buy the house fell through.",
+      "ka": "ჩაშლა"
+    },
+    {
+      "key": "vocab|v-iron-out-pv|term",
+      "en": "iron out",
+      "context": "C1 pv — To solve small problems or difficulties. Example: We need to iron out a few details before signing.",
+      "ka": "მოგვარება, გამოსწორება"
+    },
+    {
+      "key": "vocab|v-play-down-pv|term",
+      "en": "play down",
+      "context": "C1 pv — To make something seem less important than it is. Example: The government tried to play down the crisis.",
+      "ka": "დაკნინება, შემცირება"
+    },
+    {
+      "key": "vocab|v-single-out-pv|term",
+      "en": "single out",
+      "context": "C1 pv — To choose one person or thing from a group for special attention. Example: She was singled out for praise.",
+      "ka": "გამოყოფა, გამორჩევა"
+    },
+    {
+      "key": "vocab|v-stem-from-pv|term",
+      "en": "stem from",
+      "context": "C1 pv — To be caused by something. Example: Many of his problems stem from his childhood.",
+      "ka": "მომდინარეობა, წარმოშობა"
+    },
+    {
+      "key": "vocab|v-step-down-pv|term",
+      "en": "step down",
+      "context": "C1 pv — To leave an important job or position. Example: The CEO stepped down after the scandal.",
+      "ka": "გადადგომა"
+    },
+    {
+      "key": "vocab|v-weigh-up-pv|term",
+      "en": "weigh up",
+      "context": "C1 pv — To consider carefully the advantages and disadvantages. Example: You need to weigh up the pros and cons.",
+      "ka": "აწონ-დაწონა, შეფასება"
+    },
+    {
+      "key": "vocab|v-account-for-pv|term",
+      "en": "account for",
+      "context": "C1 pv — To explain; to form a particular amount of something. Example: How do you account for the drop in sales? Exports account for 40% of income.",
+      "ka": "ახსნა, შეადგენს"
+    },
+    {
+      "key": "vocab|v-bring-about-pv|term",
+      "en": "bring about",
+      "context": "C1 pv — To cause something to happen. Example: The internet has brought about huge social changes.",
+      "ka": "გამოწვევა, მოტანა"
+    },
+    {
+      "key": "vocab|v-draw-on-pv|term",
+      "en": "draw on",
+      "context": "C1 pv — To use knowledge or experience to help you. Example: She drew on her years of experience.",
+      "ka": "დაყრდნობა, გამოყენება"
+    },
+    {
+      "key": "vocab|v-touch-on-pv|term",
+      "en": "touch on",
+      "context": "C1 pv — To mention a subject briefly. Example: The lecture only touched on the issue of cost.",
+      "ka": "შეხება, ხსენება"
+    },
+    {
+      "key": "vocab|v-boil-down-to-pv|term",
+      "en": "boil down to",
+      "context": "C1 pv — To be the main point of something. Example: The problem boils down to a lack of money.",
+      "ka": "დაყვანა"
+    },
+    {
+      "key": "vocab|v-a-double-edged-sword-phr|term",
+      "en": "a double-edged sword",
+      "context": "C1 phr — Something with both good and bad effects. Example: Fame can be a double-edged sword.",
+      "ka": "ორლესილი მახვილი"
+    },
+    {
+      "key": "vocab|v-the-tip-of-the-iceberg-phr|term",
+      "en": "the tip of the iceberg",
+      "context": "C1 phr — A small, visible part of a much larger problem. Example: These cases are just the tip of the iceberg.",
+      "ka": "აისბერგის მწვერვალი"
+    },
+    {
+      "key": "vocab|v-a-grey-area-phr|term",
+      "en": "a grey area",
+      "context": "C1 phr — A situation that is not clearly defined or regulated. Example: The use of AI in exams is still a grey area.",
+      "ka": "ბუნდოვანი ზონა, რუხი ზონა"
+    },
+    {
+      "key": "vocab|v-to-go-the-extra-mile-phr|term",
+      "en": "to go the extra mile",
+      "context": "C1 phr — To make more effort than is expected. Example: Our staff always go the extra mile for customers.",
+      "ka": "მაქსიმუმის გაკეთება, ზედმეტი ძალისხმევის გაღება"
+    },
+    {
+      "key": "vocab|v-to-cut-corners-phr|term",
+      "en": "to cut corners",
+      "context": "C1 phr — To do something cheaply or quickly by ignoring rules or quality. Example: The builders cut corners, and now the roof leaks.",
+      "ka": "მარტივი გზის არჩევა, ხარჯების დაზოგვა"
+    },
+    {
+      "key": "vocab|v-to-miss-the-point-phr|term",
+      "en": "to miss the point",
+      "context": "C1 phr — To fail to understand the main idea. Example: You're missing the point: it's about safety, not cost.",
+      "ka": "არსის ვერგაგება"
+    },
+    {
+      "key": "vocab|v-to-be-in-two-minds-phr|term",
+      "en": "to be in two minds",
+      "context": "C1 phr — To be unable to decide. Example: I'm in two minds about accepting the offer.",
+      "ka": "ორჭოფობა, ყოყმანი"
+    },
+    {
+      "key": "vocab|v-to-set-the-record-straight-phr|term",
+      "en": "to set the record straight",
+      "context": "C1 phr — To correct a false story or belief. Example: I'd like to set the record straight about what happened.",
+      "ka": "სიმართლის გარკვევა, სიცხადის შეტანა"
+    },
+    {
+      "key": "vocab|v-by-and-large-phr|term",
+      "en": "by and large",
+      "context": "C1 phr — In general; mostly. Example: By and large, the event was a success.",
+      "ka": "მთლიანობაში, ძირითადად"
+    },
+    {
+      "key": "vocab|v-food-for-thought-phr|term",
+      "en": "food for thought",
+      "context": "C1 phr — Something that makes you think seriously. Example: The documentary gave me food for thought.",
+      "ka": "საფიქრალი, დასაფიქრებელი მასალა"
+    },
+    {
+      "key": "vocab|v-arguably-adv|term",
+      "en": "arguably",
+      "context": "C1 adv — Used when you think something is true but others may disagree. Example: She is arguably the best writer of her generation.",
+      "ka": "ალბათ, სავარაუდოდ"
+    },
+    {
+      "key": "vocab|v-admittedly-adv|term",
+      "en": "admittedly",
+      "context": "C1 adv — Used to accept that something is true, even if it weakens your argument. Example: Admittedly, the plan is expensive, but it will save money long-term.",
+      "ka": "მართალია, ცხადია"
+    },
+    {
+      "key": "vocab|v-presumably-adv|term",
+      "en": "presumably",
+      "context": "C1 adv — Used to say that you think something is probably true. Example: Presumably, the train is delayed.",
+      "ka": "სავარაუდოდ"
+    },
+    {
+      "key": "vocab|v-insofar-as-conj|term",
+      "en": "insofar as",
+      "context": "C1 conj — To the degree that. Example: The plan is useful insofar as it reduces costs.",
+      "ka": "რამდენადაც"
+    },
+    {
+      "key": "vocab|v-to-a-large-extent-phr|term",
+      "en": "to a large extent",
+      "context": "C1 phr — Mostly; to a great degree. Example: Success depends to a large extent on timing.",
+      "ka": "დიდწილად"
+    },
+    {
+      "key": "vocab|v-it-could-be-argued-that-phr|term",
+      "en": "it could be argued that",
+      "context": "C1 phr — A cautious way to introduce an opinion. Example: It could be argued that the policy has failed.",
+      "ka": "შეიძლება ითქვას, რომ"
+    },
+    {
+      "key": "vocab|v-on-balance-phr|term",
+      "en": "on balance",
+      "context": "C1 phr — After considering all the facts. Example: On balance, I think the advantages outweigh the disadvantages.",
+      "ka": "ყველაფრის გათვალისწინებით, საბოლოო ჯამში"
+    },
+    {
+      "key": "vocab|v-all-things-considered-phr|term",
+      "en": "all things considered",
+      "context": "C1 phr — Taking everything into account. Example: All things considered, the trip went well.",
+      "ka": "ყველაფრის გათვალისწინებით"
+    },
+    {
+      "key": "vocab|v-articulate-v|term",
+      "en": "articulate",
+      "context": "C1 v — To express ideas or feelings clearly in words. Example: She articulated the concerns of many staff.",
+      "ka": "გამოხატვა, ჩამოყალიბება"
+    },
+    {
+      "key": "vocab|v-implicit-adj|term",
+      "en": "implicit",
+      "context": "C1 adj — Suggested but not directly expressed. Example: There was an implicit criticism in his remarks.",
+      "ka": "ნაგულისხმევი, ირიბი"
+    },
+    {
+      "key": "vocab|v-explicit-adj|term",
+      "en": "explicit",
+      "context": "C1 adj — Clear and exact, leaving nothing to be guessed. Example: The instructions were explicit.",
+      "ka": "აშკარა, მკაფიო"
+    },
+    {
+      "key": "vocab|v-intrinsic-adj|term",
+      "en": "intrinsic",
+      "context": "C1 adj — Belonging naturally to something as a basic part. Example: Art has an intrinsic value beyond money.",
+      "ka": "შინაგანი, თანდაყოლილი"
+    },
+    {
+      "key": "vocab|v-rational-adj|term",
+      "en": "rational",
+      "context": "C1 adj — Based on clear thinking and reason. Example: There must be a rational explanation.",
+      "ka": "რაციონალური, გონივრული"
+    },
+    {
+      "key": "vocab|v-logic-n|term",
+      "en": "logic",
+      "context": "C1 n — A way of thinking based on reason. Example: I can't follow the logic of his argument.",
+      "ka": "ლოგიკა"
+    },
+    {
+      "key": "vocab|v-principle-n|term",
+      "en": "principle",
+      "context": "C1 n — A basic rule or belief that explains how something works or how to behave. Example: The system is based on the principle of equality.",
+      "ka": "პრინციპი"
+    },
+    {
+      "key": "vocab|v-extent-n|term",
+      "en": "extent",
+      "context": "C1 n — The size, degree or importance of something. Example: To what extent do you agree?",
+      "ka": "ხარისხი, მასშტაბი"
+    },
+    {
+      "key": "vocab|v-sequence-n|term",
+      "en": "sequence",
+      "context": "C1 n — A series of events or things in a particular order. Example: Describe the sequence of events that led to the crash.",
+      "ka": "თანმიმდევრობა"
+    },
+    {
+      "key": "vocab|v-philosophy-n|term",
+      "en": "philosophy",
+      "context": "C1 n — The study of the nature of knowledge, reality and existence; also, a set of beliefs. Example: The company's philosophy is to put customers first.",
+      "ka": "ფილოსოფია"
+    },
+    {
+      "key": "vocab|v-ideology-n|term",
+      "en": "ideology",
+      "context": "C1 n — A set of beliefs, especially political ones. Example: The party has moved away from its traditional ideology.",
+      "ka": "იდეოლოგია"
+    },
+    {
+      "key": "vocab|v-dignity-n|term",
+      "en": "dignity",
+      "context": "C1 n — The quality of deserving respect. Example: Every person should be treated with dignity.",
+      "ka": "ღირსება"
+    },
+    {
+      "key": "vocab|v-liberty-n|term",
+      "en": "liberty",
+      "context": "C1 n — Freedom from unfair control by authority. Example: They fought for liberty and justice.",
+      "ka": "თავისუფლება"
+    },
+    {
+      "key": "vocab|v-wisdom-n|term",
+      "en": "wisdom",
+      "context": "C1 n — Good judgement based on knowledge and experience. Example: She shared the wisdom of her many years.",
+      "ka": "სიბრძნე"
+    },
+    {
+      "key": "vocab|v-reinforce-v|term",
+      "en": "reinforce",
+      "context": "C1 v — To make an idea, feeling or structure stronger. Example: The results reinforce the need for change.",
+      "ka": "განმტკიცება, გაძლიერება"
+    },
+    {
+      "key": "vocab|v-perpetuate-v|term",
+      "en": "perpetuate",
+      "context": "C1 v — To make something, especially something bad, continue. Example: Such films perpetuate harmful stereotypes.",
+      "ka": "გაგრძელება, დამკვიდრება"
+    },
+    {
+      "key": "vocab|v-impose-v|term",
+      "en": "impose",
+      "context": "C1 v — To officially force a rule, tax or punishment on people. Example: The government imposed new restrictions.",
+      "ka": "დაწესება, დაკისრება"
+    },
+    {
+      "key": "vocab|v-retain-v|term",
+      "en": "retain",
+      "context": "C1 v — To keep or continue to have something. Example: The company struggles to retain good staff.",
+      "ka": "შენარჩუნება"
+    },
+    {
+      "key": "vocab|v-withdraw-v|term",
+      "en": "withdraw",
+      "context": "C1 v — To take something out or back; to stop taking part. Example: He withdrew from the competition.",
+      "ka": "გამოტანა, გასვლა"
+    },
+    {
+      "key": "vocab|v-isolate-v|term",
+      "en": "isolate",
+      "context": "C1 v — To separate something or someone from others. Example: Scientists isolated the gene responsible.",
+      "ka": "იზოლირება, გამოყოფა"
+    },
+    {
+      "key": "vocab|v-exceed-v|term",
+      "en": "exceed",
+      "context": "C1 v — To be greater than a number or amount. Example: Demand far exceeded supply.",
+      "ka": "გადაჭარბება"
+    },
+    {
+      "key": "vocab|v-undoubtedly-adv|term",
+      "en": "undoubtedly",
+      "context": "C1 adv — Certainly; without doubt. Example: She is undoubtedly the best candidate.",
+      "ka": "უდავოდ, ეჭვგარეშე"
+    },
+    {
+      "key": "vocab|v-genuine-adj|term",
+      "en": "genuine",
+      "context": "C1 adj — Real and exactly what it seems to be; sincere. Example: He showed genuine concern for others.",
+      "ka": "ნამდვილი, გულწრფელი"
+    },
+    {
+      "key": "vocab|v-frank-adj|term",
+      "en": "frank",
+      "context": "C1 adj — Honest and direct, even when this is unpleasant. Example: Let me be frank: the plan won't work.",
+      "ka": "გულახდილი, პირდაპირი"
+    },
+    {
+      "key": "vocab|v-apparent-adj|term",
+      "en": "apparent",
+      "context": "C1 adj — Seeming real or true, but perhaps not; also, easy to see. Example: For no apparent reason, the meeting was cancelled.",
+      "ka": "აშკარა, მოჩვენებითი"
+    },
+    {
+      "key": "vocab|v-mere-adj|term",
+      "en": "mere",
+      "context": "C1 adj — Used to emphasise how small or unimportant something is. Example: The tickets sold out in a mere ten minutes.",
+      "ka": "უბრალო, მხოლოდ"
+    },
+    {
+      "key": "vocab|v-currency-n|term",
+      "en": "currency",
+      "context": "C1 n — The money used in a particular country. Example: The local currency fell against the dollar.",
+      "ka": "ვალუტა"
+    },
+    {
+      "key": "vocab|v-finance-n|term",
+      "en": "finance",
+      "context": "C1 n — The management of large amounts of money; money needed for a project. Example: She works in corporate finance.",
+      "ka": "ფინანსები"
+    },
+    {
+      "key": "vocab|v-shortage-n|term",
+      "en": "shortage",
+      "context": "C1 n — A situation in which there is not enough of something. Example: There is a shortage of skilled workers.",
+      "ka": "დეფიციტი, ნაკლებობა"
+    },
+    {
+      "key": "vocab|v-scheme-n|term",
+      "en": "scheme",
+      "context": "C1 n — An official plan or system. Example: The government launched a scheme to help first-time buyers.",
+      "ka": "სქემა, გეგმა"
+    },
+    {
+      "key": "vocab|v-trade-n|term",
+      "en": "trade",
+      "context": "C1 n — The buying and selling of goods and services, especially between countries. Example: Trade between the two countries has doubled.",
+      "ka": "ვაჭრობა"
+    },
+    {
+      "key": "vocab|v-conservation-n|term",
+      "en": "conservation",
+      "context": "C1 n — The protection of nature, buildings or resources. Example: The charity works on wildlife conservation.",
+      "ka": "კონსერვაცია, დაცვა"
+    },
+    {
+      "key": "vocab|v-hazard-n|term",
+      "en": "hazard",
+      "context": "C1 n — Something that is dangerous. Example: Air pollution is a serious health hazard.",
+      "ka": "საფრთხე"
+    },
+    {
+      "key": "vocab|v-habitat-n|term",
+      "en": "habitat",
+      "context": "C1 n — The natural home of an animal or plant. Example: Deforestation is destroying the orangutan's habitat.",
+      "ka": "ჰაბიტატი, გავრცელების არეალი"
+    },
+    {
+      "key": "vocab|v-cohesion-n|term",
+      "en": "cohesion",
+      "context": "C1 n — The state of people or parts being united and working well together. Example: The policy aims to strengthen social cohesion.",
+      "ka": "ერთიანობა, შეკრულობა"
+    },
+    {
+      "key": "vocab|v-status-n|term",
+      "en": "status",
+      "context": "C1 n — Someone's social or professional position; the situation at a particular time. Example: Teachers have high status in Finland.",
+      "ka": "სტატუსი"
+    },
+    {
+      "key": "vocab|v-reform-n|term",
+      "en": "reform",
+      "context": "C1 n — A change that improves a system or institution. Example: The government promised education reform.",
+      "ka": "რეფორმა"
+    },
+    {
+      "key": "vocab|v-revolution-n|term",
+      "en": "revolution",
+      "context": "C1 n — A sudden and complete change, especially in politics or technology. Example: The internet caused a revolution in communication.",
+      "ka": "რევოლუცია"
+    },
+    {
+      "key": "vocab|v-obligation-n|term",
+      "en": "obligation",
+      "context": "C1 n — Something you must do because of a law, promise or duty. Example: Employers have a legal obligation to ensure safety.",
+      "ka": "ვალდებულება"
+    },
+    {
+      "key": "vocab|v-permit-v|term",
+      "en": "permit",
+      "context": "C1 v — To allow something officially. Example: Smoking is not permitted in the building.",
+      "ka": "ნებართვის მიცემა, დაშვება"
+    },
+    {
+      "key": "vocab|v-submit-v|term",
+      "en": "submit",
+      "context": "C1 v — To formally give a document or proposal to someone in authority. Example: Applications must be submitted by 30 June.",
+      "ka": "წარდგენა, ჩაბარება"
+    },
+    {
+      "key": "vocab|v-register-v|term",
+      "en": "register",
+      "context": "C1 v — To put a name or information on an official list. Example: You must register with a doctor.",
+      "ka": "რეგისტრაცია, დარეგისტრირება"
+    },
+    {
+      "key": "vocab|v-inform-v|term",
+      "en": "inform",
+      "context": "C1 v — To tell someone facts or information, especially officially. Example: Please inform us of any changes.",
+      "ka": "ინფორმირება, შეტყობინება"
+    },
+    {
+      "key": "vocab|v-proportion-n|term",
+      "en": "proportion",
+      "context": "C1 n — A part of a whole, or the relationship between two amounts. Example: A large proportion of students work part-time.",
+      "ka": "პროპორცია, წილი"
+    },
+    {
+      "key": "vocab|v-phenomenal-adj|term",
+      "en": "phenomenal",
+      "context": "C1 adj — Extremely good or impressive. Example: The book has been a phenomenal success.",
+      "ka": "ფენომენალური, გასაოცარი"
+    },
+    {
+      "key": "vocab|v-notably-adv|term",
+      "en": "notably",
+      "context": "C1 adv — Especially; in a way that deserves attention. Example: Several countries, notably Germany, have changed the law.",
+      "ka": "განსაკუთრებით"
+    },
+    {
+      "key": "vocab|v-in-essence-phr|term",
+      "en": "in essence",
+      "context": "C1 phr — Used to express the basic or most important point. Example: In essence, the plan is about saving money.",
+      "ka": "არსებითად"
+    },
+    {
+      "key": "vocab|v-drawback-n|term",
+      "en": "drawback",
+      "context": "C1 n — A disadvantage or problem. Example: The main drawback of the plan is its cost.",
+      "ka": "ნაკლი, უარყოფითი მხარე"
+    },
+    {
+      "key": "vocab|v-cease-v|term",
+      "en": "cease",
+      "context": "C1 v — To stop happening or existing. Example: The company ceased trading in 2020.",
+      "ka": "შეწყვეტა"
+    },
+    {
+      "key": "vocab|v-cogent-adj|term",
+      "en": "cogent",
+      "context": "C2 adj — Clear, logical and convincing. Example: She presented a cogent case for reform.",
+      "ka": "დამაჯერებელი, ლოგიკური"
+    },
+    {
+      "key": "vocab|v-tenuous-adj|term",
+      "en": "tenuous",
+      "context": "C2 adj — Very weak or slight, and easily challenged. Example: The link between the two events is tenuous at best.",
+      "ka": "სუსტი, უმნიშვნელო"
+    },
+    {
+      "key": "vocab|v-contention-n|term",
+      "en": "contention",
+      "context": "C2 n — An opinion expressed in an argument; also, disagreement. Example: It is my contention that the policy has failed.",
+      "ka": "მტკიცება, უთანხმოება"
+    },
+    {
+      "key": "vocab|v-rhetoric-n|term",
+      "en": "rhetoric",
+      "context": "C2 n — Language intended to persuade or impress, often without real substance. Example: Behind the rhetoric, little has actually changed.",
+      "ka": "რიტორიკა"
+    },
+    {
+      "key": "vocab|v-rhetorical-adj|term",
+      "en": "rhetorical",
+      "context": "C2 adj — Used for effect rather than to get information or express a real meaning. Example: It was a rhetorical question; he didn't expect an answer.",
+      "ka": "რიტორიკული"
+    },
+    {
+      "key": "vocab|v-eloquence-n|term",
+      "en": "eloquence",
+      "context": "C2 n — The ability to speak or write fluently and persuasively. Example: Her eloquence won over even her critics.",
+      "ka": "მჭერმეტყველება"
+    },
+    {
+      "key": "vocab|v-eloquent-adj|term",
+      "en": "eloquent",
+      "context": "C2 adj — Expressing ideas clearly and persuasively. Example: He gave an eloquent defence of free speech.",
+      "ka": "მჭერმეტყველი"
+    },
+    {
+      "key": "vocab|v-persuasion-n|term",
+      "en": "persuasion",
+      "context": "C2 n — The act of making someone believe or do something by giving reasons. Example: It took a lot of persuasion to change his mind.",
+      "ka": "დარწმუნება"
+    },
+    {
+      "key": "vocab|v-refute-v|term",
+      "en": "refute",
+      "context": "C2 v — To prove that a statement or theory is wrong. Example: The scientist refuted the claim with new data.",
+      "ka": "უარყოფა, გაბათილება"
+    },
+    {
+      "key": "vocab|v-substantiate-v|term",
+      "en": "substantiate",
+      "context": "C2 v — To provide evidence that something is true. Example: The allegations have not been substantiated.",
+      "ka": "დასაბუთება"
+    },
+    {
+      "key": "vocab|v-corroborate-v|term",
+      "en": "corroborate",
+      "context": "C2 v — To support a statement or theory with additional evidence. Example: Two witnesses corroborated her account.",
+      "ka": "დადასტურება, გამყარება"
+    },
+    {
+      "key": "vocab|v-elucidate-v|term",
+      "en": "elucidate",
+      "context": "C2 v — To explain something clearly so that it is easier to understand. Example: The author elucidates a complex theory in simple terms.",
+      "ka": "განმარტება, ახსნა"
+    },
+    {
+      "key": "vocab|v-premise-n|term",
+      "en": "premise",
+      "context": "C2 n — An idea or statement on which an argument is based. Example: The whole argument rests on a false premise.",
+      "ka": "წინაპირობა, დებულება"
+    }
+  ]
+}

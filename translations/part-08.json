@@ -1,0 +1,906 @@
+{
+  "lang": "ka",
+  "instructions": "Translate each \"en\" text into the target language and put it in the \"ka\" field. Use \"context\" to choose the right meaning. Keep it natural and short; for vocab terms give the dictionary form. Leave the field empty if you are not sure. Do not change \"key\" or \"en\".",
+  "items": [
+    {
+      "key": "dialogues|dlg-C2-u1|line2",
+      "en": "That is a fair point, and I apologise for the late notice. Be that as it may, the board needs a decision today.",
+      "context": "C2 dialogue \"Chairing a formal meeting\", you speaking",
+      "ka": "სამართლიანი შენიშვნაა და ბოდიშს გიხდით დაგვიანებული შეტყობინებისთვის. მიუხედავად ამისა, საბჭოს გადაწყვეტილება დღესვე სჭირდება."
+    },
+    {
+      "key": "dialogues|dlg-C2-u1|line3",
+      "en": "Then I would ask that my reservations be recorded in the minutes.",
+      "context": "C2 dialogue \"Chairing a formal meeting\", partner speaking",
+      "ka": "მაშინ ვითხოვ, რომ ჩემი შენიშვნები ოქმში დაფიქსირდეს."
+    },
+    {
+      "key": "dialogues|dlg-C2-u1|line4",
+      "en": "Of course. Let it be noted that the finance director has concerns about the timing.",
+      "context": "C2 dialogue \"Chairing a formal meeting\", you speaking",
+      "ka": "რა თქმა უნდა. დაფიქსირდეს, რომ ფინანსურ დირექტორს ვადებთან დაკავშირებით ეჭვები აქვს."
+    },
+    {
+      "key": "dialogues|dlg-C2-u1|line5",
+      "en": "Thank you. In that case, I'm happy to proceed.",
+      "context": "C2 dialogue \"Chairing a formal meeting\", partner speaking",
+      "ka": "გმადლობთ. ამ შემთხვევაში, მზად ვარ გავაგრძელოთ."
+    },
+    {
+      "key": "dialogues|dlg-C2-u1|line6",
+      "en": "If I might draw this to a close: we approve the budget in principle and review it again next month. Are we agreed?",
+      "context": "C2 dialogue \"Chairing a formal meeting\", you speaking",
+      "ka": "თუ ნებას მომცემთ, შევაჯამოთ: ჩვენ პრინციპულად ვამტკიცებთ ბიუჯეტს და მომავალ თვეში მას ხელახლა გადავხედავთ. შევთანხმდით?"
+    },
+    {
+      "key": "dialogues|dlg-C2-u2|line0",
+      "en": "Your sample is rather small. How confident can you be in these conclusions?",
+      "context": "C2 dialogue \"Defending your research\", partner speaking",
+      "ka": "თქვენი შერჩევა საკმაოდ მცირეა. რამდენად დარწმუნებული შეგიძლიათ იყოთ ამ დასკვნებში?"
+    },
+    {
+      "key": "dialogues|dlg-C2-u2|line1",
+      "en": "I take your point. The data would appear to suggest a strong effect, but I'd stop short of claiming it is universal.",
+      "context": "C2 dialogue \"Defending your research\", you speaking",
+      "ka": "მესმის თქვენი მოსაზრება. მონაცემები, როგორც ჩანს, ძლიერ ეფექტზე მიუთითებს, თუმცა თავს შევიკავებდი იმის მტკიცებისგან, რომ ეს უნივერსალურია."
+    },
+    {
+      "key": "dialogues|dlg-C2-u2|line2",
+      "en": "Couldn't the results be explained by other factors entirely?",
+      "context": "C2 dialogue \"Defending your research\", partner speaking",
+      "ka": "განა შეუძლებელია, რომ ეს შედეგები სრულიად სხვა ფაქტორებით აიხსნას?"
+    },
+    {
+      "key": "dialogues|dlg-C2-u2|line3",
+      "en": "That possibility cannot be ruled out. However, we controlled for age, income and education, and the pattern held.",
+      "context": "C2 dialogue \"Defending your research\", you speaking",
+      "ka": "ამ შესაძლებლობის გამორიცხვა არ შეიძლება. თუმცა, ჩვენ გავაკონტროლეთ ასაკი, შემოსავალი და განათლება, და ტენდენცია შენარჩუნდა."
+    },
+    {
+      "key": "dialogues|dlg-C2-u2|line4",
+      "en": "And what about long-term effects?",
+      "context": "C2 dialogue \"Defending your research\", partner speaking",
+      "ka": "გრძელვადიან ეფექტებზე რას იტყვით?"
+    },
+    {
+      "key": "dialogues|dlg-C2-u2|line5",
+      "en": "That lies beyond the scope of this study, although it is precisely what I intend to examine next.",
+      "context": "C2 dialogue \"Defending your research\", you speaking",
+      "ka": "ეს ამ კვლევის ფარგლებს სცდება, თუმცა სწორედ ამის შესწავლას ვაპირებ შემდეგ ეტაპზე."
+    },
+    {
+      "key": "dialogues|dlg-C2-u2|line6",
+      "en": "A sensible answer. I'd recommend you make those limitations explicit in the final chapter.",
+      "context": "C2 dialogue \"Defending your research\", partner speaking",
+      "ka": "გონივრული პასუხია. გირჩევდით, ეს შეზღუდვები მკაფიოდ ასახოთ დასკვნით თავში."
+    },
+    {
+      "key": "dialogues|dlg-C2-u3|line0",
+      "en": "Our final offer is a 5% discount on a three-year contract.",
+      "context": "C2 dialogue \"Negotiating a contract\", partner speaking",
+      "ka": "ჩვენი საბოლოო შემოთავაზებაა 5%-იანი ფასდაკლება სამწლიან კონტრაქტზე."
+    },
+    {
+      "key": "dialogues|dlg-C2-u3|line1",
+      "en": "We appreciate that. We could consider three years, on condition that the price is reviewed annually.",
+      "context": "C2 dialogue \"Negotiating a contract\", you speaking",
+      "ka": "მადლობელი ვართ. შეგვიძლია სამი წელი განვიხილოთ იმ პირობით, რომ ფასს ყოველწლიურად გადავხედავთ."
+    },
+    {
+      "key": "dialogues|dlg-C2-u3|line2",
+      "en": "An annual review would expose us to considerable risk.",
+      "context": "C2 dialogue \"Negotiating a contract\", partner speaking",
+      "ka": "ყოველწლიური გადახედვა ჩვენთვის მნიშვნელოვან რისკებთან იქნება დაკავშირებული."
+    },
+    {
+      "key": "dialogues|dlg-C2-u3|line3",
+      "en": "Then let's see if we can find some middle ground. What if increases were capped at the rate of inflation?",
+      "context": "C2 dialogue \"Negotiating a contract\", you speaking",
+      "ka": "მაშინ ვნახოთ, შევძლებთ თუ არა ოქროს შუალედის გამონახვას. რა იქნება, თუ ფასის ზრდას ინფლაციის დონით შევზღუდავთ?"
+    },
+    {
+      "key": "dialogues|dlg-C2-u3|line4",
+      "en": "That might work, provided you commit to minimum order volumes.",
+      "context": "C2 dialogue \"Negotiating a contract\", partner speaking",
+      "ka": "ეს შეიძლება გამოდგეს, იმ პირობით, თუ შეკვეთის მინიმალურ მოცულობებზე აიღებთ ვალდებულებას."
+    },
+    {
+      "key": "dialogues|dlg-C2-u3|line5",
+      "en": "Fixed minimums would be a deal-breaker for us, given how seasonal our demand is. A quarterly average, however, is something we can accept.",
+      "context": "C2 dialogue \"Negotiating a contract\", you speaking",
+      "ka": "ფიქსირებული მინიმუმები ჩვენთვის მიუღებელია, თუ გავითვალისწინებთ ჩვენი მოთხოვნის სეზონურობას. თუმცა კვარტალური საშუალო მაჩვენებელი ჩვენთვის მისაღებია."
+    },
+    {
+      "key": "dialogues|dlg-C2-u3|line6",
+      "en": "Very well. Let's put that in writing and have our lawyers review the draft.",
+      "context": "C2 dialogue \"Negotiating a contract\", partner speaking",
+      "ka": "ძალიან კარგი. მოდით, ეს წერილობით ჩამოვაყალიბოთ და პროექტი ჩვენს იურისტებს გადავცეთ განსახილველად."
+    },
+    {
+      "key": "dialogues|dlg-C2-u4|line0",
+      "en": "Thanks for sending the draft. I do appreciate how much work has gone into it.",
+      "context": "C2 dialogue \"Giving difficult feedback\", you speaking",
+      "ka": "მადლობა პროექტის გამოგზავნისთვის. ნამდვილად ვაფასებ, რამდენი შრომა ჩადეთ მასში."
+    },
+    {
+      "key": "dialogues|dlg-C2-u4|line1",
+      "en": "But you have some reservations, I take it?",
+      "context": "C2 dialogue \"Giving difficult feedback\", partner speaking",
+      "ka": "როგორც ვხვდები, გარკვეული შენიშვნები გაქვთ?"
+    },
+    {
+      "key": "dialogues|dlg-C2-u4|line2",
+      "en": "A few. What concerns me slightly is that the key recommendation only appears on page twelve.",
+      "context": "C2 dialogue \"Giving difficult feedback\", you speaking",
+      "ka": "რამდენიმე. ცოტა მაფიქრებს ის, რომ მთავარი რეკომენდაცია მხოლოდ მეთორმეტე გვერდზე ჩნდება."
+    },
+    {
+      "key": "dialogues|dlg-C2-u4|line3",
+      "en": "I wanted to build up the evidence first.",
+      "context": "C2 dialogue \"Giving difficult feedback\", partner speaking",
+      "ka": "მინდოდა, ჯერ მტკიცებულებები წარმომედგინა."
+    },
+    {
+      "key": "dialogues|dlg-C2-u4|line4",
+      "en": "That makes sense for an academic paper. For a board, though, it might be worth considering leading with the conclusion.",
+      "context": "C2 dialogue \"Giving difficult feedback\", you speaking",
+      "ka": "ეს გასაგებია აკადემიური ნაშრომისთვის. თუმცა საბჭოსთვის, შესაძლოა, ღირდეს დასკვნით დაწყების განხილვა."
+    },
+    {
+      "key": "dialogues|dlg-C2-u4|line5",
+      "en": "So, a summary up front and the detail in an appendix?",
+      "context": "C2 dialogue \"Giving difficult feedback\", partner speaking",
+      "ka": "ანუ, მოკლე რეზიუმე დასაწყისში, დეტალები კი — დანართში?"
+    },
+    {
+      "key": "dialogues|dlg-C2-u4|line6",
+      "en": "Exactly. The analysis itself is excellent; it's simply a question of making it easier to act on.",
+      "context": "C2 dialogue \"Giving difficult feedback\", you speaking",
+      "ka": "სწორედ ასე. თვითონ ანალიზი შესანიშნავია; უბრალოდ, საქმე იმაშია, რომ გადაწყვეტილების მიღება გამარტივდეს."
+    },
+    {
+      "key": "dialogues|dlg-C2-u5|line0",
+      "en": "Our motion tonight is that artificial intelligence will do more harm than good. Dr Kim, you have two minutes.",
+      "context": "C2 dialogue \"Moderating a public debate\", you speaking",
+      "ka": "დღევანდელი ჩვენი სადისკუსიო თემაა: „ხელოვნური ინტელექტი უფრო მეტ ზიანს მოიტანს, ვიდრე სარგებელს“. დოქტორო კიმ, თქვენ ორი წუთი გაქვთ."
+    },
+    {
+      "key": "dialogues|dlg-C2-u5|line1",
+      "en": "The real danger is not that machines will think, but that people will stop thinking.",
+      "context": "C2 dialogue \"Moderating a public debate\", partner speaking",
+      "ka": "რეალური საფრთხე ის კი არ არის, რომ მანქანები დაიწყებენ აზროვნებას, არამედ ის, რომ ადამიანები შეწყვეტენ ფიქრს."
+    },
+    {
+      "key": "dialogues|dlg-C2-u5|line2",
+      "en": "If I could just come in here — isn't that what was said about calculators and the printing press?",
+      "context": "C2 dialogue \"Moderating a public debate\", you speaking",
+      "ka": "აქ რომ ჩაგერთოთ — განა იგივეს არ ამბობდნენ კალკულატორებსა და საბეჭდ დაზგაზეც?"
+    },
+    {
+      "key": "dialogues|dlg-C2-u5|line3",
+      "en": "Those tools extended human ability; this one threatens to replace human judgement.",
+      "context": "C2 dialogue \"Moderating a public debate\", partner speaking",
+      "ka": "ის ხელსაწყოები ადამიანის შესაძლებლობებს აფართოებდა; ეს კი საფრთხეს უქმნის ადამიანის განსჯის უნარს და მის ჩანაცვლებას ცდილობს."
+    },
+    {
+      "key": "dialogues|dlg-C2-u5|line4",
+      "en": "So, to summarise your position, the issue is not capability but dependence?",
+      "context": "C2 dialogue \"Moderating a public debate\", you speaking",
+      "ka": "ანუ, თქვენი პოზიცია რომ შევაჯამოთ, საკითხი ეხება არა შესაძლებლობებს, არამედ დამოკიდებულებას?"
+    },
+    {
+      "key": "dialogues|dlg-C2-u5|line5",
+      "en": "Precisely. And dependence, once established, is very hard to reverse.",
+      "context": "C2 dialogue \"Moderating a public debate\", partner speaking",
+      "ka": "ზუსტად. დამოკიდებულებისგან გათავისუფლება კი, როგორც კი ის ჩამოყალიბდება, ძალიან რთულია."
+    },
+    {
+      "key": "dialogues|dlg-C2-u5|line6",
+      "en": "With respect, that doesn't quite answer how regulation might help. Perhaps we can return to that after the audience questions.",
+      "context": "C2 dialogue \"Moderating a public debate\", you speaking",
+      "ka": "პატივისცემით, მაგრამ ეს ბოლომდე არ პასუხობს იმას, თუ როგორ შეიძლება რეგულაციებმა უშველოს საქმეს. იქნებ ამ საკითხს აუდიტორიის შეკითხვების შემდეგ დავუბრუნდეთ."
+    },
+    {
+      "key": "writing|writing-topic-1|task",
+      "en": "Write a short profile of yourself for an online language club.",
+      "context": "Writing task instruction. Content points: your name and where you live; your job or what you study; your hobbies; why you are learning English",
+      "ka": "დაწერეთ მოკლე პროფილი თქვენ შესახებ ონლაინ ენობრივი კლუბისთვის."
+    },
+    {
+      "key": "writing|writing-topic-2|task",
+      "en": "Write a postcard to a friend from your holiday.",
+      "context": "Writing task instruction. Content points: where you are; what the weather is like; what you do during the day; when you are coming home",
+      "ka": "დაწერეთ ღია ბარათი მეგობრისთვის თქვენი შვებულებიდან."
+    },
+    {
+      "key": "writing|writing-topic-3|task",
+      "en": "Write a polite email to a hotel to book a room.",
+      "context": "Writing task instruction. Content points: the dates of your stay; the type of room you want; a question about breakfast; a question about an airport transfer",
+      "ka": "მისწერეთ თავაზიანი ელფოსტა სასტუმროს ნომრის დასაჯავშნად."
+    },
+    {
+      "key": "writing|writing-topic-4|task",
+      "en": "Write an invitation to your birthday party.",
+      "context": "Writing task instruction. Content points: the date and time; the address; what you are going to do at the party; how and when to reply (RSVP)",
+      "ka": "დაწერეთ მოსაწვევი თქვენი დაბადების დღის წვეულებისთვის."
+    },
+    {
+      "key": "writing|writing-topic-5|task",
+      "en": "Write a short advert for a flat or house for rent.",
+      "context": "Writing task instruction. Content points: where it is; how many rooms it has; the furniture and appliances; what is near it; the rent and conditions",
+      "ka": "დაწერეთ მოკლე განცხადება ბინის ან სახლის გასაქირავებლად."
+    },
+    {
+      "key": "writing|writing-topic-6|task",
+      "en": "Write a diary entry about a memorable day, using the past simple.",
+      "context": "Writing task instruction. Content points: what you did in the morning; where you were in the afternoon; how the evening ended; how you felt about the day",
+      "ka": "დაწერეთ დღიურის ჩანაწერი დაუვიწყარი დღის შესახებ Past Simple-ის გამოყენებით."
+    },
+    {
+      "key": "writing|writing-topic-7|task",
+      "en": "Write a short, polite note to a neighbour asking for a favour while you are away.",
+      "context": "Writing task instruction. Content points: why you are writing; when you will be away; what you would like them to do (e.g. water plants, take in a parcel); how to contact you and a thank-you",
+      "ka": "დაუწერეთ მოკლე, თავაზიანი წერილი მეზობელს და სთხოვეთ დახმარება თქვენი არყოფნის დროს."
+    },
+    {
+      "key": "writing|writing-topic-8|task",
+      "en": "Write a polite email to your teacher explaining that you will miss a class.",
+      "context": "Writing task instruction. Content points: the class you will miss; the reason; how you will catch up; a question about the homework",
+      "ka": "მისწერეთ თავაზიანი ელფოსტა მასწავლებელს და აუხსენით, რომ გაკვეთილს გააცდენთ."
+    },
+    {
+      "key": "writing|writing-topic-9|task",
+      "en": "Write a short online review of a café or restaurant.",
+      "context": "Writing task instruction. Content points: where it is; what the place is like; what you ordered; the service; your star rating and why",
+      "ka": "დაწერეთ კაფეს ან რესტორნის მოკლე ონლაინ მიმოხილვა."
+    },
+    {
+      "key": "writing|writing-topic-10|task",
+      "en": "Write clear step-by-step directions for a friend from the station to your home.",
+      "context": "Writing task instruction. Content points: where to start; each turn or street in order; landmarks to look for; how long it takes",
+      "ka": "დაუწერეთ მეგობარს მკაფიო, ეტაპობრივი გზამკვლევი სადგურიდან თქვენს სახლამდე."
+    },
+    {
+      "key": "writing|writing-topic-11|task",
+      "en": "Write a recipe for a simple dish or breakfast you like.",
+      "context": "Writing task instruction. Content points: the preparation time; the ingredients and exact amounts; the steps in order; a tip for serving",
+      "ka": "დაწერეთ თქვენთვის სასურველი მარტივი კერძის ან საუზმის რეცეპტი."
+    },
+    {
+      "key": "writing|writing-topic-12|task",
+      "en": "Write a 'lost item' notice for a community board.",
+      "context": "Writing task instruction. Content points: what you lost; where and when you lost it; a clear description of the item; your contact details",
+      "ka": "დაწერეთ განცხადება დაკარგული ნივთის შესახებ საინფორმაციო დაფისთვის."
+    },
+    {
+      "key": "writing|writing-topic-13|task",
+      "en": "Write a thank-you email to a relative or friend for a present.",
+      "context": "Writing task instruction. Content points: what the present was; what you like about it; how you use it; a friendly question about them",
+      "ka": "მისწერეთ სამადლობელი ელფოსტა ნათესავს ან მეგობარს საჩუქრისთვის."
+    },
+    {
+      "key": "writing|writing-topic-14|task",
+      "en": "Complete a short personal statement to join a club or volunteer group.",
+      "context": "Writing task instruction. Content points: some personal information; your experience; your skills; why you want to join",
+      "ka": "შეავსეთ მოკლე სამოტივაციო განაცხადი კლუბში ან მოხალისეთა ჯგუფში გასაწევრიანებლად."
+    },
+    {
+      "key": "writing|writing-topic-15|task",
+      "en": "Write your plan for next weekend and your goals for this month.",
+      "context": "Writing task instruction. Content points: your plans with be going to; predictions or decisions with will; at least two goals; why these goals matter to you",
+      "ka": "დაწერეთ მომავალი შაბათ-კვირის გეგმა და მიმდინარე თვის მიზნები."
+    },
+    {
+      "key": "writing|writing-topic-16|task",
+      "en": "Write a short cover letter for a summer job or internship.",
+      "context": "Writing task instruction. Content points: the position you are applying for; your education; your experience; your skills and why you are a good fit",
+      "ka": "დაწერეთ მოკლე სამოტივაციო წერილი საზაფხულო სამუშაოსთვის ან სტაჟირებისთვის."
+    },
+    {
+      "key": "writing|writing-topic-17|task",
+      "en": "Write a polite but clear complaint email to an online shop about a damaged or wrong delivery.",
+      "context": "Writing task instruction. Content points: your order number; what the problem is; how you feel about it (politely); what you want the shop to do",
+      "ka": "მისწერეთ თავაზიანი, მაგრამ მკაფიო საჩივრის ელფოსტა ონლაინ მაღაზიას დაზიანებული ან არასწორი შეკვეთის გამო."
+    },
+    {
+      "key": "writing|writing-topic-18|task",
+      "en": "Write a travel blog post about a city or place you visited.",
+      "context": "Writing task instruction. Content points: how you got there; what you visited; what you ate; your advice for readers",
+      "ka": "დაწერეთ სამოგზაურო ბლოგ-პოსტი იმ ქალაქის ან ადგილის შესახებ, რომელსაც ესტუმრეთ."
+    },
+    {
+      "key": "writing|writing-topic-19|task",
+      "en": "Write a short review of a book or film without giving away the ending.",
+      "context": "Writing task instruction. Content points: the title, author or director, and genre; a short summary of the story (no spoilers); what you liked or disliked; who you would recommend it to and why",
+      "ka": "დაწერეთ წიგნის ან ფილმის მოკლე რეცენზია ისე, რომ დასასრული არ გაამხილოთ."
+    },
+    {
+      "key": "writing|writing-topic-20|task",
+      "en": "Write a polite apology email to a colleague or partner for missing a meeting, and suggest a new time.",
+      "context": "Writing task instruction. Content points: an apology; the reason you missed the meeting; a suggestion for a new time; a polite closing",
+      "ka": "მისწერეთ თავაზიანი ბოდიშის ელფოსტა კოლეგას ან პარტნიორს შეხვედრის გაცდენის გამო და შესთავაზეთ ახალი დრო."
+    },
+    {
+      "key": "writing|writing-topic-21|task",
+      "en": "Write a short newsletter report on a school, university or community event.",
+      "context": "Writing task instruction. Content points: when and where it took place; how many people took part; what was done; the result or outcome",
+      "ka": "დაწერეთ მოკლე საინფორმაციო ანგარიში სასკოლო, საუნივერსიტეტო ან სათემო ღონისძიებაზე."
+    },
+    {
+      "key": "writing|writing-topic-22|task",
+      "en": "Write a supportive email to a friend who has moved to a new city or job and asks for advice.",
+      "context": "Writing task instruction. Content points: show that you understand how they feel; advice on settling in; advice on making friends; an encouraging ending",
+      "ka": "მისწერეთ გამამხნევებელი ელფოსტა მეგობარს, რომელიც ახალ ქალაქში ან სამსახურში გადავიდა და რჩევას გეკითხებათ."
+    },
+    {
+      "key": "writing|writing-topic-23|task",
+      "en": "Write an email asking a school or college for information about a course.",
+      "context": "Writing task instruction. Content points: which course you are interested in and why; questions about dates and timetable; questions about price and materials; a polite request for a reply",
+      "ka": "მისწერეთ ელფოსტა სკოლას ან კოლეჯს კურსის შესახებ ინფორმაციის მისაღებად."
+    },
+    {
+      "key": "writing|writing-topic-24|task",
+      "en": "Write a short biography of a person who inspires you.",
+      "context": "Writing task instruction. Content points: where and when they were born; how they started their career; difficulties they overcame; what they achieved",
+      "ka": "დაწერეთ იმ ადამიანის მოკლე ბიოგრაფია, რომელიც თქვენს შთაგონებას წარმოადგენს."
+    },
+    {
+      "key": "writing|writing-topic-25|task",
+      "en": "Write an online listing to sell a second-hand item (e.g. a camera, bike or laptop).",
+      "context": "Writing task instruction. Content points: the model and its condition; what is included; why you are selling it; the price and how to contact you",
+      "ka": "დაწერეთ ონლაინ განცხადება მეორადი ნივთის გასაყიდად (მაგ. ფოტოაპარატი, ველოსიპედი ან ლეპტოპი)."
+    },
+    {
+      "key": "writing|writing-topic-26|task",
+      "en": "Write a short story about something unexpected that happened on a journey.",
+      "context": "Writing task instruction. Content points: set the scene: where, when, who; the problem or surprise; what you did; how it ended — use first, suddenly, while, fortunately, in the end",
+      "ka": "დაწერეთ მოკლე მოთხრობა მოგზაურობისას მომხდარი მოულოდნელი ამბის შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-27|task",
+      "en": "Write a polite email to your landlord asking for a repair.",
+      "context": "Writing task instruction. Content points: what is broken; when the problem started and how it affects you; when you are at home for a repair visit; a polite request for a quick reply",
+      "ka": "მისწერეთ თავაზიანი ელფოსტა ბინის მეპატრონეს შეკეთების თხოვნით."
+    },
+    {
+      "key": "writing|writing-topic-28|task",
+      "en": "Write a mini visitor's guide to your hometown or region.",
+      "context": "Writing task instruction. Content points: where it is; what visitors should see; a local dish to try; the best time to visit",
+      "ka": "დაწერეთ მოკლე ტურისტული გზამკვლევი თქვენი მშობლიური ქალაქის ან რეგიონისთვის."
+    },
+    {
+      "key": "writing|writing-topic-29|task",
+      "en": "Write a short opinion essay on why daily walking or exercise matters.",
+      "context": "Writing task instruction. Content points: an introduction with your opinion; two or three reasons with examples; a conclusion that repeats your view",
+      "ka": "დაწერეთ მოკლე ესე-მოსაზრება იმაზე, თუ რატომ არის მნიშვნელოვანი ყოველდღიური სიარული ან ვარჯიში."
+    },
+    {
+      "key": "writing|writing-topic-30|task",
+      "en": "Write a warm letter congratulating a friend or colleague on an important event (a wedding, a new baby or a new home).",
+      "context": "Writing task instruction. Content points: your congratulations; a personal memory or comment; your good wishes for the future; an offer or plan to meet",
+      "ka": "მისწერეთ თბილი მილოცვის წერილი მეგობარს ან კოლეგას მნიშვნელოვან მოვლენასთან დაკავშირებით (ქორწილი, ბავშვის დაბადება ან ახალ სახლში გადასვლა)."
+    },
+    {
+      "key": "writing|writing-topic-31|task",
+      "en": "Write a formal cover letter for a full-time job.",
+      "context": "Writing task instruction. Content points: the position and where you saw it; your education; your work experience and software skills; why you suit the company",
+      "ka": "დაწერეთ ოფიციალური სამოტივაციო წერილი სრულ განაკვეთზე მუშაობისთვის."
+    },
+    {
+      "key": "writing|writing-topic-32|task",
+      "en": "Write a balanced 'for and against' essay on working from home.",
+      "context": "Writing task instruction. Content points: an introduction to the topic; arguments for; arguments against; a balanced conclusion with your view",
+      "ka": "დაწერეთ დაბალანსებული ესე „მომხრე და მოწინააღმდეგე“ არგუმენტებით სახლიდან მუშაობის შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-33|task",
+      "en": "Write a formal letter to the city council or transport department proposing a safer cycle lane or pedestrian crossing in your area.",
+      "context": "Writing task instruction. Content points: the reason for writing; the current problem and who it affects; your proposal; the expected benefits and a request for action",
+      "ka": "მისწერეთ ოფიციალური წერილი ქალაქის მერიას ან სატრანსპორტო სამსახურს თქვენს უბანში უფრო უსაფრთხო ველობილიკის ან ქვეითთა გადასასვლელის მოწყობის წინადადებით."
+    },
+    {
+      "key": "writing|writing-topic-34|task",
+      "en": "Write a meeting summary email for your team.",
+      "context": "Writing task instruction. Content points: the topics discussed; the decisions made; who is responsible for each action; the deadlines",
+      "ka": "დაწერეთ შეხვედრის შემაჯამებელი ელფოსტა თქვენი გუნდისთვის."
+    },
+    {
+      "key": "writing|writing-topic-35|task",
+      "en": "Write a personal statement for an exchange programme or scholarship.",
+      "context": "Writing task instruction. Content points: your academic interests; why you chose this programme; relevant experience; how you will use what you learn",
+      "ka": "დაწერეთ სამოტივაციო წერილი გაცვლითი პროგრამისთვის ან სტიპენდიისთვის."
+    },
+    {
+      "key": "writing|writing-topic-36|task",
+      "en": "Write a formal claim letter to an insurance company after a problem while travelling.",
+      "context": "Writing task instruction. Content points: your policy number; a clear timeline of what happened; the amount you are claiming; the receipts and documents you are attaching",
+      "ka": "დაწერეთ ოფიციალური სადაზღვევო მოთხოვნის წერილი მოგზაურობისას წარმოქმნილი პრობლემის გამო."
+    },
+    {
+      "key": "writing|writing-topic-37|task",
+      "en": "Write a feature article with practical ways to reduce plastic at home.",
+      "context": "Writing task instruction. Content points: an engaging title and introduction; several practical tips with explanations; the benefits for readers; a memorable conclusion",
+      "ka": "დაწერეთ თემატური სტატია სახლში პლასტმასის მოხმარების შემცირების პრაქტიკულ გზებზე."
+    },
+    {
+      "key": "writing|writing-topic-38|task",
+      "en": "Write a formal letter of reference for a former colleague, team member or student.",
+      "context": "Writing task instruction. Content points: how long and in what role you worked together; their professional qualities; their personal qualities; a specific achievement and your recommendation",
+      "ka": "დაწერეთ ოფიციალური სარეკომენდაციო წერილი ყოფილი კოლეგის, გუნდის წევრის ან სტუდენტისთვის."
+    },
+    {
+      "key": "writing|writing-topic-39|task",
+      "en": "Write an internal proposal to management to improve the workplace or staff well-being.",
+      "context": "Writing task instruction. Content points: the aim of the proposal; three concrete steps; the budget; the expected benefits",
+      "ka": "დაწერეთ შიდა წინადადება მენეჯმენტისთვის სამუშაო გარემოს ან თანამშრომელთა კეთილდღეობის გასაუმჯობესებლად."
+    },
+    {
+      "key": "writing|writing-topic-40|task",
+      "en": "Write a problem–solution essay on traffic congestion and air pollution in big cities.",
+      "context": "Writing task instruction. Content points: the causes of the problem; two or three effective solutions; how each solution would help; a conclusion",
+      "ka": "დაწერეთ ესე ფორმატში „პრობლემა და გამოსავალი“ დიდ ქალაქებში საცობებისა და ჰაერის დაბინძურების შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-41|task",
+      "en": "Write a short report on the results of a customer survey.",
+      "context": "Writing task instruction. Content points: the aim of the survey; what customers like; the main complaints, with percentages; your recommendations",
+      "ka": "დაწერეთ მოკლე ანგარიში მომხმარებელთა გამოკითხვის შედეგებზე."
+    },
+    {
+      "key": "writing|writing-topic-42|task",
+      "en": "Write a formal compensation claim to an airline for a delayed or cancelled flight.",
+      "context": "Writing task instruction. Content points: the flight number and date; the length of the delay; the reason given; the compensation you are requesting",
+      "ka": "დაწერეთ ოფიციალური მოთხოვნა ავიაკომპანიისგან კომპენსაციის მისაღებად რეისის გადადების ან გაუქმების გამო."
+    },
+    {
+      "key": "writing|writing-topic-43|task",
+      "en": "Write a reflective essay about your journey learning a foreign language.",
+      "context": "Writing task instruction. Content points: the difficulties you had at the start; what changed and why; the habits that helped most; what you have learned about yourself",
+      "ka": "დაწერეთ რეფლექსიური ესე უცხო ენის შესწავლის თქვენი გამოცდილების შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-44|task",
+      "en": "Write a press release announcing a cultural, music or charity festival.",
+      "context": "Writing task instruction. Content points: a headline; who, what, where and when; programme highlights; contact and ticket information",
+      "ka": "დაწერეთ პრესრელიზი კულტურული, მუსიკალური ან საქველმოქმედო ფესტივალის შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-45|task",
+      "en": "Write a comparative essay on printed books and e-readers.",
+      "context": "Writing task instruction. Content points: an introduction to both; the advantages of each; the disadvantages of each; a conclusion with your preference and reasons",
+      "ka": "დაწერეთ შედარებითი ესე ბეჭდური წიგნებისა და ელექტრონული საკითხავების შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-46|task",
+      "en": "Write a credit memorandum for a bank committee about a business loan application.",
+      "context": "Writing task instruction. Content points: the borrower's profile; the purpose and amount of the loan; a financial analysis and the main risks; your recommendation and conditions",
+      "ka": "დაწერეთ საკრედიტო მემორანდუმი საბანკო კომიტეტისთვის ბიზნესსესხის განაცხადის შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-47|task",
+      "en": "Write an argumentative essay on banning private cars from historic city centres.",
+      "context": "Writing task instruction. Content points: your position; your main arguments with evidence; a response to opposing arguments; a conclusion",
+      "ka": "დაწერეთ არგუმენტირებული ესე ისტორიულ ცენტრებში კერძო ავტომობილების აკრძალვის შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-48|task",
+      "en": "Write a capital investment proposal to a board of directors for rooftop solar panels on a warehouse.",
+      "context": "Writing task instruction. Content points: the problem (energy costs); the technical solution; the cost and payback period; the risks and your recommendation",
+      "ka": "დაწერეთ კაპიტალური ინვესტიციის წინადადება დირექტორთა საბჭოსთვის საწყობის სახურავზე მზის პანელების დამონტაჟების შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-49|task",
+      "en": "Write an academic summary explaining how sleep helps memory.",
+      "context": "Writing task instruction. Content points: the main research question; the key findings; how the process works; the practical implications",
+      "ka": "დაწერეთ აკადემიური რეზიუმე, რომელიც ხსნის, თუ როგორ უწყობს ძილი ხელს მეხსიერებას."
+    },
+    {
+      "key": "writing|writing-topic-50|task",
+      "en": "Write a proactive email to a business client about a supply or delivery delay.",
+      "context": "Writing task instruction. Content points: the objective reason for the delay; the new timeline; an offer of a partial delivery; compensation or a discount and an apology",
+      "ka": "მისწერეთ პროაქტიული ელფოსტა ბიზნესკლიენტს მიწოდების შეფერხების შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-51|task",
+      "en": "Write an analytical essay on whether AI threatens or enhances creativity in music, design and writing.",
+      "context": "Writing task instruction. Content points: how generative AI is changing creative work; a comparison with a historical precedent (e.g. the camera); arguments on both sides; what remains a uniquely human advantage",
+      "ka": "დაწერეთ ანალიტიკური ესე იმაზე, ემუქრება თუ აძლიერებს AI შემოქმედებითობას მუსიკაში, დიზაინსა და წერაში."
+    },
+    {
+      "key": "writing|writing-topic-52|task",
+      "en": "Write a market entry report on exporting a local organic product to a European market.",
+      "context": "Writing task instruction. Content points: demand in the target market; your competitive advantage; distribution channels; certification requirements and a recommendation",
+      "ka": "დაწერეთ ბაზარზე შესვლის ანგარიში ევროპულ ბაზარზე ადგილობრივი ორგანული პროდუქტის ექსპორტის შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-53|task",
+      "en": "Write a formal letter to a newspaper editor about protecting historic buildings in your city.",
+      "context": "Writing task instruction. Content points: the article or issue you are responding to; why the buildings matter; a response to the economic argument for development; a clear proposal",
+      "ka": "მისწერეთ ოფიციალური წერილი გაზეთის რედაქტორს თქვენს ქალაქში ისტორიული შენობების დაცვის შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-54|task",
+      "en": "Write a cause-and-effect essay on how contactless payments change the way people spend.",
+      "context": "Writing task instruction. Content points: why people switched to contactless payments; the effects on spending habits; the psychological reasons; possible solutions or advice",
+      "ka": "დაწერეთ მიზეზ-შედეგობრივი ესე იმაზე, თუ როგორ ცვლის უკონტაქტო გადახდები ადამიანების ხარჯვის ჩვევებს."
+    },
+    {
+      "key": "writing|writing-topic-55|task",
+      "en": "Write a grant proposal to fund equipment for a youth sports centre in your neighbourhood.",
+      "context": "Writing task instruction. Content points: the social need; a description of the programme; the budget; the expected results and how they will be measured",
+      "ka": "დაწერეთ საგრანტო წინადადება თქვენს უბანში ახალგაზრდული სპორტული ცენტრის ინვენტარის დასაფინანსებლად."
+    },
+    {
+      "key": "writing|writing-topic-56|task",
+      "en": "Write a review of a photography or painting exhibition.",
+      "context": "Writing task instruction. Content points: the concept of the exhibition; the lighting and layout; a description of the most striking work; practical information and your verdict",
+      "ka": "დაწერეთ ფოტოგრაფიის ან ფერწერის გამოფენის რეცენზია."
+    },
+    {
+      "key": "writing|writing-topic-57|task",
+      "en": "Write a policy briefing note evaluating a trial of a four-day working week (32 hours, same pay).",
+      "context": "Writing task instruction. Content points: the background of the trial; the results for productivity and well-being; the risks and costs; a recommendation",
+      "ka": "დაწერეთ პოლიტიკის მოკლე ანალიტიკური ბარათი ოთხდღიანი სამუშაო კვირის (32 საათი, უცვლელი ანაზღაურება) საპილოტე პროგრამის შესაფასებლად."
+    },
+    {
+      "key": "writing|writing-topic-58|task",
+      "en": "Write a persuasive essay arguing that financial literacy should be compulsory in schools.",
+      "context": "Writing task instruction. Content points: the problem young people face; what should be taught (budgeting, interest, saving, risk); a response to objections; a strong conclusion",
+      "ka": "დაწერეთ დარწმუნებითი ესე არგუმენტით, რომ ფინანსური განათლება სკოლებში სავალდებულო უნდა იყოს."
+    },
+    {
+      "key": "writing|writing-topic-59|task",
+      "en": "Write a partnership pitch to a foreign manufacturer, asking to become their official distributor in your country.",
+      "context": "Writing task instruction. Content points: your company's experience; your distribution network; the market potential; the proposed terms and next steps",
+      "ka": "დაწერეთ პარტნიორული წინადადება უცხოელი მწარმოებლისთვის თქვენს ქვეყანაში მათი ოფიციალური დისტრიბუტორი გახდომის მოთხოვნით."
+    },
+    {
+      "key": "writing|writing-topic-60|task",
+      "en": "Write an analytical essay on digital minimalism and deep work.",
+      "context": "Writing task instruction. Content points: how constant notifications fragment attention; the evidence for the costs; practical strategies for deep work; a balanced conclusion",
+      "ka": "დაწერეთ ანალიტიკური ესე ციფრულ მინიმალიზმსა და ღრმა, კონცენტრირებულ მუშაობაზე."
+    },
+    {
+      "key": "writing|writing-topic-61|task",
+      "en": "Write a structured abstract for a thesis on hybrid work and organisational culture.",
+      "context": "Writing task instruction. Content points: the relevance of the research; the aim; the methodology; the key findings and their practical value",
+      "ka": "დაწერეთ სტრუქტურირებული აბსტრაქტი ნაშრომისთვის ჰიბრიდულ მუშაობასა და ორგანიზაციულ კულტურაზე."
+    },
+    {
+      "key": "writing|writing-topic-62|task",
+      "en": "Write a trade finance proposal for a factoring facility for domestic receivables.",
+      "context": "Writing task instruction. Content points: the client's situation and cash-flow need; how the factoring structure works; the risks and mitigants; the pricing and recommendation",
+      "ka": "დაწერეთ სავაჭრო დაფინანსების წინადადება ადგილობრივი მოთხოვნების ფაქტორინგის ლიმიტისთვის."
+    },
+    {
+      "key": "writing|writing-topic-63|task",
+      "en": "Write a sector and feasibility analysis of a coastal residential development for bank financing.",
+      "context": "Writing task instruction. Content points: the advantages of the location; the construction budget; the pre-sales position; the main risks and your conclusion",
+      "ka": "დაწერეთ სანაპირო საცხოვრებელი კომპლექსის სექტორული და მიზანშეწონილობის ანალიზი საბანკო დაფინანსებისთვის."
+    },
+    {
+      "key": "writing|writing-topic-64|task",
+      "en": "Write a policy position paper on regulating AI algorithms in recruitment.",
+      "context": "Writing task instruction. Content points: the current use of AI in hiring; the risks of bias and lack of transparency; regulatory options; your recommended policy",
+      "ka": "დაწერეთ პოლიტიკის პოზიციის დოკუმენტი რეკრუტირებაში AI ალგორითმების რეგულირების შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-65|task",
+      "en": "Write a critical literature review on nudge theory and choice architecture.",
+      "context": "Writing task instruction. Content points: the key ideas and authors; evidence of effectiveness; criticisms and ethical concerns; gaps for future research",
+      "ka": "დაწერეთ კრიტიკული ლიტერატურული მიმოხილვა „ბიძგის თეორიასა“ და არჩევანის არქიტექტურაზე."
+    },
+    {
+      "key": "writing|writing-topic-66|task",
+      "en": "Write an executive strategy memo responding to rising raw-material costs and falling margins.",
+      "context": "Writing task instruction. Content points: the situation and its impact; a three-point plan (e.g. diversifying suppliers, pricing, efficiency); the risks of each option; the recommended decision",
+      "ka": "დაწერეთ აღმასრულებელი სტრატეგიული მემორანდუმი ნედლეულის ფასების ზრდასა და მარჟების შემცირებაზე რეაგირების მიზნით."
+    },
+    {
+      "key": "writing|writing-topic-67|task",
+      "en": "Write an environmental policy brief for a city on reducing the urban heat island effect.",
+      "context": "Writing task instruction. Content points: the causes of the effect; its impact on health and energy use; evidence-based measures; priorities and a recommendation",
+      "ka": "დაწერეთ გარემოსდაცვითი პოლიტიკის ბრიფი ქალაქისთვის ურბანული სითბური კუნძულის ეფექტის შესამცირებლად."
+    },
+    {
+      "key": "writing|writing-topic-68|task",
+      "en": "Write a legal advisory note for a client on force majeure and frustration in an international supply contract.",
+      "context": "Writing task instruction. Content points: the facts and the question; how the force majeure clause applies; the alternative doctrine of frustration; practical advice and next steps",
+      "ka": "დაწერეთ იურიდიული საკონსულტაციო დასკვნა კლიენტისთვის ფორსმაჟორისა და ვალდებულების შესრულების შეუძლებლობის შესახებ საერთაშორისო მიწოდების ხელშეკრულებაში."
+    },
+    {
+      "key": "writing|writing-topic-69|task",
+      "en": "Write an op-ed arguing for the value of preserving unique languages in a globalised world.",
+      "context": "Writing task instruction. Content points: a strong opening; what is lost when a language disappears; a response to the argument for a global language; a call to action",
+      "ka": "დაწერეთ საავტორო სარედაქციო სვეტი გლობალიზებულ სამყაროში უნიკალური ენების შენარჩუნების მნიშვნელობის შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-70|task",
+      "en": "Write a business case analysis on managing cross-cultural virtual teams in an international company.",
+      "context": "Writing task instruction. Content points: the case background; the key problems identified; an analysis using cultural concepts; recommendations",
+      "ka": "დაწერეთ ბიზნესქეისის ანალიზი საერთაშორისო კომპანიაში კროსკულტურული ვირტუალური გუნდების მართვის შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-71|task",
+      "en": "Write a financial ratio analysis of a commercial bank's annual results.",
+      "context": "Writing task instruction. Content points: profitability (ROE, ROA, NIM); efficiency (cost-to-income); asset quality (NPL ratio); overall assessment and outlook",
+      "ka": "დაწერეთ კომერციული ბანკის წლიური შედეგების ფინანსური კოეფიციენტების ანალიზი."
+    },
+    {
+      "key": "writing|writing-topic-72|task",
+      "en": "Write a cultural heritage grant proposal for a 'living' folk archive.",
+      "context": "Writing task instruction. Content points: the heritage at risk; the project activities; the budget and timeline; the expected impact and sustainability",
+      "ka": "დაწერეთ კულტურული მემკვიდრეობის საგრანტო წინადადება „ცოცხალი“ ფოლკლორული არქივისთვის."
+    },
+    {
+      "key": "writing|writing-topic-73|task",
+      "en": "Write a comparative policy essay on Universal Basic Income and Universal Basic Services.",
+      "context": "Writing task instruction. Content points: how each model works; the advantages of each; the costs and risks of each; a reasoned conclusion",
+      "ka": "დაწერეთ შედარებითი პოლიტიკის ესე უნივერსალური საბაზისო შემოსავლისა და უნივერსალური საბაზისო სერვისების შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-74|task",
+      "en": "Write a white paper on zero-trust security architecture in banking.",
+      "context": "Writing task instruction. Content points: the limits of perimeter security; the principles of zero trust; implementation steps; the benefits and challenges",
+      "ka": "დაწერეთ თეთრი წიგნი (white paper) საბანკო სფეროში ნულოვანი ნდობის უსაფრთხოების არქიტექტურის (Zero Trust) შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-75|task",
+      "en": "Write a philosophical essay on Barry Schwartz's 'paradox of choice'.",
+      "context": "Writing task instruction. Content points: the central claim; the psychological evidence; criticisms and counter-examples; your own reasoned position",
+      "ka": "დაწერეთ ფილოსოფიური ესე ბარი შვარცის „არჩევანის პარადოქსზე“."
+    },
+    {
+      "key": "writing|writing-topic-76|task",
+      "en": "Write an amicus brief arguing a position on biometric surveillance in public spaces and the right to privacy.",
+      "context": "Writing task instruction. Content points: the legal question; the relevant rights and precedents; the proportionality of the measure; the relief or ruling you request",
+      "ka": "დაწერეთ სასამართლოს მეგობრის (amicus curiae) დასკვნა საჯარო სივრცეებში ბიომეტრიული მეთვალყურეობისა და პირადი ცხოვრების ხელშეუხებლობის უფლების შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-77|task",
+      "en": "Write a central bank monetary policy committee statement announcing an interest-rate decision.",
+      "context": "Writing task instruction. Content points: the decision and the vote; the assessment of inflation and growth; the risks to the outlook; forward guidance",
+      "ka": "დაწერეთ ცენტრალური ბანკის მონეტარული პოლიტიკის კომიტეტის განცხადება საპროცენტო განაკვეთის გადაწყვეტილების შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-78|task",
+      "en": "Write a peer-review report on a manuscript submitted to an academic journal.",
+      "context": "Writing task instruction. Content points: a summary of the paper's claims; its main strengths; methodological concerns and requested revisions; your recommendation to the editor",
+      "ka": "დაწერეთ რეცენზენტის ანგარიში აკადემიურ ჟურნალში წარდგენილ სამეცნიერო ნაშრომზე."
+    },
+    {
+      "key": "writing|writing-topic-79|task",
+      "en": "Write the executive summary of a due-diligence report for a company acquisition.",
+      "context": "Writing task instruction. Content points: the scope of the review; key financial and legal findings; material risks and deal-breakers; the recommendation and conditions",
+      "ka": "დაწერეთ კომპანიის შესყიდვის კომპლექსური შემოწმების (due diligence) ანგარიშის აღმასრულებელი რეზიუმე."
+    },
+    {
+      "key": "writing|writing-topic-80|task",
+      "en": "Write a multilateral policy proposal on reducing space debris in Earth's orbit.",
+      "context": "Writing task instruction. Content points: the scale of the problem; the shortcomings of current rules; proposed obligations and incentives; verification and next steps",
+      "ka": "დაწერეთ მრავალმხრივი პოლიტიკის წინადადება დედამიწის ორბიტაზე კოსმოსური ნარჩენების შემცირების შესახებ."
+    },
+    {
+      "key": "writing|writing-topic-81|task",
+      "en": "Write a philosophical essay on Karl Popper's criterion of falsifiability.",
+      "context": "Writing task instruction. Content points: the problem of demarcation; Popper's argument; major objections (e.g. Kuhn, the Duhem–Quine thesis); your evaluation",
+      "ka": "დაწერეთ ფილოსოფიური ესე კარლ პოპერის ფალსიფიცირებადობის კრიტერიუმზე."
+    },
+    {
+      "key": "writing|writing-topic-82|task",
+      "en": "Write a sovereign credit rating commentary explaining an upgraded outlook for a country.",
+      "context": "Writing task instruction. Content points: the rating action; the key drivers; remaining weaknesses; what could trigger a further change",
+      "ka": "დაწერეთ სუვერენული საკრედიტო რეიტინგის კომენტარი, რომელიც ხსნის ქვეყნის პერსპექტივის (outlook) გაუმჯობესებას."
+    },
+    {
+      "key": "writing|writing-topic-83|task",
+      "en": "Draft an international bioethical charter for brain–computer interfaces.",
+      "context": "Writing task instruction. Content points: a preamble stating the purpose; core principles (consent, mental privacy, identity); obligations of developers and states; oversight and enforcement",
+      "ka": "შეადგინეთ საერთაშორისო ბიოეთიკური ქარტია ტვინ-კომპიუტერის ინტერფეისებისთვის."
+    },
+    {
+      "key": "writing|writing-topic-84|task",
+      "en": "Write a literary criticism essay applying Bakhtin's idea of polyphony to a novel or poem you know.",
+      "context": "Writing task instruction. Content points: Bakhtin's concept explained; analysis of voices in the text; the effect on meaning and the reader; a reasoned conclusion",
+      "ka": "დაწერეთ ლიტერატურულ-კრიტიკული ესე ბახტინის პოლიფონიის კონცეფციის გამოყენებით თქვენთვის ნაცნობ რომანსა თუ პოემაზე."
+    },
+    {
+      "key": "writing|writing-topic-85|task",
+      "en": "Write a claimant's memorial for an international arbitration over a construction contract dispute.",
+      "context": "Writing task instruction. Content points: the facts and the contract terms; the breaches alleged; the legal arguments; the relief sought",
+      "ka": "დაწერეთ მოსარჩელის მემორიალი საერთაშორისო საარბიტრაჟო დავისთვის სამშენებლო კონტრაქტთან დაკავშირებით."
+    },
+    {
+      "key": "writing|writing-topic-86|task",
+      "en": "Write a macroeconomic policy paper on how a developing economy can escape the middle-income trap.",
+      "context": "Writing task instruction. Content points: a diagnosis of the trap; evidence from other countries; a policy package; risks and sequencing",
+      "ka": "დაწერეთ მაკროეკონომიკური პოლიტიკის ნაშრომი იმის შესახებ, თუ როგორ შეუძლია განვითარებად ეკონომიკას საშუალო შემოსავლის ხაფანგის დაძლევა."
+    },
+    {
+      "key": "writing|writing-topic-87|task",
+      "en": "Write an essay on architecture and the senses, drawing on Juhani Pallasmaa's ideas.",
+      "context": "Writing task instruction. Content points: Pallasmaa's critique of visual dominance; examples of multisensory spaces; implications for design practice; your evaluation",
+      "ka": "დაწერეთ ესე არქიტექტურასა და შეგრძნებებზე იუჰანი პალასმაას იდეებზე დაყრდნობით."
+    },
+    {
+      "key": "writing|writing-topic-88|task",
+      "en": "Write a historiographical essay on archival silences and how historians can work with missing sources.",
+      "context": "Writing task instruction. Content points: what archival silences are and why they exist; examples; methods for reading against the grain; the limits of such methods",
+      "ka": "დაწერეთ ისტორიოგრაფიული ესე საარქივო სიჩუმეებსა და იმის შესახებ, თუ როგორ შეუძლიათ ისტორიკოსებს დაკარგულ წყაროებთან მუშაობა."
+    },
+    {
+      "key": "writing|writing-topic-89|task",
+      "en": "Write a macroprudential policy paper applying Minsky's financial instability hypothesis to current markets.",
+      "context": "Writing task instruction. Content points: Minsky's hypothesis explained; signs of instability today; policy tools; a recommendation",
+      "ka": "დაწერეთ მაკროპრუდენციული პოლიტიკის ნაშრომი მინსკის ფინანსური არასტაბილურობის ჰიპოთეზის თანამედროვე ბაზრებზე მორგებით."
+    },
+    {
+      "key": "writing|writing-topic-90|task",
+      "en": "Write a capstone essay on synthesis and intellectual integrity in research and professional work.",
+      "context": "Writing task instruction. Content points: what synthesis means beyond summary; the role of honesty about evidence and sources; examples of good and poor practice; your personal principles",
+      "ka": "დაწერეთ შემაჯამებელი (capstone) ესე სინთეზსა და ინტელექტუალურ კეთილსინდისიერებაზე კვლევით და პროფესიულ საქმიანობაში."
+    },
+    {
+      "key": "curriculum|A1-u1|title",
+      "en": "Meeting people",
+      "context": "A1 unit title",
+      "ka": "ხალხის გაცნობა"
+    },
+    {
+      "key": "curriculum|A1-u1|goal",
+      "en": "I can say who I am, where I'm from and introduce my family.",
+      "context": "A1 unit can-do statement (first person)",
+      "ka": "შემიძლია ვთქვა, ვინ ვარ, საიდან ვარ და წარვადგინო ჩემი ოჯახი."
+    },
+    {
+      "key": "curriculum|A1-u2|title",
+      "en": "Home and places",
+      "context": "A1 unit title",
+      "ka": "სახლი და ადგილები"
+    },
+    {
+      "key": "curriculum|A1-u2|goal",
+      "en": "I can describe my home and say where things are in a town.",
+      "context": "A1 unit can-do statement (first person)",
+      "ka": "შემიძლია აღვწერო ჩემი სახლი და ვთქვა, სად რა მდებარეობს ქალაქში."
+    },
+    {
+      "key": "curriculum|A1-u3|title",
+      "en": "My day",
+      "context": "A1 unit title",
+      "ka": "ჩემი დღე"
+    },
+    {
+      "key": "curriculum|A1-u3|goal",
+      "en": "I can talk about my daily routine and what I have.",
+      "context": "A1 unit can-do statement (first person)",
+      "ka": "შემიძლია ვისაუბრო ჩემს დღის განრიგზე და იმაზე, თუ რა მაქვს."
+    },
+    {
+      "key": "curriculum|A1-u4|title",
+      "en": "Free time and abilities",
+      "context": "A1 unit title",
+      "ka": "თავისუფალი დრო და უნარები"
+    },
+    {
+      "key": "curriculum|A1-u4|goal",
+      "en": "I can talk about how often I do things and what I can do.",
+      "context": "A1 unit can-do statement (first person)",
+      "ka": "შემიძლია ვისაუბრო იმაზე, რამდენად ხშირად ვაკეთებ რაღაცებს და რისი გაკეთება შემიძლია."
+    },
+    {
+      "key": "curriculum|A1-u5|title",
+      "en": "Food, shopping and getting around",
+      "context": "A1 unit title",
+      "ka": "საჭმელი, შოპინგი და გადაადგილება"
+    },
+    {
+      "key": "curriculum|A1-u5|goal",
+      "en": "I can order food, shop for basic things and follow simple instructions.",
+      "context": "A1 unit can-do statement (first person)",
+      "ka": "შემიძლია შევუკვეთო საჭმელი, ვიყიდო პირველადი საჭიროების ნივთები და მივყვე მარტივ მითითებებს."
+    },
+    {
+      "key": "curriculum|A2-u1|title",
+      "en": "Now and then",
+      "context": "A2 unit title",
+      "ka": "ახლა და მაშინ"
+    },
+    {
+      "key": "curriculum|A2-u1|goal",
+      "en": "I can describe what is happening now and talk about the past with was/were.",
+      "context": "A2 unit can-do statement (first person)",
+      "ka": "შემიძლია აღვწერო, რა ხდება ახლა და ვისაუბრო წარსულზე was/were-ის გამოყენებით."
+    },
+    {
+      "key": "curriculum|A2-u2|title",
+      "en": "Stories from the past",
+      "context": "A2 unit title",
+      "ka": "ამბები წარსულიდან"
+    },
+    {
+      "key": "curriculum|A2-u2|goal",
+      "en": "I can tell a short story about something that happened.",
+      "context": "A2 unit can-do statement (first person)",
+      "ka": "შემიძლია მოვყვე მოკლე ამბავი მომხდარი მოვლენის შესახებ."
+    },
+    {
+      "key": "curriculum|A2-u3|title",
+      "en": "Memories and comparisons",
+      "context": "A2 unit title",
+      "ka": "მოგონებები და შედარებები"
+    },
+    {
+      "key": "curriculum|A2-u3|goal",
+      "en": "I can talk about past habits and compare people, places and things.",
+      "context": "A2 unit can-do statement (first person)",
+      "ka": "შემიძლია ვისაუბრო წარსულის ჩვევებზე და შევადარო ადამიანები, ადგილები და ნივთები."
+    },
+    {
+      "key": "curriculum|A2-u4|title",
+      "en": "Plans and rules",
+      "context": "A2 unit title",
+      "ka": "გეგმები და წესები"
+    },
+    {
+      "key": "curriculum|A2-u4|goal",
+      "en": "I can talk about my plans and explain rules and give advice.",
+      "context": "A2 unit can-do statement (first person)",
+      "ka": "შემიძლია ვისაუბრო ჩემს გეგმებზე, ავხსნა წესები და გავცე რჩევები."
+    },
+    {
+      "key": "curriculum|A2-u5|title",
+      "en": "Travel and shopping",
+      "context": "A2 unit title",
+      "ka": "მოგზაურობა და შოპინგი"
+    },
+    {
+      "key": "curriculum|A2-u5|goal",
+      "en": "I can manage on a trip: book, buy, ask for directions and explain preferences.",
+      "context": "A2 unit can-do statement (first person)",
+      "ka": "შემიძლია გავართვა თავი მოგზაურობისას: დავჯავშნო, ვიყიდო, ვიკითხო გზა და ავხსნა ჩემი პრეფერენციები."
+    },
+    {
+      "key": "curriculum|B1-u1|title",
+      "en": "Life experiences",
+      "context": "B1 unit title",
+      "ka": "ცხოვრებისეული გამოცდილება"
+    },
+    {
+      "key": "curriculum|B1-u1|goal",
+      "en": "I can talk about my experiences and how long things have been happening.",
+      "context": "B1 unit can-do statement (first person)",
+      "ka": "შემიძლია ვისაუბრო ჩემს გამოცდილებაზე და იმაზე, თუ რამდენ ხანს გრძელდება მოვლენები."
+    },
+    {
+      "key": "curriculum|B1-u2|title",
+      "en": "Looking back and looking ahead",
+      "context": "B1 unit title",
+      "ka": "თვალი წარსულსა და მომავალში"
+    },
+    {
+      "key": "curriculum|B1-u2|goal",
+      "en": "I can put past events in order and talk about the future in detail.",
+      "context": "B1 unit can-do statement (first person)",
+      "ka": "შემიძლია თანმიმდევრულად დავალაგო წარსული მოვლენები და დეტალურად ვისაუბრო მომავალზე."
+    },
+    {
+      "key": "curriculum|B1-u3|title",
+      "en": "What if?",
+      "context": "B1 unit title",
+      "ka": "რა მოხდებოდა, რომ...?"
+    },
+    {
+      "key": "curriculum|B1-u3|goal",
+      "en": "I can discuss imaginary situations, describe processes and report what people said.",
+      "context": "B1 unit can-do statement (first person)",
+      "ka": "შემიძლია განვიხილო წარმოსახვითი სიტუაციები, აღვწერო პროცესები და გადმოვცე სხვების ნათქვამი."
+    },
+    {
+      "key": "curriculum|B1-u4|title",
+      "en": "People and opinions",
+      "context": "B1 unit title",
+      "ka": "ადამიანები და შეხედულებები"
+    }
+  ]
+}

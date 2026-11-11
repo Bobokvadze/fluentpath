@@ -1,5 +1,5 @@
 /**
- * FLASHCARDS.JS — ინტერაქტიული 3D ბარათები, ზუსტი IPA ტრანსკრიპციებითა და სტუდიური US/UK აქცენტებით
+ * FLASHCARDS.JS — ინტერაქტიული 3D ბარათები, ზუსტი IPA ტრანსკრიპციებითა და გამოთქმით
  */
 (function (window) {
   "use strict";
@@ -18,6 +18,42 @@
   let isFlipped = false;
   let sessionXpEarned = 0;
   const liveIpaCache = {};
+
+  // ===== ინტერვალური გამეორება (Leitner) =====
+  // ყუთის ნომერი → რამდენი დღის შემდეგ უნდა გამეორდეს სიტყვა
+  const REVIEW_INTERVAL_DAYS = { 1: 0, 2: 1, 3: 3, 4: 7, 5: 14 };
+  const DUE_FILTER = 98;
+  const REVIEWS_PER_ACTIVITY = 10;
+
+  function localDateString(d) {
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+
+  function daysBetween(fromStr, toStr) {
+    const a = new Date(fromStr + "T00:00:00Z");
+    const b = new Date(toStr + "T00:00:00Z");
+    const diff = Math.round((b - a) / 86400000);
+    return isNaN(diff) ? Infinity : diff;
+  }
+
+  // გასამეორებელი სიტყვები: მხოლოდ ის, რაც მომხმარებელმა უკვე დაიწყო (ყუთებში ჩადებული)
+  function computeDueWordIds() {
+    const boxMap = App.Storage.get("vocabulary.boxByWordId", {}) || {};
+    const lastReview = App.Storage.get("vocabulary.lastReviewByWordId", {}) || {};
+    const today = localDateString(new Date());
+    return Object.keys(boxMap).filter(function (id) {
+      const box = Number(boxMap[id]) || 1;
+      const last = lastReview[id];
+      if (!last) return true;
+      return daysBetween(last, today) >= (REVIEW_INTERVAL_DAYS[box] || 0);
+    });
+  }
+
+  function getReviewedTodayCount() {
+    const today = localDateString(new Date());
+    if (App.Storage.get("flashcards.reviewedDate", "") !== today) return 0;
+    return Number(App.Storage.get("flashcards.reviewedToday", 0)) || 0;
+  }
 
   function shuffleArray(arr) {
     const copy = arr.slice();
@@ -218,6 +254,7 @@
       let rawList = [];
       if (App.Vocabulary && typeof App.Vocabulary.getAllWords === "function") {
         rawList = App.Vocabulary.getAllWords() || [];
+        if (typeof App.Vocabulary.getCustomWords === "function") rawList = rawList.concat(App.Vocabulary.getCustomWords());
       }
       const normalized = [];
       for (let i = 0; i < rawList.length; i++) {
@@ -252,7 +289,9 @@
       const bookmarkedIds = App.Storage.get("vocabulary.bookmarkedIds", []);
 
       const self = this;
+      const dueIds = activeBoxFilter === DUE_FILTER ? computeDueWordIds() : null;
       const filtered = allWords.filter(function (w) {
+        if (dueIds) return dueIds.indexOf(w.id) !== -1;
         if (selectedLevels.indexOf(w.level) === -1) return false;
         if (activeBoxFilter === 99) return bookmarkedIds.indexOf(w.id) !== -1;
         if (activeBoxFilter >= 1 && activeBoxFilter <= 5) {
@@ -293,15 +332,27 @@
         App.Storage.set("progress.vocabularyLearned", learnedIds.length);
       }
 
-      const xpByBox = { 1: 0, 2: 2, 3: 4, 4: 6, 5: 10 };
-      const xpGain = xpByBox[nextBox] || 0;
+      const today = localDateString(new Date());
+      const lastReview = Object.assign({}, App.Storage.get("vocabulary.lastReviewByWordId", {}) || {});
+      lastReview[word.id] = today;
+      App.Storage.set("vocabulary.lastReviewByWordId", lastReview);
 
-      const reviewedToday = Number(App.Storage.get("flashcards.reviewedToday", 0)) + 1;
+      // დღიური მთვლელი ნულდება ახალ დღეს (ადრე უსასრულოდ იზრდებოდა)
+      const reviewedToday = getReviewedTodayCount() + 1;
+      App.Storage.set("flashcards.reviewedDate", today);
       App.Storage.set("flashcards.reviewedToday", reviewedToday);
-      sessionXpEarned += xpGain;
+      sessionXpEarned += 1;
 
-      if (xpGain > 0 && App.Progress && typeof App.Progress.addXP === "function") {
-        App.Progress.addXP(xpGain);
+      if (typeof App.Storage.registerStudyDay === "function") {
+        App.Storage.registerStudyDay();
+      }
+      // ყოველი 10 გამეორებული ბარათი = 1 აქტივობა დღიურ მიზანში
+      if (reviewedToday % REVIEWS_PER_ACTIVITY === 0 && App.Progress && typeof App.Progress.recordActivity === "function") {
+        App.Progress.recordActivity({
+          xp: 5,
+          title: "გამეორდა " + reviewedToday + " ბარათი",
+          category: "ბარათები"
+        });
       }
 
       App.UI.playSound(nextBox >= 3 ? "success" : "click");
@@ -316,7 +367,14 @@
       App.UI.toast("✓ «" + word.en + "» გადავიდა: " + boxNames[nextBox], "info", 1600);
 
       isFlipped = false;
-      if (activeBoxFilter >= 1 && activeBoxFilter <= 5 && activeBoxFilter !== nextBox) {
+      if (activeBoxFilter === DUE_FILTER) {
+        // გამეორებული სიტყვა რიგიდან გადის
+        currentIndex = 0;
+        this.buildFilteredDeck();
+        if (!currentDeck.length) {
+          App.UI.toast("🎉 დღევანდელი გამეორება დასრულებულია!", "success", 3000);
+        }
+      } else if (activeBoxFilter >= 1 && activeBoxFilter <= 5 && activeBoxFilter !== nextBox) {
         this.buildFilteredDeck();
       } else {
         currentIndex = (currentIndex < currentDeck.length - 1) ? (currentIndex + 1) : 0;
@@ -424,17 +482,12 @@
         const isBookmarked = bookmarkedIds.indexOf(currentWord.id) !== -1;
         const isFrontEnglish = (cardDirection === "EN_TO_KA");
 
-        const currentAcc = (App.AudioEngine && typeof App.AudioEngine.getAccent === "function") ? App.AudioEngine.getAccent() : "US";
-        const usActiveStyle = currentAcc === "US" ? "background-color:var(--brand-primary); color:#fff;" : "";
-        const ukActiveStyle = currentAcc === "UK" ? "background-color:var(--brand-primary); color:#fff;" : "";
-
         const englishSideCenterHtml =
-          '<span class="fc-lang-label">🇬🇧 ინგლისური</span>' +
+          '<span class="fc-lang-label">ინგლისური</span>' +
           '<div class="flashcard-main-word">' + App.UI.escapeHTML(currentWord.en) + "</div>" +
           '<div class="fc-transcription-pill" id="fc-active-ipa-pill">' + App.UI.escapeHTML(displayIpa) + "</div>" +
           '<div style="display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px;">' +
-            '<button type="button" class="fc-speak-pill-btn" data-fc-accent-play="US" style="' + usActiveStyle + '">&#128266; 🇺🇸 US აქცენტი</button>' +
-            '<button type="button" class="fc-speak-pill-btn" data-fc-accent-play="UK" style="' + ukActiveStyle + '">&#128266; 🇬🇧 UK აქცენტი</button>' +
+            '<button type="button" class="fc-speak-pill-btn" data-fc-accent-play="US">&#128266; გამოთქმა</button>' +
           "</div>" +
           (currentWord.exampleEn
             ? '<div class="fc-example-box"><div class="flashcard-example-en">"' + App.UI.escapeHTML(currentWord.exampleEn) + '"</div></div>'
@@ -459,9 +512,10 @@
               "</div>" +
               '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
                 '<button type="button" class="btn btn-outline btn-sm" id="fc-toggle-dir-btn">' +
-                  (cardDirection === "EN_TO_KA" ? "🇬🇧 ინგლისური &rarr; 🇬🇪 ქართული" : "🇬🇪 ქართული &rarr; 🇬🇧 ინგლისური") +
+                  (cardDirection === "EN_TO_KA" ? "ინგლისური &rarr; ქართული" : "ქართული &rarr; ინგლისური") +
                 "</button>" +
                 '<button type="button" class="btn btn-outline btn-sm" id="fc-shuffle-btn">🔀 არევა</button>' +
+                '<button type="button" class="btn ' + (activeBoxFilter === DUE_FILTER ? "btn-secondary" : "btn-outline") + ' btn-sm" id="fc-filter-due-btn">🔁 დღის გამეორება (' + computeDueWordIds().length + ")</button>" +
                 '<button type="button" class="btn ' + (activeBoxFilter === 99 ? "btn-secondary" : "btn-outline") + ' btn-sm" id="fc-filter-bookmarks-btn">⭐ რჩეულები (' + bookmarkedIds.length + ")</button>" +
                 (activeBoxFilter !== 0 ? '<button type="button" class="btn btn-outline btn-sm" id="fc-clear-box-btn">✕ ყველა ყუთი</button>' : "") +
               "</div>" +
@@ -520,11 +574,11 @@
             '<div class="section-header">' +
               "<div>" +
                 '<h2 class="section-title">🎴 ინტერაქტიული ბარათები (Spaced Repetition)</h2>' +
-                '<p class="section-subtitle">მონიშნეთ სასურველი CEFR დონეები, მოუსმინეთ სტუდიურ US/UK გამოთქმას და გადაანაწილეთ სიტყვები 5 ყუთში.</p>' +
+                '<p class="section-subtitle">მონიშნეთ სასურველი CEFR დონეები, მოუსმინეთ გამოთქმას და გადაანაწილეთ სიტყვები 5 ყუთში.</p>' +
               "</div>" +
               '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
                 '<span class="stat-pill stat-pill--streak">დღეს გავლილია: ' + reviewedToday + "</span>" +
-                '<span class="stat-pill stat-pill--xp">სესიის XP: +' + sessionXpEarned + "</span>" +
+                '<span class="stat-pill stat-pill--xp">სესიაში გამეორებული: ' + sessionXpEarned + "</span>" +
               "</div>" +
             "</div>" +
 
@@ -622,6 +676,16 @@
         });
       }
 
+      const dueFilterBtn = container.querySelector("#fc-filter-due-btn");
+      if (dueFilterBtn) {
+        dueFilterBtn.addEventListener("click", function () {
+          activeBoxFilter = (activeBoxFilter === DUE_FILTER) ? 0 : DUE_FILTER;
+          currentIndex = 0;
+          self.buildFilteredDeck();
+          self.render();
+        });
+      }
+
       const bmFilterBtn = container.querySelector("#fc-filter-bookmarks-btn");
       if (bmFilterBtn) {
         bmFilterBtn.addEventListener("click", function () {
@@ -675,19 +739,9 @@
       container.querySelectorAll("[data-fc-accent-play]").forEach(function (btn) {
         btn.addEventListener("click", function (e) {
           e.stopPropagation();
-          const chosenAcc = btn.getAttribute("data-fc-accent-play");
           if (currentWord) {
-            self.speakEnglish(currentWord.en, chosenAcc);
+            self.speakEnglish(currentWord.en, "US");
           }
-          container.querySelectorAll("[data-fc-accent-play]").forEach(function (b) {
-            if (b.getAttribute("data-fc-accent-play") === chosenAcc) {
-              b.style.backgroundColor = "var(--brand-primary)";
-              b.style.color = "#ffffff";
-            } else {
-              b.style.backgroundColor = "";
-              b.style.color = "";
-            }
-          });
         });
       });
 
@@ -730,29 +784,18 @@
     }
   };
 
+  Flashcards.getDueWordIds = computeDueWordIds;
+  Flashcards.getReviewedTodayCount = getReviewedTodayCount;
+  // მთავარი გვერდიდან "დღის გამეორების" გახსნა
+  Flashcards.startDueReview = function () {
+    activeBoxFilter = DUE_FILTER;
+    currentIndex = 0;
+    currentDeck = [];
+  };
+
   App.Flashcards = Flashcards;
 
-  // როუტერის პირდაპირი დამჭერი #flashcards გვერდისთვის
-  function checkFlashcardsRoute() {
-    const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();
-    if (hash === "flashcards") {
-      const titleEl = document.getElementById("header-page-title");
-      if (titleEl) titleEl.textContent = "ბარათები";
-      Flashcards.render();
-    }
-  }
-
-  window.addEventListener("hashchange", function () {
-    window.setTimeout(checkFlashcardsRoute, 0);
-  });
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      window.setTimeout(checkFlashcardsRoute, 35);
-    });
-  } else {
-    window.setTimeout(checkFlashcardsRoute, 35);
-  }
+  // Routing is handled centrally by App.Router.renderView (js/router.js).
 
   window.addEventListener("keydown", function (e) {
     const hash = (window.location.hash || "").replace(/^#\/?/, "").trim();

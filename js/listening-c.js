@@ -182,16 +182,16 @@
         "purchasing power|მსყიდველუნარიანობა (ფულის ღირებულება ბაზარზე)"
       ],
       questions: [
-        "What simple rule of public finance have standard economics textbooks taught for generations?|Governments, just like households, must eventually balance their budgets and pay off national debt",
-        "What is 'Modern Monetary Theory' (MMT), championed by economists like Stephanie Kelton?|A controversial macroeconomic school arguing that sovereign governments with their own fiat currency face fundamentally different rules than households",
-        "Why are ordinary households considered 'currency users' while sovereign governments are 'currency issuers'?|Households must earn or borrow money before spending, whereas a sovereign government with its own central bank creates its own currency",
-        "According to MMT, what does a sovereign government (like the US) do when it pays for public infrastructure?|Instructs the central bank to credit digital bank accounts by typing numbers on a computer screen",
-        "What is the true constraint on government spending according to MMT theorists if debt is not the main limit?|The availability of real physical resources (workers, factories, energy), leading to inflation if overspent",
-        "According to MMT, what are the two primary purposes of collecting taxes if not to fund government spending?|To create permanent public demand for the currency and to cool down the economy to prevent inflation",
-        "How does MMT define the 'national debt' in simple terms?|A historical ledger tracking how many dollars the government injected into the private economy and left un-taxed",
-        "What happens if a government spends too much money beyond the limits of its real physical resources?",
-        "Why can a nation that prints its own sovereign currency (with a floating exchange rate) never face involuntary bankruptcy?",
-        "How does MMT view the threat of inflation compared to standard economic views of the national debt?"
+        "What simple rule of public finance have standard economics textbooks taught for generations?|Governments, just like households, must eventually balance their budgets and pay off national debt|Governments should never collect taxes during a recession|Central banks must keep interest rates at zero|National debt has no effect on future generations",
+        "What is 'Modern Monetary Theory' (MMT), championed by economists like Stephanie Kelton?|A controversial macroeconomic school arguing that sovereign governments with their own fiat currency face fundamentally different rules than households|A theory that all countries should return to the gold standard|An accounting rule requiring governments to balance their budgets every year|A plan to replace national currencies with a single global currency",
+        "Why are ordinary households considered 'currency users' while sovereign governments are 'currency issuers'?|Households must earn or borrow money before spending, whereas a sovereign government with its own central bank creates its own currency|Households pay taxes, whereas governments never spend money|Governments must borrow from households before they can spend|Households can print money, but governments cannot",
+        "According to MMT, what does a sovereign government (like the US) do when it pays for public infrastructure?|Instructs the central bank to credit digital bank accounts by typing numbers on a computer screen|Borrows the money from China before spending it|Raises taxes first and waits until the money arrives|Sells national gold reserves to private banks",
+        "What is the true constraint on government spending according to MMT theorists if debt is not the main limit?|The availability of real physical resources (workers, factories, energy), leading to inflation if overspent|The size of the national debt compared with other countries|The amount of tax collected in the previous year|The opinion of international credit rating agencies",
+        "According to MMT, what are the two primary purposes of collecting taxes if not to fund government spending?|To create permanent public demand for the currency and to cool down the economy to prevent inflation|To pay back foreign lenders and to fund the central bank|To reduce unemployment and to increase imports|To balance the budget and to raise interest rates",
+        "How does MMT define the 'national debt' in simple terms?|A historical ledger tracking how many dollars the government injected into the private economy and left un-taxed|A dangerous bill that future generations must pay back through austerity|The total amount households owe to commercial banks|The money a country owes to the International Monetary Fund",
+        "According to MMT, what happens if a government spends too much money beyond the limits of its real physical resources?|Inflation rises, because the economy cannot produce enough real goods and services|The government immediately goes bankrupt|Nothing happens, because a currency issuer can never face any limits|Interest rates automatically fall to zero",
+        "Why, according to MMT, can a nation that prints its own sovereign currency (with a floating exchange rate) never face involuntary bankruptcy?|Because it can always create the currency it needs to pay debts in its own money|Because other countries are legally required to lend it money|Because it never needs to spend more than it collects in taxes|Because its central bank holds unlimited gold reserves",
+        "How does MMT view the threat of inflation compared to standard economic views of the national debt?|Inflation, not the size of the debt, is the real limit that governments must watch|The national debt is a far greater danger than inflation|Neither inflation nor debt matters for a sovereign government|Inflation can only be controlled by balancing the budget every year"
       ]
     },
     {
@@ -228,16 +228,16 @@
         "sheer luck|სუფთა იღბალი / შემთხვევითობა", "irreducible|დაუყოფელი / ფუნდამენტური", "certainty|სიზუსტე / სრული დარწმუნებულობა", "quest for truth|ჭეშმარიტების ძიება"
       ],
       questions: [
-        "What is 'epistemology' in the field of philosophy?|The branch of philosophy concerned with the nature, origin, and limits of human knowledge and truth",
-        "How did Western philosophy define knowledge for over two thousand years using Plato's tripartite formula?|As 'Justified True Belief' (JTB): a proposition must be true, you must believe it, and you must have adequate justification for it",
-        "What three conditions must be met simultaneously for a person to 'know' something under the classical JTB definition?|The proposition is true, the person believes it, and the belief is justified by evidence",
-        "In the broken clock example, why do you have a 'true belief' and a 'justification', yet philosophers hesitate to call it 'knowledge'?|Because the clock broke yesterday and was stuck at 12:00, meaning your justification was based on pure coincidence rather than a working clock",
-        "Who exposed a fatal flaw in Plato's definition of knowledge in a famous 1963 essay?|American philosopher Edmund Gettier",
-        "What do 'Gettier Cases' in philosophy prove about the classical definition of knowledge?|A person can have a true, fully justified belief, yet we still wouldn't call it 'knowledge' because the justification is disconnected from the truth by luck",
-        "How did epistemologists react in the wake of Edmund Gettier's challenge?|They scrambled to patch the definition by adding a fourth condition or requiring reliable cognitive processes",
-        "What is a more radical alternative proposed by some contemporary philosophers regarding the definition of knowledge?|That knowledge cannot be analyzed into building blocks at all and is a fundamental, irreducible mental state",
-        "Why is defining truth and knowledge considered so difficult even for experts?",
-        "According to the text, how does the quest to define truth remain viewed in philosophy?"
+        "What is 'epistemology' in the field of philosophy?|The branch of philosophy concerned with the nature, origin, and limits of human knowledge and truth|The study of how moral rules should guide behaviour|The study of beauty and artistic taste|The branch of philosophy that studies logic in mathematics",
+        "How did Western philosophy define knowledge for over two thousand years using Plato's tripartite formula?|As 'Justified True Belief' (JTB): a proposition must be true, you must believe it, and you must have adequate justification for it|As any belief that most people in society share|As information confirmed by at least two independent witnesses|As a feeling of complete certainty about a fact",
+        "What three conditions must be met simultaneously for a person to 'know' something under the classical JTB definition?|The proposition is true, the person believes it, and the belief is justified by evidence|The proposition is popular, useful and recent|The person is an expert, is confident and has written it down|The proposition is logical, simple and has never been questioned",
+        "In the broken clock example, why do you have a 'true belief' and a 'justification', yet philosophers hesitate to call it 'knowledge'?|Because the clock broke yesterday and was stuck at 12:00, meaning your justification was based on pure coincidence rather than a working clock|Because you did not actually look at the clock|Because the clock was showing the wrong time|Because nobody else in the house agreed with you",
+        "Who exposed a fatal flaw in Plato's definition of knowledge in a famous 1963 essay?|American philosopher Edmund Gettier|French philosopher René Descartes|The Greek philosopher Aristotle|British philosopher Bertrand Russell",
+        "What do 'Gettier Cases' in philosophy prove about the classical definition of knowledge?|A person can have a true, fully justified belief, yet we still wouldn't call it 'knowledge' because the justification is disconnected from the truth by luck|That knowledge is impossible for human beings|That justification is never necessary for knowledge|That all beliefs held by experts count as knowledge",
+        "How did epistemologists react in the wake of Edmund Gettier's challenge?|They scrambled to patch the definition by adding a fourth condition or requiring reliable cognitive processes|They agreed that Plato's definition needed no change|They stopped studying knowledge altogether|They decided that only scientific facts can be known",
+        "What is a more radical alternative proposed by some contemporary philosophers regarding the definition of knowledge?|That knowledge cannot be analyzed into building blocks at all and is a fundamental, irreducible mental state|That knowledge is simply whatever a majority believes|That knowledge must be approved by a scientific committee|That knowledge depends only on how confident a person feels",
+        "Why is defining knowledge considered so difficult, even for experts?|Because a belief can be true and well justified, yet still be true only by luck|Because philosophers have never tried to define it|Because truth changes every day|Because knowledge exists only in mathematics",
+        "According to the lecture, how does the quest to define truth remain viewed in philosophy?|As one of the most enduring adventures of the human mind|As a question that was finally solved in 1963|As a pointless debate with no practical value|As a problem that only science can answer"
       ]
     },
     {
@@ -274,16 +274,16 @@
         "supermassive black hole|სუპერმასიური (გიგანტური) შავი ხვრელი", "glowing ring of plasma|პლაზმის მანათობელი რგოლი", "Event Horizon Telescope|მოვლენათა ჰორიზონტის ტელესკოპი (გლობალური ქსელი)", "Nobel Prize in Physics|ნობელის პრემია ფიზიკაში"
       ],
       questions: [
-        "What common misconception do members of the general public often have about black holes?|They picture them as cosmic vacuum cleaners roaming space and sucking up everything in their path",
-        "How do astrophysicists precisely define a black hole based on Einstein's General Relativity?|A region of spacetime where gravity is so intense that nothing, not even light, can escape its grip",
-        "When is a stellar black hole born according to the text?|When a massive star (at least 20 times heavier than our Sun) exhausts its nuclear core fuel and undergoes a supernova collapse",
-        "What is a 'gravitational singularity'?|An infinitely dense, dimensionless point where matter is crushed down at the centre of a black hole",
-        "What is the 'Event Horizon' of a black hole?|A mathematical point of no return surrounding the singularity from which nothing can escape",
-        "Who was Karl Schwarzschild, and what did he discover in 1916 on the Russian front in WWI?|A German physicist who solved Einstein's relativity equations to find the radius of a black hole",
-        "What would be the size of the Event Horizon if our Sun were compressed down into a black hole?|A mere six kilometres across",
-        "What is 'spaghettification' when crossing into a black hole?|Tidal gravitational forces stretching a human body into a thin, spaghetti-like string of atoms",
-        "How would an astronaut falling into a black hole appear to a distant outside observer due to extreme time dilation?|The astronaut would appear to freeze in time, slowly fading and turning red as light is stretched",
-        "What major scientific milestone did the 'Event Horizon Telescope' collaboration achieve in April 2019?|Published the first-ever direct image of a supermassive black hole at the centre of galaxy M87"
+        "What common misconception do members of the general public often have about black holes?|They picture them as cosmic vacuum cleaners roaming space and sucking up everything in their path|They believe black holes are made of dark rock|They think black holes are holes in the Earth's atmosphere|They believe black holes give off bright white light",
+        "How do astrophysicists precisely define a black hole based on Einstein's General Relativity?|A region of spacetime where gravity is so intense that nothing, not even light, can escape its grip|A dead planet that has stopped rotating|An empty area of space with no gravity at all|A cloud of cold gas between galaxies",
+        "When is a stellar black hole born according to the text?|When a massive star (at least 20 times heavier than our Sun) exhausts its nuclear core fuel and undergoes a supernova collapse|When two small planets collide in orbit|When any star the size of our Sun cools down|When a comet passes too close to a galaxy",
+        "What is a 'gravitational singularity'?|An infinitely dense, dimensionless point where matter is crushed down at the centre of a black hole|The outer ring of light around a black hole|A single star orbiting a black hole|The moment when a black hole stops growing",
+        "What is the 'Event Horizon' of a black hole?|A mathematical point of no return surrounding the singularity from which nothing can escape|The bright disc of gas that can be seen from Earth|The exact centre of the black hole|The time when the black hole was formed",
+        "Who was Karl Schwarzschild, and what did he discover in 1916 on the Russian front in WWI?|A German physicist who solved Einstein's relativity equations to find the radius of a black hole|A Russian astronomer who took the first photo of a black hole|A British engineer who built the first radio telescope|An American pilot who measured the speed of light",
+        "What would be the size of the Event Horizon if our Sun were compressed down into a black hole?|A mere six kilometres across|About the size of the Earth|Several million kilometres across|Exactly the same size as the Sun today",
+        "What is 'spaghettification' when crossing into a black hole?|Tidal gravitational forces stretching a human body into a thin, spaghetti-like string of atoms|A spacecraft breaking into small, round pieces|The freezing of time inside the black hole|Light bending into a perfect circle",
+        "How would an astronaut falling into a black hole appear to a distant outside observer due to extreme time dilation?|The astronaut would appear to freeze in time, slowly fading and turning red as light is stretched|The astronaut would disappear instantly in a flash of blue light|The astronaut would appear to speed up and vanish in seconds|The astronaut would be seen bouncing back out of the black hole",
+        "What major scientific milestone did the 'Event Horizon Telescope' collaboration achieve in April 2019?|Published the first-ever direct image of a supermassive black hole at the centre of galaxy M87|Sent the first spacecraft into a black hole|Proved that black holes do not exist|Discovered a black hole inside our solar system"
       ]
     },
     {
@@ -320,16 +320,16 @@
         "arithmetic|არითმეტიკა / მათემატიკური გამოთვლები", "early-stage memory loss|მეხსიერების დაკარგვის ადრეული სტადია", "cognitive machinery|კოგნიტური მანქანა / სააზროვნო სისტემა", "collaborative dance|თანამშრომლობითი ცეკვა (ტვინი და სამყარო)"
       ],
       questions: [
-        "How did psychologists and computer scientists view the human mind during the first few decades of the cognitive revolution?|Through the 'digital computer metaphor' (the brain as a CPU and the body as a clumsy hardware chassis)",
-        "What is the core argument of the 'Embodied Cognition' paradigm that has emerged over the past twenty-five years?|That human thought cannot be understood by studying the brain in isolation, because bodily sensations and physical movements shape reasoning",
-        "How do hand gestures function when people speak according to cognitive psychologists?|They are not empty movements, but help offload complex cognitive work from the brain",
-        "Why are everyday linguistic metaphors like a 'warm' personality or a 'heavy' heart deeply rooted in our bodies?|Because abstract thoughts borrow neural pathways from physical touch and spatial movement",
-        "What radical theory did philosophers Andy Clark and David Chalmers propose regarding the boundaries of the mind?|The 'Extended Mind' theory: that the physical boundaries of the mind do not stop at the skull, and external tools are part of our cognitive machinery",
-        "In the thought experiment comparing Ingo (failing biological memory) and Otto (carrying a notebook everywhere), how do their memories function?|Clark and Chalmers argue that Otto's notebook functions identically to Ingo's biological memory",
-        "According to the extended mind thesis, when does an external tool like a smartphone calendar become part of your mind?|When it is reliably and constantly accessible and used as a direct substitute for biological memory",
-        "What is the traditional view of thinking that embodied cognition and extended mind challenge?|That thinking happens entirely inside the skull, isolated from the physical world",
-        "Why do we use physical actions (like counting on fingers or moving objects around on a desk) when solving hard math problems?",
-        "How does cognitive science ultimately redefine 'thinking' when taking body and world into account?"
+        "How did psychologists and computer scientists view the human mind during the first few decades of the cognitive revolution?|Through the 'digital computer metaphor' (the brain as a CPU and the body as a clumsy hardware chassis)|As a set of emotions controlled by the heart|As a spirit completely separate from the brain|As a social network shaped only by culture",
+        "What is the core argument of the 'Embodied Cognition' paradigm that has emerged over the past twenty-five years?|That human thought cannot be understood by studying the brain in isolation, because bodily sensations and physical movements shape reasoning|That the brain works exactly like a digital computer|That thinking happens only in the left half of the brain|That the body has no influence on how we reason",
+        "How do hand gestures function when people speak according to cognitive psychologists?|They are not empty movements, but help offload complex cognitive work from the brain|They are purely decorative and have no purpose|They are used only to help listeners who can see us|They distract the speaker and slow down thinking",
+        "Why are everyday linguistic metaphors like a 'warm' personality or a 'heavy' heart deeply rooted in our bodies?|Because abstract thoughts borrow neural pathways from physical touch and spatial movement|Because they were invented by poets in ancient Greece|Because the heart actually changes temperature when we feel emotions|Because children learn them at school",
+        "What radical theory did philosophers Andy Clark and David Chalmers propose regarding the boundaries of the mind?|The 'Extended Mind' theory: that the physical boundaries of the mind do not stop at the skull, and external tools are part of our cognitive machinery|That the mind is located only in the heart|That computers will soon replace human minds completely|That memory is stored outside the body only after death",
+        "In the thought experiment comparing Ingo (failing biological memory) and Otto (carrying a notebook everywhere), how do their memories function?|Clark and Chalmers argue that Otto's notebook functions identically to Ingo's biological memory|Ingo remembers everything perfectly, while Otto forgets|Otto's notebook is useless because it is outside his brain|Both men have completely lost their memories",
+        "According to the extended mind thesis, when does an external tool like a smartphone calendar become part of your mind?|When it is reliably and constantly accessible and used as a direct substitute for biological memory|As soon as you buy it|Only when it is connected to the internet|Never, because tools are always separate from the mind",
+        "What is the traditional view of thinking that embodied cognition and extended mind challenge?|That thinking happens entirely inside the skull, isolated from the physical world|That thinking depends on the body and environment|That gestures help people think|That tools can be part of the mind",
+        "Why do people use physical actions, such as counting on their fingers, when solving hard problems?|Because physical actions and tools take over part of the thinking work and become part of the cognitive process|Because their brains stop working during difficult tasks|Because teachers require it at school|Because it makes the problem look easier to other people",
+        "How does cognitive science ultimately redefine 'thinking' when taking body and world into account?|As a collaborative dance between brain, body, and world|As a process that happens only inside a single brain cell|As the work of a digital processor inside the skull|As a purely spiritual activity unrelated to the body"
       ]
     },
     {
@@ -366,16 +366,16 @@
         "ramp|დახრილი სიბრტყე (ფიზიკური ექსპერიმენტისთვის)", "quantify|რაოდენობრივად გაზომვა / ციფრებში გამოხატვა", "Mathematical Principles ('Principia')|ნიუტონის მთავარი ნაშრომი (1687 წ.)", "clockwork cosmos|საათის მექანიზმით აწყობილი კოსმოსი"
       ],
       questions: [
-        "How did sixteenth-century Europeans view the universe before the Scientific Revolution?|Through a blend of Aristotelian philosophy and Christian theology, viewing the cosmos as a living, organic, purposeful hierarchy",
-        "In what year did Polish astronomer Nicolaus Copernicus publish his revolutionary book on planetary orbits, marking the quiet beginning of the Scientific Revolution?|1543",
-        "What was the philosophical cornerstone of the new scientific revolution?|The 'mechanistic worldview' — the metaphor that the entire universe is a giant machine, like a magnificent clockwork mechanism",
-        "How did French philosopher René Descartes view animals, plants, and human bodies within the mechanistic framework?|As essentially biological automata governed entirely by mechanical physics, devoid of any inner spirit or magic",
-        "What new method of study did seventeenth-century scientists invent to replace ancient authority and armchair debate?|Modern experimental science (building telescopes, rolling balls down ramps, and laboratory dissections)",
-        "What was the crowning achievement of the mechanical worldview published in 1687?|Isaac Newton's 'Mathematical Principles of Natural Philosophy' ('Principia')",
-        "How did Isaac Newton unite the heavens and the earth in his 1687 book?|Under three universal laws of motion and a single mathematical law of gravity",
-        "What practical capabilities did Newton's equations give to humanity?|Calculate planetary orbits, predict ocean tides, and chart cannonball trajectories with astonishing precision",
-        "Why did the old organic cosmos of the Middle Ages get replaced during the Scientific Revolution?",
-        "How did the view of 'Nature' change from medieval times to the age of Galileo and Newton?"
+        "How did sixteenth-century Europeans view the universe before the Scientific Revolution?|Through a blend of Aristotelian philosophy and Christian theology, viewing the cosmos as a living, organic, purposeful hierarchy|As a cold, mathematical machine without purpose|As an infinite space with no centre|As a random collection of atoms moving by chance",
+        "In what year did Polish astronomer Nicolaus Copernicus publish his revolutionary book on planetary orbits, marking the quiet beginning of the Scientific Revolution?|1543|1687|1492|1610",
+        "What was the philosophical cornerstone of the new scientific revolution?|The 'mechanistic worldview' — the metaphor that the entire universe is a giant machine, like a magnificent clockwork mechanism|The belief that angels push the planets through the sky|The idea that ancient Greek texts contain all truth|The view that nature is a living organism with feelings",
+        "How did French philosopher René Descartes view animals, plants, and human bodies within the mechanistic framework?|As essentially biological automata governed entirely by mechanical physics, devoid of any inner spirit or magic|As sacred beings that cannot be studied|As objects moved by invisible angels|As illusions created by the human mind",
+        "What new method of study did seventeenth-century scientists invent to replace ancient authority and armchair debate?|Modern experimental science (building telescopes, rolling balls down ramps, and laboratory dissections)|Public votes on scientific questions|Reading only the works of Aristotle more carefully|Astrology and the study of omens",
+        "What was the crowning achievement of the mechanical worldview published in 1687?|Isaac Newton's 'Mathematical Principles of Natural Philosophy' ('Principia')|Copernicus's 'On the Revolutions of the Heavenly Spheres'|Galileo's first telescope|Descartes's book on human emotions",
+        "How did Isaac Newton unite the heavens and the earth in his 1687 book?|Under three universal laws of motion and a single mathematical law of gravity|By proving that the Earth is the centre of the universe|By showing that angels control the tides|By describing the planets as living beings",
+        "What practical capabilities did Newton's equations give to humanity?|Calculate planetary orbits, predict ocean tides, and chart cannonball trajectories with astonishing precision|Cure diseases and extend human life|Build the first steam engines and railways|Communicate with distant planets by radio",
+        "Why was the old organic cosmos of the Middle Ages replaced during the Scientific Revolution?|Because experiments and mathematics described the universe as a machine governed by precise laws|Because the Church banned all study of the planets|Because people stopped looking at the sky|Because ancient Greek texts were rediscovered",
+        "How did the view of 'Nature' change from medieval times to the age of Galileo and Newton?|From a sacred text to be contemplated to a machine whose parts could be measured and controlled|From a machine to a living organism with a soul|From a scientific object to a purely religious mystery|It did not change at all"
       ]
     },
     {
@@ -412,16 +412,16 @@
         "future generations|მომავალი თაობები (რომლებსაც არ უთქვამთ თანხმობა)", "universal condemnation|საყოველთაო დაგმობა", "human enhancement|ადამიანის (ფიზიკური და გონებრივი) გაუმჯობესება", "dystopian biological caste system|დისტოპიური ბიოლოგიური კასტური სისტემა"
       ],
       questions: [
-        "What is the revolutionary molecular tool known as 'CRISPR-Cas9' described in the podcast?|A revolutionary molecular tool guided by a GPS molecule that can edit the fundamental genetic code of living organisms with pinpoint precision",
-        "Where did the CRISPR mechanism originally come from in nature?|As a natural defense mechanism that bacteria use to fight off invading viruses",
-        "What are the medical benefits of CRISPR for hereditary diseases?",
-        "What is the critical bioethical difference between 'somatic' and 'germline' gene editing?",
-        "What shocking announcement did Chinese biophysicist He Jiankui make in November 2018?",
-        "How did the international scientific community react to He Jiankui's unsanctioned germline experiment?",
-        "What is the 'Pandora's box' of human enhancement opened by gene editing technology?",
-        "What dystopian social risk do bioethicists warn could result from wealth-based human enhancement?",
-        "Why is germline gene editing considered so morally fraught regarding future generations?",
-        "What is the central philosophical warning of the podcast regarding our technological powers?"
+        "What is the revolutionary molecular tool known as 'CRISPR-Cas9' described in the podcast?|A revolutionary molecular tool guided by a GPS molecule that can edit the fundamental genetic code of living organisms with pinpoint precision|A new type of microscope for viewing cells|A vaccine that protects against all viruses|A computer program that predicts evolution",
+        "Where did the CRISPR mechanism originally come from in nature?|A natural defence mechanism that bacteria use to fight off invading viruses|A protein found only in human blood|A chemical produced by plants during photosynthesis|A mutation discovered in laboratory mice",
+        "What are the medical benefits of CRISPR for hereditary diseases?|It offers potential cures for diseases such as sickle-cell anaemia, cystic fibrosis and Huntington's disease|It makes all patients immune to infections|It replaces the need for any surgery|It can only be used to treat broken bones",
+        "What is the critical bioethical difference between 'somatic' and 'germline' gene editing?|Somatic editing changes the genes of a consenting adult patient, while germline editing changes embryos or sex cells and is passed to future generations|Somatic editing is illegal everywhere, while germline editing is widely accepted|Somatic editing affects only plants, while germline editing affects animals|There is no difference; the terms mean the same thing",
+        "What shocking announcement did Chinese biophysicist He Jiankui make in November 2018?|That he had used CRISPR to edit the genes of twin baby girls before birth, trying to make them immune to HIV|That he had cured cancer in thousands of patients|That he had cloned a human being|That CRISPR does not work in human cells",
+        "How did the international scientific community react to He Jiankui's unsanctioned germline experiment?|With universal condemnation, and He was arrested for illegal medical practices|With a Nobel Prize for his discovery|By immediately copying his experiment worldwide|By ignoring the announcement completely",
+        "What is the 'Pandora's box' of human enhancement opened by gene editing technology?|Using gene edits not to cure disease but to give children traits such as greater height, strength or intelligence|Accidentally creating new viruses in laboratories|Making medicines cheaper for everyone|Removing all genetic differences between people",
+        "What dystopian social risk do bioethicists warn could result from wealth-based human enhancement?|A genetic divide, or biological caste system, between the 'enhanced rich' and the 'unmodified poor'|A global shortage of doctors|The end of all hereditary diseases|A rapid fall in the world's population",
+        "Why is germline gene editing considered so morally fraught regarding future generations?|Because the changes are passed down permanently to future generations, who cannot give their consent|Because the edits disappear after one year|Because it can only be done on adults|Because it is too expensive for any hospital",
+        "What is the central philosophical warning of the podcast regarding our technological powers?|Having the technological power to alter humanity does not automatically give us the moral right to do so|Scientists should stop all genetic research immediately|Technology always makes society more equal|Only governments should own gene-editing tools"
       ]
     },
     {
@@ -459,16 +459,16 @@
         "mental sovereignty|გონებრივი სუვერენიტეტი (საკუთარ აზრებზე კონტროლი)"
       ],
       questions: [
-        "What is the primary commodity being harvested, packaged, and sold in twenty-first-century 'digital capitalism'?|Human attention itself",
-        "What did media theorist Richard Lanham mean by stating we live in an 'information economy'?|Wealth is defined entirely by what information consumes (human focus), because information itself is abundant and cheap",
-        "What happens to users when they scroll through a social media app for hours according to the lecture?|They are not customers paying for a service; they are products being continuously auctioned off to advertisers",
-        "How do social media algorithms build an intimate psychological profile of a user?",
-        "What is the profound sociological consequence of the attention economy on public discourse?",
-        "Why do algorithms systematically promote divisive and angry content over nuanced dialogue?",
-        "What warning does sociologist Shoshana Zuboff give regarding 'surveillance capitalism'?",
-        "What happens to human autonomy when corporations can predict and modify our behaviour on a mass scale?",
-        "How must human attention be viewed to reclaim our mental sovereignty?",
-        "What is the central critical message of the sociology lecture regarding digital platforms?"
+        "What is the primary commodity being harvested, packaged, and sold in twenty-first-century 'digital capitalism'?|Human attention itself|Physical products such as shoes and cars|Raw materials such as steel and oil|Electricity and internet cables",
+        "What did media theorist Richard Lanham mean by stating we live in an 'information economy'?|Wealth is defined entirely by what information consumes (human focus), because information itself is abundant and cheap|Information is so rare that it is more valuable than gold|Only newspapers and libraries create real wealth|People should be paid for every article they read",
+        "What happens to users when they scroll through a social media app for hours according to the lecture?|They are not customers paying for a service; they are products being continuously auctioned off to advertisers|They earn money for every advertisement they see|They become the owners of the platform's data|They are protected from all advertising",
+        "How do social media algorithms build an intimate psychological profile of a user?|By tracking micro-behaviours such as how long users pause on a photo and which headlines make them angry|By asking users to fill in long questionnaires|By reading users' private paper letters|By interviewing users' friends and family",
+        "What is the profound sociological consequence of the attention economy on public discourse?|The erosion of deep reflection and thoughtful public discussion|A rise in long, careful debates between citizens|More people reading printed books|The disappearance of online advertising",
+        "Why do algorithms systematically promote divisive and angry content over nuanced dialogue?|Because outrage and sensationalism trigger the strongest emotional reactions and keep users scrolling|Because governments require platforms to show angry content|Because nuanced content is too expensive to store|Because users ask for it in their settings",
+        "What warning does sociologist Shoshana Zuboff give regarding 'surveillance capitalism'?|That the commercial invasion of private experience threatens the foundations of human autonomy|That surveillance cameras will soon be banned|That capitalism will disappear within ten years|That social media makes people more independent",
+        "What happens to human autonomy when corporations can predict and modify our behaviour on a mass scale?|Freedom of thought becomes compromised|People become completely free from advertising|Human attention becomes worthless|Corporations lose all their profits",
+        "According to the lecture, how must human attention be viewed to reclaim our mental sovereignty?|As our most sacred ecological resource, which must be actively protected from exploitation|As a cheap product that can be sold freely|As something that only matters to advertisers|As a problem that technology will solve automatically",
+        "What is the central critical message of the lecture regarding digital platforms?|They profit from capturing our attention, which threatens reflection, public discourse and autonomy|They are neutral tools that have no effect on society|They should be free for everyone forever|They help users become happier and more focused"
       ]
     },
     {
@@ -505,16 +505,16 @@
         "horn antenna|საყვირის ფორმის ანტენა", "afterglow of creation|შექმნის ნარჩენი ნათება", "temperature variations|ტემპერატურული რყევები", "primordial seeds|პირველადი მარცვლები / საწყისი უბნები"
       ],
       questions: [
-        "What is the 'Cosmic Microwave Background' (CMB) detected by radio telescopes in empty space?",
-        "What was the state of the universe during the first 380,000 years after the Big Bang?",
-        "Why was the early universe completely opaque to light?",
-        "What major event known as 'Recombination' occurred when the universe cooled down to 3,000 degrees Celsius?",
-        "Why did ancient light become stretched into the microwave spectrum over 13.8 billion years?",
-        "Who discovered the cosmic background hiss by accident in 1965 while working in New Jersey?",
-        "What did Arno Penzias and Robert Wilson initially suspect was causing the hiss in their giant antenna?",
-        "What did space telescopes like COBE, WMAP, and Planck reveal about the Cosmic Microwave Background?",
-        "What are the minuscule temperature variations found in the CMB, and what role did they play in cosmic history?",
-        "Why is studying the CMB considered a direct window into the birth of our universe?"
+        "What is the 'Cosmic Microwave Background' (CMB) detected by radio telescopes in empty space?|The oldest light in the universe, left over from the Big Bang 13.8 billion years ago|Radio signals sent by distant alien civilisations|Light from stars that are about to explode|Noise produced by satellites orbiting the Earth",
+        "What was the state of the universe during the first 380,000 years after the Big Bang?|An extremely hot, dense, glowing plasma of free electrons, protons and photons|A cold, dark and completely empty vacuum|A collection of fully formed galaxies|A frozen cloud of ice and dust",
+        "Why was the early universe completely opaque to light?|Because free electrons constantly scattered photons, so light could not travel far|Because there was no light at all|Because thick clouds of dust blocked every star|Because the universe was too cold for light to exist",
+        "What major event known as 'Recombination' occurred when the universe cooled down to about 3,000 degrees Celsius?|Electrons were captured by protons to form the first neutral atoms, and the universe became transparent|The first stars and planets were formed|All matter turned into pure energy|The universe stopped expanding",
+        "Why did ancient light become stretched into the microwave spectrum over 13.8 billion years?|Because the universe has expanded enormously, stretching the wavelength of the light|Because the light passed through the Earth's atmosphere|Because the stars that produced it cooled down|Because radio telescopes change the light when they detect it",
+        "Who discovered the cosmic background hiss by accident in 1965 while working in New Jersey?|Arno Penzias and Robert Wilson|Albert Einstein and Edwin Hubble|Stephen Hawking and Roger Penrose|Karl Schwarzschild and Arthur Eddington",
+        "What did Arno Penzias and Robert Wilson initially suspect was causing the hiss in their giant antenna?|Pigeon droppings inside the antenna|A nearby radio station|A storm in the upper atmosphere|Signals from a secret military base",
+        "What did space telescopes like COBE, WMAP, and Planck reveal about the Cosmic Microwave Background?|That it is astonishingly uniform but contains tiny temperature variations of about one part in a hundred thousand|That it comes from a single bright galaxy|That it is getting hotter every year|That it does not exist outside our solar system",
+        "What role did the minuscule temperature variations in the CMB play in cosmic history?|They were the seeds around which gravity gathered matter to form galaxies, stars and planets|They caused the Big Bang to happen|They prevented any galaxies from forming|They are errors in the telescopes' measurements",
+        "Why is studying the CMB considered a direct window into the birth of our universe?|Because it is the afterglow of the early universe, released soon after the Big Bang|Because it shows the future of the universe|Because it was created by the first human telescopes|Because it is the light of our own Sun reflected back"
       ]
     },
     {
@@ -551,16 +551,16 @@
         "causal chain|მიზეზობრივი ჯაჭვი", "personal responsibility|პერსონალური (პირადი) პასუხისმგებლობა", "evolutionary achievement|ევოლუციური მიღწევა", "moral reasoning|მორალური მსჯელობა"
       ],
       questions: [
-        "What is one of the most cherished assumptions of human civilization regarding our actions?|That we are the absolute authors of our own actions and possess free will",
-        "What is 'Laplace's Demon' in the history of physics?|A supreme intellect who, knowing the position and velocity of every atom, could calculate the exact future of the universe",
-        "What shocking discovery did physiologist Benjamin Libet make in his 1980s brain-scanning experiments?|Unconscious electrical activity in the brain (readiness potential) spiked 300 to 500 milliseconds BEFORE volunteers felt any conscious intention to move",
-        "What did Libet's experiments suggest to many critics regarding the conscious mind?",
-        "What is 'compatibilism' in contemporary philosophy regarding free will?",
-        "Why must society hold individuals accountable for their conduct even if brain activity precedes conscious awareness?",
-        "How did philosopher Daniel Dennett describe human free will?",
-        "What two opposing forces have challenged the human intuition of free will?",
-        "What role do rational deliberations play in compatibilist free will?",
-        "Why does the debate over free will matter to human ethics and law?"
+        "What is one of the most cherished assumptions of human civilization regarding our actions?|That we are the absolute authors of our own actions and possess free will|That all our actions are controlled by the stars|That humans never make real choices|That our decisions are made only by other people",
+        "What is 'Laplace's Demon' in the history of physics?|A supreme intellect who, knowing the position and velocity of every atom, could calculate the exact future of the universe|An evil spirit believed to cause earthquakes|A machine built to measure the speed of light|A famous mathematical error in Newton's laws",
+        "What shocking discovery did physiologist Benjamin Libet make in his 1980s brain-scanning experiments?|Unconscious electrical activity in the brain (readiness potential) spiked 300 to 500 milliseconds BEFORE volunteers felt any conscious intention to move|Volunteers could move their wrists without any brain activity|The brain stops working when people make decisions|Conscious decisions always come several seconds before brain activity",
+        "What did Libet's experiments suggest to many critics regarding the conscious mind?|That it may not make free choices but only takes credit for decisions the unconscious brain has already made|That it controls every movement before the brain reacts|That it is located outside the brain|That it works faster than any computer",
+        "What is 'compatibilism' in contemporary philosophy regarding free will?|The view that meaningful free will is possible even in a deterministic universe, if our desires and deliberations are part of the causal chain|The belief that free will and physics can never be reconciled|The theory that only some people have free will|The view that the universe is completely random",
+        "Why must society hold individuals accountable for their conduct even if brain activity precedes conscious awareness?|Because society cannot function without personal responsibility|Because neuroscience has proved that free will is a myth|Because laws are older than neuroscience|Because brain scans are not allowed in court",
+        "How did philosopher Daniel Dennett describe human free will?|As an evolutionary achievement — a biological capacity for self-control, foresight and moral reasoning|As a magical soul-power outside the laws of physics|As an illusion with no value for society|As a gift that only some humans possess",
+        "What two opposing forces have challenged the human intuition of free will?|The deterministic laws of physics and the discoveries of modern neuroscience|Religion and art|Economics and politics|Television and social media",
+        "What role do rational deliberations play in compatibilist free will?|They are an authentic part of the causal chain that leads to our actions|They play no role, because all actions are random|They happen only after the action is finished|They are controlled entirely by other people",
+        "Why does the debate over free will matter to human ethics and law?|It touches the foundations of personal responsibility, ethics and the legal system|It only matters to physicists|It has no practical consequences|It decides which experiments scientists may carry out"
       ]
     },
     {
@@ -597,16 +597,16 @@
         "Tit for Tat|„საპასუხო ნაბიჯი“ (თანამშრომლობისა და პროპორციული პასუხის სტრატეგია)", "retaliatory|საპასუხო / პრინციპული (დარღვევაზე მყისიერი რეაგირების მქონე)", "hold a grudge|წყენის გულში ჩადება / ბოღმის დამახსოვრება", "shadow of the future|„მომავლის ჩრდილი“ (მომავალში კვლავ შეხვედრის მოლოდინი)"
       ],
       questions: [
-        "What apparent contradiction in Darwin's theory of natural selection did Game Theory help resolve?|Why nature is filled with cooperation and altruism if evolution rewards individual survival",
-        "In the classic 'Prisoner's Dilemma', what happens if both suspects remain silent (cooperate with each other)?|Both serve only one year in prison",
-        "What happens in the Prisoner's Dilemma if one suspect betrays the other while the other remains silent?|The betrayer goes free, while the silent partner serves ten years",
-        "Why do both players end up serving five years in a single, one-off game of the Prisoner's Dilemma?|Because cold individual logic tells each player to betray the other, leading to a worse outcome for both than mutual cooperation",
-        "How does the 'Iterated (Repeated) Prisoner's Dilemma' differ from a one-off game?|Players interact with the same individuals repeatedly over time, remembering past behaviour",
-        "Who organized the famous 1980 computer tournament to test strategies in the Iterated Prisoner's Dilemma?|Political scientist Robert Axelrod",
-        "Which program won Axelrod's 200-round computer tournament, and who submitted it?|'Tit for Tat', a simple four-line program submitted by psychologist Anatol Rapoport",
-        "How does the 'Tit for Tat' strategy behave on the very first move of a game?|It is 'nice': it always starts by cooperating and never betrays first",
-        "How does 'Tit for Tat' respond when an opponent betrays it, and what does it do if the opponent cooperates again?|It punishes betrayal immediately on the next move, but forgives immediately as soon as the opponent returns to cooperating",
-        "What does Axelrod mean by the phrase 'when the shadow of the future is long'?|When individuals know they will interact with each other repeatedly in the future, making cooperation, fairness, and forgiveness the most successful strategy"
+        "What apparent contradiction in Darwin's theory of natural selection did Game Theory help resolve?|Why nature is filled with cooperation and altruism if evolution rewards individual survival|Why some animals are faster than others|Why species never change over time|Why plants need sunlight to grow",
+        "In the classic 'Prisoner's Dilemma', what happens if both suspects remain silent (cooperate with each other)?|Both serve only one year in prison|Both go free immediately|Both serve ten years in prison|One goes free and the other serves life",
+        "What happens in the Prisoner's Dilemma if one suspect betrays the other while the other remains silent?|The betrayer goes free, while the silent partner serves ten years|Both serve five years|Both serve one year|The silent partner goes free",
+        "Why do both players end up serving five years in a single, one-off game of the Prisoner's Dilemma?|Because cold individual logic tells each player to betray the other, leading to a worse outcome for both than mutual cooperation|Because the police release them both|Because they agree to cooperate in advance|Because the judge chooses randomly",
+        "How does the 'Iterated (Repeated) Prisoner's Dilemma' differ from a one-off game?|Players interact with the same individuals repeatedly over time, remembering past behaviour|Players never meet the same opponent twice|There are no prison sentences|Only one player is allowed to choose",
+        "Who organized the famous 1980 computer tournament to test strategies in the Iterated Prisoner's Dilemma?|Political scientist Robert Axelrod|Physicist Albert Einstein|Economist Adam Smith|Biologist Charles Darwin",
+        "Which program won Axelrod's 200-round computer tournament, and who submitted it?|'Tit for Tat', a simple four-line program submitted by psychologist Anatol Rapoport|'Always Betray', a long program submitted by a mathematician|'Random Choice', submitted by Axelrod himself|'Always Cooperate', submitted by a group of students",
+        "How does the 'Tit for Tat' strategy behave on the very first move of a game?|It is 'nice': it always starts by cooperating and never betrays first|It always betrays first to test the opponent|It chooses randomly|It refuses to play the first round",
+        "How does 'Tit for Tat' respond when an opponent betrays it, and what does it do if the opponent cooperates again?|It punishes betrayal immediately on the next move, but forgives immediately as soon as the opponent returns to cooperating|It never forgives and betrays for the rest of the game|It ignores the betrayal and keeps cooperating|It stops playing the game",
+        "What does Axelrod mean by the phrase 'when the shadow of the future is long'?|When individuals know they will interact with each other repeatedly in the future, making cooperation, fairness, and forgiveness the most successful strategy|When the game is played late at night|When players cannot remember the past|When the prison sentences are very long"
       ]
     },
     {
@@ -643,16 +643,16 @@
         "diverge|დაშორება / სხვადასხვა მიმართულებით განვითარება", "gene expression|გენის ექსპრესია (გენის ინფორმაციის რეალიზება)", "offspring|შთამომავლობა / ნაშიერი", "nature and nurture|თანდაყოლილი ბუნება (გენეტიკა) და გარემო/აღზრდა"
       ],
       questions: [
-        "What fundamental puzzle of biology does epigenetics explain?|How cells with the exact same DNA sequence become completely different types of cells (such as eye lenses, neurons, or bone cells)",
-        "In the computer metaphor used in the passage, if the DNA sequence is the 'hardware', what is the 'epigenome'?|The software that tells the hardware when, where, and how to run by turning genes on or off",
-        "What are 'histones'?|Spool-like proteins inside the cell nucleus around which two metres of DNA thread are wrapped",
-        "How does 'DNA methylation' affect a gene?|Methyl tags lock the DNA tightly around the histone spool so the cell cannot read it, silencing the gene",
-        "What happens when acetyl tags attach to histones?|They loosen the DNA coil, opening the gene up so it can be actively read and translated into proteins",
-        "What do studies of identical twins reveal about the epigenome as they grow older?|Although identical twins share 100% of their DNA at birth, their epigenetic profiles diverge significantly due to different environments and lifestyles",
-        "Which environmental and lifestyle factors can add or remove epigenetic tags?|Diet, physical exercise, sleep quality, exposure to toxins, and chronic stress",
-        "What characteristics does the 'agouti' gene normally cause in mice?|A yellow coat and a high susceptibility to obesity and diabetes",
-        "What happened in the Duke University experiment when pregnant agouti mice were fed methyl-rich nutrients like folic acid and vitamin B12?|The methyl tags silenced the faulty agouti gene, and their offspring were born brown, slender, and healthy despite inheriting the gene",
-        "What is the main philosophical conclusion of epigenetics regarding 'nature versus nurture'?|While our genes write the biological script, our environment and daily lifestyle choices help direct how that script is performed"
+        "What fundamental puzzle of biology does epigenetics explain?|How cells with the exact same DNA sequence become completely different types of cells (such as eye lenses, neurons, or bone cells)|Why humans have more genes than plants|How DNA was first formed in ancient oceans|Why bacteria do not have a nucleus",
+        "In the computer metaphor used in the passage, if the DNA sequence is the 'hardware', what is the 'epigenome'?|The software that tells the hardware when, where, and how to run by turning genes on or off|The electricity that powers the cell|The screen on which genes are displayed|A backup copy of the DNA",
+        "What are 'histones'?|Spool-like proteins inside the cell nucleus around which two metres of DNA thread are wrapped|Small sugars that provide energy to cells|Viruses that attack the cell nucleus|Hormones produced by the brain",
+        "How does 'DNA methylation' affect a gene?|Methyl tags lock the DNA tightly around the histone spool so the cell cannot read it, silencing the gene|It makes the gene twice as active|It removes the gene from the DNA completely|It copies the gene into another cell",
+        "What happens when acetyl tags attach to histones?|They loosen the DNA coil, opening the gene up so it can be actively read and translated into proteins|They destroy the DNA strand|They lock the gene permanently|They turn the cell into a different organism",
+        "What do studies of identical twins reveal about the epigenome as they grow older?|Although identical twins share 100% of their DNA at birth, their epigenetic profiles diverge significantly due to different environments and lifestyles|Their epigenetic profiles become more and more identical|Their DNA sequences change completely|Twins never show any epigenetic differences",
+        "Which environmental and lifestyle factors can add or remove epigenetic tags?|Diet, physical exercise, sleep quality, exposure to toxins, and chronic stress|Only the colour of a person's eyes|The language a person speaks|The month in which a person was born",
+        "What characteristics does the 'agouti' gene normally cause in mice?|A yellow coat and a high susceptibility to obesity and diabetes|A black coat and very long legs|Excellent eyesight and fast running|Resistance to all diseases",
+        "What happened in the Duke University experiment when pregnant agouti mice were fed methyl-rich nutrients like folic acid and vitamin B12?|The methyl tags silenced the faulty agouti gene, and their offspring were born brown, slender, and healthy despite inheriting the gene|The offspring were born with no genes at all|The mothers became yellow and overweight|The experiment had no effect on the offspring",
+        "What is the main philosophical conclusion of epigenetics regarding 'nature versus nurture'?|While our genes write the biological script, our environment and daily lifestyle choices help direct how that script is performed|Genes alone completely decide who we become|The environment has no effect on our bodies|Nature and nurture are completely unrelated"
       ]
     },
     {
@@ -689,16 +689,16 @@
         "entropy|ენტროპია (სისტემის უწესრიგობის საზომი)", "intact|მთელი / დაუზიანებელი", "disperse|გაფანტვა / გაბნევა", "cosmologist|კოსმოლოგი (სამყაროს წარმოშობისა და ევოლუციის მკვლევარი)"
       ],
       questions: [
-        "What baffling paradox do physicists encounter when comparing everyday time with the microscopic laws of physics?|Everyday time flows only forwards, yet almost all fundamental equations governing atoms and light work equally well forwards and backwards in time",
-        "How did Albert Einstein's theories of relativity change Isaac Newton's view of time?|Einstein proved that time is not absolute, but woven with space into 'spacetime', and its rate depends on speed and gravity",
-        "According to General Relativity, how does gravity affect the passage of time?|Stronger gravity curves spacetime and makes time tick slightly slower (so time ticks slower at sea level than on a mountain top)",
-        "Why do the atomic clocks aboard GPS satellites tick faster by about 38 microseconds a day than clocks on the ground?|Because the satellites orbit 20,000 km above Earth where gravity is weaker",
-        "What would happen if engineers did not program Einstein's relativity equations into GPS satellites?|Smartphone and navigation maps on Earth would be off by about ten kilometres within a single day",
-        "Who coined the phrase 'The Arrow of Time' in 1927, and what physical law did he link it to?|British astrophysicist Arthur Eddington, linking it to the Second Law of Thermodynamics and entropy",
-        "What is 'entropy' in physics?|A measure of disorder or randomness in a physical system",
-        "How did Ludwig Boltzmann explain why a shattered teacup never reassembles itself spontaneously?|Because there is only one ordered arrangement of atoms for an intact cup, compared to billions of trillions of disordered arrangements for broken shards",
-        "In which direction do isolated systems naturally evolve according to the Second Law of Thermodynamics?|From low entropy (order) towards high entropy (disorder)",
-        "Where do cosmologists trace the ultimate origin of the universe's Arrow of Time?|Back to the Big Bang 13.8 billion years ago, when the universe began in an extraordinarily low-entropy, highly ordered state"
+        "What baffling paradox do physicists encounter when comparing everyday time with the microscopic laws of physics?|Everyday time flows only forwards, yet almost all fundamental equations governing atoms and light work equally well forwards and backwards in time|Time moves faster for small objects than for large ones|Atoms do not obey any laws of physics|Light travels backwards in time",
+        "How did Albert Einstein's theories of relativity change Isaac Newton's view of time?|Einstein proved that time is not absolute, but woven with space into 'spacetime', and its rate depends on speed and gravity|Einstein proved that time does not exist|Einstein showed that time flows at exactly the same rate everywhere|Einstein proved that Newton's laws were completely correct",
+        "According to General Relativity, how does gravity affect the passage of time?|Stronger gravity curves spacetime and makes time tick slightly slower (so time ticks slower at sea level than on a mountain top)|Stronger gravity makes time tick faster|Gravity has no effect on time|Gravity stops time completely on Earth",
+        "Why do the atomic clocks aboard GPS satellites tick faster by about 38 microseconds a day than clocks on the ground?|Because the satellites orbit 20,000 km above Earth where gravity is weaker|Because the satellites are colder than the Earth|Because the clocks were badly made|Because the satellites move closer to the Sun",
+        "What would happen if engineers did not program Einstein's relativity equations into GPS satellites?|Smartphone and navigation maps on Earth would be off by about ten kilometres within a single day|The satellites would fall out of orbit|Nothing would change at all|The satellites would stop sending signals",
+        "Who coined the phrase 'The Arrow of Time' in 1927, and what physical law did he link it to?|British astrophysicist Arthur Eddington, linking it to the Second Law of Thermodynamics and entropy|Albert Einstein, linking it to the speed of light|Isaac Newton, linking it to gravity|Ludwig Boltzmann, linking it to magnetism",
+        "What is 'entropy' in physics?|A measure of disorder or randomness in a physical system|The speed at which light travels|The amount of energy stored in a battery|The force that holds atoms together",
+        "How did Ludwig Boltzmann explain why a shattered teacup never reassembles itself spontaneously?|Because there is only one ordered arrangement of atoms for an intact cup, compared to billions of trillions of disordered arrangements for broken shards|Because glass is too heavy to move by itself|Because gravity prevents objects from moving upwards|Because the laws of physics forbid it absolutely",
+        "In which direction do isolated systems naturally evolve according to the Second Law of Thermodynamics?|From low entropy (order) towards high entropy (disorder)|From high entropy towards low entropy|They never change|They move randomly in both directions equally",
+        "Where do cosmologists trace the ultimate origin of the universe's Arrow of Time?|Back to the Big Bang 13.8 billion years ago, when the universe began in an extraordinarily low-entropy, highly ordered state|To the formation of the Earth|To the invention of the first clocks|To the death of the first stars"
       ]
     }
   ];

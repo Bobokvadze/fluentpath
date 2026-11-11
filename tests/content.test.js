@@ -1,0 +1,149 @@
+'use strict';
+// Educational content integrity: vocabulary schema, translations kept separate, legacy id migration.
+const test = require('node:test');
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+const { ROOT, same, loadScripts } = require('./helpers');
+const { validate } = require('../scripts/validate-vocab');
+
+test('vocabulary database is valid, duplicate-free and mostly covered by IPA', () => {
+  const { errors, report, total, ipaHits } = validate();
+  assert.deepStrictEqual(errors, []);
+  ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].forEach((lvl) => assert.ok(report[lvl].entries >= 100, lvl + ' has too few entries'));
+  assert.ok(ipaHits / total > 0.9, 'IPA coverage below 90%');
+});
+
+test('vocabulary source files contain no Georgian text (translations live in i18n-ka.js)', () => {
+  ['a1', 'a2', 'b1', 'b2', 'c1', 'c2'].forEach((lvl) => {
+    const src = fs.readFileSync(path.join(ROOT, 'js', 'content', 'vocab-' + lvl + '.js'), 'utf8');
+    const body = src.slice(src.indexOf('= ['));
+    assert.ok(!/[Ⴀ-ჿ]/.test(body), 'Georgian characters found in vocab-' + lvl + '.js');
+  });
+});
+
+test('translation entries only reference existing vocabulary ids', () => {
+  const env = loadScripts(['js/content/i18n.js', 'js/content/i18n-ka.js', 'js/content/vocab-a1.js', 'js/content/vocab-a2.js', 'js/content/vocab-b1.js', 'js/content/vocab-b2.js', 'js/content/vocab-c1.js', 'js/content/vocab-c2.js', 'js/vocabulary.js']);
+  const ids = new Set(env.App.Vocabulary.getAllWords().map((w) => w.id));
+  Object.keys(env.App.I18n.ka.vocab).forEach((id) => assert.ok(ids.has(id), 'translation for unknown id ' + id));
+  assert.strictEqual(env.App.tr('vocab', 'v-hello-int', 'term'), 'გამარჯობა');
+  assert.strictEqual(env.App.tr('vocab', 'v-hello-int', 'def'), '', 'missing translation must be empty, not English');
+});
+
+test('legacy vocabulary ids are migrated by word and unknown ones are preserved', () => {
+  const state = { vocabulary: { learnedIds: ['vw-1-1', 'vw-1-35'], bookmarkedIds: ['vw-2-1'], boxByWordId: { 'vw-1-1': 4 } }, progress: {} };
+  const env = loadScripts(['js/auth.js', 'js/progress.js', 'js/content/i18n.js', 'js/content/vocab-a1.js', 'js/content/vocab-legacy-ids.js', 'js/vocabulary.js'], {
+    localStorage: { fluentpath_app_state_v1: JSON.stringify(state) }
+  });
+  env.App.Vocabulary.ensureMigrated();
+  same(env.App.Storage.get('vocabulary.learnedIds'), ['v-hello-int']);
+  same(env.App.Storage.get('vocabulary.bookmarkedIds'), ['v-family-n']);
+  same(env.App.Storage.get('vocabulary.boxByWordId'), { 'v-hello-int': 4 });
+  same(env.App.Storage.get('vocabulary.legacyUnmappedIds'), ['vw-1-35']);
+  // running again must not change anything
+  env.App.Vocabulary.ensureMigrated();
+  same(env.App.Storage.get('vocabulary.learnedIds'), ['v-hello-int']);
+});
+
+test('every A1-C2 grammar topic has a complete English lesson and valid practice items', () => {
+  const env = loadScripts(['js/content/grammar-en-a.js', 'js/content/grammar-en-b.js', 'js/content/grammar-en-c.js', 'js/content/grammar-en-d.js']);
+  const G = env.App.GrammarEN;
+  for (let i = 1; i <= 90; i++) {
+    const t = G['grammar-topic-' + i];
+    assert.ok(t, 'missing English layer for topic ' + i);
+    ['title', 'objective', 'explanation', 'compare', 'tip'].forEach((k) => assert.ok(t[k] && t[k].length > 8, i + ': ' + k));
+    assert.ok(t.patterns.length >= 3, i + ': patterns');
+    assert.strictEqual(t.practice.length, 5, i + ': practice count');
+    t.practice.forEach((line, j) => {
+      const f = line.split('|');
+      assert.strictEqual(f.length, 6, i + '.' + j + ': fields');
+      assert.strictEqual(new Set(f.slice(1, 5)).size, 4, i + '.' + j + ': duplicate options');
+      assert.ok(f[5].length > 10, i + '.' + j + ': explanation');
+    });
+    assert.ok(!/[Ⴀ-ჿ]/.test(JSON.stringify(t)), i + ': Georgian text in English source');
+  }
+});
+
+test('writing topics 1-90 have English tasks and every level has targets, criteria and a checklist', () => {
+  const env = loadScripts(['js/content/writing-en.js']);
+  const W = env.App.WritingEN;
+  let prevMax = 0;
+  ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].forEach((lvl) => {
+    const spec = W.levels[lvl];
+    assert.ok(spec.words[0] < spec.words[1] && spec.words[1] > prevMax, lvl + ' word target grows with level');
+    prevMax = spec.words[1];
+    assert.ok(spec.criteria.length >= 4 && spec.checklist.length >= 5, lvl + ' criteria/checklist');
+  });
+  for (let i = 1; i <= 90; i++) {
+    const t = W.tasks['writing-topic-' + i];
+    assert.ok(t && /^(Write|Complete|Draft) /.test(t.task), 'task ' + i);
+    assert.ok(t.points.length >= 3, 'points ' + i);
+  }
+  const src = fs.readFileSync(path.join(ROOT, 'js', 'content', 'writing-en.js'), 'utf8');
+  assert.ok(!/[Ⴀ-ჿ]/.test(src.slice(src.indexOf('App.WritingEN'))), 'Georgian text in writing-en.js');
+});
+
+test('translation export covers every translatable string and the translation file round-trips unchanged', () => {
+  const { collectSource, loadTranslations } = require('../scripts/i18n-source');
+  const source = collectSource();
+  const counts = {};
+  Object.keys(source).forEach((k) => { const s = k.split('|')[0]; counts[s] = (counts[s] || 0) + 1; });
+  assert.strictEqual(counts.vocab, 1289);
+  assert.strictEqual(counts.writing, 90);
+  assert.strictEqual(counts.curriculum, 60);
+  assert.ok(counts.courses >= 50);
+  assert.strictEqual(counts.reading, 72);
+  assert.strictEqual(counts.listening, 58);
+  assert.ok(counts.dialogues >= 150);
+  const ka = loadTranslations('ka');
+  Object.keys(ka).forEach((section) => Object.keys(ka[section]).forEach((id) => Object.keys(ka[section][id]).forEach((field) => {
+    const key = section + '|' + id + '|' + field;
+    assert.ok(source[key], 'translation for unknown source ' + key);
+    assert.notStrictEqual(ka[section][id][field], source[key].en, 'translation equals English: ' + key);
+  })));
+});
+
+for (const [file, key] of [['reading-extra', 'ReadingExtra'], ['listening-extra', 'ListeningExtra']]) test(file + ' items are complete English texts with valid questions', () => {
+  const env = loadScripts(['js/content/' + file + '.js']);
+  const R = env.App[key];
+  assert.ok(R.length >= 10);
+  const nums = new Set();
+  R.forEach((r) => {
+    assert.ok(r.num > 90 && !nums.has(r.num), 'unique number ' + r.num);
+    nums.add(r.num);
+    assert.ok(['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].indexOf(r.level) !== -1, r.num + ' level');
+    assert.ok(r.paragraphs.length >= 4, r.num + ' paragraphs');
+    assert.ok(r.questions.length >= 6, r.num + ' questions');
+    r.questions.forEach((q) => {
+      const f = q.split('|');
+      assert.strictEqual(f.length, 5, r.num + ' question fields: ' + f[0]);
+      assert.strictEqual(new Set(f.slice(1)).size, 4, r.num + ' duplicate options: ' + f[0]);
+    });
+    r.glossary.forEach((g) => assert.strictEqual(g.split('|').length, 2, r.num + ' glossary ' + g));
+  });
+  const src = fs.readFileSync(path.join(ROOT, 'js', 'content', file + '.js'), 'utf8');
+  assert.ok(!/[Ⴀ-ჿ]/.test(src.slice(src.indexOf('App.' + key))), 'Georgian text in ' + file);
+});
+
+test('every exercise in every module has four distinct options and a valid answer', () => {
+  const { audit } = require('../scripts/audit-content');
+  const { problems, counts } = audit();
+  assert.deepStrictEqual(problems, []);
+  assert.ok(counts.Reading.questions > 900 && counts.Listening.questions > 900 && counts.Writing.questions > 800);
+});
+
+test('quiz pools include grammar questions, and placement covers every skill', () => {
+  const env = loadScripts(['js/auth.js', 'js/progress.js', 'js/content/i18n.js',
+    'js/grammar-a.js', 'js/grammar-b.js', 'js/grammar-c.js', 'js/content/grammar-en-a.js', 'js/content/grammar-en-b.js', 'js/content/grammar-en-c.js', 'js/content/grammar-en-d.js', 'js/grammar.js',
+    'js/reading-a.js', 'js/reading-b.js', 'js/reading-c.js', 'js/content/reading-extra.js', 'js/reading.js',
+    'js/content/vocab-a1.js', 'js/content/vocab-a2.js', 'js/content/vocab-b1.js', 'js/content/vocab-b2.js', 'js/content/vocab-c1.js', 'js/content/vocab-c2.js', 'js/vocabulary.js',
+    'js/quizzes.js']);
+  const Q = env.App.Quizzes;
+  const grammar = Q.buildQuestionPool('GRAMMAR', 'ALL', 15);
+  assert.ok(grammar.length >= 10, 'grammar quiz has questions');
+  grammar.forEach((q) => assert.ok(q.options.length === 4 && q.correct >= 0, 'grammar question ' + q.q));
+  const placement = Q.buildQuestionPool('PLACEMENT', 'ALL', 24);
+  const skills = new Set(placement.map((q) => String(q.source).split(' • ')[0]));
+  assert.ok(skills.has('გრამატიკა'), 'placement includes grammar');
+  assert.ok(skills.has('ლექსიკონი'), 'placement includes vocabulary');
+});

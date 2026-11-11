@@ -246,3 +246,23 @@
     font-size: 0.62rem;
   }
 }
+/* ჰედერი ვიწრო ეკრანებზე: ავტორიზაციის ღილაკი მხოლოდ ხატულით, დუბლირებული პარამეტრების ხატულა იმალება
+   (პარამეტრები ხელმისაწვდომია "მეტი" მენიუდან) — ასე გვერდი ჰორიზონტალურად აღარ იშლება */
+@media (max-width: 640px) {
+  .topbar-right {
+    gap: 6px !important;
+    min-width: 0;
+  }
+  .header-auth-label,
+  .header-user-name {
+    display: none;
+  }
+  .header-auth-btn,
+  .header-user-chip {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .topbar-right > .icon-btn[data-route-link="settings"] {
+    display: none;
+  }
+}
