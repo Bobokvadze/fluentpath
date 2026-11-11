@@ -63,3 +63,24 @@ test('dictation accepts digits for number words, missing apostrophes and British
   assert.strictEqual(pct('We need to organise the trip.', 'we need to organize the trip'), 100);
   assert.ok(pct('There were four people.', 'there were for people') < 90, 'a different word is still an error');
 });
+
+test('a B2 learner starts at B2 in reading, listening, writing and grammar, with each level unlocked independently', () => {
+  const state = JSON.stringify({ progress: { level: 'B2' } });
+  const { App } = loadScripts(['js/auth.js', 'js/progress.js', 'js/content/i18n.js',
+    'js/grammar-a.js', 'js/grammar-b.js', 'js/grammar-c.js', 'js/grammar.js',
+    'js/reading-a.js', 'js/reading-b.js', 'js/reading-c.js', 'js/content/reading-extra.js', 'js/reading.js',
+    'js/listening-a.js', 'js/listening-b.js', 'js/listening-c1a.js', 'js/listening-c1b.js', 'js/listening-c1c.js', 'js/listening-c.js', 'js/content/listening-extra.js', 'js/listening.js',
+    'js/content/writing-en.js', 'js/writing-a.js', 'js/writing-b.js', 'js/writing-c.js', 'js/writing.js'],
+  { localStorage: { fluentpath_app_state_v1: state } });
+  [['Reading', 'getAllPassages', 'getCurrentFrontierPassageId', 'isPassageUnlocked'],
+    ['Listening', 'getAllTopics', 'getCurrentFrontierTopicId', 'isTopicUnlocked'],
+    ['Writing', 'getAllTopics', 'getCurrentFrontierTopicId', 'isTopicUnlocked'],
+    ['Grammar', 'getAllTopics', 'getCurrentFrontierTopicId', 'isTopicUnlocked']].forEach(([mod, all, frontier, unlocked]) => {
+    const items = App[mod][all]();
+    const id = App[mod][frontier](items);
+    const item = items.find((x) => x.id === id);
+    assert.strictEqual(item.level, 'B2', mod + ' starts at the learner level');
+    const firstB2 = items.findIndex((x) => x.level === 'B2');
+    assert.ok(App[mod][unlocked](firstB2, items), mod + ': first B2 item is open without finishing lower levels');
+  });
+});

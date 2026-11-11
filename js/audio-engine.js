@@ -10,6 +10,7 @@
   let preferredAccent = "US"; // საიტზე ყველგან ერთი (ამერიკული) გამოთქმა გამოიყენება
   let activeAudioPool = []; // ინახავს ყველა შექმნილ აუდიო ობიექტს მყისიერი გასუფთავებისთვის
   let playbackSessionId = 0;
+  const SLOW_RATE = 0.65;
   const apiAudioCache = {};
 
   // ბრაუზერის ჩაშენებული ხმის სინთეზატორი (ქვემოთ speechSynthesis.speak გადაიფარება, ამიტომ ორიგინალს ვინახავთ).
@@ -73,7 +74,8 @@
       const voice = pickNativeVoice(acc);
       if (voice) utterance.voice = voice;
       utterance.lang = (voice && voice.lang) || "en-US";
-      utterance.rate = (playbackRate && playbackRate < 0.88) ? 0.8 : 1.0;
+      // ნელი რეჟიმი შესამჩნევად ნელია (≈0.65), რომ ყოველი სიტყვა გაირჩეს
+      utterance.rate = (playbackRate && playbackRate < 0.95) ? SLOW_RATE : 1.0;
       let finished = false;
       utterance.onend = function () {
         if (finished) return;
@@ -215,7 +217,7 @@
         audio.preload = "auto";
         audio.src = currentUrl;
         if (playbackRate && playbackRate < 0.88) {
-          audio.playbackRate = 0.82;
+          audio.playbackRate = SLOW_RATE;
         }
         activeAudioPool.push(audio);
 

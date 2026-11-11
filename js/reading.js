@@ -58,7 +58,8 @@
     return gStrOrObj;
   }
 
-  let activeLevelFilter = "ALL";
+  let activeLevelFilter = null; // პირველ გახსნაზე — მომხმარებლის დონე
+  const LEVEL_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
   let activePassage = null;
   let preparedQuestions = [];
   let showTranslations = false; // ქართული თარგმანი თავიდან დამალულია!
@@ -138,6 +139,9 @@
 
     getCurrentFrontierPassageId: function (allPassages) {
       const completed = this.getCompletedIds();
+      const userIdx = Math.max(0, LEVEL_ORDER.indexOf(App.Storage.get("progress.level", "A1")));
+      const atLevel = allPassages.find((x) => LEVEL_ORDER.indexOf(x.level) >= userIdx && completed.indexOf(x.id) === -1);
+      if (atLevel) return atLevel.id;
       for (let i = 0; i < allPassages.length; i++) {
         if (completed.indexOf(allPassages[i].id) === -1) {
           return allPassages[i].id;
@@ -182,6 +186,10 @@
     render: function () {
       const container = document.getElementById("app-view");
       if (!container) return;
+      if (activeLevelFilter === null) {
+        const userLevel = App.Storage.get("progress.level", "A1");
+        activeLevelFilter = LEVEL_ORDER.indexOf(userLevel) !== -1 ? userLevel : "ALL";
+      }
 
       const allPassages = this.getAllPassages();
 
@@ -309,7 +317,7 @@
       const jumpBtn = container.querySelector("#jump-reading-frontier-btn");
       if (jumpBtn) {
         jumpBtn.addEventListener("click", () => {
-          activeLevelFilter = "ALL";
+          activeLevelFilter = (allPassages.find((x) => x.id === frontierId) || {}).level || "ALL";
           this.render();
           window.setTimeout(() => {
             const el = document.getElementById("reading-anchor-" + frontierId);

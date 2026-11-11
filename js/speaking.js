@@ -250,7 +250,12 @@
   let isListening = false;
   let lastResult = null; // { transcript, score, words: [{ text, ok }] }
 
+  // თუ ბრაუზერის ამოცნობის სერვისი მიუწვდომელია (შეცდომა „network“ ინტერნეტის არსებობისას — ხშირია Brave-ში,
+  // Opera-ში, ზოგ კორპორატიულ ქსელსა და აპლიკაციაში), სესიის ბოლომდე თვითშეფასების რეჟიმზე გადავდივართ
+  let recognitionUnavailable = false;
+
   function getRecognitionCtor() {
+    if (recognitionUnavailable) return null;
     return window.SpeechRecognition || window.webkitSpeechRecognition || null;
   }
 
@@ -434,7 +439,13 @@
         } else if (code === "no-speech") {
           App.UI.toast("ხმა ვერ დაფიქსირდა. სცადეთ თავიდან და ილაპარაკეთ უფრო ხმამაღლა.", "info");
         } else if (code === "network") {
-          App.UI.toast("მეტყველების ამოცნობას ინტერნეტ-კავშირი სჭირდება.", "warning");
+          if (navigator.onLine === false) {
+            App.UI.toast("მეტყველების ამოცნობას ინტერნეტ-კავშირი სჭირდება.", "warning");
+          } else {
+            recognitionUnavailable = true;
+            App.UI.toast("ამ ბრაუზერში მეტყველების ამოცნობის სერვისი მიუწვდომელია (ეს ხშირია Brave-ში, Opera-ში და ზოგ ქსელში). " +
+              "გამოიყენეთ Google Chrome ან Microsoft Edge, ან წარმოთქვით ხმამაღლა და დააჭირეთ „✓ სწორად წარმოვთქვი“.", "warning", 9000);
+          }
         } else if (code !== "aborted") {
           App.UI.toast("მეტყველების ამოცნობა ვერ მოხერხდა. სცადეთ თავიდან.", "warning");
         }

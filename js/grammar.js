@@ -36,7 +36,8 @@
     return d;
   }
 
-  let activeLevelFilter = 'ALL';
+  let activeLevelFilter = null; // პირველ გახსნაზე — მომხმარებლის დონე
+  const LEVEL_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
   let selectedTopic = null;
   let preparedDrills = [];
   let drillAnswers = {};
@@ -89,16 +90,21 @@
       return Array.isArray(list) ? list : [];
     },
 
+    // თითოეული დონის პირველი თემა ღიაა; შემდეგი იხსნება იმავე დონის წინას დასრულებისას
     isTopicUnlocked: function (topicIndex, allTopics) {
       if (topicIndex <= 0) return true;
       const completed = this.getCompletedIds();
+      const cur = allTopics[topicIndex];
       const prevTopic = allTopics[topicIndex - 1];
-      if (!prevTopic) return true;
-      return completed.indexOf(prevTopic.id) !== -1;
+      if (!prevTopic || !cur || prevTopic.level !== cur.level) return true;
+      return completed.indexOf(prevTopic.id) !== -1 || completed.indexOf(cur.id) !== -1;
     },
 
     getCurrentFrontierTopicId: function (allTopics) {
       const completed = this.getCompletedIds();
+      const userIdx = Math.max(0, LEVEL_ORDER.indexOf(App.Storage.get("progress.level", "A1")));
+      const atLevel = allTopics.find((x) => LEVEL_ORDER.indexOf(x.level) >= userIdx && completed.indexOf(x.id) === -1);
+      if (atLevel) return atLevel.id;
       for (let i = 0; i < allTopics.length; i++) {
         if (completed.indexOf(allTopics[i].id) === -1) {
           return allTopics[i].id;
@@ -193,6 +199,10 @@
     render: function () {
       const container = document.getElementById('app-view');
       if (!container) return;
+      if (activeLevelFilter === null) {
+        const userLevel = App.Storage.get("progress.level", "A1");
+        activeLevelFilter = LEVEL_ORDER.indexOf(userLevel) !== -1 ? userLevel : "ALL";
+      }
 
       const allTopics = this.getAllTopics();
 
@@ -306,7 +316,7 @@
       const jumpBtn = container.querySelector('#jump-grammar-frontier-btn');
       if (jumpBtn) {
         jumpBtn.addEventListener('click', () => {
-          activeLevelFilter = 'ALL';
+          activeLevelFilter = (allTopics.find((x) => x.id === frontierId) || {}).level || "ALL";
           this.render();
           window.setTimeout(() => {
             const el = document.getElementById('grammar-anchor-' + frontierId);

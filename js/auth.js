@@ -1363,7 +1363,7 @@
         ? '<form id="fp-register-form" autocomplete="on">' +
             '<div class="fp-form-group">' +
               '<label class="fp-form-label" for="fp-reg-name">სახელი და გვარი</label>' +
-              '<input type="text" id="fp-reg-name" class="fp-input" placeholder="მაგ: ოთარ ბობოყვაძე" required />' +
+              '<input type="text" id="fp-reg-name" class="fp-input" placeholder="თქვენი სახელი და გვარი" autocomplete="name" required />' +
             "</div>" +
             '<div class="fp-form-group">' +
               '<label class="fp-form-label" for="fp-reg-email">ელ-ფოსტა</label>' +
