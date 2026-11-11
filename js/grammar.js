@@ -497,7 +497,9 @@
           const optIdx = Number(btn.getAttribute('data-practice-opt'));
           const scrollY = window.scrollY;
           practiceAnswers[qIdx] = optIdx;
-          App.UI.playSound(optIdx === t.practiceItems[qIdx].correct ? 'success' : 'click');
+          const item = t.practiceItems[qIdx];
+          App.UI.playSound(optIdx === item.correct ? 'success' : 'click');
+          if (optIdx !== item.correct && App.Mistakes) App.Mistakes.record({ module: 'grammar', ref: t.id, title: t.titleEn, q: item.q, options: item.options, correct: item.correct, why: item.why });
           this.renderTopicDetail(container, allTopics);
           window.scrollTo({ top: scrollY, behavior: 'instant' });
         });
@@ -513,6 +515,8 @@
             App.UI.playSound('success');
           } else {
             App.UI.playSound('click');
+            const d = preparedDrills[qIdx];
+            if (App.Mistakes) App.Mistakes.record({ module: 'grammar', ref: t.id, title: t.titleEn, q: d.q, options: d.options, correct: d.correct, why: t.en && t.en.tip ? 'Rule: ' + t.en.tip : '' });
           }
           this.renderTopicDetail(container, allTopics);
           window.scrollTo({ top: scrollY, behavior: 'instant' });

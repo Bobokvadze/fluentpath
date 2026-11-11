@@ -556,7 +556,12 @@
         const i = Number(b.getAttribute('data-cx-q'));
         if (player.answers[i] !== undefined) return;
         player.answers[i] = Number(b.getAttribute('data-cx-a'));
-        App.UI.playSound(player.answers[i] === player.questions[i].correct ? 'success' : 'click');
+        const q = player.questions[i];
+        App.UI.playSound(player.answers[i] === q.correct ? 'success' : 'click');
+        if (player.answers[i] !== q.correct && App.Mistakes) {
+          const title = player.kind === 'course' ? player.course.title : (player.kind === 'vocab' ? App.Curriculum.lessonTitle(player.lesson) : player.unit.level + ' Unit ' + player.unit.number);
+          App.Mistakes.record({ module: player.kind === 'vocab' ? 'vocab' : 'learn', ref: player.lessonId, title: title, q: q.q, options: q.options, correct: q.correct, why: q.why });
+        }
         const y = window.scrollY;
         this.render();
         window.scrollTo({ top: y, behavior: 'instant' });

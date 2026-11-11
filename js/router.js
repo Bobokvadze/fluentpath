@@ -10,10 +10,12 @@
     'grammar',
     'reading',
     'listening',
+    'dictation',
     'speaking',
     'writing',
     'flashcards',
     'quizzes',
+    'mistakes',
     'progress',
     'settings'
   ];
@@ -36,6 +38,7 @@
     reading: ['reading'],
     listening: ['listening'],
     writing: ['writing'],
+    dictation: ['listening'],
     vocabulary: ['vocabulary', 'ipa'],
     flashcards: ['vocabulary', 'ipa'],
     quizzes: ['vocabulary', 'grammar', 'reading', 'listening', 'writing', 'ipa']
@@ -210,10 +213,12 @@
         grammar: 'Grammar',
         reading: 'Reading',
         listening: 'Listening',
+        dictation: 'Dictation',
         speaking: 'Speaking',
         writing: 'Writing',
         flashcards: 'Flashcards',
         quizzes: 'Quizzes',
+        mistakes: 'Mistakes',
         progress: 'Progress',
         settings: 'Settings'
       };

@@ -689,6 +689,7 @@
             App.UI.playSound("success");
           } else {
             App.UI.playSound("click");
+            if (App.Mistakes) App.Mistakes.record({ module: "writing", ref: activeTopic.id, title: activeTopic.titleEn, q: preparedQuestions[qIdx].q, options: preparedQuestions[qIdx].options, correct: preparedQuestions[qIdx].correct });
           }
           this.renderTopicPlayer(container, allTopics);
           window.scrollTo({ top: scrollY, behavior: "instant" });

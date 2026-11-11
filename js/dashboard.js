@@ -76,6 +76,13 @@
         }
       }
     }
+    // შეცდომების რვეული — როცა რამდენიმე კითხვა დაგროვდა
+    const mistakes = App.Mistakes ? App.Mistakes.count() : 0;
+    if (mistakes >= 3) {
+      recs.push({ kind: "route", route: "mistakes", icon: "📕", title: "Mistake notebook: " + mistakes + " questions",
+        reason: "გაიმეორეთ კითხვები, რომლებზეც შეცდით — ზედიზედ ორი სწორი პასუხის შემდეგ ისინი რვეულიდან გაქრება." });
+    }
+
     // თემატური კურსი (დაწყებული ან დონის შესაფერისი)
     const course = App.CourseEngine ? App.CourseEngine.recommended() : null;
     if (course) {
@@ -242,6 +249,7 @@
         }
         else if (r.kind === "content") App.openContent(r.module, r.ref);
         else if (r.kind === "course") App.openContent("learn", "course:" + r.courseId);
+        else if (r.kind === "route") window.location.hash = r.route;
       });
     });
 

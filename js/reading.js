@@ -539,6 +539,7 @@
             App.UI.playSound("success");
           } else {
             App.UI.playSound("click");
+            if (App.Mistakes) App.Mistakes.record({ module: "reading", ref: activePassage.id, title: activePassage.titleEn, q: preparedQuestions[qIdx].q, options: preparedQuestions[qIdx].options, correct: preparedQuestions[qIdx].correct });
           }
           this.renderPassageReader(container, allPassages);
           window.scrollTo({ top: scrollY, behavior: "instant" });

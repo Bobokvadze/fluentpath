@@ -28,9 +28,11 @@
       { id: 'grammar', title: 'გრამატიკა', category: 'study', phase: 3, description: 'მკაფიოდ ახსნილი გრამატიკული წესები, ფორმულები და პრაქტიკული სავარჯიშოები.' },
       { id: 'reading', title: 'კითხვა', category: 'skills', phase: 3, description: 'დონეების მიხედვით დახარისხებული საკითხავი ტექსტები გააზრების კითხვებით.' },
       { id: 'listening', title: 'მოსმენა', category: 'skills', phase: 4, description: 'აუდიო სავარჯიშოები და კარნახები ბრაუზერის ხმოვანი სინთეზატორის გამოყენებით.' },
+      { id: 'dictation', title: 'კარნახი', category: 'skills', phase: 4, description: 'მოუსმინეთ წინადადებას, ჩაწერეთ და შეამოწმეთ სიტყვა-სიტყვით.' },
       { id: 'writing', title: 'წერა', category: 'skills', phase: 4, description: 'წერითი დავალებები, წინადადებების აწყობა და თვითშეფასების კრიტერიუმები.' },
       { id: 'flashcards', title: 'ბარათები', category: 'practice', phase: 5, description: 'სიტყვებისა და ფრაზების სწრაფი დამახსოვრების ბარათები (Flashcards).' },
       { id: 'quizzes', title: 'ტესტები', category: 'practice', phase: 5, description: 'ულიმიტო შემაჯამებელი ტესტები დეტალური განმარტებებითა და შედეგებით.' },
+      { id: 'mistakes', title: 'შეცდომები', category: 'practice', phase: 5, description: 'ყველა არასწორად ნაპასუხები კითხვა ერთ ადგილას — გაიმეორეთ, სანამ არ ისწავლით.' },
       { id: 'progress', title: 'პროგრესი', category: 'core', phase: 1, description: 'თქვენი XP ქულების, უწყვეტი სერიისა და CEFR დონეების დეტალური ანალიტიკა.' },
       { id: 'settings', title: 'პარამეტრები', category: 'core', phase: 1, description: 'თემის, CEFR დონის, დღიური მიზნისა და მონაცემთა სარეზერვო ასლების მართვა.' }
     ]

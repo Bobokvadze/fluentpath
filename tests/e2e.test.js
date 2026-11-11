@@ -108,7 +108,7 @@ test('app loads and every route renders without errors', { skip: !canRun && 'Chr
     await cdp.send('Page.navigate', { url: base });
     await evaluate(cdp, 'new Promise((r) => { const t = setInterval(() => { if (window.App && App.Router && document.querySelector("#app-view h2")) { clearInterval(t); r(true); } }, 100); })');
 
-    const routes = ['dashboard', 'learn', 'vocabulary', 'grammar', 'reading', 'listening', 'speaking', 'writing', 'flashcards', 'quizzes', 'progress', 'settings'];
+    const routes = ['dashboard', 'learn', 'vocabulary', 'grammar', 'reading', 'listening', 'dictation', 'speaking', 'writing', 'flashcards', 'quizzes', 'mistakes', 'progress', 'settings'];
     const result = await evaluate(cdp, `(async () => {
       const wait = (ms) => new Promise((r) => setTimeout(r, ms));
       const out = {};
@@ -126,6 +126,50 @@ test('app loads and every route renders without errors', { skip: !canRun && 'Chr
 
     const listeningCount = await evaluate(cdp, 'App.Listening.getAllTopics().length');
     assert.strictEqual(listeningCount, 100, 'all 100 listening topics available');
+
+    // learning tools: tap a word, a wrong answer goes to the notebook, the notebook clears it, dictation scores a sentence
+    const tools = await evaluate(cdp, `(async () => {
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+      const until = async (fn) => { for (let i = 0; i < 80; i++) { const v = fn(); if (v) return v; await wait(100); } return null; };
+      const out = {};
+      App.openContent('reading', 'reading-passage-16');
+      await until(() => document.querySelectorAll('.wl-w').length > 50);
+      out.words = document.querySelectorAll('.wl-w').length;
+      const flight = [...document.querySelectorAll('.wl-w')].find((s) => s.textContent.toLowerCase() === 'flight');
+      flight.click();
+      out.popup = ((await until(() => document.querySelector('.wl-pop__ka'))) || {}).textContent || '';
+      document.querySelector('[data-wl-close]').click();
+      const p = App.Reading.getAllPassages().find((x) => x.id === 'reading-passage-16');
+      const btns = [...document.querySelectorAll('[data-reading-q="0"]')];
+      const qt = btns[0].closest('.drill-question-box').querySelector('.drill-q-title').textContent.replace(/^\\d+\\.\\s*/, '');
+      const orig = p.questions.find((q) => q.q.replace(/^\\d+\\.\\s*/, '') === qt);
+      btns.find((b) => b.textContent.trim() !== orig.options[orig.correct]).click();
+      out.recorded = App.Mistakes.count();
+      for (let round = 0; round < 2; round++) {
+        location.hash = round ? 'dashboard' : 'mistakes';
+        await wait(300);
+        location.hash = 'mistakes';
+        await until(() => document.querySelector('[data-mk-start]'));
+        document.querySelector('[data-mk-start]').click();
+        const item = App.Mistakes.list()[0];
+        await until(() => document.querySelector('[data-mk-q]'));
+        [...document.querySelectorAll('[data-mk-q]')].find((b) => b.getAttribute('data-mk-a') === item.correct).click();
+        await until(() => document.querySelector('[data-mk-finish]:not([disabled])'));
+        document.querySelector('[data-mk-finish]').click();
+      }
+      out.afterReview = App.Mistakes.count();
+      location.hash = 'dictation';
+      const input = await until(() => document.getElementById('dc-input'));
+      input.value = App.Dictation.getCurrent().text.toLowerCase().replace(/[.,!?]/g, '');
+      document.getElementById('dc-check').click();
+      out.dictationScore = ((await until(() => document.querySelector('.dc-result__score'))) || {}).textContent || '';
+      return out;
+    })()`);
+    assert.ok(tools.words > 50, 'reading words are tappable');
+    assert.ok(/[ა-ჿ]/.test(tools.popup), 'word popup shows the Georgian meaning: ' + tools.popup);
+    assert.strictEqual(tools.recorded, 1, 'wrong answer recorded in the notebook');
+    assert.strictEqual(tools.afterReview, 0, 'two correct answers in a row clear the notebook');
+    assert.ok(/^100%/.test(tools.dictationScore), 'dictation accepts a correct answer without case or punctuation: ' + tools.dictationScore);
     assert.deepStrictEqual(exceptions, [], 'uncaught exceptions: ' + exceptions.join(' | '));
   } finally {
     cdp.close();

@@ -210,6 +210,8 @@
       activeExamSession.questions.forEach((q, idx) => {
         if (activeExamSession.answers[idx] === q.correct) {
           correctCount++;
+        } else if (activeExamSession.answers[idx] !== undefined && App.Mistakes) {
+          App.Mistakes.record({ module: "quiz", ref: activeExamSession.mode, title: String(q.source || "").split(" • ").slice(1).join(" • "), q: q.q, options: q.options, correct: q.correct, why: q.explanation });
         }
       });
 
