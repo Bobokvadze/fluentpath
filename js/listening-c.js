@@ -144,7 +144,7 @@
         "How do chimpanzees' tool-making habits differ from human cumulative culture?|Chimpanzees invent simple tools like stick fishing for termites, but rarely improve upon them over thousands of years|Chimpanzees build stone skyscrapers and write books|Chimpanzees cannot use tools at all|Chimpanzees teach their skills to human children",
         "What is 'human niche construction' in the context of evolutionary anthropology?|Changing our external environment and social structures through accumulated knowledge rather than changing our physical bodies|Building nests in tall trees like birds|Digging underground tunnels to hide from ice ages|Migrating to Mars",
         "How did philosopher Daniel Dennett poetically describe the role of culture in human survival?|As our 'second skin'|As a heavy winter coat made of wool|As a fragile glass house|As a map of the stars",
-        "To what does the lecture attribute humanity's ultimate biological success?|A triumph of collective, communicative minds working together across time, rather than isolated genius|The physical strength of individual warriors|The invention of metal weapons|Lકીტორების პირადი სიმდიდრე"
+        "To what does the lecture attribute humanity's ultimate biological success?|A triumph of collective, communicative minds working together across time, rather than isolated genius|The physical strength of individual warriors|The invention of metal weapons|The personal wealth of rulers"
       ]
     },
     {
@@ -167,7 +167,7 @@
           "ჩვეულებრივ ოჯახმა ანგარიშების გადასახდელად ჯერ ხელფასი უნდა იშოვოს ან ბანკიდან ისესხოს, რადგან ოჯახები „ვალუტის მომხმარებლები“ არიან. საპირისპიროდ, მცურავი სავალუტო კურსისა და საკუთარი ცენტრალური ბანკის მქონე სუვერენული მთავრობა არის „ვალუტის ემიტენტი“ (დამშვები)! აშშ-ის მთავრობას არ სჭირდება გადასახადების შეგროვება ან ჩინეთიდან სესხება ჯანდაცვის ან ინფრასტრუქტურის დასაფინანსებლად; ის უბრალოდ ავალებს ფედერალურ სარეზერვო სისტემას კომპიუტერის ეკრანზე ციფრების აკრეფით ჩარიცხოს თანხები საბანკო ანგარიშებზე. ამიტომ, ერს, რომელიც თავის სუვერენულ ვალუტას ბეჭდავს, ფული არასდროს გამოელევა და იძულებით გაკოტრებას არასდროს შეEჯახება."
         ],
         [
-          "If MMT economists claim that sovereign debt is not a ticking time bomb, does that mean governments can print unlimited money without consequences? Absolutely not! MMT theorists warn that while a sovereign government can never run out of money, it CAN run out of real physical resources — workers, factories, steel, semi-conductורים, and energy. The true constraint on government spending is not debt or taxes, but 'inflation'.",
+          "If MMT economists claim that sovereign debt is not a ticking time bomb, does that mean governments can print unlimited money without consequences? Absolutely not! MMT theorists warn that while a sovereign government can never run out of money, it CAN run out of real physical resources — workers, factories, steel, semiconductors, and energy. The true constraint on government spending is not debt or taxes, but 'inflation'.",
           "თუ MMT ეკონომისტები ამტკიცებენ, რომ სახელმწიფო ვალი მოქმედი დროის ბომბი არ არის, ნიშნავს თუ არა ეს იმას, რომ მთავრობებს შეუძლიათ დაუსრულებლად ბეჭდიან ფული ყოველგვარი შედეგების გარეშე? აბსოლუტურად არა! MMT თეორეტიკოსები გვაფრთხილებენ, რომ მიუხედავად იმისა, რომ სუვერენულ მთავრობას ფული არასდროს გამოელევა, მას შეიძლება გამოელევა რეალური ფიზიკური რესურსები — მუშები, ქარხნები, ფოლადი, მიკროჩიპები და ენერგია. სახელმწიფო ხარჯების ჭეშმარიტი შემაკავებელი ფაქტორი არის არა ვალი ან გადასახადები, არამედ „ინფლაცია“."
         ],
         [
@@ -224,7 +224,7 @@
       ],
       glossary: [
         "epistemology|ეპისტემოლოგია (ცოდნის თეორია / მეცნიერება ცოდნის ბუნებაზე)", "tripartite formula|სამნაწილიანი ფორმულა", "Justified True Belief (JTB)|გამართლებული ჭეშმარიტი რწმენა (ცოდნის კლასიკური განსაზღვრება)",
-        "proposition|დებულება / მათემატიკური ან ლოგიკური утверждение", "justification|გამართლება (მტკიცებულება ან არგუმენტი რწმენის უკან)", "Gettier Cases|გეტიერის შემთხვევები (ცოდნის კლასიკური დეფინიციის მწარმოებელი პარადოქსები)",
+        "proposition|დებულება / მათემატიკური ან ლოგიკური მტკიცება", "justification|გამართლება (მტკიცებულება ან არგუმენტი რწმენის უკან)", "Gettier Cases|გეტიერის შემთხვევები (ცოდნის კლასიკური დეფინიციის მწარმოებელი პარადოქსები)",
         "sheer luck|სუფთა იღბალი / შემთხვევითობა", "irreducible|დაუყოფელი / ფუნდამენტური", "certainty|სიზუსტე / სრული დარწმუნებულობა", "quest for truth|ჭეშმარიტების ძიება"
       ],
       questions: [
@@ -349,7 +349,7 @@
         ],
         [
           "The philosophical cornerstone of this new revolution was the 'mechanistic worldview' — the revolutionary metaphor that the entire universe is a giant, mindless machine, like a magnificent clockwork mechanism built of gears, springs, and levers. French philosopher René Descartes argued that animals, plants, and human bodies are essentially biological automata governed entirely by mechanical physics, devoid of any inner soul, spirit, or mysterious magical forces.",
-          "ამ ახალი რევოლუციის ფილოსოფიური ქვაკუთხედი იყო „მექანისტური მსოფლმხედველობა“ — რევოლუციური მეტაფორა იმისა, რომ მთელი სამყარო გიგანტური, უგუნური მანქანაა, რომელიც კბილანების, ზამბარების და ბერკეტებისგან აწყობილ დიდებულ საათის მექանիზმს ჰგავს. ფრანგმა ფილოსოფოსმა რენე დეკარტმა ამტკიცებდა, რომ ცხოველები, მცენარეები და ადამიანის სხეულები არსებითად ბიოლოგიური ავტომატები არიან, რომლებსაც მთლიანად მექანიკური ფიზიკა მართავს და ყოველგვარი შინაგანი სულის ან მისტიკური ჯადოსნური ძალების გარეშე არიან."
+          "ამ ახალი რევოლუციის ფილოსოფიური ქვაკუთხედი იყო „მექანისტური მსოფლმხედველობა“ — რევოლუციური მეტაფორა იმისა, რომ მთელი სამყარო გიგანტური, უგუნური მანქანაა, რომელიც კბილანების, ზამბარების და ბერკეტებისგან აწყობილ დიდებულ საათის მექანიზმს ჰგავს. ფრანგმა ფილოსოფოსმა რენე დეკარტმა ამტკიცებდა, რომ ცხოველები, მცენარეები და ადამიანის სხეულები არსებითად ბიოლოგიური ავტომატები არიან, რომლებსაც მთლიანად მექანიკური ფიზიკა მართავს და ყოველგვარი შინაგანი სულის ან მისტიკური ჯადოსნური ძალების გარეშე არიან."
         ],
         [
           "To study this mechanical universe, seventeenth-century scientists invented a powerful new method: modern experimental science. Instead of accepting ancient Greek authority or sitting in armchairs debating what 'ought' to happen, scientists like Galileo built telescopes, rolled bronze balls down wooden ramps to measure acceleration, and dissected animals in laboratories. Nature was no longer treated as a sacred text to be contemplated with spiritual reverence, but as a complex machine whose parts could be taken apart, measured, quantified, and controlled.",

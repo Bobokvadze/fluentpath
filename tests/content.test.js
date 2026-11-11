@@ -147,3 +147,16 @@ test('quiz pools include grammar questions, and placement covers every skill', (
   assert.ok(skills.has('გრამატიკა'), 'placement includes grammar');
   assert.ok(skills.has('ლექსიკონი'), 'placement includes vocabulary');
 });
+
+test('content has no stray characters from other writing systems (generation glitches)', () => {
+  // Latin and Georgian only; IPA lives in ipa-dict/ipa-extra and flashcards.js code, which are excluded
+  const re = /[Ͱ-ϿЀ-ӿ԰-֏֐-׿؀-ۿऀ-෿฀-๿ᄀ-ᇿ぀-ヿ㐀-鿿가-힯]/;
+  const dirs = [path.join(ROOT, 'js'), path.join(ROOT, 'js', 'content')];
+  const hits = [];
+  dirs.forEach((dir) => fs.readdirSync(dir).filter((f) => f.endsWith('.js') && !/legacy|ipa-dict|ipa-extra|flashcards/.test(f)).forEach((f) => {
+    fs.readFileSync(path.join(dir, f), 'utf8').split('\n').forEach((line, i) => {
+      if (re.test(line)) hits.push(f + ':' + (i + 1) + ' ' + line.trim().slice(0, 80));
+    });
+  }));
+  assert.deepStrictEqual(hits, []);
+});

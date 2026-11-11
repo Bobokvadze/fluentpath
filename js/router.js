@@ -26,7 +26,7 @@
     reading: ['js/reading-a.js', 'js/reading-b.js', 'js/reading-c.js', 'js/content/reading-extra.js'],
     listening: ['js/listening-a.js', 'js/listening-b.js', 'js/listening-c1a.js', 'js/listening-c1b.js', 'js/listening-c1c.js', 'js/listening-c.js', 'js/content/listening-extra.js'],
     writing: ['js/content/writing-en.js', 'js/writing-a.js', 'js/writing-b.js', 'js/writing-c.js'],
-    ipa: ['js/ipa-dict.js']
+    ipa: ['js/ipa-dict.js', 'js/content/ipa-extra.js']
   };
 
   // რომელ გვერდს რომელი პაკეტები სჭირდება რენდერამდე

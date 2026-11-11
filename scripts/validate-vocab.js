@@ -21,6 +21,8 @@ function load() {
     if (fs.existsSync(file)) vm.runInContext(fs.readFileSync(file, 'utf8'), ctx, { filename: file });
   });
   vm.runInContext(fs.readFileSync(path.join(ROOT, 'js', 'ipa-dict.js'), 'utf8'), ctx);
+  const extra = path.join(ROOT, 'js', 'content', 'ipa-extra.js');
+  if (fs.existsSync(extra)) vm.runInContext(fs.readFileSync(extra, 'utf8'), ctx);
   return window.App;
 }
 

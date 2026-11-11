@@ -155,7 +155,7 @@
       paragraphs: [
         [
           "By the 1850s, London had become the largest city in the world, with over two and a half million inhabitants. Every morning, hundreds of thousands of people arrived at the main railway terminals on the edge of the city, and the narrow streets were completely choked with horse-drawn buses, carriages, and carts. Crossing the city centre often took longer than the train journey from the countryside!",
-          "1850-იანი წლებისთვის ლონდონი მსოფლიოს უდიდეს ქალაქად იქცა ორნახევარ მილიონზე მეტი მცხოვრებით. ყოველ დილით ასობით ათასი ადამიანი ჩამოდიოდა ქალაქის განაპირას მდებარე რკინიგზის სადგურებში, ვიწრო ქუჩები კი სრულად იყო გადაჭედილი ცხენებშებმული オムნიბუსებით, ეტლებითა და ურმებით. ქალაქის ცენტრის გადაკვეთას ხშირად უფრო მეტი დრო სჭირდებოდა, ვიდრე ქალაქგარეთიდან მატარებლით ჩამოსვლას!"
+          "1850-იანი წლებისთვის ლონდონი მსოფლიოს უდიდეს ქალაქად იქცა ორნახევარ მილიონზე მეტი მცხოვრებით. ყოველ დილით ასობით ათასი ადამიანი ჩამოდიოდა ქალაქის განაპირას მდებარე რკინიგზის სადგურებში, ვიწრო ქუჩები კი სრულად იყო გადაჭედილი ცხენებშებმული ომნიბუსებით, ეტლებითა და ურმებით. ქალაქის ცენტრის გადაკვეთას ხშირად უფრო მეტი დრო სჭირდებოდა, ვიდრე ქალაქგარეთიდან მატარებლით ჩამოსვლას!"
         ],
         [
           "A city lawyer named Charles Pearson proposed a bold solution: building a railway line underneath the streets to connect the main stations. Many critics laughed at the idea, warning that the tunnels would collapse under the weight of the buildings or that passengers would suffocate from the smoke of steam locomotives.",
@@ -229,7 +229,7 @@
         "What material did people in ancient Mesopotamia use to record words?|Wet clay tablets|Sheets of plastic|Strips of pine wood|Silk handkerchiefs",
         "What were the two disadvantages of writing on bamboo strips and silk in ancient China?|Bamboo was very heavy to transport and silk was too expensive|Bamboo melted in the rain and silk was too dark|Nobody knew how to cut bamboo|Silk could not hold any ink",
         "Who is credited with inventing the first true paper around 105 AD?|A Chinese court official named Cai Lun|An Egyptian pharaoh|A German goldsmith|An Italian merchant",
-        "Which четыре materials did Cai Lun soak and boil to make his paper pulp?|Mulberry tree bark, hemp, old linen rags, and worn-out fishing nets|Clay, sand, stones, and river water|Sheep wool, feathers, and milk|Pine needles, grass, and honey",
+        "Which four materials did Cai Lun soak and boil to make his paper pulp?|Mulberry tree bark, hemp, old linen rags, and worn-out fishing nets|Clay, sand, stones, and river water|Sheep wool, feathers, and milk|Pine needles, grass, and honey",
         "What tool did Cai Lun dip into the vat of soupy pulp to form a sheet?|A flat screen made of fine bamboo strips|A deep iron pot|A round glass bowl|A leather bag",
         "What happened when he lifted the bamboo screen out of the vat?|The water drained through the gaps, leaving a thin mat of tangled fibres|The fibres dissolved completely in the air|The bamboo screen turned into paper|The pulp froze into ice",
         "How were the wet sheets of paper dried?|They were pressed under heavy stones and dried in the sun on a warm wall|They were baked in a bread oven|They were hung from tall trees in the wind|They were ironed with hot coals",
@@ -246,7 +246,7 @@
       time: "8 წთ",
       paragraphs: [
         [
-          "More than seventy percent of our planet is covered by oceans, yet we know more about the surface of the Moon and Mars than we do about Earth's deepest seas. The deepest place on the planet is the Mariana Trench in the western Pacific Ocean. At its lowest point, called the Challenger Deep, the ocean floor lies nearly eleven হাজার metres below the waves.",
+          "More than seventy percent of our planet is covered by oceans, yet we know more about the surface of the Moon and Mars than we do about Earth's deepest seas. The deepest place on the planet is the Mariana Trench in the western Pacific Ocean. At its lowest point, called the Challenger Deep, the ocean floor lies nearly eleven thousand metres below the waves.",
           "ჩვენი პლანეტის სამოცდაათ პროცენტზე მეტი ოკეანეებითაა დაფარული, თუმცა მთვარისა და მარსის ზედაპირის შესახებ უფრო მეტი ვიცით, ვიდრე დედამიწის უღრმესი ზღვების შესახებ. პლანეტის ყველაზე ღრმა ადგილია მარიანას ღრმული წყნარი ოკეანის დასავლეთ ნაწილში. მის ყველაზე დაბალ წერტილში, რომელსაც „ჩელენჯერის უფსკრული“ ეწოდება, ოკეანის ფსკერი ტალღებიდან თითქმის თერთმეტი ათასი მეტრის სიღრმეზე მდებარეობს."
         ],
         [
@@ -262,7 +262,7 @@
           "1960 წლის იანვარში შვეიცარიელმა ოკეანოგრაფმა ჟაკ პიკარმა და აშშ-ის საზღვაო ძალების ლეიტენანტმა დონ უოლშმა ისტორია შექმნეს და სპეციალური აპარატით, ბათისკაფ „ტრიესტით“, ჩელენჯერის უფსკრულში ჩაეშვნენ. ეკიპაჟის კაბინა წარმოადგენდა თორმეტი სანტიმეტრის სისქის კედლების მქონე პატარა ფოლადის სფეროს, რომელიც ტივტივადობისთვის მიმაგრებული იყო ბენზინით სავსე გიგანტურ ავზზე. მათ ჩაშვებას თითქმის ხუთი საათი დასჭირდა."
         ],
         [
-          "When their floodlights illuminated the grey mud at the bottom of the trench, Piccard and Walsh were amazed to see a flatfish और shrimp swimming calmly past their thick glass window! Since then, robotic submarines have discovered hundreds of strange deep-sea species, including transparent snailfish and glowing jellyfish, proving that life can adapt to even the harshest environments on Earth.",
+          "When their floodlights illuminated the grey mud at the bottom of the trench, Piccard and Walsh were amazed to see a flatfish and shrimp swimming calmly past their thick glass window! Since then, robotic submarines have discovered hundreds of strange deep-sea species, including transparent snailfish and glowing jellyfish, proving that life can adapt to even the harshest environments on Earth.",
           "როდესაც მათმა პროჟექტორებმა ღრმულის ფსკერზე ნაცრისფერი შლამი გაანათა, პიკარი და უოლში გაოცდნენ, როცა სქელი მინის ილუმინატორის წინ მშვიდად მცურავი ბრტყელი თევზი და კრევეტები დაინახეს! მას შემდეგ რობოტულმა წყალქვეშა აპარატებმა აღმოაჩინეს ღრმა წყლის ასობით უცნაური სახეობა, მათ შორის გამჭვირვალე თევზები და მანათობელი მედუზები, რამაც დაამტკიცა, რომ სიცოცხლეს შეუძლია დედამიწის ყველაზე მკაცრ გარემოსთანაც კი ადაპტირება."
         ]
       ],
@@ -813,7 +813,7 @@
       paragraphs: [
         [
           "When you meet a stranger for the first time, how long does it take to form an opinion about their personality? According to studies by psychologists at Princeton University, the human brain makes a snap judgment about a person's trustworthiness, competence, and warmth within just one-tenth of a second of seeing their face — long before a single word is spoken!",
-          "როდესაც უცნობ ადამიანს პირველად ხვდებით, რამდენი დრო გჭირდებათ მის პიროვნებაზე აზრის შესاقმნელად? პრინსტონის უნივერსიტეტის ფსიქოლოგთა კვლევების თანახმად, ადამიანის ტვინი პიროვნების სანდოობის, კომპეტენტურობისა და კეთილგანწყობის შესახებ მყისიერ შეფასებას აკეთებს მისი სახის დანახვიდან წამის მეათედში — იმაზე გაცილებით ადრე, ვიდრე თუნდაც ერთი სიტყვა ითქმება!"
+          "როდესაც უცნობ ადამიანს პირველად ხვდებით, რამდენი დრო გჭირდებათ მის პიროვნებაზე აზრის შესაქმნელად? პრინსტონის უნივერსიტეტის ფსიქოლოგთა კვლევების თანახმად, ადამიანის ტვინი პიროვნების სანდოობის, კომპეტენტურობისა და კეთილგანწყობის შესახებ მყისიერ შეფასებას აკეთებს მისი სახის დანახვიდან წამის მეათედში — იმაზე გაცილებით ადრე, ვიდრე თუნდაც ერთი სიტყვა ითქმება!"
         ],
         [
           "Evolutionary psychologists explain that this rapid decision-making was an ancient survival mechanism. In prehistoric times, early humans needed to decide instantly whether an approaching stranger was a friend or a dangerous foe. Today, although we live in modern cities, our brains still rely on these automatic mental shortcuts, known as heuristics.",
@@ -863,7 +863,7 @@
         ],
         [
           "In 1881, a French company led by Ferdinand de Lesseps — the diplomat who had successfully built the flat, sea-level Suez Canal in Egypt — began digging in Panama. However, Panama was nothing like the flat Egyptian desert. It was a mountainous tropical jungle where torrential rains caused massive mudslides that buried equipment, and mosquitoes spread deadly yellow fever and malaria among the workers. By 1889, the French effort collapsed.",
-          "1881 წელს ფრანგულმა კომპანიამ ფერდინანდ დე ლესეპსის — იმ დიპლომატის, რომელმაც ეგვიპტეში წარმატებით ააშენა ზღვის დონეზე გამავ平坦ი სუეცის არხი — ხელმძღვანელობით პანამაში თხრა დაიწყო. თუმცა, პანამა სულაც არ ჰგავდა ეგვიპტის ბრტყელ უდაბნოს. ეს იყო მთიანი ტროპიკული ჯუნგლები, სადაც კოკისპირული წვიმები იწვევდა გიგანტურ მეწყერებს, ხოლო კოღოები მუშებს შორის სასიკვდილო ყვითელ ცხელებასა და მალარიას ავრცელებდნენ. 1889 წლისთვის ფრანგული პროექტი ჩაიშალა."
+          "1881 წელს ფრანგულმა კომპანიამ ფერდინანდ დე ლესეპსის — იმ დიპლომატის, რომელმაც ეგვიპტეში წარმატებით ააშენა ზღვის დონეზე გამავალი სუეცის არხი — ხელმძღვანელობით პანამაში თხრა დაიწყო. თუმცა, პანამა სულაც არ ჰგავდა ეგვიპტის ბრტყელ უდაბნოს. ეს იყო მთიანი ტროპიკული ჯუნგლები, სადაც კოკისპირული წვიმები იწვევდა გიგანტურ მეწყერებს, ხოლო კოღოები მუშებს შორის სასიკვდილო ყვითელ ცხელებასა და მალარიას ავრცელებდნენ. 1889 წლისთვის ფრანგული პროექტი ჩაიშალა."
         ],
         [
           "When the United States took over the project in 1904, two crucial decisions changed everything. First, chief doctor William Gorgas launched a massive sanitation campaign to drain stagnant pools of water and wipe out the mosquitoes, practically eliminating yellow fever. Second, chief engineer John Stevens realized that digging a sea-level canal through the mountains was impossible.",
@@ -871,7 +871,7 @@
         ],
         [
           "Instead of digging all the way down to sea level, Stevens designed a brilliant 'water elevator' system. Engineers built a massive dam across the Chagres River, creating Gatun Lake — a giant artificial lake sitting twenty-six metres above sea level in the middle of the isthmus. At each end of the canal, they built pairs of giant concrete chambers called locks.",
-          "ზღვის დონემდე მთების ჩათხრის ნაცვლად, სტივენსმა შეიმუშავა ბრწყინვალე „წყლის ლიფტის“ სისტემა. ინჟინრებმა მდინარე ჩაგრესზე ააგეს უზარმაზარი კაშხალი, რითაც ყელის შუაგულში, ზღვის დონიდან ოცდაექვსი მეტრის სიმაღლეზე, შექმნეს გიგანტური ხელოვნური ტბა — გატუნი. არხის ორივე ბოლოში კი ააშენეს გიგანტური ბეტონის კამერების წყვილები, რომლებსაც რაბები (შлюზები) ეწოდება."
+          "ზღვის დონემდე მთების ჩათხრის ნაცვლად, სტივენსმა შეიმუშავა ბრწყინვალე „წყლის ლიფტის“ სისტემა. ინჟინრებმა მდინარე ჩაგრესზე ააგეს უზარმაზარი კაშხალი, რითაც ყელის შუაგულში, ზღვის დონიდან ოცდაექვსი მეტრის სიმაღლეზე, შექმნეს გიგანტური ხელოვნური ტბა — გატუნი. არხის ორივე ბოლოში კი ააშენეს გიგანტური ბეტონის კამერების წყვილები, რომლებსაც რაბები (შლუზები) ეწოდება."
         ],
         [
           "When a ship enters a lock chamber from the ocean, massive steel gates close behind it. Gravity alone — without a single water pump! — allows fresh water from Gatun Lake to flow through underground tunnels into the chamber, lifting the heavy ship up step by step to the level of the lake. After sailing across the lake, the ship is lowered back down to the other ocean through another set of locks. Opened in 1914, the eighty-kilometre canal remains one of humanity's greatest engineering triumphs.",
@@ -1139,7 +1139,7 @@
         ],
         [
           "At first glance, corals look like colourful underwater rocks or exotic plants, but they are actually colonies of thousands of tiny, soft-bodied animals called polyps, closely related to jellyfish and sea anemones. Each tiny polyp absorbs calcium and carbonate minerals from seawater to build a hard, cup-shaped skeleton of limestone around itself for protection.",
-          "ერთი შეხედვით მარჯნები ფერად წყალქვეშა ქვებს ან ეგზოტიკურ მცენარეებს ჰგავს, მაგრამ სინამდვილეში ისინი წარმოადგენენ ათასობით პაწაწინა, რბილსხეულიანი ცხოველის — პოლიპის კოლონიებს, რომლებიც მედუზებისა და აქტინიების ახლო ნათესავები არიან. თითოეული პაწაწინა პოლიპი თავდაცვის მიზნით ზღვის წყლიდან იწოვს კალციუმისა და კარბონატის მინერალებს და საკუთარი სხეულის გარშემო იშენებს ფنجانის ფორმის მყარ კირქვის ჩონჩხს."
+          "ერთი შეხედვით მარჯნები ფერად წყალქვეშა ქვებს ან ეგზოტიკურ მცენარეებს ჰგავს, მაგრამ სინამდვილეში ისინი წარმოადგენენ ათასობით პაწაწინა, რბილსხეულიანი ცხოველის — პოლიპის კოლონიებს, რომლებიც მედუზებისა და აქტინიების ახლო ნათესავები არიან. თითოეული პაწაწინა პოლიპი თავდაცვის მიზნით ზღვის წყლიდან იწოვს კალციუმისა და კარბონატის მინერალებს და საკუთარი სხეულის გარშემო იშენებს ფინჯნის ფორმის მყარ კირქვის ჩონჩხს."
         ],
         [
           "When one generation of polyps dies, their hard limestone skeletons remain in place, and a new generation builds right on top of them. Over thousands of years, these microscopic skeletons accumulate to form massive reefs. The largest of them all — Australia's Great Barrier Reef — stretches over two thousand three hundred kilometres and is the only structure built by living creatures that can be seen from space!",
@@ -1175,13 +1175,13 @@
     {
       num: 56, level: "B2",
       icon: "⚙️", genre: "უძველესი ტექნოლოგია",
-      title: "ანΤΙΚითერას მექანიზმი: უძველესი ანალოგური კომპიუტერი",
+      title: "ანტიკითერას მექანიზმი: უძველესი ანალოგური კომპიუტერი",
       subtitle: "The Antikythera Mechanism: A Clockwork Universe",
       time: "9 წთ",
       paragraphs: [
         [
           "In the spring of 1900, a crew of Greek sponge divers sought shelter from a storm near the tiny island of Antikythera, between Crete and the Peloponnese. When the storm subsided, diver Elias Stadiatos put on his heavy copper helmet and canvas diving suit and descended forty-five metres to the seabed. Instead of sponges, he stumbled upon the wreck of a Roman cargo ship that had sunk around 65 BC, filled with marble statues, bronze horses, and glassware.",
-          "1900 წლის გაზაფხულზე ბერძენი ღრუბლის მომპოვებელი მყვინთავების ეკიპაჟმა შტორმს თავი შეაფარა კრეტასა და პელოპონესს შორის მდებარე პაწაწინა კუნძულ ანΤΙΚითერასთან. როდესაც ქარიშხალი ჩადგა, მყვინთავმა ელიას სტადიატოსმა დაიხურა სპილენძის მძიმე ჩაფხუტი, ჩაიცვა საყვინთაო კოსტიუმი და ზღვის ფსკერზე ორმოცდახუთი მეტრის სიღრმეზე ჩაეშვა. ზღვის ღრუბლების ნაცვლად, იგი წააწყდა ძვ. წ. დაახლოებით 65 წელს ჩაძირულ რომაულ სატვირთო გემს, რომელიც სავსე იყო მარმარილოს ქანდაკებებით, ბრინჯაოს ცხენებითა და მინის ჭურჭლით."
+          "1900 წლის გაზაფხულზე ბერძენი ღრუბლის მომპოვებელი მყვინთავების ეკიპაჟმა შტორმს თავი შეაფარა კრეტასა და პელოპონესს შორის მდებარე პაწაწინა კუნძულ ანტიკითერასთან. როდესაც ქარიშხალი ჩადგა, მყვინთავმა ელიას სტადიატოსმა დაიხურა სპილენძის მძიმე ჩაფხუტი, ჩაიცვა საყვინთაო კოსტიუმი და ზღვის ფსკერზე ორმოცდახუთი მეტრის სიღრმეზე ჩაეშვა. ზღვის ღრუბლების ნაცვლად, იგი წააწყდა ძვ. წ. დაახლოებით 65 წელს ჩაძირულ რომაულ სატვირთო გემს, რომელიც სავსე იყო მარმარილოს ქანდაკებებით, ბრინჯაოს ცხენებითა და მინის ჭურჭლით."
         ],
         [
           "Among the treasures brought up to the National Archaeological Museum in Athens was a corroded, green lump of bronze the size of a shoebox, encrusted with sea shells and limestone. At first, curators paid little attention to it until May 1902, when archaeologist Valerios Stais noticed that the lump had split open as it dried, revealing precisely cut bronze gearwheels with tiny triangular teeth and Greek astronomical inscriptions!",
@@ -1193,10 +1193,10 @@
         ],
         [
           "The scans revealed that the 'Antikythera Mechanism', built by Greek scientists around 150–100 BC, was the world's first analog computer! Housed in a wooden box with a hand crank on the side, it contained at least thirty interlocking bronze gears. When a user turned the crank to set a date, pointers on the front dial showed the exact positions of the Sun, the Moon, and the five planets known in antiquity across the zodiac.",
-          "სკანირებამ გამოავლინა, რომ ძვ. წ. 150–100 წლებში ბერძენი მეცნიერების მიერ შექმნილი „ანΤΙΚითერას მექანიზმი“ მსოფლიოს პირველი ანალოგური კომპიუტერი იყო! ხის ყუთში მოთავსებული აპარატი, რომელსაც გვერდიდან ხელის სახელური ჰქონდა, შეიცავდა მინიმუმ ოცდაათ ერთმანეთზე გადაბმულ ბრინჯაოს კბილანას. როდესაც მომხმარებელი თარიღის დასაყენებლად სახელურს ატრიალებდა, წინა ციფერბლატის ისრები აჩვენებდა მზის, მთვარისა და ანტიკურ ხანაში ცნობილი ხუთი პლანეტის ზუსტ მდებარეობას ზოდიაქოს წრეზე."
+          "სკანირებამ გამოავლინა, რომ ძვ. წ. 150–100 წლებში ბერძენი მეცნიერების მიერ შექმნილი „ანტიკითერას მექანიზმი“ მსოფლიოს პირველი ანალოგური კომპიუტერი იყო! ხის ყუთში მოთავსებული აპარატი, რომელსაც გვერდიდან ხელის სახელური ჰქონდა, შეიცავდა მინიმუმ ოცდაათ ერთმანეთზე გადაბმულ ბრინჯაოს კბილანას. როდესაც მომხმარებელი თარიღის დასაყენებლად სახელურს ატრიალებდა, წინა ციფერბლატის ისრები აჩვენებდა მზის, მთვარისა და ანტიკურ ხანაში ცნობილი ხუთი პლანეტის ზუსტ მდებარეობას ზოდიაქოს წრეზე."
         ],
         [
-          "Even more astonishingly, the back of the device featured spiral dials that predicted solar and lunar eclipses decades in advance, and a tiny rotating half-black, half-silver ball that displayed the exact phase of the Moon! One small dial even tracked the चार-year cycle of the ancient Olympic Games. When the Roman ship sank, this technological knowledge was lost for over a millennium, reminding us how advanced ancient Greek science truly was.",
+          "Even more astonishingly, the back of the device featured spiral dials that predicted solar and lunar eclipses decades in advance, and a tiny rotating half-black, half-silver ball that displayed the exact phase of the Moon! One small dial even tracked the four-year cycle of the ancient Olympic Games. When the Roman ship sank, this technological knowledge was lost for over a millennium, reminding us how advanced ancient Greek science truly was.",
           "კიდევ უფრო გასაოცარი იყო ის, რომ მოწყობილობის უკანა მხარეს განთავსებული სპირალური ციფერბლატები ათწლეულებით ადრე წინასწარმეტყველებდა მზისა და მთვარის დაბნელებებს, ხოლო პაწაწინა მბრუნავი ნახევრად შავი და ნახევრად ვერცხლისფერი ბურთულა აჩვენებდა მთვარის ზუსტ ფაზას! ერთი პატარა ციფერბლატი უძველესი ოლიმპიური თამაშების ოთხწლიან ციკლსაც კი აღრიცხავდა. როდესაც რომაული გემი ჩაიძირა, ეს ტექნოლოგიური ცოდნა ათას წელზე მეტი ხნით დაიკარგა, რაც გვახსენებს, რამდენად განვითარებული იყო სინამდვილეში ძველბერძნული მეცნიერება."
         ]
       ],

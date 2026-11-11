@@ -1,5 +1,5 @@
 // ქეშის ვერსია: გაზარდეთ, როცა ფაილების სია იცვლება (ძველი ქეში ავტომატურად წაიშლება)
-const CACHE_NAME = 'fluentpath-cache-v13';
+const CACHE_NAME = 'fluentpath-cache-v14';
 
 const APP_SHELL = [
   './',
@@ -76,6 +76,7 @@ const APP_SHELL = [
   './js/content/writing-en.js',
   './js/writing.js',
   './js/ipa-dict.js',
+  './js/content/ipa-extra.js',
   './js/flashcards.js',
   './js/quizzes.js',
   './js/audio-engine.js',

@@ -86,7 +86,7 @@
         "roasted chestnuts|შემწვარი წაბლი", "in the distance|შორიდან / მანძილზე", "blanket|პლედი / საბანი", "picnic basket|პიკნიკის კალათა"
       ],
       questions: [
-        "What time do the park gates open on Sunday mornings?|At six o'clock|At八 o'clock|At ten o'clock|At noon",
+        "What time do the park gates open on Sunday mornings?|At six o'clock|At eight o'clock|At ten o'clock|At noon",
         "What colour is the narrow path under the oak trees?|Red|Blue|Yellow|White",
         "Where does the group of older people practice morning exercises?|Near the flower garden|On the wooden bridge|Inside the kiosk|In the lake",
         "When do families with young children usually arrive at the park?|By ten o'clock|At five in the morning|At midnight|After sunset",
@@ -140,7 +140,7 @@
         "Where does Sophie put the cherry pies and chocolate muffins?|On the wooden shelves|In the fridge|On the street bench|In cardboard boxes",
         "What does Sophie prepare for people hurrying to work?|Fresh coffee|Hot soup|Orange juice|Green tea",
         "Who stops at the bakery in the afternoon?|School children on their way home|Tourists from abroad|Bus drivers|Police officers",
-        "What time does the bakery close in the evening?|At six o'clock|At चार o'clock|At nine o'clock|At midnight"
+        "What time does the bakery close in the evening?|At six o'clock|At four o'clock|At nine o'clock|At midnight"
       ]
     },
     {
@@ -376,7 +376,7 @@
       paragraphs: [
         [
           "After a busy week at the office, Daniel and his wife Nora love spending Friday evenings at home. Instead of ordering food from a restaurant, they always cook a special three-course dinner together in their bright kitchen.",
-          "ოფისში დატვირთული კვირის შემდეგ დანიელსა და მის მეუღلეს, ნორას, პარასკევი საღამოების სახლში გატარება უყვართ. რესტორნიდან საჭმლის შეკვეთის ნაცვლად, ისინი თავიანთ ნათელ სამზარეულოში ყოველთვის ერთად ამზადებენ განსაკუთრებულ სამკერძიან ვახშამს."
+          "ოფისში დატვირთული კვირის შემდეგ დანიელსა და მის მეუღლეს, ნორას, პარასკევი საღამოების სახლში გატარება უყვართ. რესტორნიდან საჭმლის შეკვეთის ნაცვლად, ისინი თავიანთ ნათელ სამზარეულოში ყოველთვის ერთად ამზადებენ განსაკუთრებულ სამკერძიან ვახშამს."
         ],
         [
           "At six o'clock, they put on their aprons, wash their hands, and turn on the radio to listen to soft jazz music. Tonight, their menu includes pumpkin soup, baked salmon with rice, and a fruit salad for dessert.",
@@ -446,7 +446,7 @@
         "mild|რბილი (გემოთი, არაცხარე)", "fountain|შადრევანი", "bouquet|თაიგული", "sunflower|მზესუმზირა"
       ],
       questions: [
-        "What are the opening hours of the Saturday farmers' market?|From seven in the morning until two in the afternoon|From nine in the morning until九 at night|Only for one hour at noon|All weekend day and night",
+        "What are the opening hours of the Saturday farmers' market?|From seven in the morning until two in the afternoon|From nine in the morning until nine at night|Only for one hour at noon|All weekend day and night",
         "How many local farmers set up tents in the square?|Thirty local farmers|Five farmers|One hundred farmers|Ten farmers",
         "What colour are the striped tents at the market?|Red and white|Blue and yellow|Green and black|Orange and purple",
         "Why do townspeople prefer the farmers' market to the supermarket?|Because everything comes fresh straight from the farms|Because it is open at midnight|Because they sell televisions|Because it is indoors",
@@ -877,7 +877,7 @@
         "What is the main job of the queen bee?|To lay eggs|To fly out and collect water|To clean the wax cells|To guard the entrance",
         "How do young worker bees keep the hive cool on hot summer days?|They flap their wings thousands of times a minute|They pour cold water on the roof|They open the windows|They blow wind with leaves",
         "At what age does a worker bee start flying outside to collect nectar?|When she is three weeks old|On the day she is born|When she is two years old|After six months",
-        "How many flowers must bees visit to make just one jar of honey?|Around two million flowers|About एक hundred flowers|Five thousand flowers|Fifty flowers",
+        "How many flowers must bees visit to make just one jar of honey?|Around two million flowers|About one hundred flowers|Five thousand flowers|Fifty flowers",
         "How can people help bees in towns and cities?|By planting lavender, rosemary, and wildflowers in gardens and on balconies|By leaving bowls of sugar indoors|By catching them in glass jars|By cutting all the grass short"
       ]
     },

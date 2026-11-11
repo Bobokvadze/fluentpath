@@ -57,7 +57,7 @@
         "___ anyone seen my blue notebook?|Has|Have|Did|Is",
         "He has ___ broken his arm before.|never|ever|yet|already",
         "I have ___ washed the dishes; they are still wet.|just|yet|ever|never",
-        "Роმელია ზმნა „choose“ (არჩევა)-ს მე-3 ფორმა (V3)?|chosen|chose|choosed|choosing"
+        "What is the past participle (V3) of ’choose’?|chosen|chose|choosed|choosing"
       ]
     },
     {
@@ -383,7 +383,7 @@
       drills: [
         "The telephone ___ invented by Alexander Graham Bell in 1876.|was|is|were|has",
         "All the hotel rooms ___ cleaned every morning.|are|is|were|was",
-        "Роმეო და ჯულიეტა Written ___ William Shakespeare.|by|from|with|of",
+        "Romeo and Juliet was written ___ William Shakespeare.|by|from|with|of",
         "The stolen painting ___ found by the police yesterday.|was|were|is|did",
         "How many languages ___ spoken in Switzerland?|are|is|was|do",
         "These shoes ___ made of genuine leather.|are|is|was|have",
@@ -392,7 +392,7 @@
         "Olives ___ grown in Mediterranean countries.|are|is|was|have",
         "Two windows ___ broken during last night's storm.|were|was|are|did",
         "Is breakfast ___ in the price of the room?|included|include|includes|including",
-        "The cake was decorated ___ fresh strawberries. (ინგრედიენტი/საშუალება)|with|by|from|in",
+        "The cake was decorated ___ fresh strawberries. (the material used)|with|by|from|in",
         "We ___ woken up by a loud noise at midnight.|were|was|are|did",
         "Where ___ these watches manufactured?|are|is|do|have",
         "The first airplane ___ flown by the Wright brothers in 1903.|was|were|is|had",
@@ -438,18 +438,18 @@
         "He ___ that he had never been to Scotland before.|said|told|asked|spoke",
         "\"Please open the window.\" -> She asked me ___ the window.|to open|open|opening|opened",
         "\"I have finished my homework.\" -> Tom said that he ___ his homework.|had finished|has finished|finished|finishes",
-        "ირიბ თქმაში სიტყვა „yesterday“ იცვლება ფრაზით:|the day before|the next day|that day|tomorrow",
+        "In reported speech, ’yesterday’ usually becomes:|the day before|the next day|that day|tomorrow",
         "\"We are watching a movie.\" -> They told us they ___ a movie.|were watching|are watching|watched|have watched",
         "The policeman told the driver ___ park on the pavement.|not to|don't to|to don't|not",
         "\"I bought a new bike.\" -> David said that he ___ a new bike.|had bought|has bought|buys|will buy",
         "She said ___ me that the shop was closed.|to|—|at|for",
-        "ირიბ თქმაში სიტყვა „tomorrow“ იცვლება ფრაზით:|the next day / the following day|the day before|yesterday|last week",
+        "In reported speech, ’tomorrow’ usually becomes:|the next day / the following day|the day before|yesterday|last week",
         "\"Wait for me outside!\" -> He told us ___ for him outside.|to wait|wait|waiting|waited",
         "Mary told her brother that she ___ going to the library.|was|is|were|be",
         "\"I don't like coffee.\" -> He said that he ___ like coffee.|didn't|doesn't|hadn't|wouldn't",
         "The guide warned the tourists ___ walk near the edge of the cliff.|not to|don't|to not|never",
         "\"We must leave early.\" -> They said that they ___ leave early.|had to|musted|have to|will",
-        "ირიბ თქმაში სიტყვა „now“ იცვლება სიტყვით:|then|today|here|ago"
+        "In reported speech, ’now’ usually becomes:|then|today|here|ago"
       ]
     },
     {
@@ -487,8 +487,8 @@
         "Do you remember the summer ___ we travelled across Italy?|when|where|who|whose",
         "A kangaroo is an animal ___ lives in Australia.|which|who|where|whose",
         "The waiter ___ served us was very polite.|who|which|whose|where",
-        "This is the restaurant ___ serves the best seafood in town. (მოყვება ზმნა serves!)|that|where|who|whose",
-        "This is the restaurant ___ we had dinner on Saturday. (მოყვება we had!)|where|which|who|whose",
+        "This is the restaurant ___ serves the best seafood in town. (a verb follows: serves)|that|where|who|whose",
+        "This is the restaurant ___ we had dinner on Saturday. (a subject follows: we had)|where|which|who|whose",
         "I have a friend ___ brother is a professional pilot.|whose|who|which|whom",
         "The laptop ___ I bought last month works very fast.|which|who|where|whose",
         "Anyone ___ wants to join the trip should sign up today.|who|which|where|whose",
@@ -547,7 +547,7 @@
         "This bill ___ be right! We only ordered two coffees and it says fifty euros!|can't|must|may|could",
         "Ask David to help you; he ___ know how to solve this problem.|might|can't|mustn't|will to",
         "The office is dark and locked; everyone ___ have gone home.|must|can't|shouldn't|needn't",
-        "роმელი მოდალური ზმნაა „must be“ (აშკარად არის)-ის საპირისპირო ლოგიკურ დასკვნაში?|can't be|mustn't be|don't have to be|shouldn't be"
+        "Which modal is the logical opposite of ’must be’ (I’m sure it is)?|can't be|mustn't be|don't have to be|shouldn't be"
       ]
     },
     {
@@ -579,15 +579,15 @@
       drills: [
         "These apples are very sweet, ___?|aren't they|isn't it|are they|don't they",
         "You don't know where Anna is, ___?|do you|don't you|are you|did you",
-        "I am invited to the meeting too, ___? (გამონაკლისი)|aren't I|amn't I|am I not|don't I",
+        "I am invited to the meeting too, ___? (an exception)|aren't I|amn't I|am I not|don't I",
         "Let's go to the cinema tonight, ___?|shall we|will we|don't we|let we",
         "Tom bought a new bicycle yesterday, ___?|didn't he|boughtn't he|doesn't he|wasn't he",
-        "She has never been to Japan, ___? (never = უარყოფითი)|has she|hasn't she|did she|doesn't she",
+        "She has never been to Japan, ___? (never is negative)|has she|hasn't she|did she|doesn't she",
         "\"I love swimming in the sea.\" — \"___.\"|So do I|So am I|Neither do I|So I do",
         "\"I can't speak German.\" — \"___.\"|Neither can I|So can I|Neither do I|Nor I can",
         "Your brother can play chess well, ___?|can't he|can he|doesn't he|isn't he",
         "They won't be late for the ceremony, ___?|will they|won't they|are they|do they",
-        "Nobody called while I was out, ___? (Nobody -> they + დადებითი კუდი)|did they|didn't they|did he|was it",
+        "Nobody called while I was out, ___? (nobody → they + positive tag)|did they|didn't they|did he|was it",
         "\"We went to the mountains last Sunday.\" — \"___.\"|So did we|So were we|So do we|Neither did we",
         "\"I haven't read that book yet.\" — \"___.\"|Neither have I|So have I|Neither did I|Nor I have",
         "She was studying at library at 5 PM, ___?|wasn't she|weren't she|didn't she|was she",
@@ -595,7 +595,7 @@
         "There is a pharmacy on this street, ___?|isn't there|isn't it|is there|doesn't there",
         "You have finished your lunch, ___?|haven't you|don't you|hadn't you|have you",
         "\"I am feeling quite tired today.\" — \"___.\"|So am I|So do I|Neither am I|So I am",
-        "He rarely watches television, ___? (rarely უარყოფითია)|does he|doesn't he|is he|did he",
+        "He rarely watches television, ___? (rarely is negative)|does he|doesn't he|is he|did he",
         "The children were very quiet during the play, ___?|weren't they|wasn't it|didn't they|were they"
       ]
     },
@@ -629,7 +629,7 @@
         "Be careful with that sharp knife! You might cut ___.|yourself|myself|himself|you",
         "My sister and I send messages to ___ every day.|each other|ourselves|themselves|us",
         "He lives by ___ in a small cottage near the woods.|himself|hisself|him|alone himself",
-        "Please make ___ at home, everyone, and take a seat! (მიმართვა რამდენიმე სტუმრისადმი)|yourselves|yourself|themselves|ourselves",
+        "Please make ___ at home, everyone, and take a seat! (speaking to several guests)|yourselves|yourself|themselves|ourselves",
         "The automatic door closes by ___.|itself|it's self|himself|themselves",
         "We built the wooden garden table ___.|ourselves|ourself|us|each other",
         "After the argument, the two brothers didn't speak to ___ for a week.|each other|themselves|themself|himself",
@@ -640,8 +640,8 @@
         "When they met at the station, they hugged ___.|each other|themselves|ourselves|himself",
         "I accidentally locked ___ out of the house this morning.|myself|me|mine|my",
         "The guests helped ___ to the cold drinks and sandwiches.|themselves|themself|each other|them",
-        "Every morning he wakes up, shaves ___, and has breakfast.|— (ნაცვალსახელის გარეშე)|himself|hisself|him",
-        "Did you enjoy ___ during your holiday in Greece? (ერთ პირს)|yourself|yourselves|you|yours",
+        "Every morning he wakes up, shaves ___, and has breakfast.|— (no pronoun)|himself|hisself|him",
+        "Did you enjoy ___ during your holiday in Greece? (to one person)|yourself|yourselves|you|yours",
         "People who only think about ___ are called selfish.|themselves|each other|themself|them",
         "We promised ___ that we would stay calm.|each other / ourselves|ourself|us|we",
         "No one helped her; she solved the riddle ___.|by herself|with herself|for her|hers",
@@ -678,16 +678,16 @@
         "The journey took twelve hours; it was very ___.|tiring|tired|tire|tiredly",
         "Are you ___ in modern architecture?|interested|interesting|interest|interestingly",
         "We were ___ to hear that the concert had been cancelled.|disappointed|disappointing|disappoint|disappointingly",
-        "აირჩიეთ ზედსართავების სწორი თანმიმდევრობა:|a small old French clock|a French old small clock|an old French small clock|a clock small old French",
+        "Choose the correct order of adjectives:|a small old French clock|a French old small clock|an old French small clock|a clock small old French",
         "That horror film was so ___ that I couldn't sleep.|frightening|frightened|frighten|fright",
         "Why do you look so ___? Did something bad happen?|worried|worrying|worry|worriedly",
-        "აირჩიეთ სწორი თანმიმდევრობა:|a beautiful white silk dress|a silk white beautiful dress|a white silk beautiful dress|a dress beautiful white silk",
+        "Choose the correct order:|a beautiful white silk dress|a silk white beautiful dress|a white silk beautiful dress|a dress beautiful white silk",
         "The instructions were ___, so nobody knew what to do.|confusing|confused|confuse|confusedly",
         "I felt ___ because I didn't understand the instructions.|confused|confusing|confuse|confusingly",
         "This freshly baked bread smells ___!|delicious|deliciously|delight|well",
         "It is ___ how quickly young children learn languages.|amazing|amazed|amaze|amazedly",
         "She was ___ when she saw a spider on her pillow.|terrified|terrifying|terrify|terrifyingly",
-        "აირჩიეთ სწორი თანმიმდევრობა:|a nice big red apple|a red big nice apple|a big red nice apple|an apple nice big red",
+        "Choose the correct order:|a nice big red apple|a red big nice apple|a big red nice apple|an apple nice big red",
         "His explanation didn't sound ___ to the teacher.|convincing|convinced|convince|convincingly",
         "Are you ___ about your trip to Spain next week?|excited|exciting|excite|excitedly",
         "Working in a noisy environment all day is very ___.|stressful / exhausting|exhausted|bored|tiringly",
@@ -701,10 +701,10 @@
       num: 45, level: "B1",
       title: "ფრაზული ზმნები — Phrasal Verbs (Separable & Inseparable)",
       subtitle: "Common Phrasal Verbs & Object Pronoun Placement",
-      rule: "ფრაზული ზმნა შედგება ზმნისა და ნაწილაკისგან (წინდებული ან ზმნიზედა: up, down, on, off, in, out, after, away), რაც ხშირად სრულიად ცვლის ზმნის მნიშვნელობას (look = ყურება, look after = მოვლა, look for = ძებნა, look forward to = მოუთმენლად ლოდინი). უმნიშვნელოვანესი წესი: გაყოფად ფრაზულ ზმნებთან (turn on, put on, take off, give back, throw away), თუ ობიექტი ნაცვალსახელია (it / them), იგი აუცილებლად იწერება ზმნასა და ნაწილაკს შორის: Turn it off! (და არა: Turn off it!).",
+      rule: "ფრაზული ზმნა შედგება ზმნისა და ნაწილაკისგან (წინდებული ან ზმნიზედა: up, down, on, off, in, out, after, away), რაც ხშირად სრულიად ცვლის ზმნის მნიშვნელობას (look = ყურება, look after = მოვლა, look for = search for, look forward to = მოუთმენლად ლოდინი). უმნიშვნელოვანესი წესი: გაყოფად ფრაზულ ზმნებთან (turn on, put on, take off, give back, throw away), თუ ობიექტი ნაცვალსახელია (it / them), იგი აუცილებლად იწერება ზმნასა და ნაწილაკს შორის: Turn it off! (და არა: Turn off it!).",
       formulas: [
         ["+ გაყოფადი (Separable)", "Turn on the light = Turn the light on = Turn it on! (არა: Turn on it!)", "Take off your shoes -> Take them off."],
-        ["- გაუყოფელი (Inseparable)", "look after (მოვლა) | look for (ძებნა) | get on/off (ტრანსპორტი) | run out of (გათავება)", "She looks after her little brother."],
+        ["- გაუყოფელი (Inseparable)", "look after (მოვლა) | look for (search for) | get on/off (ტრანსპორტი) | run out of (გათავება)", "She looks after her little brother."],
         ["? ცხოვრებისეული ფრაზული ზმნები", "give up (დანებება) | grow up (გაზრდა) | find out (გარკვევა) | set off (გზაზე გასვლა)", "Never give up! / We set off at dawn."],
         ["💡 ტექნიკა და ხმა", "turn up (აწევა ხმის) | turn down (ჩაწევა / უარყოფა) | break down (გაფუჭება მანქანის)", "Our car broke down on the highway."]
       ],
@@ -724,8 +724,8 @@
         ["✗ Please wake up him at seven.", "✓ Please wake him up at seven. (him დგება wake-სა და up-ს შორის)"]
       ],
       drills: [
-        "The radio is too loud. Can you ___? (ნაცვალსახელით!)|turn it down|turn down it|it turn down|down turn it",
-        "What does the phrasal verb „look after“ mean?|მოვლა / ყურადღების მიქცევა|ძებნა|გავსება|უკან გახედვა",
+        "The radio is too loud. Can you ___? (use a pronoun)|turn it down|turn down it|it turn down|down turn it",
+        "What does the phrasal verb „look after“ mean?|take care of / pay attention to|search for|fill in|look back",
         "We need to stop at a petrol station; we are running ___ fuel.|out of|off|away|down",
         "My grandfather decided to give ___ smoking twenty years ago.|up|out|off|away",
         "Here is the application form. Please fill ___ with a black pen.|it in|in it|it on|on it",
@@ -734,16 +734,16 @@
         "We set ___ early in the morning to avoid the heavy traffic.|off / out|up|in|down",
         "Your wet boots are dirty; please take ___ before entering.|them off|off them|it off|off it",
         "How did you find ___ about the concert dates?|out|up|in|off",
-        "The meeting was put ___ until next Wednesday. (გადაიდო)|off|out|down|away",
+        "The meeting was put ___ until next Wednesday. (postponed)|off|out|down|away",
         "I borrowed this book from Anna, so I must give ___ to her tomorrow.|it back|back it|it up|up it",
         "Please don't wake the baby ___!|up|out|off|on",
-        "She gets ___ very well with all her neighbours. (კარგი ურთიერთობა აქვს)|on / along|up|in|out",
+        "She gets ___ very well with all her neighbours. (has a good relationship)|on / along|up|in|out",
         "The firemen managed to put ___ the forest fire.|out|off|down|away",
         "Can you pick ___ some bread on your way home?|up|out|on|in",
-        "He turned ___ the job offer because the salary was too low. (უარყო)|down|off|out|away",
+        "He turned ___ the job offer because the salary was too low. (refused)|down|off|out|away",
         "Hurry ___ or we will miss the bus!|up|on|in|out",
         "When you finish using the computer, please switch ___.|it off|off it|it down|down it",
-        "She takes ___ her mother; they have the same eyes and smile. (ჰგავს)|after|for|up|on"
+        "She takes ___ her mother; they have the same eyes and smile. (looks like)|after|for|up|on"
       ]
     },
 
@@ -1041,7 +1041,7 @@
         "\"Are the shops open?\" -> He wondered if the shops ___ open.|were|are|was|have been",
         "The manager refused ___ the complaint.|to discuss|discussing|discuss|for discussing",
         "He blamed the bad weather ___ the delay.|for|on|of|about",
-        "Do you know what time ___? (ჩართული კითხვა — Embedded Question)|the library closes|does the library close|closes the library|is the library close"
+        "Do you know what time ___? (an embedded question)|the library closes|does the library close|closes the library|is the library close"
       ]
     },
     {
@@ -1081,7 +1081,7 @@
         "The team invited twenty guests, most of ___ arrived on time.|whom|them|which|who",
         "The train was delayed for three hours, ___ meant we missed the connection.|which|what|that|it",
         "Dr Miller, ___ research is famous worldwide, will give a lecture today.|whose|who's|who|which",
-        "The town ___ we spent our holidays is famous for its castle. (წინდებულის გარეშე)|where|which|that|what",
+        "The town ___ we spent our holidays is famous for its castle. (no preposition)|where|which|that|what",
         "The reason for ___ he resigned remains a mystery.|which|why|that|what",
         "Napoleon, ___ was born in Corsica, became Emperor of France.|who|that|which|whom",
         "I tried on three coats, none of ___ fitted me properly.|which|them|that|whom",
@@ -1090,7 +1090,7 @@
         "My neighbour, ___ dog barks all night, apologized to us this morning.|whose|who|which|that",
         "The year in ___ the university was founded is 1918.|which|when|where|that",
         "He offered to carry my heavy bags, ___ I appreciated very much.|which|what|that|who",
-        "რომელი ნაცვალსახელის გამოყენებაა აკრძალული მძიმის შემდეგ (Non-Defining Clause-ში)?|that|which|who|whose"
+        "Which relative pronoun cannot be used after a comma (in a non-defining clause)?|that|which|who|whose"
       ]
     },
     {
@@ -1182,9 +1182,9 @@
         "My grandmother still remembers ___ her first radio when she was ten.|getting|to get|get|got",
         "On our way to the coast, we stopped ___ some photos of the castle.|to take|taking|take|took",
         "Please stop ___ that noise; I am trying to read!|making|to make|make|made",
-        "Your jacket is very dirty; it needs ___. (პასიური მნიშვნელობით)|washing|to wash|wash|washed",
+        "Your jacket is very dirty; it needs ___. (passive meaning)|washing|to wash|wash|washed",
         "After finishing the first topic, the teacher went on ___ the next grammar rule.|to explain|explaining|explain|explained",
-        "He went on ___ for two hours without taking a single break. (გააგრძელა იგივე)|talking|to talk|talk|talked",
+        "He went on ___ for two hours without taking a single break. (continued the same activity)|talking|to talk|talk|talked",
         "I tried ___ her three times, but her phone was switched off.|calling / to call|call|called|for calling",
         "I'm sorry, I forgot ___ milk at the supermarket.|to buy|buying|buy|bought",
         "Do you regret ___ him the truth about what happened?|telling|to tell|tell|told",
@@ -1269,12 +1269,12 @@
       drills: [
         "We ___ waiting for forty minutes before the bus finally came.|had been|have been|were|are",
         "The kitchen smelled wonderful because my mother ___ baking bread all morning.|had been|has been|was|is",
-        "By the time the marathon ended, he ___ run forty-two kilometres. (ზუსტი მანძილი)|had|had been|has|was",
+        "By the time the marathon ended, he ___ run forty-two kilometres. (an exact distance)|had|had been|has|was",
         "How long ___ she been learning the violin before her first concert?|had|has|was|did",
         "His clothes were covered in paint because he ___ painting the fence.|had been|has been|was|painted",
         "I ___ my best friend for ten years before we went to the same university. (know)|had known|had been knowing|knew|have known",
         "They were very tired in the evening because they ___ hiking in the hills all day.|had been|have been|were|are",
-        "By noon, the secretary ___ typed fifteen letters. (ზუსტი რაოდენობა)|had|had been|has|was",
+        "By noon, the secretary ___ typed fifteen letters. (an exact number)|had|had been|has|was",
         "The children ___ sleeping for an hour when the thunderstorm woke them up.|had been|have been|were|are",
         "Why was the grass so wet yesterday morning? — It ___ raining all night.|had been|has been|was|is",
         "He lost his voice because he ___ cheering loudly at the stadium.|had been|has been|was|cheered",
@@ -1326,7 +1326,7 @@
         "She took a taxi ___ arrive late for the interview.|in order not to|not to|for not to|so that not",
         "We stayed indoors ___ it was raining heavily.|because / as / since|because of|due to|despite",
         "He managed to fall asleep ___ the loud noise outside.|in spite of / despite|although|even though|because",
-        "რომელ კავშირს არ მოსდევს არასდროს წინდებული „of“?|Despite|In spite of|Because of|On account of",
+        "Which linker is never followed by ’of’?|Despite|In spite of|Because of|On account of",
         "They moved to a smaller flat ___ save money.|in order to / to|so that|because|despite",
         "___ being eighty years old, my grandfather is very active.|Despite / In spite of|Although|Even though|Whereas",
         "I'll give you a key ___ you can let yourself in.|so that|in order to|so as to|due to",
@@ -1368,8 +1368,8 @@
         "Both the museum and the art gallery ___ closed on Mondays.|are|is|was|has been",
         "Neither the shoes ___ the boots fitted me.|nor|or|and|but",
         "You can have either tea ___ coffee with your breakfast.|or|nor|and|both",
-        "Neither the passengers nor the driver ___ injured in the accident. (driver = მხოლობითი!)|was|were|are|have been",
-        "Neither the driver nor the passengers ___ injured in the accident. (passengers = მრავლობითი!)|were|was|is|has been",
+        "Neither the passengers nor the driver ___ injured in the accident. (driver is singular)|was|were|are|have been",
+        "Neither the driver nor the passengers ___ injured in the accident. (passengers is plural)|were|was|is|has been",
         "___ Paul and his brother play in the school orchestra.|Both|Either|Neither|Not only",
         "She speaks not ___ Spanish, but also Portuguese.|only|just as|both|either",
         "Neither of these two roads ___ to the railway station.|leads|lead|leading|are leading",
@@ -1415,13 +1415,13 @@
       ],
       drills: [
         "___ is believed that the universe is expanding.|It|There|He|What",
-        "The missing climber is thought ___ found shelter in a cave last night. (წარსული!)|to have|to be|having|that he",
+        "The missing climber is thought ___ found shelter in a cave last night. (past)|to have|to be|having|that he",
         "The new railway line is expected ___ next autumn.|to open|opening|to have opened|that opens",
         "This castle is said ___ been built in the twelfth century.|to have|to be|having|that",
-        "Carrots are known ___ good for your eyesight. (ზოგადი ფაქტი)|to be|to have been|being|that are",
+        "Carrots are known ___ good for your eyesight. (a general fact)|to be|to have been|being|that are",
         "The suspect is alleged ___ left the country two days ago.|to have|to be|that he|having",
         "It ___ reported that the road was blocked by snow.|was|has|did|had",
-        "She is believed ___ living in Vienna at the moment. (ახლა მიმდინარე)|to be|to have|being|that is",
+        "She is believed ___ living in Vienna at the moment. (happening now)|to be|to have|being|that is",
         "The ancient manuscript is thought to ___ written by a monk.|have been|be|being|have",
         "Prices are expected ___ stable over the next few months.|to remain|remaining|to have remained|that remain",
         "He is considered ___ one of the finest pianists of his generation.|to be|being|that he is|be",
@@ -1464,25 +1464,25 @@
       ],
       drills: [
         "___ that the train was about to leave, we ran to the platform.|Seeing|Seen|To see|Saw",
-        "___ in the fifteenth century, the castle attracts thousands of visitors. (ვნებითი!)|Built|Building|Having build|To build",
+        "___ in the fifteenth century, the castle attracts thousands of visitors. (passive)|Built|Building|Having build|To build",
         "___ all her homework, Anna went out to play tennis with her friends.|Having finished|Finished|Finish|To finish",
         "___ what to do, he called his older brother for advice.|Not knowing|Knowing not|Not known|Don't knowing",
-        "___ by tall pine trees, the lake was completely hidden from the road. (ვნებითი!)|Surrounded|Surrounding|Having surround|To surround",
+        "___ by tall pine trees, the lake was completely hidden from the road. (passive)|Surrounded|Surrounding|Having surround|To surround",
         "___ down the icy stairs, he slipped and sprained his ankle.|Walking|Walked|Having walk|To walk",
         "___ the film twice before, I didn't want to watch it again.|Having seen|Seeing|Seen|Saw",
-        "___ in a cool dark place, these apples will stay fresh for months. (ვნებითი!)|Kept|Keeping|Having keep|To keep",
+        "___ in a cool dark place, these apples will stay fresh for months. (passive)|Kept|Keeping|Having keep|To keep",
         "___ a loud noise outside, the dog ran to the gate.|Hearing|Heard|To hear|Hears",
         "___ enough sleep the night before, she felt exhausted during the lecture.|Not having had|Having not|Not had|Didn't having",
-        "___ from the top of the tower, the cars below looked like tiny toys. (ვნებითი!)|Seen|Seeing|Having see|Saw",
+        "___ from the top of the tower, the cars below looked like tiny toys. (passive)|Seen|Seeing|Having see|Saw",
         "___ for the bus in the rain, I got completely soaked.|Waiting|Waited|To wait|Waits",
         "___ his passport at the hotel, he had to go back to fetch it.|Having left|Left|Leave|To leave",
-        "___ with fresh cream and berries, the dessert was delicious. (ვნებითი!)|Served|Serving|Having serve|To serve",
+        "___ with fresh cream and berries, the dessert was delicious. (passive)|Served|Serving|Having serve|To serve",
         "___ to disturb the meeting, I knocked very softly on the door.|Not wanting|Wanting not|Not wanted|Don't wanting",
         "___ the suitcase, she realized it was too heavy to carry.|Lifting / Having lifted|Lifted|Lift|Lifts",
-        "___ by a famous architect, the library won several design awards. (ვნებითი!)|Designed|Designing|Having design|To design",
+        "___ by a famous architect, the library won several design awards. (passive)|Designed|Designing|Having design|To design",
         "___ in Rome for five years, he spoke Italian fluently.|Having lived|Lived|Live|To live",
         "___ the envelope, she took out the letter and read it eagerly.|Opening|Opened|To open|Opens",
-        "___ with care, this glass vase will never lose its shine. (ვნებითი!)|Treated|Treating|Having treat|To treat"
+        "___ with care, this glass vase will never lose its shine. (passive)|Treated|Treating|Having treat|To treat"
       ]
     }
   ];

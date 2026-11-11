@@ -204,7 +204,7 @@
           "აღმოსავლეთ აფრიკის უკიდეგანო ოქროსფერ ვაკეებზე მიმდინარეობს დედამიწის უდიდესი ველური ბუნების სანახაობა. ყოველწლიურად მილიონ-ნახევარზე მეტი ანტილოპა გნუ, რომლებსაც თან ახლავს ორასი ათასი ზებრა და ასობით ათასი გაზელი, საათის ისრის მიმართულებით გიგანტურ წრეზე გადის რვაას კილომეტრს ტანზანიის სერენგეტისა და კენიის მასაი-მარას ტერიტორიაზე."
         ],
         [
-          "What drives this endless journey? The answer is rain and fresh green grass. In January and February, the herds gather on the southern plains of the Serengeti, where nutrient-rich volcanic soil produces lush grass during the wet season. Here, nearly half a million wildebeest calves are born within a तीन-week period! Amazingly, a newborn calf can stand up and run beside its mother just five minutes after birth.",
+          "What drives this endless journey? The answer is rain and fresh green grass. In January and February, the herds gather on the southern plains of the Serengeti, where nutrient-rich volcanic soil produces lush grass during the wet season. Here, nearly half a million wildebeest calves are born within a three-week period! Amazingly, a newborn calf can stand up and run beside its mother just five minutes after birth.",
           "რა ამოძრავებს ამ დაუსრულებელ მოგზაურობას? პასუხი არის წვიმა და ახალი მწვანე ბალახი. იანვარსა და თებერვალში ჯოგები იკრიბებიან სერენგეტის სამხრეთ ვაკეებზე, სადაც წვიმების სეზონზე მინერალებით მდიდარ ვულკანურ ნიადაგზე ხასხასა ბალახი იზრდება. აქ სამკვირიან პერიოდში თითქმის ნახევარი მილიონი გნუს ხბო იბადება! გასაოცარია, მაგრამ ახალშობილ ხბოს დაბადებიდან სულ რაღაც ხუთ წუთში შეუძლია ფეხზე წამოდგომა და დედის გვერდით სირბილი."
         ],
         [
@@ -313,7 +313,7 @@
         ]
       ],
       glossary: [
-        "conference table|საკონფერენციო მაგიდა", "exhibition / expo|გამოფენა / ექსპო", "foot traffic|გამვლელთა / მבקרებელთა ნაკადი",
+        "conference table|საკონფერენციო მაგიდა", "exhibition / expo|გამოფენა / ექსპო", "foot traffic|გამვლელთა / მნახველთა ნაკადი",
         "brochure|ბროშურა / საინფორმაციო ბუკლეტი", "tote bag|ნაჭრის ჩანთა", "typo (typographical error)|ბეჭდვითი შეცდომა (ასოს შეშლა)",
         "business card|სავიზიტო ბარათი", "work in shifts|ცვლებში მუშაობა", "solar battery charger|მზის ენერგიაზე მომუშავე დამტენი", "follow-up email|შეხვედრის შემდგომი (დამაზუსტებელი) ელფოსტა"
       ],
@@ -493,7 +493,7 @@
         ],
         [
           "How much water do we actually need? While two litres a day is a good general rule, about twenty percent of our daily water actually comes from the food we eat! Cucumbers, watermelon, oranges, tomatoes, and soups are over ninety percent water. Keeping a reusable bottle on your desk and drinking a glass of water every two hours is the simplest way to keep your brain sharp all day.",
-          "რეალურად რამდენი წყალი გვჭირდება? მიუხედავად იმისა, რომ დღეში ორი ლიტრი კარგი ზოგადი ориентиრია, ჩვენი დღიური წყლის ნორმის დაახლოებით ოცი პროცენტი სინამდვილეში საკვებიდან შემოგვდის! კიტრი, საზამთრო, ფორთოხალი, პომიდორი და წვნიანები ოთხმოცდაათ პროცენტზე მეტი წყლისგან შედგება. სამუშაო მაგიდაზე მრავალჯერადი ბოთლის დადგმა და ყოველ ორ საათში ერთი ჭიქა წყლის დალევა უმარტივესი გზაა მთელი დღის განმავლობაში გონების სიმკვირცხლის შესანარჩუნებლად."
+          "რეალურად რამდენი წყალი გვჭირდება? მიუხედავად იმისა, რომ დღეში ორი ლიტრი კარგი ზოგადი ორიენტირია, ჩვენი დღიური წყლის ნორმის დაახლოებით ოცი პროცენტი სინამდვილეში საკვებიდან შემოგვდის! კიტრი, საზამთრო, ფორთოხალი, პომიდორი და წვნიანები ოთხმოცდაათ პროცენტზე მეტი წყლისგან შედგება. სამუშაო მაგიდაზე მრავალჯერადი ბოთლის დადგმა და ყოველ ორ საათში ერთი ჭიქა წყლის დალევა უმარტივესი გზაა მთელი დღის განმავლობაში გონების სიმკვირცხლის შესანარჩუნებლად."
         ]
       ],
       glossary: [
@@ -1193,7 +1193,7 @@
         ],
         [
           "The final clue came in 1847 when Semmelweis's colleague, Professor Jakob Kolletschka, accidentally pricked his finger with a student's scalpel during an autopsy and died of the exact same fever symptoms! Semmelweis realized immediately that doctors were carrying invisible 'cadaverous particles' on their unwashed hands from the autopsy room directly to healthy patients.",
-          "საბოლოო კვანძი გაიხსნა 1847 წელს, როდესაც ზემელვაისის კოლეგამ, პროფესორმა იაკობ კოლეჩკამ, გაკვეთის დროს შემთხვევით თითი გაიჭრა სტუდენტის სკალპელით და ზუსტად იმავე ცხელების სიმპტომებით გარდაიცვალა! ზემელვაისი მაშინვე მიხვდა, რომ ექიმებს დაუბანელი ხელებით გადაჰქონდათ უხილავი „გვამური ნაწილაკები“ საсекციო ოთახიდან პირდაპირ ჯანმრთელ პაციენტებთან."
+          "საბოლოო კვანძი გაიხსნა 1847 წელს, როდესაც ზემელვაისის კოლეგამ, პროფესორმა იაკობ კოლეჩკამ, გაკვეთის დროს შემთხვევით თითი გაიჭრა სტუდენტის სკალპელით და ზუსტად იმავე ცხელების სიმპტომებით გარდაიცვალა! ზემელვაისი მაშინვე მიხვდა, რომ ექიმებს დაუბანელი ხელებით გადაჰქონდათ უხილავი „გვამური ნაწილაკები“ სასექციო ოთახიდან პირდაპირ ჯანმრთელ პაციენტებთან."
         ],
         [
           "In May 1847, Semmelweis placed a basin of chlorinated lime solution at the entrance of the First Clinic and ordered every doctor and student to scrub their hands thoroughly before examining any patient. The result was miraculous: within two months, the death rate in the First Clinic plummeted from fifteen percent down to one percent! Sadly, many proud senior doctors felt insulted by the suggestion that their hands were dirty and rejected his rule; only decades later, when Louis Pasteur proved the Germ Theory of Disease, was Semmelweis honoured as a pioneer who saved millions of mothers and babies.",
@@ -1202,7 +1202,7 @@
       ],
       glossary: [
         "common sense|საღი აზრი / ელემენტარული ჭეშმარიტება", "microscopic germs|მიკროსკოპული მიკრობები/ბაქტერიები", "autopsy|გვამის სამედიცინო გაკვეთა (აუტოფსია)",
-        "hospital ward|საავადმყოფოს პალატა", "maternity clinic|სამშობიარო კლინიკა", "midwife (midwives)|ბებიაქალი (მ акушерი)",
+        "hospital ward|საავადმყოფოს პალატა", "maternity clinic|სამშობიარო კლინიკა", "midwife (midwives)|ბებიაქალი (მეანი)",
         "miasma ('bad air')|მიაზმა („ცუდი ჰაერი“, ძველი მცდარი თეორია)", "scalpel|სკალპელი (ქირურგიული დანა)", "chlorinated lime solution|ქლორიანი კირის (სადეზინფექციო) ხსნარი", "Germ Theory of Disease|დაავადებათა მიკრობული თეორია"
       ],
       questions: [
@@ -1235,10 +1235,10 @@
         ],
         [
           "How does a Saguaro cactus survive without rain? First, it has replaced flat green leaves — which lose too much moisture in the sun — with sharp spines! The spines protect the cactus from thirsty desert animals, cast tiny shadows across the stem to keep it cool, and collect morning dew that drips right down to the roots. Second, its thick, waxy green trunk is pleated like an accordion: when a brief desert rainstorm finally arrives, its shallow roots soak up hundreds of litres of water in hours, and the trunk expands like a sponge to store enough water for two whole years!",
-          "როგორ ძლებს კაქტუსი საგუარო უწვიმოდ? პირველი: მან ბრტყელი მწვანე ფოთლები — რომლებიც მზეზე ზედმეტად ბევრ ტენს კარგავს — ჩაანაცვლა ბასრი ეკლებით! ეკლები იცავს კაქტუსს უდაბნოს მწყურვალი ცხოველებისგან, ღეროზე პაწაწინა ჩრდილებს აყენებს გასაგრილებლად და აგროვებს დილის ნამს, რომელიც პირდაპირ ფესვებთან ჩაედინება. მეორე: მისი სქელი, ცვილისებრი მწვანე ტანი აკორდეონივით დანაოჭებულია: როდესაც უდაბნოში ხანმოკლე თავსხმა წვიმა მოდის, მისი ზედაპირული ფესვები რამდენიმე საათში იწოვს ასობით ლიტრ წყალს, ტანი კი ღრუბელივით ფართოვდება და ორი სრული წლის სამყოფ წყალს იغلოვებს!"
+          "როგორ ძლებს კაქტუსი საგუარო უწვიმოდ? პირველი: მან ბრტყელი მწვანე ფოთლები — რომლებიც მზეზე ზედმეტად ბევრ ტენს კარგავს — ჩაანაცვლა ბასრი ეკლებით! ეკლები იცავს კაქტუსს უდაბნოს მწყურვალი ცხოველებისგან, ღეროზე პაწაწინა ჩრდილებს აყენებს გასაგრილებლად და აგროვებს დილის ნამს, რომელიც პირდაპირ ფესვებთან ჩაედინება. მეორე: მისი სქელი, ცვილისებრი მწვანე ტანი აკორდეონივით დანაოჭებულია: როდესაც უდაბნოში ხანმოკლე თავსხმა წვიმა მოდის, მისი ზედაპირული ფესვები რამდენიმე საათში იწოვს ასობით ლიტრ წყალს, ტანი კი ღრუბელივით ფართოვდება და ორი სრული წლის სამყოფ წყალს იმარაგებს!"
         ],
         [
-          "Even more cleverly, cacti और desert succulents like aloe and agave breathe differently from ordinary plants. Normal plants open microscopic pores called 'stomata' during the sunny day to take in carbon dioxide for photosynthesis, losing water vapour in the heat. Desert succulents keep their pores tightly sealed all day long under the burning sun, and only open them at night when the desert air is cool and humid, storing the carbon dioxide until morning!",
+          "Even more cleverly, cacti and desert succulents like aloe and agave breathe differently from ordinary plants. Normal plants open microscopic pores called 'stomata' during the sunny day to take in carbon dioxide for photosynthesis, losing water vapour in the heat. Desert succulents keep their pores tightly sealed all day long under the burning sun, and only open them at night when the desert air is cool and humid, storing the carbon dioxide until morning!",
           "კიდევ უფრო ჭკვიანურია ის, რომ კაქტუსები და უდაბნოს სხვა სუკულენტები — ალოე და აგავა — ჩვეულებრივი მცენარეებისგან განსხვავებულად სუნთქავენ. ჩვეულებრივი მცენარეები მიკროსკოპულ ფორებს — „ბაგეებს“ (stomata) — მზიან დღისით აღებენ ფოტოსინთეზისთვის ნახშირორჟანგის მისაღებად, რა დროსაც სიცხეში წყლის ორთქლს კარგავენ. უდაბნოს სუკულენტებს კი მწველი მზის ქვეშ მთელი დღის განმავლობაში ფორები მჭიდროდ აქვთ დახურული და მათ მხოლოდ ღამით აღებენ, როცა უდაბნოს ჰაერი გრილი და ნესტიანია, ხოლო ნახშირორჟანგს დილამდე ინახავენ!"
         ],
         [
@@ -1281,7 +1281,7 @@
         ],
         [
           "When Dunbar plugged the size of the human neocortex into this equation, the formula predicted a natural human group size of roughly 150 individuals! To test whether this number held true in the real world, Dunbar examined historical and anthropological records across millennia. The results were uncanny: prehistoric hunter-gatherer clans averaged 148 people; Neolithic farming villages in Mesopotamia had around 150 residents; a basic Roman army company (a maniple) had 120 to 160 soldiers; and even the average number of Christmas cards British households sent out in the 1990s was 154!",
-          "როდესაც დანბარმა ამ განტოლებაში ადამიანის ნეოკორტექსის ზომა ჩასვა, ფორმულამ ადამიანური ჯგუფის ბუნებრივ ზომად დაახლოებით 150 ინდივიდი იწინასწარმეტყველა! იმის შესამოწმებლად, მუშაობდა თუ არა ეს რიცხვი რეალურ სამყაროში, დანბარმა შეისწავლა ათასწლეულების ისტორიული და ანთროპოლოგიური ჩანაწერები. შედეგი поразительный (გასაოცარი) აღმოჩნდა: პრეისტორიულ მონადირე-შემგროვებელთა თემები საშუალოდ 148 კაცისგან შედგებოდა; მესოპოტამიის ნეოლითურ სოფლებში დაახლოებით 150 მცხოვრები იყო; რომაული არმიის საბაზისო ქვედანაყოფი (მანიპულა) 120-დან 160-მდე ჯარისკაცს ითვლიდა; და 1990-იან წლებში ბრიტანული ოჯახების მიერ გაგზავნილი საშობაო ბარათების საშუალო რაოდენობაც კი 154 იყო!"
+          "როდესაც დანბარმა ამ განტოლებაში ადამიანის ნეოკორტექსის ზომა ჩასვა, ფორმულამ ადამიანური ჯგუფის ბუნებრივ ზომად დაახლოებით 150 ინდივიდი იწინასწარმეტყველა! იმის შესამოწმებლად, მუშაობდა თუ არა ეს რიცხვი რეალურ სამყაროში, დანბარმა შეისწავლა ათასწლეულების ისტორიული და ანთროპოლოგიური ჩანაწერები. შედეგი გასაოცარი აღმოჩნდა: პრეისტორიულ მონადირე-შემგროვებელთა თემები საშუალოდ 148 კაცისგან შედგებოდა; მესოპოტამიის ნეოლითურ სოფლებში დაახლოებით 150 მცხოვრები იყო; რომაული არმიის საბაზისო ქვედანაყოფი (მანიპულა) 120-დან 160-მდე ჯარისკაცს ითვლიდა; და 1990-იან წლებში ბრიტანული ოჯახების მიერ გაგზავნილი საშობაო ბარათების საშუალო რაოდენობაც კი 154 იყო!"
         ],
         [
           "Dunbar explains that our 150 social relationships are arranged like ripples in a pond in concentric circles of intimacy. In the innermost circle are just five people — your closest family members and best friends whom you can call in a crisis at three in the morning. The next circle holds fifteen good friends with whom you share regular dinners and deep sympathy; the next holds fifty friends you invite to a big party; and the outer ring of 150 encompasses your whole meaningful social network.",
@@ -1377,7 +1377,7 @@
         ],
         [
           "What did Sagan's team put on the Golden Record to represent the entire planet Earth? First, they encoded 115 photographs into the audio grooves — showing mathematical definitions, the DNA double helix, human anatomy, snow-covered mountains, dolphins leaping, a mother nursing her baby, and rush-hour traffic. Next, they recorded spoken greetings in fifty-five ancient and modern languages, followed by a twelve-minute audio montage of 'The Sounds of Earth': rain, wind, thunder, whale songs, birdsong, footsteps, a heartbeat, and laughter!",
-          "რა ჩაწერა საგანის გუნდმა ოქროს ფირფიტაზე მთელი პლანეტა დედამიწის წარმოსაჩენად? პირველ რიგში, აუდიოღარებში ჩააკודირეს 115 ფოტოსურათი — მათემატიკური განმარტებები, დნმ-ის ორმაგი სპირალი, ადამიანის ანატომია, დათოვლილი მთები, მოხტუნავე დელფინები, დედა ჩვილით და ქალაქის საგზაო მოძრაობა. შემდეგ ჩაწერეს მისალმებები ორმოცდათხუთმეტ უძველეს და თანამედროვე ენაზე, რასაც მოსდევს თორმეტწუთიანი ხმოვანი კოლაჟი „დედამიწის ხმები“: წვიმა, ქარი, ჭექა-ქუხილი, ვეშაპების სიმღერა, ჩიტების გალობა, ნაბიჯების ხმა, გულისცემა და სიცილი!"
+          "რა ჩაწერა საგანის გუნდმა ოქროს ფირფიტაზე მთელი პლანეტა დედამიწის წარმოსაჩენად? პირველ რიგში, აუდიოღარებში ჩააკოდირეს 115 ფოტოსურათი — მათემატიკური განმარტებები, დნმ-ის ორმაგი სპირალი, ადამიანის ანატომია, დათოვლილი მთები, მოხტუნავე დელფინები, დედა ჩვილით და ქალაქის საგზაო მოძრაობა. შემდეგ ჩაწერეს მისალმებები ორმოცდათხუთმეტ უძველეს და თანამედროვე ენაზე, რასაც მოსდევს თორმეტწუთიანი ხმოვანი კოლაჟი „დედამიწის ხმები“: წვიმა, ქარი, ჭექა-ქუხილი, ვეშაპების სიმღერა, ჩიტების გალობა, ნაბიჯების ხმა, გულისცემა და სიცილი!"
         ],
         [
           "The largest section of the record is ninety minutes of music from across human cultures! Alongside Bach, Mozart, Beethoven, and Louis Armstrong's jazz trumpet, the record features Peruvian panpipes, a Japanese bamboo flute, an Australian Aboriginal song, and the traditional Georgian polyphonic folk song 'Chakrulo' — creating a timeless symphony of human creativity sailing forever among the stars.",

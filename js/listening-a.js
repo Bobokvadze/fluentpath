@@ -16,7 +16,7 @@
       time: "5 წთ",
       paragraphs: [
         [
-          "Good morning, and welcome to the Green Leaf Café! Every weekday morning between eight and九 o'clock, our café is full of people who stop for breakfast on their way to offices and universities. Today the weather outside is cool and windy, so everyone wants a hot drink.",
+          "Good morning, and welcome to the Green Leaf Café! Every weekday morning between eight and nine o'clock, our café is full of people who stop for breakfast on their way to offices and universities. Today the weather outside is cool and windy, so everyone wants a hot drink.",
           "დილა მშვიდობისა და კეთილი იყოს თქვენი მობრძანება კაფე „მწვანე ფოთოლში“! ყოველ სამუშაო დილას, რვიდან ცხრა საათამდე, ჩვენი კაფე სავსეა ადამიანებით, რომლებიც ოფისებსა და უნივერსიტეტებში მიმავალ გზაზე საუზმისთვის შემოდიან. დღეს გარეთ გრილი და ქარიანი ამინდია, ამიტომ ყველას ცხელი სასმელი სურს."
         ],
         [
@@ -342,7 +342,7 @@
           "პარასკევ ნაშუადღევს, ხუთ საათზე, სარა მუსიკალურ სკოლაში ასრულებს ფორტეპიანოს გაკვეთილს და რთავს მობილურ ტელეფონს. ის ხედავს, რომ დახვდა სამი ახალი ხმოვანი შეტყობინება: ერთი მეგობარ ლუსისგან, ერთი თავისი ძმის — ბენისგან, და ერთიც ქალაქის წიგნის მაღაზიიდან."
         ],
         [
-          "Sarah listens to the first message from Lucy: 'Hi Sarah! It's Lucy. We planned to see the new comedy film at the Star Cinema at सात o'clock tonight, but all tickets for the seven o'clock show are sold out! Luckily, there are good seats in the middle row for the eight fifteen show. Call me back if eight fifteen is okay for you!'",
+          "Sarah listens to the first message from Lucy: 'Hi Sarah! It's Lucy. We planned to see the new comedy film at the Star Cinema at seven o'clock tonight, but all tickets for the seven o'clock show are sold out! Luckily, there are good seats in the middle row for the eight fifteen show. Call me back if eight fifteen is okay for you!'",
           "სარა უსმენს პირველ შეტყობინებას ლუსისგან: „გამარჯობა სარა! ლუსი ვარ. ამაღამ შვიდ საათზე კინოთეატრ „სტარში“ ახალი კომედიური ფილმის ნახვას ვაპირებდით, მაგრამ შვიდი საათის სეანსზე ყველა ბილეთი გაყიდულია! საბედნიეროდ, რვის თხუთმეტი წუთის სეანსზე შუა რიგში კარგი ადგილებია. გადმომირეკე, თუ რვის თხუთმეტი წუთი გაწყობს!“"
         ],
         [
@@ -526,7 +526,7 @@
           "კვირა დილით კლარა და მისი ბიძაშვილი ლეო მიდიან ველოსიპედების გასაქირავებელ ჯიხურ „მწვანე ბორბალთან“, რომელიც გედების ტბის პარკის შესასვლელთან მდებარეობს. ველობილიკი ტბას გარშემო სრულად უვლის — მანძილი თორმეტი კილომეტრია — და ბილიკზე მანქანების მოძრაობა აკრძალულია."
         ],
         [
-          "The man working at the rental cabin, Mr Jenkins, explains the prices: renting a bicycle costs चार euros for one hour, or ten euros for a half-day pass of four hours. Since Clara and Leo want to stop for photos and lunch along the way, they choose two half-day passes.",
+          "The man working at the rental cabin, Mr Jenkins, explains the prices: renting a bicycle costs four euros for one hour, or ten euros for a half-day pass of four hours. Since Clara and Leo want to stop for photos and lunch along the way, they choose two half-day passes.",
           "გაქირავების ჯიხურში მომუშავე მამაკაცი, ბატონი ჯენკინსი, აცნობს ფასებს: ველოსიპედის ქირაობა ერთი საათით ღირს ოთხი ევრო, ხოლო ოთხსაათიანი (ნახევარდღიანი) აბონემენტი — ათი ევრო. რადგან კლარასა და ლეოს გზად ფოტოების გადაღება და წახემსება სურთ, ისინი ირჩევენ ორ ნახევარდღიან აბონემენტს."
         ],
         [
@@ -781,7 +781,7 @@
           "ფიონამ სთხოვა თომასს აღეწერა თავისი ჩემოდანი, რათა კურიერს იგი ადვილად ეცნო. თომასმა თქვა, რომ ეს იყო მყარი კორპუსის მქონე, საშუალო ზომის მუქი მწვანე ჩემოდანი ოთხი ბორბლითა და ზედა სახელურზე შემოხვეული ხასხასა ყვითელი ლენტით. მან ასევე დაწერა თავისი სასტუმროს მისამართი დუბლინის ცენტრში."
         ],
         [
-          "Fiona gave Thomas a printed reference number and a free overnight toiletry kit containing a toothbrush, toothpaste, soap, and a comb. She promised that the airline courier would deliver the suitcase directly to his hotel reception before九 o'clock that night at no cost.",
+          "Fiona gave Thomas a printed reference number and a free overnight toiletry kit containing a toothbrush, toothpaste, soap, and a comb. She promised that the airline courier would deliver the suitcase directly to his hotel reception before nine o'clock that night at no cost.",
           "ფიონამ თომასს მისცა ამობეჭდილი სარეგისტრაციო ნომერი და პირადი ჰიგიენის უფასო ნაკრები, რომელშიც იდო კბილის ჯაგრისი, კბილის პასტა, საპონი და სავარცხელი. ის დაჰპირდა, რომ ავიაკომპანიის კურიერი ჩემოდანს იმავე ღამის ცხრა საათამდე სრულიად უფასოდ მიიტანდა პირდაპირ მისი სასტუმროს მიმღებში."
         ]
       ],
@@ -892,7 +892,7 @@
         "What had caused the leak according to George's examination?|The old rubber seal inside the pipe joint had worn out after ten years of use|A mouse had chewed through the plastic|The water had frozen into ice|Someone had dropped a heavy pot on the pipe",
         "How long did it take George to replace the pipe section and fit a new rubber seal?|Thirty minutes|Three hours|Five minutes|All afternoon",
         "How did George test his repair before leaving?|He turned the red water valve back on to check that not a single drop was leaking|He waited until the next day|He asked Peter to boil water|He took a photograph of the cupboard",
-        "How much did Peter pay for the plumbing repair?|Forty-five euros|One hundred and五十 euros|Ten euros|Ninety euros"
+        "How much did Peter pay for the plumbing repair?|Forty-five euros|One hundred and fifty euros|Ten euros|Ninety euros"
       ]
     },
     {
@@ -907,7 +907,7 @@
           "დილა მშვიდობისა ყველას! თქვენ უსმენთ „ქალაქის დილის რადიოს“, საათია ცხრის ათი წუთი. დღეს ჩვენს სტუდიაში სტუმრად გვყავს დოქტორი კლარა ევანსი — ნუტრიციოლოგი და ჯანსაღი ცხოვრების წესის შესახებ წიგნების ავტორი, რომელიც გაგვიზიარებს დილის ოთხ მარტივ ჩვევას მთელი სამუშაო დღის განმავლობაში მეტი ენერგიის შესანარჩუნებლად."
         ],
         [
-          "First, Dr Evans talks about waking up: 'Many people press the snooze button on their alarm clock three or चार times, sleeping for an extra five minutes each time. However, this fragmented sleep actually makes your brain feel more tired! Instead, set your alarm for the real time you need to get up, and open your curtains immediately to let natural daylight in.'",
+          "First, Dr Evans talks about waking up: 'Many people press the snooze button on their alarm clock three or four times, sleeping for an extra five minutes each time. However, this fragmented sleep actually makes your brain feel more tired! Instead, set your alarm for the real time you need to get up, and open your curtains immediately to let natural daylight in.'",
           "პირველ რიგში, დოქტორი ევანსი საუბრობს გაღვიძებაზე: „ბევრი ადამიანი მაღვიძარას გადადების ღილაკს (snooze) სამჯერ ან ოთხჯერ აჭერს ხელს, რათა თითო ჯერზე დამატებით ხუთი წუთი წაუძინოს. თუმცა, ასეთი ნაწყვეტ-ნაწყვეტი ძილი სინამდვილეში ტვინს უფრო მეტად ღლის! ამის ნაცვლად, დააყენეთ მაღვიძარა ზუსტად იმ დროზე, როცა რეალურად უნდა ადგეთ, და მაშინვე გადასწიეთ ფარდები ბუნებრივი სინათლის შემოსაშვებად“."
         ],
         [
@@ -1096,7 +1096,7 @@
         ],
         [
           "Rachel led them to Kennel Six to meet Toby, a two-year-old golden retriever mix with soft brown eyes and a friendly tail. She explained that Toby's previous owner was an elderly gentleman who had moved into a small care home where pets were not allowed.",
-          "რეიჩელმა ისინი მეექვსე ვოლიერთან მიიყვანა ტობის გასაცნობად — ეს იყო ორი წლის ოქროსფერი რეტრივერის მეტისი თბილი ყავისფერი თვალებითა და მეგობრული კუდით. მან განმარტა, რომ ტობის წინა პატრონი ხანდაზმული ბატონი იყო, რომელიც პატარა მოხუცთა пансионатში გადავიდა, სადაც შინაური ცხოველების ყოლა არ შეიძლებოდა."
+          "რეიჩელმა ისინი მეექვსე ვოლიერთან მიიყვანა ტობის გასაცნობად — ეს იყო ორი წლის ოქროსფერი რეტრივერის მეტისი თბილი ყავისფერი თვალებითა და მეგობრული კუდით. მან განმარტა, რომ ტობის წინა პატრონი ხანდაზმული ბატონი იყო, რომელიც პატარა მოხუცთა პანსიონატში გადავიდა, სადაც შინაური ცხოველების ყოლა არ შეიძლებოდა."
         ],
         [
           "To see how they got along, Rachel gave Martin a leash and let them take Toby for a thirty-minute walk in the meadow behind the shelter. Toby walked politely beside Zoe, brought back a tennis ball five times, and sat calmly whenever Zoe gave him a dog biscuit.",
@@ -1183,7 +1183,7 @@
           "გამარჯობა, გურმანებო, და კეთილი იყოს თქვენი დაბრუნება „მარტივი სამზარეულოს პოდკასტის“ მეთორმეტე ეპიზოდში! მე ვარ თქვენი წამყვანი, შეფ-მზარეული მარკო. დღეს ვისაუბრებთ იმაზე, თუ რატომ გამოდის ზოგჯერ სახლში გამომცხვარი პიცა ორცხობილასავით მაგარი, და როგორ შეგიძლიათ მოამზადოთ რბილი, ხრაშუნა იტალიური პიცა საკუთარ საოჯახო ღუმელში!"
         ],
         [
-          "The first secret lies in the dough. You only need चार basic ingredients: five hundred grams of strong bread flour, three hundred millilitres of lukewarm water, one teaspoon of dry yeast, and two teaspoons of sea salt. Never use hot water, because hot water kills the yeast and the dough will not rise!",
+          "The first secret lies in the dough. You only need four basic ingredients: five hundred grams of strong bread flour, three hundred millilitres of lukewarm water, one teaspoon of dry yeast, and two teaspoons of sea salt. Never use hot water, because hot water kills the yeast and the dough will not rise!",
           "პირველი საიდუმლო ცომშია. თქვენ გჭირდებათ მხოლოდ ოთხი საბაზისო ინგრედიენტი: ხუთასი გრამი პურის ფქვილი, სამასი მილილიტრი ნელთბილი წყალი, ერთი ჩაის კოვზი მშრალი საფუარი და ორი ჩაის კოვზი ზღვის მარილი. არასდროს გამოიყენოთ ცხელი წყალი, რადგან ცხელი წყალი კლავს საფუარს და ცომი აღარ ამოფუვდება!"
         ],
         [
@@ -1196,7 +1196,7 @@
         ],
         [
           "Finally, do not boil your tomato sauce on the stove; simply crush canned Italian plum tomatoes by hand with a pinch of salt and a drizzle of olive oil. Turn your oven to its highest temperature — two hundred and fifty degrees — preheat a flat baking tray inside, and bake the pizza with mozzarella for just eight minutes. Add fresh basil leaves after taking it out of the oven so they don't burn!",
-          "დაბოლოს, პომიდვრის სოუსს ქურაზე ნუ მოხარშავთ; უბრალოდ ხელით დასრისეთ კعلبული იტალიური ქლიავისებური პომიდორი მწიკვ მარილთან და ცოტაოდენ ზეითუნის ზეთთან ერთად. ჩართეთ ღუმელი მაქსიმალურ ტემპერატურაზე — ორას ორმოცდაათ გრადუსზე — წინასწარ გაახურეთ შიგნით ბრტყელი საცხობი ლანგარი და გამოაცხვეთ პიცა მოცარელასთან ერთად სულ რაღაც რვა წუთის განმავლობაში. ცოცხალი რეჰანის ფოთლები კი ღუმელიდან გამოღების შემდეგ დაუმატეთ, რომ არ დაიწვას!"
+          "დაბოლოს, პომიდვრის სოუსს ქურაზე ნუ მოხარშავთ; უბრალოდ ხელით დასრისეთ დაკონსერვებული იტალიური ქლიავისებური პომიდორი მწიკვ მარილთან და ცოტაოდენ ზეითუნის ზეთთან ერთად. ჩართეთ ღუმელი მაქსიმალურ ტემპერატურაზე — ორას ორმოცდაათ გრადუსზე — წინასწარ გაახურეთ შიგნით ბრტყელი საცხობი ლანგარი და გამოაცხვეთ პიცა მოცარელასთან ერთად სულ რაღაც რვა წუთის განმავლობაში. ცოცხალი რეჰანის ფოთლები კი ღუმელიდან გამოღების შემდეგ დაუმატეთ, რომ არ დაიწვას!"
         ]
       ],
       glossary: [
@@ -1333,7 +1333,7 @@
           "ახლა ჩვენი პროექტორი ახლოდან გვიჩვენებს მზის სისტემის პლანეტებს. ჯერ ჩავუვლით მარსს — „წითელ პლანეტას“, რომლის ზედაპირიც დაფარულია რკინის ოქსიდით, რაც ჩვენთვის ჟანგის სახელითაა ცნობილი! მარსს აქვს პოლარული ყინულოვანი ქუდები და მზის სისტემაში ყველაზე მაღალი ვულკანი — ოლიმპოს მთა, რომელიც ევერესტზე სამჯერ მაღალია."
         ],
         [
-          "Beyond Mars lies Jupiter, a giant ball of hydrogen and helium gas so huge that more than one thousand three hundred Earths could fit inside it! Notice the 'Great Red Spot' on Jupiter's side — that is a giant storm that has been blowing for over three hundred years. After the show ends, if the evening sky outside stays clear, you are invited up to the roof terrace to look at Jupiter's चार largest moons through our real telescope!",
+          "Beyond Mars lies Jupiter, a giant ball of hydrogen and helium gas so huge that more than one thousand three hundred Earths could fit inside it! Notice the 'Great Red Spot' on Jupiter's side — that is a giant storm that has been blowing for over three hundred years. After the show ends, if the evening sky outside stays clear, you are invited up to the roof terrace to look at Jupiter's four largest moons through our real telescope!",
           "მარსის მიღმა მდებარეობს იუპიტერი — წყალბადისა და ჰელიუმის გაზისგან შემდგარი იმდენად უზარმაზარი სფერო, რომ მის შიგნით ათას სამასზე მეტი დედამიწა დაეტეოდა! დააკვირდით „დიდ წითელ ლაქას“ იუპიტერის გვერდზე — ეს არის გიგანტური ქარიშხალი, რომელიც სამას წელზე მეტია მძვინვარებს. წარმოდგენის დასრულების შემდეგ, თუ გარეთ საღამოს ცა მოწმენდილი დარჩება, გეპატიჟებით სახურავის ტერასაზე, რათა ჩვენი ნამდვილი ტელესკოპით დაათვალიეროთ იუპიტერის ოთხი უდიდესი თანამგზავრი (მთვარე)!"
         ]
       ],
@@ -1363,7 +1363,7 @@
       time: "6 წთ",
       paragraphs: [
         [
-          "Good morning, teachers and students of Oakridge High School! This is your student council president, Liam, speaking. Next Saturday, the二十-second of October, our school is holding its annual 'Autumn Charity Book Fair' in the main sports hall from ten in the morning until four in the afternoon.",
+          "Good morning, teachers and students of Oakridge High School! This is your student council president, Liam, speaking. Next Saturday, the twenty-second of October, our school is holding its annual 'Autumn Charity Book Fair' in the main sports hall from ten in the morning until four in the afternoon.",
           "დილა მშვიდობისა, ოკრიჯის უფროსი სკოლის მასწავლებლებო და მოსწავლეებო! მოგმართავთ მოსწავლეთა თვითმმართველობის პრეზიდენტი ლიამი. მომავალ შაბათს, ოცდაორ ოქტომბერს, ჩვენი სკოლა მთავარ სპორტულ დარბაზში დილის ათი საათიდან საღამოს ოთხ საათამდე ატარებს ყოველწლიურ „შემოდგომის საქველმოქმედო წიგნის ბაზრობას“."
         ],
         [

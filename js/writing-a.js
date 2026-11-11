@@ -226,7 +226,7 @@
           "საძინებელში დგას კომფორტული ფართო საწოლი ახალი მატრასით, დიდი სარკიანი გარდერობი ტევადი სათავსოებით და შუქგაუმტარი ფარდები მშვიდი ძილისთვის. თანამედროვე სააბაზანოში კი არის მინის საშხაპე კაბინა, პირსახოცის საშრობი და ახალი სარეცხი მანქანა."
         ],
         [
-          "The location is unbeatable: a supermarket, a pharmacy, and a bakery are right across the street, and the University Metro Station is only a six-minute walk away! The monthly rent is चार hundred and fifty euros, including water and internet. To arrange a viewing this weekend, please call or text Mr Martin at 555-0198.",
+          "The location is unbeatable: a supermarket, a pharmacy, and a bakery are right across the street, and the University Metro Station is only a six-minute walk away! The monthly rent is four hundred and fifty euros, including water and internet. To arrange a viewing this weekend, please call or text Mr Martin at 555-0198.",
           "მდებარეობა საუკეთესოა: სუპერმარკეტი, აფთიაქი და საცხობი ზუსტად ქუჩის გადაღმაა, ხოლო მეტროსადგური „უნივერსიტეტი“ ფეხით მხოლოდ ექვსი წუთის სავალზეა! ყოველთვიური ქირა შეადგენს ოთხას ორმოცდაათ ევროს, წყლისა და ინტერნეტის ჩათვლით. ამ უქმეებზე ბინის სანახავად გთხოვთ დაურეკოთ ან მისწეროთ ბატონ მარტინს ნომერზე: 555-0198."
         ]
       ],
@@ -306,7 +306,7 @@
       template: "Dear [Neighbour's Name], I am going away to [Place] from [Day] to [Day]. Would you mind doing me a small favour? Could you please [Task 1] and [Task 2]? I have left my spare key [Location]. Thank you so much! Best, [Your Name].",
       paragraphs: [
         [
-          "Dear Mrs Higgins, I hope you are keeping well! I am writing this short note because I knocked on your door this morning, but you were out doing your shopping. Tomorrow morning, I am travelling to Edinburgh for چهار days to attend my sister's university graduation ceremony.",
+          "Dear Mrs Higgins, I hope you are keeping well! I am writing this short note because I knocked on your door this morning, but you were out doing your shopping. Tomorrow morning, I am travelling to Edinburgh for four days to attend my sister's university graduation ceremony.",
           "ძვირფასო ქალბატონო ჰიგინს, იმედი მაქვს, თავს კარგად გრძნობთ! ამ მოკლე წერილს გწერთ იმიტომ, რომ დღეს დილით თქვენს კარზე დავაკაკუნე, მაგრამ საყიდლებზე იყავით გასული. ხვალ დილით ოთხი დღით მივემგზავრები ედინბურგში ჩემი დის უნივერსიტეტის გამოსაშვებ ცერემონიაზე დასასწრებად."
         ],
         [
@@ -650,7 +650,7 @@
           "ნაწილი 1 — რატომ გსურთ ჩვენს კლუბში გაწევრიანება? მას შემდეგ, რაც ექვსი თვის წინ საინჟინრო სამსახურის გამო ამ ქალაქში გადმოვედი, ვეძებ ბუნების მოყვარულ ადამიანთა მეგობრულ გუნდს. მსურს შევუერთდე კლუბ „მთის ფიჭვს“, რათა შაბათ-კვირას დავათვალიერო ჩრდილოეთის ეროვნული პარკები და მონაწილეობა მივიღო ტყის ბილიკების მოვლაში."
         ],
         [
-          "Section 2 — Previous Hiking Experience and Fitness Level: I am in good physical health and exercise three times a week. I run five kilometres every Wednesday and Sunday, and over the past तीन summers I have completed ten full-day hikes of fifteen to twenty kilometres in the Scottish Highlands.",
+          "Section 2 — Previous Hiking Experience and Fitness Level: I am in good physical health and exercise three times a week. I run five kilometres every Wednesday and Sunday, and over the past three summers I have completed ten full-day hikes of fifteen to twenty kilometres in the Scottish Highlands.",
           "ნაწილი 2 — ლაშქრობის წინა გამოცდილება და ფიზიკური მომზადება: ვარ კარგ ფიზიკურ ფორმაში და კვირაში სამჯერ ვვარჯიშობ. ყოველ ოთხშაბათსა და კვირას დავრბივარ ხუთ კილომეტრს, ხოლო გასული სამი ზაფხულის განმავლობაში შოტლანდიის მთიანეთში გავიარე თხუთმეტიდან ოც კილომეტრამდე სიგრძის ათი ერთდღიანი მარშრუტი."
         ],
         [
@@ -702,7 +702,7 @@
           "შაბათ ნაშუადღევს, საწერი მაგიდის მილაგებისა და მისაღები ოთახის ხალიჩის მტვერსასრუტით გასუფთავების შემდეგ, ორ საათს დავუთმობ ჩემს პირად მიზნებზე მუშაობას. ამ თვეში ჩემი მთავარი მიზანია ბოლომდე წავიკითხო ჩემი პირველი სრული რომანი ინგლისურად და ვისწავლო ასი ახალი საქმიანი სიტყვა!"
         ],
         [
-          "On Saturday evening at सात o'clock, I am meeting my sister and her husband at the new Thai restaurant by the harbour. Since it is always busy on Saturday nights, I have already reserved a table for three people. After dinner, we will walk along the pier to see the harbour lights.",
+          "On Saturday evening at seven o'clock, I am meeting my sister and her husband at the new Thai restaurant by the harbour. Since it is always busy on Saturday nights, I have already reserved a table for three people. After dinner, we will walk along the pier to see the harbour lights.",
           "შაბათ საღამოს, შვიდ საათზე, ნავსადგურთან მდებარე ახალ ტაილანდურ რესტორანში ვხვდები ჩემს დასა და მის მეუღლეს. რადგან შაბათ საღამოობით იქ ყოველთვის ხალხმრავლობაა, სამ პერსონაზე მაგიდა უკვე დავჯავშნე. ვახშმის შემდეგ ნავმისადგომის გასწვრივ გავისეირნებთ პორტის განათებების სანახავად."
         ],
         [
@@ -811,7 +811,7 @@
           "სამწუხაროდ, როდესაც მუყაოს ყუთი გავხსენი, ძალიან იმედგაცრუებული დავრჩი, რადგან ორი სერიოზული პრობლემა აღმოვაჩინე. პირველი: გარე ყუთს შიგნით არ ჰქონდა ბუშტუკოვანი ცელოფანი ან დამცავი ქაფი, რის გამოც მწვანე მინის აბაჟური სამ ნაწილად იყო გატეხილი. მეორე: დენის სადენს ჰქონდა ევროპული ორჩხირიანი შტეფსელი, ნაცვლად ბრიტანული სტანდარტული სამჩხირიანი შტეფსელისა, რომელიც თქვენს ვებსაიტზე ავირჩიე."
         ],
         [
-          "I have taken तीन clear photographs showing the cracked glass shade, the wrong plug, and the shipping label on the box, and I have attached them to this email as evidence. As you can understand, the lamp cannot be used in this condition.",
+          "I have taken three clear photographs showing the cracked glass shade, the wrong plug, and the shipping label on the box, and I have attached them to this email as evidence. As you can understand, the lamp cannot be used in this condition.",
           "გადავიღე სამი მკაფიო ფოტო, სადაც ჩანს გაბზარული მინის აბაჟური, არასწორი შტეფსელი და ყუთზე დაკრული საფოსტო ეტიკეტი, და მტკიცებულების სახით დავურთე ამ იმეილს. როგორც თავად ხვდებით, ასეთ მდგომარეობაში სანათის გამოყენება შეუძლებელია."
         ],
         [
@@ -851,12 +851,12 @@
           "ბლოგის სათაური: არხები, ქვაფენილი და შოკოლადი — როგორ გავატაროთ 48 საათი ბრიუგეში! თუ ეძებთ ევროპულ ქალაქს, სადაც მოხვედრა შუა საუკუნეების ზღაპრის ფურცლებზე შებიჯებას ჰგავს, ჩაალაგეთ უქმეების ჩანთა და მატარებლით გაემგზავრეთ ჩრდილოეთ ბელგიის ქალაქ ბრიუგეში! გასულ შაბათ-კვირას იქ ორი დაუვიწყარი დღე გავატარე მშვიდი არხებისა და ისტორიული მოედნების დათვალიერებაში."
         ],
         [
-          "Getting to Bruges is effortless: fast trains run every half hour from Brussels, and the journey takes just एक hour. Because the historic centre is compact and mostly car-free, you don't need taxis or buses at all! The best way to start your Saturday morning is in the 'Markt' — the main square surrounded by colourful stepped-gable houses.",
+          "Getting to Bruges is effortless: fast trains run every half hour from Brussels, and the journey takes just one hour. Because the historic centre is compact and mostly car-free, you don't need taxis or buses at all! The best way to start your Saturday morning is in the 'Markt' — the main square surrounded by colourful stepped-gable houses.",
           "ბრიუგემდე ჩასვლა უმარტივესია: ბრიუსელიდან ყოველ ნახევარ საათში გადის სწრაფი მატარებლები და მგზავრობას სულ რაღაც ერთი საათი სჭირდება. რადგან ისტორიული ცენტრი კომპაქტურია და მანქანებისგან თითქმის თავისუფალია, ტაქსი ან ავტობუსი საერთოდ არ დაგჭირდებათ! შაბათი დილის დასაწყებად საუკეთესო ადგილია „მარკტი“ — მთავარი მოედანი, რომელიც გარშემორტყმულია საფეხუროვანი სახურავების მქონე ფერადი სახლებით."
         ],
         [
           "Before the midday crowds arrive, climb the 366 narrow steps of the thirteenth-century Belfry Tower. Although the climb is a workout for your legs, you are rewarded at the top with a breathtaking panoramic view of red rooftops and green church spires, accompanied by the music of forty-seven bronze bells!",
-          "სანამ შუადღის ხალხმრავლობა დაიწყება, ადით მეცამეტე საუკუნის სამრეკლოს კოშკის (ბელფრის) 366 ვიწრო საფეხურზე. მიუხედავად იმისა, რომ ასვლა ფეხებისთვის კარგი ვარჯიშია, წვერზე დაჯილდოვდებით წითელი სახურავებისა და ეკლესიის მწვანე шპილების თვალწარმტაცი პანორამული ხედით, რომელსაც ორმოცდაშვიდი ბრინჯაოს ზარის რეკვა ახლავს!"
+          "სანამ შუადღის ხალხმრავლობა დაიწყება, ადით მეცამეტე საუკუნის სამრეკლოს კოშკის (ბელფრის) 366 ვიწრო საფეხურზე. მიუხედავად იმისა, რომ ასვლა ფეხებისთვის კარგი ვარჯიშია, წვერზე დაჯილდოვდებით წითელი სახურავებისა და ეკლესიის მწვანე შპილების თვალწარმტაცი პანორამული ხედით, რომელსაც ორმოცდაშვიდი ბრინჯაოს ზარის რეკვა ახლავს!"
         ],
         [
           "In the afternoon, take a thirty-minute wooden boat tour along the canals to see the city from the water, passing underneath low stone bridges and weeping willows where white swans glide by. Afterwards, warm up at an artisan chocolate shop on Katelijnestraat with a mug of rich hot chocolate and a fresh Belgian waffle topped with strawberries.",
@@ -1004,7 +1004,7 @@
         ],
         [
           "In addition to clearing rubbish, the biology club from Oakwood High School planted thirty young willow and alder trees along the north bank to strengthen the soil and provide new nesting places for kingfishers and ducks. They also installed four wooden birdhouses in the tall oak trees.",
-          "ნაგვის გატანის გარდა, ოკვუდის სკოლის ბიოლოგიის კლუბმა ჩრდილოეთ ნაპირის გასწვრივ დარგო ოცდაათი ახალგაზრდა ტირიფისა და მურყნის ნერგი ნიადაგის გასამაგრებლად და ალკუნებისა და იხვებისთვის ახალი საბუდარი ადგილების შესაქმნელად. მათ ასევე მაღალ მუხის ხეებზე დაამაგრეს ოთხი ხის скворечникი (ჩიტის ბუდე)."
+          "ნაგვის გატანის გარდა, ოკვუდის სკოლის ბიოლოგიის კლუბმა ჩრდილოეთ ნაპირის გასწვრივ დარგო ოცდაათი ახალგაზრდა ტირიფისა და მურყნის ნერგი ნიადაგის გასამაგრებლად და ალკუნებისა და იხვებისთვის ახალი საბუდარი ადგილების შესაქმნელად. მათ ასევე მაღალ მუხის ხეებზე დაამაგრეს ოთხი ხის საბუდარი (ჩიტის ბუდე)."
         ],
         [
           "By one o'clock in the afternoon, the results were astonishing: together, we collected eighty-five sacks of recyclable waste and restored six kilometres of the river trail! Afterwards, the local bakery treated all volunteers to hot vegetable soup, fresh bread rolls, and apple juice on the park lawn. A huge thank you to everyone who helped make our river clean and green again!",
@@ -1148,7 +1148,7 @@
         ],
         [
           "Working patiently with rulers, pencils, and thousands of paper sonar strips for four years, Marie plotted the exact depth of the Atlantic floor. In 1952, she noticed something extraordinary: running right down the middle of the Atlantic Ocean was a forty-thousand-kilometre underwater mountain range with a deep rift valley down its centre — proving that the ocean floor was splitting apart and pushing the continents!",
-          "სახაზავებით, ფანქრებითა და სონარის ათასობით ქაღალდის ლენტით ოთხწლიანი მომთმენი შრომის შედეგად, მერიმ წერტილ-წერტილ დაიტანა ატლანტის ოკეანის ფსკერის ზუსტი სიღრმე. 1952 წელს მან გასაოცარი რამ აღმოაჩინა: ატლანტის ოკეანის ზუსტად შუაგულში გადიოდა ორმოცი ათასი კილომეტრის სიგრძის წყალქვეშა ქედი, რომლის ცენტრსაც ღრმა ნაპრალი (რიფტული ხეობა) მიუყვებოდა — რამაც დაამტკიცა, რომ ოკეანის ფსკერი იבקობოდა და კონტინენტებს ამოძრავებდა!"
+          "სახაზავებით, ფანქრებითა და სონარის ათასობით ქაღალდის ლენტით ოთხწლიანი მომთმენი შრომის შედეგად, მერიმ წერტილ-წერტილ დაიტანა ატლანტის ოკეანის ფსკერის ზუსტი სიღრმე. 1952 წელს მან გასაოცარი რამ აღმოაჩინა: ატლანტის ოკეანის ზუსტად შუაგულში გადიოდა ორმოცი ათასი კილომეტრის სიგრძის წყალქვეშა ქედი, რომლის ცენტრსაც ღრმა ნაპრალი (რიფტული ხეობა) მიუყვებოდა — რამაც დაამტკიცა, რომ ოკეანის ფსკერი ფართოვდებოდა და კონტინენტებს ამოძრავებდა!"
         ],
         [
           "At first, even her partner Bruce Heezen dismissed her discovery as 'girl talk', until earthquake data proved she was 100% right! In 1977, Tharp and Heezen published the first complete world ocean floor map. In 1997, the Library of Congress named Marie Tharp one of the four greatest cartographers of the twentieth century — a testament to her patience, precision, and quiet perseverance.",
@@ -1191,7 +1191,7 @@
           "მდგომარეობა: კამერაც და ობიექტივიც იდეალურ (10/10) ვიზუალურ და ტექნიკურ მდგომარეობაშია. პირველივე დღიდან უკანა ეკრანს იცავს ბრონირებული მინა, ხოლო ობიექტივზე მუდმივად ეყენა დამცავი ულტრაიისფერი (UV) ფილტრი. სენსორსა და ლინზაზე არ არის არცერთი ნაკაწრი, ჩაღრმავება ან მტვრის ნაწილაკი!"
         ],
         [
-          "The camera has been used exclusively as a hobby for weekend travel and landscape photography — never in rain or dusty environments — and has a very low shutter count of just चार thousand two hundred photos! Every dial, button, and autofocus motor works as smoothly as the day it left the box.",
+          "The camera has been used exclusively as a hobby for weekend travel and landscape photography — never in rain or dusty environments — and has a very low shutter count of just four thousand two hundred photos! Every dial, button, and autofocus motor works as smoothly as the day it left the box.",
           "კამერა გამოიყენებოდა მხოლოდ სამოყვარულო მიზნით შაბათ-კვირის მოგზაურობებისა და პეიზაჟების გადასაღებად — არასდროს მოხვედრილა წვიმასა თუ მტვრიან გარემოში — და აქვს ძალიან მცირე გარბენი: სულ რაღაც ოთხი ათას ორასი კადრი! ყველა სარეგულირებელი რგოლი, ღილაკი და ავტოფოკუსის ძრავა მუშაობს ისევე რბილად და გამართულად, როგორც ყუთიდან ამოღების დღეს."
         ],
         [
@@ -1283,7 +1283,7 @@
           "თემა: გათბობის ქვაბის გაუმართაობა — ბინა 2A, ოკფილდ-როუდის 18. ძვირფასო ბატონო მილერ, იმედი მაქვს, თქვენ და თქვენს ოჯახს კარგი კვირა გაქვთ. გწერთ, რათა გაცნობოთ ბინა 2A-ს სამზარეულოში ცენტრალური გათბობის ქვაბის ტექნიკური პრობლემის შესახებ, რომელიც გუშინ საღამოს დაიწყო."
         ],
         [
-          "When I turned the heating thermostat up at सात o'clock last night, the radiators in the living room and bedroom stayed completely cold, and there was no hot water coming from the bathroom tap either. The small digital screen on the front of the boiler is flashing a red 'Error E-04' code.",
+          "When I turned the heating thermostat up at seven o'clock last night, the radiators in the living room and bedroom stayed completely cold, and there was no hot water coming from the bathroom tap either. The small digital screen on the front of the boiler is flashing a red 'Error E-04' code.",
           "როდესაც გუშინ საღამოს შვიდ საათზე გათბობის თერმოსტატს მოვუმატე, მისაღები ოთახისა და საძინებლის რადიატორები სრულიად ცივი დარჩა, და ცხელი წყალი არც სააბაზანოს ონკანიდან წამოვიდა. ქვაბის წინა პანელზე არსებულ პატარა ციფრულ ეკრანზე კი წითლად ციმციმებს შეცდომის კოდი „Error E-04“."
         ],
         [

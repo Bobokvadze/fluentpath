@@ -85,6 +85,56 @@
     }, 800);
   }
 
+  // ტექსტის ავტომატური შემოწმება LanguageTool-ის უფასო საჯარო API-ით (იგზავნება მხოლოდ ღილაკზე დაჭერისას)
+  const LT_ENDPOINT = "https://api.languagetool.org/v2/check";
+  let checkByTopicId = {};       // { text, matches, error, loading }
+
+  function checkWriting(text) {
+    const body = new URLSearchParams({ text: text, language: "en-US", enabledOnly: "false" });
+    return fetch(LT_ENDPOINT, { method: "POST", body: body, headers: { Accept: "application/json" } })
+      .then(function (res) {
+        if (res.status === 429) throw new Error("limit");
+        if (!res.ok) throw new Error("http");
+        return res.json();
+      })
+      .then(function (data) {
+        return (data.matches || []).map(function (m) {
+          return {
+            message: m.message,
+            offset: m.offset,
+            length: m.length,
+            bad: text.substr(m.offset, m.length),
+            suggestions: (m.replacements || []).slice(0, 3).map(function (r) { return r.value; }),
+            type: (m.rule && m.rule.issueType) || "other",
+            category: (m.rule && m.rule.category && m.rule.category.name) || ""
+          };
+        });
+      });
+  }
+
+  function renderCheckHtml(state, esc) {
+    if (!state) return "";
+    if (state.loading) return '<div class="wx-lt" role="status">⏳ ტექსტი მოწმდება...</div>';
+    if (state.error) {
+      return '<div class="wx-lt wx-lt--error" role="status">' + (state.error === "limit"
+        ? "შემოწმების ლიმიტი დროებით ამოიწურა. სცადეთ ერთ წუთში."
+        : "შემოწმება ვერ მოხერხდა. შეამოწმეთ ინტერნეტ-კავშირი და სცადეთ თავიდან.") + "</div>";
+    }
+    const m = state.matches;
+    if (!m.length) return '<div class="wx-lt wx-lt--ok" role="status">✓ გრამატიკული ან მართლწერის შეცდომა ვერ მოიძებნა. გადახედეთ შეფასების კრიტერიუმებსაც — შინაარსი და სტრუქტურა თქვენ თვითონ შეაფასეთ.</div>';
+    const groups = { grammar: 0, misspelling: 0, other: 0 };
+    m.forEach(function (x) { groups[x.type === "misspelling" ? "misspelling" : (x.type === "grammar" ? "grammar" : "other")]++; });
+    return '<div class="wx-lt" role="status">' +
+      '<div class="wx-lt__summary">' + m.length + " შენიშვნა: გრამატიკა " + groups.grammar + " · მართლწერა " + groups.misspelling + " · სტილი და სხვა " + groups.other + "</div>" +
+      '<ol class="wx-lt__list" lang="en">' + m.slice(0, 30).map(function (x) {
+        return "<li><span class=\"wx-lt__bad\">" + esc(x.bad || "…") + "</span>" +
+          (x.suggestions.length ? ' → <span class="wx-lt__fix">' + esc(x.suggestions.join(" / ")) + "</span>" : "") +
+          '<div class="wx-lt__msg">' + esc(x.message) + "</div></li>";
+      }).join("") + "</ol>" +
+      (state.text !== (drafts()[state.topicId] || "") ? '<p class="wx-lt__stale">ტექსტი შეიცვალა — შეამოწმეთ თავიდან.</p>' : "") +
+    "</div>";
+  }
+
   function countWords(text) {
     const trimmed = String(text || "").trim();
     return trimmed ? trimmed.split(/\s+/).length : 0;
@@ -481,6 +531,9 @@
             '<label class="sr-only" for="writing-sandbox-textarea">Your text</label>' +
             '<textarea id="writing-sandbox-textarea" class="auth-input" rows="8" lang="en" placeholder="Write your text in English here… (your draft is saved automatically)" style="width:100%; font-family:inherit; line-height:1.6; resize:vertical;">' + esc(currentDraft) + "</textarea>" +
             '<p class="wx-count ' + target.cls + '" id="writing-word-counter" aria-live="polite">' + (target.label || ("Words: " + wordCount)) + "</p>" +
+            '<div class="wx-lt-bar"><button type="button" class="btn btn-outline btn-sm" id="wx-check-btn">🔍 გრამატიკისა და მართლწერის შემოწმება</button>' +
+              '<span class="wx-lt-note">ტექსტი შესამოწმებლად იგზავნება LanguageTool-ის უფასო სერვისში.</span></div>' +
+            '<div id="wx-check-result">' + renderCheckHtml(checkByTopicId[t.id], esc) + "</div>" +
             (spec
               ? '<div class="wx-check">' +
                   '<h4 class="wx-check__title" lang="en">Self-check before you finish</h4>' +
@@ -527,6 +580,31 @@
 
       const textarea = container.querySelector("#writing-sandbox-textarea");
       const counterEl = container.querySelector("#writing-word-counter");
+      const checkBtn = container.querySelector("#wx-check-btn");
+      if (checkBtn && textarea) {
+        checkBtn.addEventListener("click", () => {
+          const text = textarea.value.trim();
+          if (countWords(text) < 3) {
+            App.UI.toast("ჯერ დაწერეთ რამდენიმე წინადადება.", "warning");
+            return;
+          }
+          saveDraft(t.id, textarea.value);
+          const box = container.querySelector("#wx-check-result");
+          checkByTopicId[t.id] = { loading: true, topicId: t.id };
+          box.innerHTML = renderCheckHtml(checkByTopicId[t.id], esc);
+          checkBtn.disabled = true;
+          checkWriting(textarea.value).then((matches) => {
+            checkByTopicId[t.id] = { text: textarea.value, matches: matches, topicId: t.id };
+          }, (err) => {
+            checkByTopicId[t.id] = { error: err && err.message === "limit" ? "limit" : "network", topicId: t.id };
+          }).then(() => {
+            checkBtn.disabled = false;
+            const target = container.querySelector("#wx-check-result");
+            if (target) target.innerHTML = renderCheckHtml(checkByTopicId[t.id], esc);
+          });
+        });
+      }
+
       const updateCounter = () => {
         if (!counterEl) return;
         const wc = countWords(textarea.value);

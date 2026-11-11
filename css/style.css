@@ -2273,3 +2273,61 @@ p {
   color: var(--brand-secondary);
   margin-bottom: 2px;
 }
+
+/* წერის ავტომატური შემოწმება */
+.wx-lt-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.wx-lt-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.wx-lt {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.9rem;
+}
+
+.wx-lt--ok { background: var(--color-success-soft); }
+.wx-lt--error { background: var(--bg-surface-muted); color: var(--text-secondary); }
+
+.wx-lt__summary {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.wx-lt__list {
+  margin-left: 20px;
+  display: grid;
+  gap: 8px;
+}
+
+.wx-lt__bad {
+  text-decoration: line-through;
+  color: var(--color-warning);
+  font-weight: 600;
+}
+
+.wx-lt__fix {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.wx-lt__msg {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.wx-lt__stale {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}

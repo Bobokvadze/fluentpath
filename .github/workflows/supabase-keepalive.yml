@@ -1,0 +1,21 @@
+name: Keep Supabase awake
+
+# The free Supabase plan pauses a project after 7 days without activity.
+# One lightweight request every 3 days keeps sign-in and cloud sync working.
+on:
+  schedule:
+    - cron: '17 6 */3 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/supabase-keepalive.js
