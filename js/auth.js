@@ -528,8 +528,10 @@
   function getInitials(name) {
     const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
     if (!parts.length) return "U";
-    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    // ქართულ ასოებს toUpperCase მთავრულად აქცევს (ნ → Ნ), ამიტომ დიდ ასოდ მხოლოდ ლათინურს ვაქცევთ
+    const up = function (s) { return s.replace(/[a-z]/g, function (c) { return c.toUpperCase(); }); };
+    if (parts.length === 1) return up(parts[0].slice(0, 2));
+    return up(parts[0][0] + parts[parts.length - 1][0]);
   }
 
   function refreshEntireAppUI() {

@@ -44,7 +44,7 @@
       // რეგისტრაციისას შეყვანილი სახელი; სტუმრისთვის — ადრე შენახული სახელი
       const savedName = String(App.Storage.get('user.name', '') || settings.userName || '').trim();
       const displayName = account ? account.fullName : (savedName === 'მოსწავლე' ? '' : savedName);
-      const initials = (displayName || '?').split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w.charAt(0).toUpperCase()).join('') || '?';
+      const initials = (displayName || '?').split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w.charAt(0).replace(/[a-z]/, (c) => c.toUpperCase())).join('') || '?';
       const level = App.Storage.get('progress.level', settings.cefrLevel || 'A1');
 
       const accountHtml = account
