@@ -38,21 +38,38 @@
     return score;
   }
 
-  function pickNativeVoice() {
+  // slow = true: მოწყობილობაზე დაყენებული ხმა — ონლაინ ხმები (Google, Natural) ხშირად არ ითვალისწინებს სიჩქარეს
+  function pickNativeVoice(slow) {
     if (!nativeSynth) return null;
     const voices = window.speechSynthesis.getVoices() || [];
-    const offline = navigator.onLine === false;
-    const key = voices.length + "|" + offline;
+    const localOnly = navigator.onLine === false || slow === true;
+    const key = voices.length + "|" + localOnly;
     if (cachedVoiceKey === key) return cachedVoice;
     let best = null;
     let bestScore = -1;
     voices.forEach(function (v) {
-      const sc = voiceScore(v, offline);
+      const sc = voiceScore(v, localOnly);
       if (sc > bestScore) { best = v; bestScore = sc; }
     });
+    if (!best && localOnly && navigator.onLine !== false) return pickNativeVoice(false);
     cachedVoice = best;
     cachedVoiceKey = key;
     return best;
+  }
+
+  // ნელი რეჟიმი: წინადადება იყოფა 2–4-სიტყვიან ფრაზებად (სასვენ ნიშნებთან და ყოველ 3 სიტყვაში)
+  function splitForSlowSpeech(text) {
+    const parts = [];
+    String(text || "").split(/(?<=[,;:.!?])\s+/).forEach(function (piece) {
+      const words = piece.trim().split(/\s+/).filter(Boolean);
+      for (let i = 0; i < words.length; i += 3) {
+        // ბოლოს ერთი სიტყვა რომ არ დარჩეს მარტო
+        const take = (words.length - i === 4) ? 4 : 3;
+        parts.push(words.slice(i, i + take).join(" "));
+        if (take === 4) i += 1;
+      }
+    });
+    return parts.filter(Boolean);
   }
 
   // ბრაუზერში ინგლისური ხმა თუ არ არის (მაგ. ზოგიერთი Linux/Firefox), ჩაშენებული სინთეზი ჩუმად "მთავრდება"
@@ -71,7 +88,8 @@
     }
     try {
       const utterance = new window.SpeechSynthesisUtterance(text);
-      const voice = pickNativeVoice(acc);
+      const slow = !!(playbackRate && playbackRate < 0.95);
+      const voice = pickNativeVoice(slow);
       if (voice) utterance.voice = voice;
       utterance.lang = (voice && voice.lang) || "en-US";
       // ნელი რეჟიმი შესამჩნევად ნელია (≈0.65), რომ ყოველი სიტყვა გაირჩეს
@@ -217,6 +235,7 @@
         audio.preload = "auto";
         audio.src = currentUrl;
         if (playbackRate && playbackRate < 0.88) {
+          audio.defaultPlaybackRate = SLOW_RATE;
           audio.playbackRate = SLOW_RATE;
         }
         activeAudioPool.push(audio);
@@ -261,6 +280,8 @@
     /**
      * მყისიერად აჩერებს მიმდინარე და რიგში მდგომ ყველა აუდიო ნაკადს
      */
+    splitForSlowSpeech: splitForSlowSpeech,
+
     stop: function () {
       playbackSessionId++;
       if (nativeSynth) {
@@ -281,7 +302,8 @@
 
     // onDone (არასავალდებულო) გამოიძახება ბოლო ნაწილის დასრულებისას; stop()-ის შემთხვევაში — არა
     speak: function (text, accentOverride, rateOverride, onDone) {
-      const chunks = splitTextIntoStudioChunks(text);
+      const isSlow = typeof rateOverride === "number" ? rateOverride < 0.95 : rateOverride === true;
+      const chunks = isSlow ? splitForSlowSpeech(text) : splitTextIntoStudioChunks(text);
       if (!chunks.length) {
         if (typeof onDone === "function") onDone();
         return;
@@ -308,7 +330,8 @@
         const textPart = chunks[chunkIdx++];
 
         playSingleChunkWithFallback(textPart, acc, rate, currentSession, function () {
-          playNextChunk();
+          if (isSlow) window.setTimeout(playNextChunk, 280);
+          else playNextChunk();
         });
       }
 

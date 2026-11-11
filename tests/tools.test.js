@@ -84,3 +84,11 @@ test('a B2 learner starts at B2 in reading, listening, writing and grammar, with
     assert.ok(App[mod][unlocked](firstB2, items), mod + ': first B2 item is open without finishing lower levels');
   });
 });
+
+test('slow speech is split into short phrases', () => {
+  const { App } = loadScripts(['js/audio-engine.js']);
+  const parts = App.AudioEngine.splitForSlowSpeech('Had I known about the delay, I would have taken a taxi.');
+  assert.ok(parts.length >= 4, 'several phrases: ' + parts.join(' / '));
+  parts.forEach((p) => assert.ok(p.split(' ').length <= 4, 'phrase too long: ' + p));
+  assert.strictEqual(parts.join(' '), 'Had I known about the delay, I would have taken a taxi.');
+});
